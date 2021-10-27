@@ -5,7 +5,7 @@ import ru.dimagor555.encryption.domain.CryptoKeyRepository
 import ru.dimagor555.encryption.domain.Decryptor
 import ru.dimagor555.encryption.domain.Encryptor
 
-class EncryptionModule(base64: Base64) {
+class EncryptionModuleApi internal constructor(base64: Base64) {
     val cryptoKeyRepository: CryptoKeyRepository = InMemoryCryptoKeyRepository()
 
     val encryptor: Encryptor = AesCryptor(cryptoKeyRepository, base64)
