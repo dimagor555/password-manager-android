@@ -4,7 +4,7 @@ import android.content.Context
 import ru.dimagor555.encryption.domain.Base64
 import ru.dimagor555.encryption.domain.CryptoKey
 
-class AndroidEncryptionModule(applicationContext: Context) {
+class AndroidEncryptionModuleApi internal constructor(applicationContext: Context) {
     private val secretKeyProvider = EncryptedPrefsSecretKeyProvider(applicationContext)
 
     val cryptoKey: CryptoKey = AndroidCryptoKey(secretKeyProvider)
