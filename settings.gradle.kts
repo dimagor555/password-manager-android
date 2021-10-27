@@ -6,7 +6,8 @@ include(":constants")
 include(":password-validation")
 include(
     ":password-feature",
-    ":password-feature:domain"
+    ":password-feature:domain",
+    ":password-feature:usecase"
 )
 include(
     ":encryption-feature",
