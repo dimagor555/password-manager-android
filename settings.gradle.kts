@@ -10,5 +10,6 @@ include(
 )
 include(
     ":encryption-feature",
-    ":encryption-feature:domain"
+    ":encryption-feature:domain",
+    ":encryption-feature:core-impl"
 )
