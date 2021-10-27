@@ -11,5 +11,6 @@ include(
 include(
     ":encryption-feature",
     ":encryption-feature:domain",
-    ":encryption-feature:core-impl"
+    ":encryption-feature:core-impl",
+    ":encryption-feature:android-impl"
 )
