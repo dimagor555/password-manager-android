@@ -8,3 +8,7 @@ include(
     ":password-feature",
     ":password-feature:domain"
 )
+include(
+    ":encryption-feature",
+    ":encryption-feature:domain"
+)
