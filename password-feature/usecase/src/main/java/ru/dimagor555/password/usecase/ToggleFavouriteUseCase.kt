@@ -7,7 +7,9 @@ class ToggleFavouriteUseCase(
     private val passwordRepository: PasswordRepository
 ) {
     suspend operator fun invoke(password: Password) {
-        password.toggleFavourite()
-        passwordRepository.update(password)
+        val newPassword = password.toggledFavourite()
+        passwordRepository.update(newPassword)
     }
+
+    private fun Password.toggledFavourite() = copy(isFavourite = !isFavourite)
 }

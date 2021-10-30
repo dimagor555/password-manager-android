@@ -3,26 +3,24 @@ package ru.dimagor555.password.domain
 import ru.dimagor555.core.SortingOrder
 
 data class PasswordSorting(
-    private val type: PasswordSortType,
+    private val type: PasswordSortingType,
     private val order: SortingOrder
 ) {
-    val comparator = createComparator()
-
-    private fun createComparator(): Comparator<Password> {
-        val comparator = createComparatorByType()
+    fun createComparator(): Comparator<Password> {
+        val selector = createCompareSelectorByType()
         return when (order) {
-            SortingOrder.Ascending -> comparator
-            SortingOrder.Descending -> comparator.reversed()
+            SortingOrder.Ascending -> compareBy(selector)
+            SortingOrder.Descending -> compareByDescending(selector)
         }
     }
 
-    private fun createComparatorByType(): Comparator<Password> {
+    private fun createCompareSelectorByType(): ((Password) -> Comparable<*>) {
         return when (type) {
-            PasswordSortType.Title -> compareBy { it.encryptedPassword.login }
-            PasswordSortType.RecentUsage -> compareBy { it.usageHistory.lastUsageDateTime }
-            PasswordSortType.FrequentUsage -> compareBy { it.usageHistory.usagesCount }
-            PasswordSortType.CreationDate -> compareBy { it.dateTimeMetadata.creationDateTime }
-            PasswordSortType.EditDate -> compareBy { it.dateTimeMetadata.editingDateTime }
+            PasswordSortingType.Title -> { it -> it.login }
+            PasswordSortingType.RecentUsage -> { it -> UsageHistory(it.usages).lastUsageDateTime }
+            PasswordSortingType.FrequentUsage -> { it -> UsageHistory(it.usages).usagesCount }
+            PasswordSortingType.CreationDate -> { it -> it.creationDateTime }
+            PasswordSortingType.EditDate -> { it -> it.editingDateTime }
         }
     }
 }

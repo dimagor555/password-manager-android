@@ -10,8 +10,5 @@ class CopyPasswordUseCase(
     clipboardRepository: ClipboardRepository,
     private val decryptor: Decryptor
 ) : CopyUseCase(passwordRepository, clipboardRepository) {
-    override fun getTextToCopy(password: Password) = decryptPassword(password)
-
-    private fun decryptPassword(password: Password) =
-        decryptor.decrypt(password.encryptedPassword.password)
+    override fun getTextToCopy(password: Password) = decryptor.decrypt(password.encryptedPassword)
 }

@@ -22,7 +22,9 @@ abstract class CopyUseCase(
     }
 
     private suspend fun addUsageToHistory(password: Password) {
-        password.usageHistory.addUsage(Usage())
-        passwordRepository.update(password)
+        val newPassword = password.plusUsage()
+        passwordRepository.update(newPassword)
     }
+
+    private fun Password.plusUsage() = copy(usages = usages + Usage())
 }

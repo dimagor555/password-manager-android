@@ -5,5 +5,5 @@ import ru.dimagor555.password.domain.PasswordSorting
 
 class SortPasswordsUseCase {
     operator fun invoke(passwords: List<Password>, passwordSorting: PasswordSorting) =
-        passwords.sortedWith(passwordSorting.comparator)
+        passwords.sortedWith(passwordSorting.createComparator())
 }

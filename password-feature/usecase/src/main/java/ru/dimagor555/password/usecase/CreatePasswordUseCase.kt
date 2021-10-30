@@ -1,7 +1,6 @@
 package ru.dimagor555.password.usecase
 
 import ru.dimagor555.encryption.domain.Encryptor
-import ru.dimagor555.password.domain.EncryptedPassword
 import ru.dimagor555.password.domain.Password
 import ru.dimagor555.password.domain.validation.PasswordValidation
 import ru.dimagor555.password.repository.PasswordRepository
@@ -12,7 +11,7 @@ class CreatePasswordUseCase(
 ) {
     suspend operator fun invoke(passwordDto: CreatePasswordDto) {
         validate(passwordDto)
-        val password = Password(encryptedPassword = createEncryptedPassword(passwordDto))
+        val password = createPassword(passwordDto)
         passwordRepository.add(password)
     }
 
@@ -20,10 +19,10 @@ class CreatePasswordUseCase(
         PasswordValidation(title, login, password).validate()
     }
 
-    private fun createEncryptedPassword(passwordDto: CreatePasswordDto) = EncryptedPassword(
+    private fun createPassword(passwordDto: CreatePasswordDto) = Password(
         title = passwordDto.title,
         login = passwordDto.login,
-        password = encryptor.encrypt(passwordDto.password)
+        encryptedPassword = encryptor.encrypt(passwordDto.password)
     )
 }
 

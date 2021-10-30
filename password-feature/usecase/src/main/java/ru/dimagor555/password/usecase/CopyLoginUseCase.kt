@@ -8,5 +8,5 @@ class CopyLoginUseCase(
     passwordRepository: PasswordRepository,
     clipboardRepository: ClipboardRepository
 ) : CopyUseCase(passwordRepository, clipboardRepository) {
-    override fun getTextToCopy(password: Password) = password.encryptedPassword.login
+    override fun getTextToCopy(password: Password) = password.login
 }

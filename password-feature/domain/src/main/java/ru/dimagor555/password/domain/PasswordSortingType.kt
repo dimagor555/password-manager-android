@@ -1,6 +1,6 @@
 package ru.dimagor555.password.domain
 
-enum class PasswordSortType {
+enum class PasswordSortingType {
     Title,
     RecentUsage,
     FrequentUsage,

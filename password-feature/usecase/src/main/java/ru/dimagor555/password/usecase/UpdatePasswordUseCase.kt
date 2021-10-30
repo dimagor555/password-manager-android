@@ -1,8 +1,8 @@
 package ru.dimagor555.password.usecase
 
 import kotlinx.coroutines.flow.single
+import kotlinx.datetime.Clock
 import ru.dimagor555.encryption.domain.Encryptor
-import ru.dimagor555.password.domain.EncryptedPassword
 import ru.dimagor555.password.domain.Password
 import ru.dimagor555.password.domain.validation.PasswordValidation
 import ru.dimagor555.password.repository.PasswordRepository
@@ -22,22 +22,15 @@ class UpdatePasswordUseCase(
 
     private suspend fun updatePassword(passwordDto: UpdatePasswordDto) {
         val oldPassword = passwordRepository.getById(passwordDto.id).single()
-        val updatedPassword = createUpdatedPassword(oldPassword, passwordDto)
-        passwordRepository.update(updatedPassword)
+        val newPassword = oldPassword.createUpdated(passwordDto)
+        passwordRepository.update(newPassword)
     }
 
-    private fun createUpdatedPassword(
-        oldPassword: Password,
-        passwordDto: UpdatePasswordDto
-    ) = oldPassword.copy(
-        encryptedPassword = createEncryptedPassword(passwordDto),
-        dateTimeMetadata = oldPassword.dateTimeMetadata.editedNow()
-    )
-
-    private fun createEncryptedPassword(passwordDto: UpdatePasswordDto) = EncryptedPassword(
+    private fun Password.createUpdated(passwordDto: UpdatePasswordDto) = copy(
         title = passwordDto.title,
         login = passwordDto.login,
-        password = encryptor.encrypt(passwordDto.password)
+        encryptedPassword = encryptor.encrypt(passwordDto.password),
+        editingDateTime = Clock.System.now()
     )
 }
 

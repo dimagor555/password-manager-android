@@ -6,5 +6,5 @@ import ru.dimagor555.password.domain.Password
 class DecryptPasswordUseCase(
     private val decryptor: Decryptor
 ) {
-    operator fun invoke(password: Password) = decryptor.decrypt(password.encryptedPassword.password)
+    operator fun invoke(password: Password) = decryptor.decrypt(password.encryptedPassword)
 }
