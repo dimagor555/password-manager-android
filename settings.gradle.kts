@@ -7,7 +7,8 @@ include(":password-validation")
 include(
     ":password-feature",
     ":password-feature:domain",
-    ":password-feature:usecase"
+    ":password-feature:usecase",
+    ":password-feature:data"
 )
 include(
     ":encryption-feature",
