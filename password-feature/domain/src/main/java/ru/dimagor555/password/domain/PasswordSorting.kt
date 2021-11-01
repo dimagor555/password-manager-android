@@ -16,7 +16,7 @@ data class PasswordSorting(
 
     private fun createCompareSelectorByType(): ((Password) -> Comparable<*>) {
         return when (type) {
-            PasswordSortingType.Title -> { it -> it.login }
+            PasswordSortingType.Title -> { it -> it.title }
             PasswordSortingType.RecentUsage -> { it -> UsageHistory(it.usages).lastUsageDateTime }
             PasswordSortingType.FrequentUsage -> { it -> UsageHistory(it.usages).usagesCount }
             PasswordSortingType.CreationDate -> { it -> it.creationDateTime }
