@@ -1,12 +1,9 @@
 package ru.dimagor555.password.usecase
 
 import ru.dimagor555.password.domain.Password
+import ru.dimagor555.password.domain.PasswordFilter
 
 class FilterPasswordsUseCase {
-    operator fun invoke(passwords: List<Password>, filterCondition: String) =
-        passwords.filter { it.matches(filterCondition) }
-
-    private fun Password.matches(filterCondition: String) =
-        title.contains(filterCondition, ignoreCase = true) ||
-                login.contains(filterCondition, ignoreCase = true)
+    operator fun invoke(passwords: List<Password>, passwordFilter: PasswordFilter) =
+        passwords.filter { passwordFilter.matches(it) }
 }
