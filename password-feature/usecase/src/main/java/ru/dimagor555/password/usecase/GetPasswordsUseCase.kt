@@ -13,10 +13,7 @@ class GetPasswordsUseCase(
     operator fun invoke(): Flow<DataState<List<Password>>> = flow {
         emit(DataState.Loading())
         passwordRepository.getAll().collect {
-            if (it.isEmpty())
-                emit(DataState.Empty<List<Password>>())
-            else
-                emit(DataState.Data(it))
+            emit(DataState.Data(it))
         }
     }
 }
