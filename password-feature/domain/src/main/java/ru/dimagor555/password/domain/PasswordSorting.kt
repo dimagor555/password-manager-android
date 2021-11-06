@@ -23,8 +23,4 @@ data class PasswordSorting(
             PasswordSortingType.EditDate -> { it -> it.editingDateTime }
         }
     }
-
-    companion object {
-        val DEFAULT = PasswordSorting(PasswordSortingType.Title, SortingOrder.Ascending)
-    }
 }
