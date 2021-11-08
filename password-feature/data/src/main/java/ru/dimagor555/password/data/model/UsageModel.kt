@@ -2,6 +2,7 @@ package ru.dimagor555.password.data.model
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import kotlinx.datetime.Instant
 import ru.dimagor555.password.domain.Password
@@ -16,6 +17,9 @@ import ru.dimagor555.password.domain.Usage
             onUpdate = ForeignKey.CASCADE,
             onDelete = ForeignKey.CASCADE
         )
+    ],
+    indices = [
+        Index("passwordId")
     ]
 )
 internal data class UsageModel(

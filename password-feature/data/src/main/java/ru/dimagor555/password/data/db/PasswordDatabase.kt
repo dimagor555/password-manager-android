@@ -11,7 +11,8 @@ import ru.dimagor555.password.data.model.UsageModel
         PasswordModel::class,
         UsageModel::class
     ],
-    version = 1
+    version = 2,
+    exportSchema = false
 )
 internal abstract class PasswordDatabase : RoomDatabase() {
     abstract fun passwordDao(): PasswordDao
