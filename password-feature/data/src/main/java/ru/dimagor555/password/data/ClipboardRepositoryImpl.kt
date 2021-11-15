@@ -3,13 +3,15 @@ package ru.dimagor555.password.data
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import ru.dimagor555.password.repository.ClipboardRepository
 
 internal class ClipboardRepositoryImpl(
     private val applicationContext: Context
 ) : ClipboardRepository {
-    override fun setText(text: String) {
-        val clipboard = getClipboardManager() ?: return
+    override suspend fun setText(text: String) = withContext(Dispatchers.Main) {
+        val clipboard = getClipboardManager() ?: return@withContext
         val clipData = createClipData(text)
         clipboard.setPrimaryClip(clipData)
     }

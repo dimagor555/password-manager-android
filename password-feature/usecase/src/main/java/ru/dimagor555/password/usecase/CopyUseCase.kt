@@ -22,7 +22,7 @@ abstract class CopyUseCase(
 
     protected abstract fun getTextToCopy(password: Password): String
 
-    private fun setTextToClipboard(text: String) {
+    private suspend fun setTextToClipboard(text: String) {
         clipboardRepository.setText(text)
     }
 
