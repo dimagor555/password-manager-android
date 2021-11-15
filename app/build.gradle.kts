@@ -20,7 +20,8 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -50,6 +51,12 @@ android {
 }
 
 dependencies {
+    implementation(projects.passwordFeature.passwordListScreen)
+    implementation(projects.passwordFeature.data)
+    implementation(projects.encryptionFeature.coreImpl)
+
+    implementation(projects.uiCore)
+
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
     implementation(AndroidX.lifecycleVmKtx)
