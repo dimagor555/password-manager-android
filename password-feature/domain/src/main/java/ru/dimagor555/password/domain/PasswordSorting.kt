@@ -3,12 +3,11 @@ package ru.dimagor555.password.domain
 import ru.dimagor555.core.SortingOrder
 
 data class PasswordSorting(
-    private val type: PasswordSortingType,
-    private val order: SortingOrder
+    private val type: PasswordSortingType
 ) {
     fun createComparator(): Comparator<Password> {
         val selector = createCompareSelectorByType()
-        return when (order) {
+        return when (type.order) {
             SortingOrder.Ascending -> compareBy(selector)
             SortingOrder.Descending -> compareByDescending(selector)
         }
