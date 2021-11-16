@@ -5,7 +5,7 @@ plugins {
 dependencies {
     api(projects.core)
     api(projects.passwordFeature.domain)
-    implementation(projects.encryptionFeature.domain)
+    api(projects.encryptionFeature.domain)
 
     implementation(Kotlinx.coroutinesCore)
 }
