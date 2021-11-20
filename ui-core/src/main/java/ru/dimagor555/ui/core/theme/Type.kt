@@ -1,13 +1,12 @@
-package ru.dimagor555.passwordmanager.ui.theme
+package ru.dimagor555.ui.core.theme
 
 import androidx.compose.material.Typography
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import ru.dimagor555.passwordmanager.R
+import ru.dimagor555.ui.core.R
 
 private val Montserrat = FontFamily(
     Font(R.font.montserrat_regular, FontWeight.Normal),
@@ -50,8 +49,8 @@ val MontserratTypography = Typography(
     ),
     subtitle1 = TextStyle(
         fontFamily = Montserrat,
-        fontWeight = FontWeight.Medium,
-        fontSize = 15.sp,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 22.sp,
     ),
     subtitle2 = TextStyle(
         fontFamily = Montserrat,
@@ -71,17 +70,16 @@ val MontserratTypography = Typography(
     button = TextStyle(
         fontFamily = Montserrat,
         fontWeight = FontWeight.Medium,
-        fontSize = 16.sp,
-        color = Color.White
+        fontSize = 14.sp
     ),
     caption = TextStyle(
         fontFamily = Montserrat,
-        fontWeight = FontWeight.Normal,
-        fontSize = 13.sp
+        fontWeight = FontWeight.Medium,
+        fontSize = 12.sp
     ),
     overline = TextStyle(
         fontFamily = Montserrat,
-        fontWeight = FontWeight.Normal,
-        fontSize = 13.sp
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 12.sp
     )
 )

@@ -1,4 +1,4 @@
-package ru.dimagor555.passwordmanager.ui.theme
+package ru.dimagor555.ui.core.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColors(
-    primary = Orange500,
+    primary = Orange400,
     primaryVariant = Orange800,
     secondary = Blue600
 )

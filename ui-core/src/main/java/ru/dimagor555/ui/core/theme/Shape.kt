@@ -1,4 +1,4 @@
-package ru.dimagor555.passwordmanager.ui.theme
+package ru.dimagor555.ui.core.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

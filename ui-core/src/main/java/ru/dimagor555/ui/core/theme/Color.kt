@@ -1,8 +1,9 @@
-package ru.dimagor555.passwordmanager.ui.theme
+package ru.dimagor555.ui.core.theme
 
 import androidx.compose.ui.graphics.Color
 
 val Orange200 = Color(0xFFFAC980)
+val Orange400 = Color(0xFFF7A326)
 val Orange500 = Color(0xFFF69300)
 val Orange800 = Color(0xFFE66800)
 val Blue300 = Color(0xFF80B1FA)
