@@ -7,12 +7,12 @@ import ru.dimagor555.core.DataState
 import ru.dimagor555.password.domain.Password
 import ru.dimagor555.password.repository.PasswordRepository
 
-class GetPasswordsUseCase(
+class ObservePasswordUseCase(
     private val passwordRepository: PasswordRepository
 ) {
-    operator fun invoke(): Flow<DataState<List<Password>>> = flow {
+    operator fun invoke(id: Int): Flow<DataState<Password>> = flow {
         emit(DataState.Loading())
-        passwordRepository.getAll().collect {
+        passwordRepository.observeById(id).collect {
             emit(DataState.Data(it))
         }
     }

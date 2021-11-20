@@ -11,11 +11,15 @@ import ru.dimagor555.password.data.model.UsageModel
 internal abstract class PasswordDao {
     @Transaction
     @Query("select * from PasswordModel")
-    abstract fun getAll(): Flow<List<PasswordEntity>>
+    abstract fun observeAll(): Flow<List<PasswordEntity>>
 
     @Transaction
     @Query("select * from PasswordModel where id = :id")
-    abstract fun getById(id: Int): Flow<PasswordEntity>
+    abstract fun observeById(id: Int): Flow<PasswordEntity>
+
+    @Transaction
+    @Query("select * from PasswordModel where id = :id")
+    abstract fun getById(id: Int): PasswordEntity
 
     @Insert
     abstract fun insert(passwordModel: PasswordModel)

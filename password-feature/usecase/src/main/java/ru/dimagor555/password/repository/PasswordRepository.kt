@@ -4,9 +4,11 @@ import kotlinx.coroutines.flow.Flow
 import ru.dimagor555.password.domain.Password
 
 interface PasswordRepository {
-    fun getAll(): Flow<List<Password>>
+    fun observeAll(): Flow<List<Password>>
 
-    fun getById(id: Int): Flow<Password>
+    fun observeById(id: Int): Flow<Password>
+
+    suspend fun getById(id: Int): Password
 
     suspend fun add(password: Password)
 
