@@ -8,8 +8,9 @@ data class PasswordFilter(
         favouriteFilter.matches(password) && matchesSearchText(password)
 
     private fun matchesSearchText(password: Password) = with(password) {
-        searchText.isBlank() ||
-                title.contains(searchText, ignoreCase = true) ||
-                login.contains(searchText, ignoreCase = true)
+        val trimmedSearchText = searchText.trim()
+        trimmedSearchText.isBlank() ||
+                title.contains(trimmedSearchText, ignoreCase = true) ||
+                login.contains(trimmedSearchText, ignoreCase = true)
     }
 }
