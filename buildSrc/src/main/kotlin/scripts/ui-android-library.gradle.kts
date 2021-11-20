@@ -21,6 +21,7 @@ dependencies {
     implementation(Compose.material)
     implementation(Compose.tooling)
     implementation(Compose.navigation)
+    implementation(Compose.hiltNavigation)
 
     implementation(Google.material)
 
