@@ -19,7 +19,7 @@ data class PasswordSorting(
             PasswordSortingType.RecentUsage -> { it -> UsageHistory(it.usages).lastUsageDateTime }
             PasswordSortingType.FrequentUsage -> { it -> UsageHistory(it.usages).usagesCount }
             PasswordSortingType.CreationDate -> { it -> it.creationDateTime }
-            PasswordSortingType.EditDate -> { it -> it.editingDateTime }
+            PasswordSortingType.EditingDate -> { it -> it.editingDateTime }
         }
     }
 }

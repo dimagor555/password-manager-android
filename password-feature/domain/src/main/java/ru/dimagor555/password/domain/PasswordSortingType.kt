@@ -7,5 +7,5 @@ enum class PasswordSortingType(val order: SortingOrder) {
     RecentUsage(SortingOrder.Descending),
     FrequentUsage(SortingOrder.Descending),
     CreationDate(SortingOrder.Descending),
-    EditDate(SortingOrder.Descending)
+    EditingDate(SortingOrder.Descending)
 }
