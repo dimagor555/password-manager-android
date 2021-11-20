@@ -9,7 +9,8 @@ include(
     ":password-feature",
     ":password-feature:domain",
     ":password-feature:usecase",
-    ":password-feature:data"
+    ":password-feature:data",
+    ":password-feature:password-list-screen"
 )
 include(
     ":encryption-feature",
