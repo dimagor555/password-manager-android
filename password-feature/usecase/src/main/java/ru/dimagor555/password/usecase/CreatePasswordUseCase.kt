@@ -9,25 +9,25 @@ class CreatePasswordUseCase(
     private val passwordRepository: PasswordRepository,
     private val encryptor: Encryptor
 ) {
-    suspend operator fun invoke(passwordDto: CreatePasswordDto) {
-        validate(passwordDto)
-        val password = createPassword(passwordDto)
+    suspend operator fun invoke(params: Params) {
+        validate(params)
+        val password = createPassword(params)
         passwordRepository.add(password)
     }
 
-    private fun validate(passwordDto: CreatePasswordDto) = with(passwordDto) {
+    private fun validate(params: Params) = with(params) {
         PasswordValidation(title, login, password).validate()
     }
 
-    private fun createPassword(passwordDto: CreatePasswordDto) = Password(
-        title = passwordDto.title,
-        login = passwordDto.login,
-        encryptedPassword = encryptor.encrypt(passwordDto.password)
+    private fun createPassword(params: Params) = Password(
+        title = params.title,
+        login = params.login,
+        encryptedPassword = encryptor.encrypt(params.password)
+    )
+
+    data class Params(
+        val title: String,
+        val login: String,
+        val password: String
     )
 }
-
-data class CreatePasswordDto(
-    val title: String,
-    val login: String,
-    val password: String
-)
