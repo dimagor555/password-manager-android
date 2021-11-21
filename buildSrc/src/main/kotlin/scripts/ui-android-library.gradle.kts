@@ -24,7 +24,4 @@ dependencies {
     implementation(Compose.hiltNavigation)
 
     implementation(Google.material)
-
-    implementation(Hilt.android)
-    kapt(Hilt.compiler)
 }
