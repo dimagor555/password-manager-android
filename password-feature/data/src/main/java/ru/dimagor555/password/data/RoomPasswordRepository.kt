@@ -37,7 +37,7 @@ internal class RoomPasswordRepository(
         passwordDao.update(password.toPasswordUpdateEntity())
     }
 
-    override suspend fun remove(password: Password) = withContext(Dispatchers.IO) {
-        passwordDao.delete(passwordId = password.id!!)
+    override suspend fun remove(passwordId: Int) = withContext(Dispatchers.IO) {
+        passwordDao.delete(passwordId = passwordId)
     }
 }

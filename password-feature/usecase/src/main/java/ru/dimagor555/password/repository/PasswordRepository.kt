@@ -14,5 +14,5 @@ interface PasswordRepository {
 
     suspend fun update(password: Password)
 
-    suspend fun remove(password: Password)
+    suspend fun remove(passwordId: Int)
 }
