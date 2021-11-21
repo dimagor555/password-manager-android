@@ -38,6 +38,7 @@ internal class PasswordListViewModel @Inject constructor(
                 is DataState.Loading -> {
                     onTriggerEvent(PasswordListEvent.UpdateProgressBarState(ProgressBarState.Loading))
                 }
+                else -> error("Illegal data state")
             }
         }.launchIn(viewModelScope)
     }

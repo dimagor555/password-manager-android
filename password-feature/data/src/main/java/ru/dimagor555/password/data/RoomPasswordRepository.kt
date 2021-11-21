@@ -23,10 +23,10 @@ internal class RoomPasswordRepository(
     override fun observeById(id: Int) =
         passwordDao.observeById(id)
             .distinctUntilChanged()
-            .map(PasswordEntity::toPassword)
+            .map { it?.toPassword() }
 
     override suspend fun getById(id: Int) = withContext(Dispatchers.IO) {
-        passwordDao.getById(id).toPassword()
+        passwordDao.getById(id)?.toPassword()
     }
 
     override suspend fun add(password: Password) = withContext(Dispatchers.IO) {

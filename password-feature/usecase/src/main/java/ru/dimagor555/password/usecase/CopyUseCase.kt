@@ -4,13 +4,14 @@ import ru.dimagor555.password.domain.Password
 import ru.dimagor555.password.domain.Usage
 import ru.dimagor555.password.repository.ClipboardRepository
 import ru.dimagor555.password.repository.PasswordRepository
+import ru.dimagor555.password.repository.getByIdOrThrowException
 
 abstract class CopyUseCase(
     private val passwordRepository: PasswordRepository,
     private val clipboardRepository: ClipboardRepository
 ) {
     suspend operator fun invoke(passwordId: Int) {
-        val password = passwordRepository.getById(passwordId)
+        val password = passwordRepository.getByIdOrThrowException(passwordId)
         val textToCopy = getTextToCopy(password)
         setTextToClipboard(textToCopy)
         addUsageToHistory(password)

@@ -5,6 +5,7 @@ import ru.dimagor555.encryption.domain.Encryptor
 import ru.dimagor555.password.domain.Password
 import ru.dimagor555.password.domain.validation.PasswordValidation
 import ru.dimagor555.password.repository.PasswordRepository
+import ru.dimagor555.password.repository.getByIdOrThrowException
 
 class UpdatePasswordUseCase(
     private val passwordRepository: PasswordRepository,
@@ -20,7 +21,7 @@ class UpdatePasswordUseCase(
     }
 
     private suspend fun updatePassword(params: Params) {
-        val oldPassword = passwordRepository.getById(params.id)
+        val oldPassword = passwordRepository.getByIdOrThrowException(params.id)
         val newPassword = oldPassword.createUpdated(params)
         passwordRepository.update(newPassword)
     }

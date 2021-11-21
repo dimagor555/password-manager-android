@@ -5,5 +5,7 @@ sealed class DataState<T> {
         val data: T
     ) : DataState<T>()
 
+    class Nothing<T> : DataState<T>()
+
     class Loading<T> : DataState<T>()
 }

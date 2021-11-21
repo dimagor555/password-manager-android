@@ -13,7 +13,13 @@ class ObservePasswordUseCase(
     operator fun invoke(id: Int): Flow<DataState<Password>> = flow {
         emit(DataState.Loading())
         passwordRepository.observeById(id).collect {
-            emit(DataState.Data(it))
+            emit(wrapWithDataState(it))
         }
     }
+
+    private fun wrapWithDataState(password: Password?) =
+        if (password != null)
+            DataState.Data(password)
+        else
+            DataState.Nothing()
 }

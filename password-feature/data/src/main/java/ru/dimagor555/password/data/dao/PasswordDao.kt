@@ -15,11 +15,11 @@ internal abstract class PasswordDao {
 
     @Transaction
     @Query("select * from PasswordModel where id = :id")
-    abstract fun observeById(id: Int): Flow<PasswordEntity>
+    abstract fun observeById(id: Int): Flow<PasswordEntity?>
 
     @Transaction
     @Query("select * from PasswordModel where id = :id")
-    abstract fun getById(id: Int): PasswordEntity
+    abstract fun getById(id: Int): PasswordEntity?
 
     @Insert
     abstract fun insert(passwordModel: PasswordModel)

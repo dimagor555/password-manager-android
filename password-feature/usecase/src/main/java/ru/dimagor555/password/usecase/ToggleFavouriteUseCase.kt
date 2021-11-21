@@ -2,12 +2,13 @@ package ru.dimagor555.password.usecase
 
 import ru.dimagor555.password.domain.Password
 import ru.dimagor555.password.repository.PasswordRepository
+import ru.dimagor555.password.repository.getByIdOrThrowException
 
 class ToggleFavouriteUseCase(
     private val passwordRepository: PasswordRepository
 ) {
     suspend operator fun invoke(passwordId: Int) {
-        val oldPassword = passwordRepository.getById(passwordId)
+        val oldPassword = passwordRepository.getByIdOrThrowException(passwordId)
         val newPassword = oldPassword.toggledFavourite()
         passwordRepository.update(newPassword)
     }
