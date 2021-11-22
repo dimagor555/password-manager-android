@@ -8,10 +8,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 @Composable
 fun SimpleIconButton(
-    modifier: Modifier = Modifier,
     icon: ImageVector,
     contentDescription: String?,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     IconButton(
         modifier = modifier,
