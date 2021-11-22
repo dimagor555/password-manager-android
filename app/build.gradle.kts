@@ -52,6 +52,9 @@ android {
 }
 
 dependencies {
+    implementation(projects.encryptionFeature.androidImpl)
+
+    implementation(projects.passwordFeature.data)
     implementation(projects.passwordFeature.passwordListScreen)
     implementation(projects.passwordFeature.data)
     implementation(projects.encryptionFeature.coreImpl)

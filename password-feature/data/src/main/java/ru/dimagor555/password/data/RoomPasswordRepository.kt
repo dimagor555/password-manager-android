@@ -11,8 +11,9 @@ import ru.dimagor555.password.data.model.toPasswordModel
 import ru.dimagor555.password.data.model.toPasswordUpdateEntity
 import ru.dimagor555.password.domain.Password
 import ru.dimagor555.password.repository.PasswordRepository
+import javax.inject.Inject
 
-internal class RoomPasswordRepository(
+internal class RoomPasswordRepository @Inject constructor(
     private val passwordDao: PasswordDao
 ) : PasswordRepository {
     override fun observeAll() =
