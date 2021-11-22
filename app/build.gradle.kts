@@ -56,8 +56,7 @@ dependencies {
 
     implementation(projects.passwordFeature.data)
     implementation(projects.passwordFeature.passwordListScreen)
-    implementation(projects.passwordFeature.data)
-    implementation(projects.encryptionFeature.coreImpl)
+    implementation(projects.passwordFeature.passwordDetailsScreen)
 
     implementation(projects.uiCore)
 

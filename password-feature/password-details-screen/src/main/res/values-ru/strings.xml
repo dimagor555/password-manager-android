@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="remove_password_dialog_title">Удалить пароль?</string>
+    <string name="remove_password_dialog_text">Вы не сможете отменить это действие</string>
+    <string name="remove">Удалить</string>
+    <string name="edit">Изменить</string>
+    <string name="favourite">Избранный</string>
+    <string name="copy_login">Скопировать логин</string>
+    <string name="login_copied">Логин скопирован</string>
+    <string name="show_password">Показать пароль</string>
+    <string name="hide_password">Скрыть пароль</string>
+</resources>

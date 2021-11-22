@@ -11,7 +11,8 @@ include(
     ":password-feature:usecase",
     ":password-feature:data",
     ":password-feature:ui-core",
-    ":password-feature:password-list-screen"
+    ":password-feature:password-list-screen",
+    ":password-feature:password-details-screen"
 )
 include(
     ":encryption-feature",
