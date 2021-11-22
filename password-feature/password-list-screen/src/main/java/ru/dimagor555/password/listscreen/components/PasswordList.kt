@@ -15,7 +15,7 @@ import ru.dimagor555.password.listscreen.R
 import ru.dimagor555.password.listscreen.model.PasswordViewState
 
 @Composable
-internal fun PasswordListContent(
+internal fun PasswordList(
     passwordViewStates: List<PasswordViewState>,
     navigateToPasswordDetailsScreen: (Int) -> Unit,
     onToggleFavourite: (id: Int) -> Unit,

@@ -28,22 +28,26 @@ internal class PasswordListViewModel @Inject constructor(
     }
 
     private fun observePasswords() {
-        useCases.observePasswords().onEach {
-            when (it) {
-                is DataState.Data -> {
-                    passwords.value = it.data
-                    onTriggerEvent(PasswordListEvent.UpdateProgressBarState(ProgressBarState.Idle))
-                    onTriggerEvent(PasswordListEvent.FilterAndSortPasswords)
-                }
-                is DataState.Loading -> {
-                    onTriggerEvent(PasswordListEvent.UpdateProgressBarState(ProgressBarState.Loading))
-                }
-                else -> error("Illegal data state")
-            }
-        }.launchIn(viewModelScope)
+        useCases.observePasswords()
+            .onEach { unwrapPasswordsDataState(it) }
+            .launchIn(viewModelScope)
     }
 
-    fun onTriggerEvent(event: PasswordListEvent) {
+    private fun unwrapPasswordsDataState(dataState: DataState<List<Password>>) {
+        when (dataState) {
+            is DataState.Data -> {
+                passwords.value = dataState.data
+                sendEvent(PasswordListEvent.FilterAndSortPasswords)
+                sendEvent(PasswordListEvent.UpdateProgressBarState(ProgressBarState.Idle))
+            }
+            is DataState.Loading -> {
+                sendEvent(PasswordListEvent.UpdateProgressBarState(ProgressBarState.Loading))
+            }
+            else -> error("Illegal data state")
+        }
+    }
+
+    fun sendEvent(event: PasswordListEvent) {
         when (event) {
             PasswordListEvent.FilterAndSortPasswords -> {
                 filterAndSortPasswords()
@@ -105,12 +109,12 @@ internal class PasswordListViewModel @Inject constructor(
 
     private fun updateFilterState(filterViewState: FilterViewState) {
         _state.update { it.copy(filterViewState = filterViewState) }
-        onTriggerEvent(PasswordListEvent.FilterAndSortPasswords)
+        sendEvent(PasswordListEvent.FilterAndSortPasswords)
     }
 
     private fun updateSortingType(sortingType: PasswordSortingType) {
         _state.update { it.copy(sortingType = sortingType) }
-        onTriggerEvent(PasswordListEvent.FilterAndSortPasswords)
+        sendEvent(PasswordListEvent.FilterAndSortPasswords)
     }
 
     private fun copyPassword(passwordId: Int) = viewModelScope.launch(Dispatchers.Default) {
