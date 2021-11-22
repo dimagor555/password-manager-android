@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="toggle_favourite">Toggle favourite</string>
+    <string name="password_copied">Password copied</string>
+    <string name="copy_password">Copy password</string>
+    <string name="title">Title</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+</resources>

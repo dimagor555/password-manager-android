@@ -3,15 +3,11 @@
     <string name="search">Поиск</string>
     <string name="clear">Очистить</string>
     <string name="settings">Настройки</string>
-    <string name="copy_password">Скопировать пароль</string>
     <string name="sorting">Сортировка</string>
-    <string name="toggle_favourite">Переключить изрбанное</string>
-    <string name="password_copied">Пароль скопирован</string>
     <string name="empty_favourite_screen_title">Здесь будут избранные пароли</string>
     <string name="empty_favourite_screen_content">Нажмите на звёздочку, чтобы добавить пароль в избранные</string>
     <string name="creation_date">Дата создания</string>
     <string name="editing_date">Дата изменения</string>
-    <string name="title">Название</string>
     <string name="frequent_usage">Частое использование</string>
     <string name="recent_usage">Недавнее использование</string>
     <string name="sort_by">Сортировать по</string>

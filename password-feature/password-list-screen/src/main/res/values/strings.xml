@@ -3,13 +3,9 @@
     <string name="search">Search</string>
     <string name="clear">Clear</string>
     <string name="settings">Settings</string>
-    <string name="copy_password">Copy password</string>
     <string name="sorting">Sorting</string>
-    <string name="toggle_favourite">Toggle favourite</string>
-    <string name="password_copied">Password copied</string>
     <string name="empty_favourite_screen_title">Favourite passwords will be here</string>
     <string name="empty_favourite_screen_content">Click on the star to add a password to favorites</string>
-    <string name="title">Title</string>
     <string name="frequent_usage">Frequent usage</string>
     <string name="recent_usage">Recent usage</string>
     <string name="creation_date">Creation date</string>

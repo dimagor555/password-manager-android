@@ -10,6 +10,7 @@ include(
     ":password-feature:domain",
     ":password-feature:usecase",
     ":password-feature:data",
+    ":password-feature:ui-core",
     ":password-feature:password-list-screen"
 )
 include(
