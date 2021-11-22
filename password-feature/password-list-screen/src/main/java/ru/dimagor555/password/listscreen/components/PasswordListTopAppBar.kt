@@ -79,7 +79,7 @@ private fun FavouriteFilterTabs(
                 SingleLineText(
                     modifier = Modifier.padding(4.dp),
                     text = getFavouriteFilterTitle(it),
-                    style = MaterialTheme.typography.h5
+                    style = MaterialTheme.typography.h4
                 )
             }
         }

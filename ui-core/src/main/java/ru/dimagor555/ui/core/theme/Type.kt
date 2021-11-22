@@ -20,32 +20,32 @@ val MontserratTypography = Typography(
     h1 = TextStyle(
         fontFamily = Montserrat,
         fontWeight = FontWeight.ExtraBold,
-        fontSize = 32.sp,
+        fontSize = 36.sp,
     ),
     h2 = TextStyle(
         fontFamily = Montserrat,
         fontWeight = FontWeight.Bold,
-        fontSize = 26.sp,
+        fontSize = 28.sp,
     ),
     h3 = TextStyle(
         fontFamily = Montserrat,
         fontWeight = FontWeight.Bold,
-        fontSize = 22.sp,
+        fontSize = 24.sp,
     ),
     h4 = TextStyle(
         fontFamily = Montserrat,
         fontWeight = FontWeight.Bold,
-        fontSize = 20.sp,
+        fontSize = 18.sp,
     ),
     h5 = TextStyle(
         fontFamily = Montserrat,
-        fontWeight = FontWeight.Bold,
-        fontSize = 18.sp,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 24.sp,
     ),
     h6 = TextStyle(
         fontFamily = Montserrat,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 16.sp,
+        fontSize = 18.sp,
     ),
     subtitle1 = TextStyle(
         fontFamily = Montserrat,
@@ -55,7 +55,7 @@ val MontserratTypography = Typography(
     subtitle2 = TextStyle(
         fontFamily = Montserrat,
         fontWeight = FontWeight.Medium,
-        fontSize = 14.sp,
+        fontSize = 20.sp,
     ),
     body1 = TextStyle(
         fontFamily = Montserrat,
@@ -80,6 +80,6 @@ val MontserratTypography = Typography(
     overline = TextStyle(
         fontFamily = Montserrat,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 12.sp
+        fontSize = 14.sp
     )
 )
