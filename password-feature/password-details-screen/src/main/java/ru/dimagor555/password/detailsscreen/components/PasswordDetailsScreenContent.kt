@@ -1,7 +1,9 @@
 package ru.dimagor555.password.detailsscreen.components
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,6 +14,7 @@ import ru.dimagor555.password.detailsscreen.R
 import ru.dimagor555.password.detailsscreen.model.PasswordDetailsEvent
 import ru.dimagor555.password.detailsscreen.model.PasswordDetailsViewState
 import ru.dimagor555.password.detailsscreen.model.PasswordViewState
+import ru.dimagor555.password.ui.core.LargePaddingColumn
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @Composable
@@ -20,13 +23,7 @@ internal fun PasswordDetailsScreenContent(
     sendEvent: (PasswordDetailsEvent) -> Unit,
     showSnackbar: (String, String?) -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 8.dp)
-            .padding(top = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
+    LargePaddingColumn(modifier = Modifier.fillMaxWidth()) {
         LoginTextRow(
             login = state.passwordViewState.login,
             onCopyLogin = { sendEvent(PasswordDetailsEvent.CopyLogin) },

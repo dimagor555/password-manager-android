@@ -2,7 +2,6 @@ package ru.dimagor555.password.detailsscreen.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
@@ -19,9 +18,9 @@ internal fun PasswordDetailsTopAppBar(
     navigateBack: () -> Unit,
     navigateToPasswordEditingScreen: () -> Unit
 ) {
-    TopAppBar(
+    SimpleBackArrowTopAppBar(
         title = { TitleText(text = title) },
-        navigationIcon = { ArrowBackIconButton(onClick = navigateBack) },
+        onArrowBackClick = navigateBack,
         actions = {
             EditIconButton(navigateToPasswordEditingScreen = navigateToPasswordEditingScreen)
             Menu(onRemovePasswordClicked = onRemovePasswordClicked)
