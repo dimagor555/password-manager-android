@@ -12,7 +12,8 @@ include(
     ":password-feature:data",
     ":password-feature:ui-core",
     ":password-feature:password-list-screen",
-    ":password-feature:password-details-screen"
+    ":password-feature:password-details-screen",
+    ":password-feature:password-editing-core"
 )
 include(
     ":encryption-feature",

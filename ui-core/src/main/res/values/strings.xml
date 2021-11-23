@@ -3,4 +3,7 @@
     <string name="back">Back</string>
     <string name="cancel">Cancel</string>
     <string name="menu">Menu</string>
+    <string name="show">Show</string>
+    <string name="hide">Hide</string>
+    <string name="generate">Generate</string>
 </resources>

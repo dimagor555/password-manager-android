@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="validation_error_is_blank">Should not be blank</string>
+    <string name="validation_error_is_too_long">Max length is %d characters</string>
+    <string name="validation_error_is_too_short">Min length is %d characters</string>
+</resources>
