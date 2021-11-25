@@ -4,7 +4,7 @@ rootProject.name = "password-manager-android"
 include(":app", ":core")
 include(":ui-core")
 include(":constants")
-include(":password-validation")
+include(":validation")
 include(
     ":password-feature",
     ":password-feature:domain",
