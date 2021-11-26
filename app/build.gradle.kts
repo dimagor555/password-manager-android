@@ -59,9 +59,9 @@ dependencies {
     implementation(projects.encryptionFeature.androidImpl)
     implementation(projects.passwordFeature.data)
 
-    implementation(projects.passwordFeature.passwordListScreen)
-    implementation(projects.passwordFeature.passwordDetailsScreen)
-    implementation(projects.passwordFeature.passwordCreationScreen)
+    implementation(projects.passwordFeature.listScreen)
+    implementation(projects.passwordFeature.detailsScreen)
+    implementation(projects.passwordFeature.creationScreen)
     implementation(projects.passwordFeature.editingScreen)
 
     implementation(projects.uiCore)
