@@ -56,8 +56,12 @@ hilt {
 }
 
 dependencies {
+    implementation(projects.encryptionFeature.androidImpl)
+    implementation(projects.passwordFeature.data)
+
     implementation(projects.passwordFeature.passwordListScreen)
     implementation(projects.passwordFeature.passwordDetailsScreen)
+    implementation(projects.passwordFeature.passwordCreationScreen)
 
     implementation(projects.uiCore)
 
