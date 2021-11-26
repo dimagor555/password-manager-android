@@ -51,10 +51,11 @@ android {
     }
 }
 
-dependencies {
-    implementation(projects.encryptionFeature.androidImpl)
+hilt {
+    enableAggregatingTask = true
+}
 
-    implementation(projects.passwordFeature.data)
+dependencies {
     implementation(projects.passwordFeature.passwordListScreen)
     implementation(projects.passwordFeature.passwordDetailsScreen)
 
