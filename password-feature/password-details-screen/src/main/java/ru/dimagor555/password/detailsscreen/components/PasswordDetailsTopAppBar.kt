@@ -51,10 +51,11 @@ private fun EditIconButton(
 private fun Menu(
     onRemovePasswordClicked: () -> Unit
 ) {
-    DefaultTopAppBarDropdownMenu {
+    DefaultTopAppBarDropdownMenu { onDismiss ->
         SimpleDropdownMenuItem(
             text = stringResource(R.string.remove),
-            onClick = onRemovePasswordClicked
+            onClick = onRemovePasswordClicked,
+            onDismiss = onDismiss
         )
     }
 }

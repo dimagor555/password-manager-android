@@ -23,7 +23,10 @@ internal fun RemovePasswordDialog(
         confirmButton = {
             SimpleTextButton(
                 text = stringResource(R.string.remove),
-                onClick = onRemovePassword
+                onClick = {
+                    onDismiss()
+                    onRemovePassword()
+                }
             )
         },
         dismissButton = {

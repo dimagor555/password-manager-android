@@ -10,9 +10,10 @@ import ru.dimagor555.ui.core.R
 
 @Composable
 fun DefaultTopAppBarDropdownMenu(
-    content: @Composable ColumnScope.() -> Unit
+    content: @Composable ColumnScope.(onDismiss: () -> Unit) -> Unit
 ) {
     var isExpanded by remember { mutableStateOf(false) }
+    val onDismiss = { isExpanded = false }
     SimpleIconButton(
         icon = Icons.Default.MoreVert,
         contentDescription = stringResource(R.string.menu),
@@ -20,7 +21,7 @@ fun DefaultTopAppBarDropdownMenu(
     )
     DropdownMenu(
         expanded = isExpanded,
-        onDismissRequest = { isExpanded = false },
-        content = content
+        onDismissRequest = onDismiss,
+        content = { content(onDismiss) }
     )
 }
