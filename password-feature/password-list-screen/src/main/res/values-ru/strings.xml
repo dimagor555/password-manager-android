@@ -6,10 +6,10 @@
     <string name="sorting">Сортировка</string>
     <string name="empty_favourite_screen_title">Здесь будут избранные пароли</string>
     <string name="empty_favourite_screen_content">Нажмите на звёздочку, чтобы добавить пароль в избранные</string>
-    <string name="creation_date">Дата создания</string>
-    <string name="editing_date">Дата изменения</string>
-    <string name="frequent_usage">Частое использование</string>
-    <string name="recent_usage">Недавнее использование</string>
+    <string name="creation_date">Недавно созданный</string>
+    <string name="editing_date">Недавно изменённый</string>
+    <string name="frequent_usage">Часто используемый</string>
+    <string name="recent_usage">Недавно используемый</string>
     <string name="sort_by">Сортировать по</string>
     <string name="empty_passwords_screen_title">Здесь будут ваши пароли</string>
     <string name="empty_passwords_screen_content">Вы не создали ещё ни одного пароля</string>

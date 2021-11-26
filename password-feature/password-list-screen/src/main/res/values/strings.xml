@@ -6,10 +6,10 @@
     <string name="sorting">Sorting</string>
     <string name="empty_favourite_screen_title">Favourite passwords will be here</string>
     <string name="empty_favourite_screen_content">Click on the star to add a password to favorites</string>
-    <string name="frequent_usage">Frequent usage</string>
-    <string name="recent_usage">Recent usage</string>
-    <string name="creation_date">Creation date</string>
-    <string name="editing_date">Editing date</string>
+    <string name="frequent_usage">Frequently used</string>
+    <string name="recent_usage">Recently used</string>
+    <string name="creation_date">Recently created</string>
+    <string name="editing_date">Recently edited</string>
     <string name="sort_by">Sort by</string>
     <string name="empty_passwords_screen_title">Your passwords will be here</string>
     <string name="empty_passwords_screen_content">You have not created any passwords yet</string>
