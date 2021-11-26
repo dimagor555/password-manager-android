@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="validation_error_is_blank">Не должно быть пустым</string>
-    <string name="validation_error_is_too_long">Максимальная длина %d символов</string>
-    <string name="validation_error_is_too_short">Минимальная длина %d символов</string>
+    <plurals name="validation_error_is_too_long">
+        <item quantity="one">Максимальная длина %d символ</item>
+        <item quantity="few">Максимальная длина %d символа</item>
+        <item quantity="many">Максимальная длина %d символов</item>
+    </plurals>
+    <plurals name="validation_error_is_too_short">
+        <item quantity="one">Минимальная длина %d символ</item>
+        <item quantity="few">Минимальная длина %d символа</item>
+        <item quantity="many">Минимальная длина %d символов</item>
+    </plurals>
 </resources>

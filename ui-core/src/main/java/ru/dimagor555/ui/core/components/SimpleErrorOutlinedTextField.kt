@@ -1,6 +1,8 @@
 package ru.dimagor555.ui.core.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Error
@@ -19,6 +21,8 @@ fun SimpleErrorOutlinedTextField(
     modifier: Modifier = Modifier,
     textStyle: TextStyle = LocalTextStyle.current,
     trailingIcon: @Composable (() -> Unit)? = null,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     singleLine: Boolean = false
 ) {
@@ -36,6 +40,8 @@ fun SimpleErrorOutlinedTextField(
                 }
             },
             textStyle = textStyle,
+            keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions,
             visualTransformation = visualTransformation,
             singleLine = singleLine
         )

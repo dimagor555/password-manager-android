@@ -1,25 +1,23 @@
 package ru.dimagor555.password.editingcore.model
 
 import android.content.Context
-import ru.dimagor555.password.domain.validation.ValidationError
 import ru.dimagor555.password.editingcore.R
-import ru.dimagor555.password.validation.PasswordValidationError
+import ru.dimagor555.password.validation.TextValidationError
 
-fun ValidationError.toStringMessage(context: Context) =
+internal fun TextValidationError.toStringMessage(context: Context) =
     when (this) {
-        ValidationError.IsBlank ->
+        TextValidationError.IsBlank ->
             context.getString(R.string.validation_error_is_blank)
-        is ValidationError.IsTooLong ->
-            context.getString(R.string.validation_error_is_too_long, maxLength)
-    }
-
-fun PasswordValidationError.toStringMessage(context: Context) =
-    when (this) {
-        PasswordValidationError.IsBlank ->
-            context.getString(R.string.validation_error_is_blank)
-        is PasswordValidationError.IsTooLong ->
-            context.getString(R.string.validation_error_is_too_long, maxLength)
-        is PasswordValidationError.IsTooShort ->
-            context.getString(R.string.validation_error_is_too_short, minLength)
-        else -> null
+        is TextValidationError.IsTooLong ->
+            context.resources.getQuantityString(
+                R.plurals.validation_error_is_too_long,
+                maxLength,
+                maxLength
+            )
+        is TextValidationError.IsTooShort ->
+            context.resources.getQuantityString(
+                R.plurals.validation_error_is_too_short,
+                minLength,
+                minLength
+            )
     }

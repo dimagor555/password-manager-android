@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.passwordFeature.domain)
-    implementation(projects.passwordFeature.uiCore)
-    implementation(projects.uiCore)
+    api(projects.passwordFeature.usecase)
+    api(projects.passwordFeature.uiCore)
+    api(projects.uiCore)
 }

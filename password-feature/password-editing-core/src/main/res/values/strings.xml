@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="validation_error_is_blank">Should not be blank</string>
-    <string name="validation_error_is_too_long">Max length is %d characters</string>
-    <string name="validation_error_is_too_short">Min length is %d characters</string>
+    <plurals name="validation_error_is_too_long">
+        <item quantity="one">Max length is %d character</item>
+        <item quantity="other">Max length is %d characters</item>
+    </plurals>
+    <plurals name="validation_error_is_too_short">
+        <item quantity="one">Min length is %d character</item>
+        <item quantity="other">Min length is %d characters</item>
+    </plurals>
 </resources>
