@@ -6,4 +6,6 @@
     <string name="title">Название</string>
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
+    <string name="create">Создать</string>
+    <string name="edit">Изменить</string>
 </resources>

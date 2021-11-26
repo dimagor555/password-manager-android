@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
+import ru.dimagor555.password.creationscreen.PasswordCreationScreen
 import ru.dimagor555.password.detailsscreen.PasswordDetailsScreen
 import ru.dimagor555.password.listscreen.PasswordListScreen
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
@@ -35,6 +36,12 @@ class MainActivity : ComponentActivity() {
                         PasswordDetailsScreen(
                             navigateBack = { navController.popBackStack() },
                             navigateToPasswordEditingScreen = {}
+                        )
+                    }
+                    composable("Creation") {
+                        PasswordCreationScreen(
+                            onGeneratePassword = { null },
+                            navigateBack = { navController.popBackStack() }
                         )
                     }
                 }

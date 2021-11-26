@@ -13,7 +13,8 @@ include(
     ":password-feature:ui-core",
     ":password-feature:password-list-screen",
     ":password-feature:password-details-screen",
-    ":password-feature:password-editing-core"
+    ":password-feature:password-editing-core",
+    ":password-feature:password-creation-screen"
 )
 include(
     ":encryption-feature",
