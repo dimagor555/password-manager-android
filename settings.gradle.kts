@@ -14,7 +14,8 @@ include(
     ":password-feature:password-list-screen",
     ":password-feature:password-details-screen",
     ":password-feature:password-editing-core",
-    ":password-feature:password-creation-screen"
+    ":password-feature:password-creation-screen",
+    ":password-feature:editing-screen"
 )
 include(
     ":encryption-feature",

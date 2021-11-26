@@ -11,6 +11,7 @@ import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
 import ru.dimagor555.password.creationscreen.PasswordCreationScreen
 import ru.dimagor555.password.detailsscreen.PasswordDetailsScreen
+import ru.dimagor555.password.editingscreen.PasswordEditingScreen
 import ru.dimagor555.password.listscreen.PasswordListScreen
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
@@ -26,20 +27,31 @@ class MainActivity : ComponentActivity() {
                         PasswordListScreen(
                             navigateToPasswordDetailsScreen = { navController.navigate("Details/$it") },
                             navigateToSettingsScreen = {},
-                            navigateToPasswordCreationScreen = {}
+                            navigateToPasswordCreationScreen = { navController.navigate("Creation") }
                         )
                     }
                     composable(
                         "Details/{passwordId}",
                         arguments = listOf(navArgument("passwordId") { type = NavType.IntType })
                     ) {
+                        val passwordId = it.arguments?.getInt("passwordId")
+                            ?: error("passwordId argument is not passed")
                         PasswordDetailsScreen(
                             navigateBack = { navController.popBackStack() },
-                            navigateToPasswordEditingScreen = {}
+                            navigateToPasswordEditingScreen = { navController.navigate("Editing/$passwordId") }
                         )
                     }
                     composable("Creation") {
                         PasswordCreationScreen(
+                            onGeneratePassword = { null },
+                            navigateBack = { navController.popBackStack() }
+                        )
+                    }
+                    composable(
+                        "Editing/{passwordId}",
+                        arguments = listOf(navArgument("passwordId") { type = NavType.IntType })
+                    ) {
+                        PasswordEditingScreen(
                             onGeneratePassword = { null },
                             navigateBack = { navController.popBackStack() }
                         )

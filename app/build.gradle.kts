@@ -62,6 +62,7 @@ dependencies {
     implementation(projects.passwordFeature.passwordListScreen)
     implementation(projects.passwordFeature.passwordDetailsScreen)
     implementation(projects.passwordFeature.passwordCreationScreen)
+    implementation(projects.passwordFeature.editingScreen)
 
     implementation(projects.uiCore)
 
