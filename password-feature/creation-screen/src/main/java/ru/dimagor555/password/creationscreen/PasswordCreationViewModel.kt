@@ -16,5 +16,6 @@ internal class PasswordCreationViewModel @Inject constructor(
 
     override suspend fun onFinishEditing(passwordDto: PasswordEditingDto) = with(passwordDto) {
         useCases.createPassword(CreatePasswordUseCase.Params(title, login, password))
+        sendExitScreenEvent()
     }
 }

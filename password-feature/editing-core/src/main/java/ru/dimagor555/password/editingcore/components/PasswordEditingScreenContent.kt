@@ -35,7 +35,7 @@ internal fun PasswordEditingScreenContent(
     onLoginChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onTogglePasswordVisibility: () -> Unit,
-    onFinishEditing: () -> Unit,
+    onTryFinishEditing: () -> Unit,
     onGenerateClick: () -> Unit
 ) {
     LargePaddingColumn(
@@ -61,7 +61,7 @@ internal fun PasswordEditingScreenContent(
             state = state.passwordState,
             onPasswordChange = onPasswordChange,
             onTogglePasswordVisibility = onTogglePasswordVisibility,
-            onFinishEditing = onFinishEditing,
+            onTryFinishEditing = onTryFinishEditing,
             modifier = inputFieldModifier
         )
         SimpleButton(
@@ -105,7 +105,7 @@ private fun PasswordInputField(
     state: FieldViewState.Password,
     onPasswordChange: (String) -> Unit,
     onTogglePasswordVisibility: () -> Unit,
-    onFinishEditing: () -> Unit,
+    onTryFinishEditing: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -119,7 +119,7 @@ private fun PasswordInputField(
             modifier = modifier,
             keyboardActions = KeyboardActions(onDone = {
                 keyboardController?.hide()
-                onFinishEditing()
+                onTryFinishEditing()
             })
         )
     }

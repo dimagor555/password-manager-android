@@ -39,6 +39,7 @@ abstract class CommonPasswordEditingViewModel(
             is PasswordEditingEvent.OnPasswordChanged -> changePassword(event.password)
             PasswordEditingEvent.TogglePasswordVisibility -> togglePasswordVisibility()
             PasswordEditingEvent.TryFinishEditing -> tryFinishEditing()
+            PasswordEditingEvent.ExitScreen -> exitScreen()
         }
     }
 
@@ -74,28 +75,24 @@ abstract class CommonPasswordEditingViewModel(
     }
 
     private fun tryFinishEditing() = viewModelScope.launch(Dispatchers.Default) {
-        val validationResult = validatePassword(_state.value.toPasswordEditingDto())
-        if (canFinishEditing(validationResult))
-            finishEditing()
-        else
+        val passwordDto = getCurrPasswordDto()
+        val validationResult = validatePassword(passwordDto)
+        if (hasValidationErrors(validationResult))
             showAllValidationErrors(validationResult)
+        else
+            onFinishEditing(passwordDto)
     }
+
+    protected fun getCurrPasswordDto() = _state.value.toPasswordEditingDto()
 
     private fun validatePassword(passwordDto: PasswordEditingDto) = with(passwordDto) {
         useCases.validatePassword(ValidatePasswordUseCase.Params(title, login, password))
     }
 
-    private fun canFinishEditing(validationResult: ValidatePasswordUseCase.Result) =
-        validationResult.titleError == null &&
-                validationResult.loginError == null &&
-                validationResult.passwordError == null
-
-    private suspend fun finishEditing() {
-        onFinishEditing(_state.value.toPasswordEditingDto())
-        _state.update { it.copy(isEditingFinished = true) }
-    }
-
-    protected abstract suspend fun onFinishEditing(passwordDto: PasswordEditingDto)
+    private fun hasValidationErrors(validationResult: ValidatePasswordUseCase.Result) =
+        validationResult.titleError != null ||
+                validationResult.loginError != null ||
+                validationResult.passwordError != null
 
     private fun showAllValidationErrors(validationResult: ValidatePasswordUseCase.Result) {
         _state.update {
@@ -111,5 +108,15 @@ abstract class CommonPasswordEditingViewModel(
                 ),
             )
         }
+    }
+
+    protected abstract suspend fun onFinishEditing(passwordDto: PasswordEditingDto)
+
+    private fun exitScreen() {
+        _state.update { it.copy(isExitFromScreen = true) }
+    }
+
+    protected fun sendExitScreenEvent() {
+        sendEvent(PasswordEditingEvent.ExitScreen)
     }
 }

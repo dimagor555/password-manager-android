@@ -12,7 +12,7 @@ import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 @Composable
 internal fun PasswordEditingTopAppBar(
     title: String,
-    onFinishEditing: () -> Unit,
+    onTryFinishEditing: () -> Unit,
     onNavigateBack: () -> Unit
 ) {
     SimpleBackArrowTopAppBar(
@@ -22,7 +22,7 @@ internal fun PasswordEditingTopAppBar(
             SimpleIconButton(
                 icon = Icons.Default.Check,
                 contentDescription = null,
-                onClick = onFinishEditing
+                onClick = onTryFinishEditing
             )
         }
     )
@@ -34,7 +34,7 @@ private fun PasswordEditingTopAppBarPreview() {
     PasswordManagerTheme {
         PasswordEditingTopAppBar(
             title = "Create",
-            onFinishEditing = {},
+            onTryFinishEditing = {},
             onNavigateBack = {}
         )
     }

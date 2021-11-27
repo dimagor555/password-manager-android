@@ -4,7 +4,7 @@ internal data class PasswordEditingViewState(
     val titleState: FieldViewState.Text = FieldViewState.Text(),
     val loginState: FieldViewState.Text = FieldViewState.Text(),
     val passwordState: FieldViewState.Password = FieldViewState.Password(),
-    val isEditingFinished: Boolean = false
+    val isExitFromScreen: Boolean = false
 )
 
 internal fun PasswordEditingViewState.toPasswordEditingDto() = PasswordEditingDto(

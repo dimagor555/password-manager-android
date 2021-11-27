@@ -1,9 +1,15 @@
 package ru.dimagor555.password.editingscreen.components
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import ru.dimagor555.password.editingscreen.R
 import ru.dimagor555.ui.core.components.SimpleTextButton
 
@@ -15,11 +21,30 @@ internal fun SaveChangesDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(text = stringResource(R.string.save_changes_dialog_title)) },
+        text = { Text(text = stringResource(R.string.save_changes_dialog_title)) },
         buttons = {
-            SimpleTextButton(text = stringResource(R.string.cancel), onClick = onDismiss)
-            SimpleTextButton(text = stringResource(R.string.discard), onClick = onDiscard)
-            SimpleTextButton(text = stringResource(R.string.save), onClick = onSave)
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalAlignment = Alignment.End
+            ) {
+                SimpleTextButton(text = stringResource(R.string.cancel), onClick = onDismiss)
+                SimpleTextButton(
+                    text = stringResource(R.string.discard),
+                    onClick = {
+                        onDismiss()
+                        onDiscard()
+                    }
+                )
+                SimpleTextButton(
+                    text = stringResource(R.string.save),
+                    onClick = {
+                        onDismiss()
+                        onSave()
+                    }
+                )
+            }
         }
     )
 }

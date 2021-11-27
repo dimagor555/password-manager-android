@@ -1,5 +1,6 @@
 package ru.dimagor555.password.editingcore
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -16,17 +17,17 @@ fun CommonPasswordEditingScreen(
     onGeneratePassword: () -> String?,
     onNavigateBackRequest: () -> Unit,
     navigateBack: () -> Unit,
-    dialog: @Composable (onFinishEditing: () -> Unit) -> Unit = {}
+    dialog: @Composable (onTryFinishEditing: () -> Unit) -> Unit = {}
 ) {
     val state by viewModel.state.collectAsState()
     val sendEvent = viewModel::sendEvent
-    val onFinishEditing = { sendEvent(PasswordEditingEvent.TryFinishEditing) }
+    val onTryFinishEditing = { sendEvent(PasswordEditingEvent.TryFinishEditing) }
 
     Scaffold(
         topBar = {
             PasswordEditingTopAppBar(
                 title = topAppBarTitle,
-                onFinishEditing = onFinishEditing,
+                onTryFinishEditing = onTryFinishEditing,
                 onNavigateBack = onNavigateBackRequest
             )
         }
@@ -37,7 +38,7 @@ fun CommonPasswordEditingScreen(
             onLoginChange = { sendEvent(PasswordEditingEvent.OnLoginChanged(it)) },
             onPasswordChange = { sendEvent(PasswordEditingEvent.OnPasswordChanged(it)) },
             onTogglePasswordVisibility = { sendEvent(PasswordEditingEvent.TogglePasswordVisibility) },
-            onFinishEditing = onFinishEditing,
+            onTryFinishEditing = onTryFinishEditing,
             onGenerateClick = {
                 val generatedPassword = onGeneratePassword()
                 generatedPassword?.let {
@@ -45,10 +46,11 @@ fun CommonPasswordEditingScreen(
                 }
             }
         )
-        dialog(onFinishEditing)
+        dialog(onTryFinishEditing)
     }
-    LaunchedEffect(key1 = state.isEditingFinished) {
-        if (state.isEditingFinished)
+    BackHandler(onBack = onNavigateBackRequest)
+    LaunchedEffect(key1 = state.isExitFromScreen) {
+        if (state.isExitFromScreen)
             navigateBack()
     }
 }
