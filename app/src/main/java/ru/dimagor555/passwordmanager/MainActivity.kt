@@ -13,6 +13,7 @@ import ru.dimagor555.password.creationscreen.PasswordCreationScreen
 import ru.dimagor555.password.detailsscreen.PasswordDetailsScreen
 import ru.dimagor555.password.editingscreen.PasswordEditingScreen
 import ru.dimagor555.password.listscreen.PasswordListScreen
+import ru.dimagor555.passwordgenerator.screen.PasswordGenerationScreen
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @AndroidEntryPoint
@@ -43,7 +44,7 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("Creation") {
                         PasswordCreationScreen(
-                            onGeneratePassword = { null },
+                            onNavigateToPasswordGenerationScreen = { navController.navigate("Generation") },
                             navigateBack = { navController.popBackStack() }
                         )
                     }
@@ -52,8 +53,13 @@ class MainActivity : ComponentActivity() {
                         arguments = listOf(navArgument("passwordId") { type = NavType.IntType })
                     ) {
                         PasswordEditingScreen(
-                            onGeneratePassword = { null },
+                            onNavigateToPasswordGenerationScreen = { navController.navigate("Generation") },
                             navigateBack = { navController.popBackStack() }
+                        )
+                    }
+                    composable("Generation") {
+                        PasswordGenerationScreen(
+                            onNavigateBack = { navController.popBackStack() }
                         )
                     }
                 }

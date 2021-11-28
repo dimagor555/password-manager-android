@@ -8,14 +8,14 @@ import ru.dimagor555.password.ui.core.R
 
 @Composable
 fun PasswordCreationScreen(
-    onGeneratePassword: () -> String?,
+    onNavigateToPasswordGenerationScreen: () -> Unit,
     navigateBack: () -> Unit
 ) {
     val viewModel: PasswordCreationViewModel = hiltViewModel()
     CommonPasswordEditingScreen(
         topAppBarTitle = stringResource(R.string.create),
         viewModel = viewModel,
-        onGeneratePassword = onGeneratePassword,
+        onNavigateToPasswordGenerationScreen = onNavigateToPasswordGenerationScreen,
         onNavigateBackRequest = navigateBack,
         navigateBack = navigateBack
     )

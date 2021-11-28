@@ -23,3 +23,8 @@ include(
     ":encryption-feature:core-impl",
     ":encryption-feature:android-impl"
 )
+include(
+    ":password-generation-feature",
+    ":password-generation-feature:domain",
+    ":password-generation-feature:screen"
+)

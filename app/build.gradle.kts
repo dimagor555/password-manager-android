@@ -64,6 +64,8 @@ dependencies {
     implementation(projects.passwordFeature.creationScreen)
     implementation(projects.passwordFeature.editingScreen)
 
+    implementation(projects.passwordGenerationFeature.screen)
+
     implementation(projects.uiCore)
 
     implementation(AndroidX.coreKtx)

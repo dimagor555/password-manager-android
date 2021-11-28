@@ -14,7 +14,7 @@ import ru.dimagor555.password.editingcore.model.PasswordEditingEvent
 fun CommonPasswordEditingScreen(
     topAppBarTitle: String,
     viewModel: CommonPasswordEditingViewModel,
-    onGeneratePassword: () -> String?,
+    onNavigateToPasswordGenerationScreen: () -> Unit,
     onNavigateBackRequest: () -> Unit,
     navigateBack: () -> Unit,
     dialog: @Composable (onTryFinishEditing: () -> Unit) -> Unit = {}
@@ -39,12 +39,7 @@ fun CommonPasswordEditingScreen(
             onPasswordChange = { sendEvent(PasswordEditingEvent.OnPasswordChanged(it)) },
             onTogglePasswordVisibility = { sendEvent(PasswordEditingEvent.TogglePasswordVisibility) },
             onTryFinishEditing = onTryFinishEditing,
-            onGenerateClick = {
-                val generatedPassword = onGeneratePassword()
-                generatedPassword?.let {
-                    sendEvent(PasswordEditingEvent.OnPasswordChanged(it))
-                }
-            }
+            onGenerateClick = onNavigateToPasswordGenerationScreen
         )
         dialog(onTryFinishEditing)
     }

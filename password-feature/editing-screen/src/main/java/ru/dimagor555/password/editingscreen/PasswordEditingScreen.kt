@@ -10,7 +10,7 @@ import ru.dimagor555.password.editingscreen.model.PasswordEditingEvent.*
 
 @Composable
 fun PasswordEditingScreen(
-    onGeneratePassword: () -> String?,
+    onNavigateToPasswordGenerationScreen: () -> Unit,
     navigateBack: () -> Unit
 ) {
     val viewModel: PasswordEditingViewModel = hiltViewModel()
@@ -19,7 +19,7 @@ fun PasswordEditingScreen(
     CommonPasswordEditingScreen(
         topAppBarTitle = stringResource(R.string.edit),
         viewModel = viewModel,
-        onGeneratePassword = onGeneratePassword,
+        onNavigateToPasswordGenerationScreen = onNavigateToPasswordGenerationScreen,
         onNavigateBackRequest = { viewModel.sendEvent(OnExitScreenRequest) },
         navigateBack = navigateBack
     ) { onTryFinishEditing ->
