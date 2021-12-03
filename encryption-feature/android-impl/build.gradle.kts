@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    api(projects.encryptionFeature.coreImpl)
+    implementation(projects.encryptionFeature.coreImpl)
 
     implementation(AndroidXSecurity.securityCrypto)
 }

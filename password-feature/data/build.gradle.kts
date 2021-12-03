@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    api(projects.passwordFeature.usecase)
+    implementation(projects.passwordFeature.usecase)
 
     implementation(Room.runtime)
     implementation(Room.ktx)
