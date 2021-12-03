@@ -8,10 +8,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import ru.dimagor555.core.ProgressBarState
 import ru.dimagor555.core.UiComponentVisibility
+import ru.dimagor555.password.domain.filter.PasswordFilterState
 import ru.dimagor555.password.listscreen.components.PasswordListScaffold
 import ru.dimagor555.password.listscreen.components.PasswordListScreenContent
 import ru.dimagor555.password.listscreen.components.SortingDialog
-import ru.dimagor555.password.listscreen.model.FilterViewState
 import ru.dimagor555.password.listscreen.model.PasswordListEvent
 import ru.dimagor555.password.listscreen.model.PasswordListEvent.SortingTypeChanged
 import ru.dimagor555.password.listscreen.model.PasswordListEvent.UpdateSortingDialogVisibility
@@ -29,7 +29,7 @@ fun PasswordListScreen(
     val state by viewModel.state.collectAsState()
 
     PasswordListScaffold(
-        filterState = state.filterViewState,
+        filterState = state.filterState,
         sendEvent = viewModel::sendEvent,
         navigateToPasswordCreationScreen = navigateToPasswordCreationScreen,
         navigateToSettingsScreen = navigateToSettingsScreen
@@ -51,7 +51,7 @@ private fun SortingDialogWrapper(
 ) {
     if (state.sortingDialogVisibility == UiComponentVisibility.Show)
         SortingDialog(
-            sortingType = state.sortingType,
+            sortingType = state.filterState.sortingType,
             onDismiss = {
                 sendEvent(UpdateSortingDialogVisibility(UiComponentVisibility.Hide))
             },
@@ -66,7 +66,7 @@ private fun SortingDialogWrapper(
 private fun EmptyPasswordListScreenPreview() {
     PasswordManagerTheme {
         PasswordListScaffold(
-            filterState = FilterViewState(),
+            filterState = PasswordFilterState(),
             navigateToPasswordCreationScreen = {},
             sendEvent = {},
             navigateToSettingsScreen = {}
@@ -88,7 +88,7 @@ private fun EmptyPasswordListScreenPreview() {
 private fun FilledPasswordListScreenPreview() {
     PasswordManagerTheme {
         PasswordListScaffold(
-            filterState = FilterViewState(),
+            filterState = PasswordFilterState(),
             navigateToPasswordCreationScreen = {},
             sendEvent = {},
             navigateToSettingsScreen = {}

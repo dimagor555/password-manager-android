@@ -8,15 +8,15 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import ru.dimagor555.core.UiComponentVisibility
+import ru.dimagor555.password.domain.filter.PasswordFilterState
 import ru.dimagor555.password.listscreen.R
-import ru.dimagor555.password.listscreen.model.FilterViewState
 import ru.dimagor555.password.listscreen.model.PasswordListEvent
 import ru.dimagor555.password.listscreen.model.PasswordListEvent.*
 import ru.dimagor555.ui.core.components.SingleSnackbarSimpleScaffold
 
 @Composable
 internal fun PasswordListScaffold(
-    filterState: FilterViewState,
+    filterState: PasswordFilterState,
     sendEvent: (PasswordListEvent) -> Unit,
     navigateToPasswordCreationScreen: () -> Unit,
     navigateToSettingsScreen: () -> Unit,

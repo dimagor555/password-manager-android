@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import ru.dimagor555.core.ProgressBarState
 import ru.dimagor555.password.domain.FavouriteFilter
+import ru.dimagor555.password.domain.filter.PasswordFilterState
 import ru.dimagor555.password.listscreen.R
-import ru.dimagor555.password.listscreen.model.FilterViewState
 import ru.dimagor555.password.listscreen.model.PasswordListEvent
 import ru.dimagor555.password.listscreen.model.PasswordListViewState
 import ru.dimagor555.password.listscreen.model.PasswordViewState
@@ -22,7 +22,7 @@ internal fun PasswordListScreenContent(
         state.progressBarState == ProgressBarState.Loading ->
             FullscreenCircularProgressBar()
         state.passwordViewStates.isEmpty() ->
-            NoPasswords(state.filterViewState)
+            NoPasswords(state.filterState)
         else ->
             PasswordListWrapper(
                 passwordViewStates = state.passwordViewStates,
@@ -34,7 +34,7 @@ internal fun PasswordListScreenContent(
 }
 
 @Composable
-private fun NoPasswords(filterState: FilterViewState) {
+private fun NoPasswords(filterState: PasswordFilterState) {
     when {
         filterState.searchText.isNotBlank() ->
             FullscreenInformationContent(

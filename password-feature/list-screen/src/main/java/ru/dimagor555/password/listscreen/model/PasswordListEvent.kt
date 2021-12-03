@@ -3,11 +3,9 @@ package ru.dimagor555.password.listscreen.model
 import ru.dimagor555.core.ProgressBarState
 import ru.dimagor555.core.UiComponentVisibility
 import ru.dimagor555.password.domain.FavouriteFilter
-import ru.dimagor555.password.domain.PasswordSortingType
+import ru.dimagor555.password.domain.filter.PasswordSortingType
 
 internal sealed class PasswordListEvent {
-    object FilterAndSortPasswords : PasswordListEvent()
-
     data class UpdateProgressBarState(val value: ProgressBarState) : PasswordListEvent()
 
     data class SearchTextChanged(val searchText: String) : PasswordListEvent()

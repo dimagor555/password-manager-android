@@ -1,4 +1,4 @@
-package ru.dimagor555.password.domain
+package ru.dimagor555.password.domain.filter
 
 import ru.dimagor555.core.SortingOrder
 

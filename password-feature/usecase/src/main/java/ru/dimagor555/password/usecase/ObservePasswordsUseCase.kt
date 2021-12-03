@@ -1,19 +1,34 @@
 package ru.dimagor555.password.usecase
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import ru.dimagor555.core.DataState
-import ru.dimagor555.password.domain.Password
+import ru.dimagor555.password.domain.filter.PasswordFilter
+import ru.dimagor555.password.repository.PasswordFilterRepository
 import ru.dimagor555.password.repository.PasswordRepository
 
 class ObservePasswordsUseCase(
-    private val passwordRepository: PasswordRepository
+    private val passwordRepository: PasswordRepository,
+    private val passwordFilterRepository: PasswordFilterRepository
 ) {
-    operator fun invoke(): Flow<DataState<List<Password>>> = flow {
+    operator fun invoke() = createResultFlow()
+        .flowOn(Dispatchers.Default)
+        .conflate()
+
+    private fun createResultFlow() = flow {
         emit(DataState.Loading())
-        passwordRepository.observeAll().collect {
+        observeFilteredPasswords().collect {
             emit(DataState.Data(it))
         }
     }
+
+    private fun observeFilteredPasswords() = combine(
+        passwordRepository.observeAll(),
+        observePasswordFilter()
+    ) { passwords, passwordFilter ->
+        passwordFilter.filter(passwords)
+    }
+
+    private fun observePasswordFilter() = passwordFilterRepository.observePasswordFilterState()
+        .map { PasswordFilter(it) }
 }

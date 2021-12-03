@@ -9,8 +9,11 @@ import ru.dimagor555.core.DataState
 import ru.dimagor555.core.ProgressBarState
 import ru.dimagor555.password.domain.FavouriteFilter
 import ru.dimagor555.password.domain.Password
-import ru.dimagor555.password.domain.PasswordSortingType
-import ru.dimagor555.password.listscreen.model.*
+import ru.dimagor555.password.domain.filter.PasswordFilterState
+import ru.dimagor555.password.domain.filter.PasswordSortingType
+import ru.dimagor555.password.listscreen.model.PasswordListEvent
+import ru.dimagor555.password.listscreen.model.PasswordListViewState
+import ru.dimagor555.password.listscreen.model.toPasswordViewStates
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,10 +23,9 @@ internal class PasswordListViewModel @Inject constructor(
     private val _state = MutableStateFlow(PasswordListViewState())
     val state = _state.asStateFlow()
 
-    private val passwords = MutableStateFlow(emptyList<Password>())
-
     init {
         observePasswords()
+        observePasswordFilter()
     }
 
     private fun observePasswords() {
@@ -32,11 +34,10 @@ internal class PasswordListViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
-    private fun unwrapPasswordsDataState(dataState: DataState<List<Password>>) {
+    private suspend fun unwrapPasswordsDataState(dataState: DataState<List<Password>>) {
         when (dataState) {
             is DataState.Data -> {
-                passwords.value = dataState.data
-                sendEvent(PasswordListEvent.FilterAndSortPasswords)
+                updatePasswords(dataState.data)
                 sendEvent(PasswordListEvent.UpdateProgressBarState(ProgressBarState.Idle))
             }
             is DataState.Loading -> {
@@ -46,11 +47,23 @@ internal class PasswordListViewModel @Inject constructor(
         }
     }
 
+    private suspend fun updatePasswords(passwords: List<Password>) {
+        val passwordViewStates = passwords.toPasswordViewStates()
+        _state.update { it.copy(passwordViewStates = passwordViewStates) }
+    }
+
+    private fun observePasswordFilter() {
+        useCases.observePasswordFilterState()
+            .onEach { updateFilterState(it) }
+            .launchIn(viewModelScope)
+    }
+
+    private fun updateFilterState(filterState: PasswordFilterState) {
+        _state.update { it.copy(filterState = filterState) }
+    }
+
     fun sendEvent(event: PasswordListEvent) {
         when (event) {
-            PasswordListEvent.FilterAndSortPasswords -> {
-                filterAndSortPasswords()
-            }
             is PasswordListEvent.UpdateProgressBarState -> {
                 _state.update { it.copy(progressBarState = event.value) }
             }
@@ -75,43 +88,22 @@ internal class PasswordListViewModel @Inject constructor(
         }
     }
 
-    private fun filterAndSortPasswords() = viewModelScope.launch {
-        _state.update {
-            val passwords = passwords.value
-            val filteredPasswords = filterPasswords(passwords, it.filterViewState)
-            val sortedPasswords = sortPasswords(filteredPasswords, it.sortingType)
-            it.copy(passwordViewStates = sortedPasswords.toPasswordViewStates())
-        }
-    }
-
-    private suspend fun filterPasswords(passwords: List<Password>, filterState: FilterViewState) =
-        useCases.filterPasswords(
-            passwords = passwords,
-            passwordFilter = filterState.toPasswordFilter()
+    private fun updateSearchText(searchText: String) = viewModelScope.launch {
+        useCases.updatePasswordFilterState(
+            _state.value.filterState.copy(searchText = searchText)
         )
+    }
 
-    private suspend fun sortPasswords(passwords: List<Password>, sortingType: PasswordSortingType) =
-        useCases.sortPasswords(
-            passwords = passwords,
-            sortingType = sortingType
+    private fun updateFavouriteFilter(favouriteFilter: FavouriteFilter) = viewModelScope.launch {
+        useCases.updatePasswordFilterState(
+            _state.value.filterState.copy(favouriteFilter = favouriteFilter)
         )
-
-    private fun updateSearchText(searchText: String) {
-        updateFilterState(_state.value.filterViewState.copy(searchText = searchText))
     }
 
-    private fun updateFavouriteFilter(favouriteFilter: FavouriteFilter) {
-        updateFilterState(_state.value.filterViewState.copy(favouriteFilter = favouriteFilter))
-    }
-
-    private fun updateFilterState(filterViewState: FilterViewState) {
-        _state.update { it.copy(filterViewState = filterViewState) }
-        sendEvent(PasswordListEvent.FilterAndSortPasswords)
-    }
-
-    private fun updateSortingType(sortingType: PasswordSortingType) {
-        _state.update { it.copy(sortingType = sortingType) }
-        sendEvent(PasswordListEvent.FilterAndSortPasswords)
+    private fun updateSortingType(sortingType: PasswordSortingType) = viewModelScope.launch {
+        useCases.updatePasswordFilterState(
+            _state.value.filterState.copy(sortingType = sortingType)
+        )
     }
 
     private fun copyPassword(passwordId: Int) = viewModelScope.launch {

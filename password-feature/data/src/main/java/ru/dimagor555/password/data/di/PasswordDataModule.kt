@@ -8,9 +8,11 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ru.dimagor555.password.data.ClipboardRepositoryImpl
+import ru.dimagor555.password.data.InMemoryPasswordFilterRepository
 import ru.dimagor555.password.data.RoomPasswordRepository
 import ru.dimagor555.password.data.db.PasswordDatabase
 import ru.dimagor555.password.repository.ClipboardRepository
+import ru.dimagor555.password.repository.PasswordFilterRepository
 import ru.dimagor555.password.repository.PasswordRepository
 import javax.inject.Singleton
 
@@ -39,6 +41,12 @@ object PasswordDataModule {
     @Singleton
     @Provides
     internal fun providePasswordRepository(repository: RoomPasswordRepository): PasswordRepository {
+        return repository
+    }
+
+    @Singleton
+    @Provides
+    internal fun providePasswordFilterRepository(repository: InMemoryPasswordFilterRepository): PasswordFilterRepository {
         return repository
     }
 }

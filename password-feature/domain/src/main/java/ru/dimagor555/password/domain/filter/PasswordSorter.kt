@@ -1,11 +1,15 @@
-package ru.dimagor555.password.domain
+package ru.dimagor555.password.domain.filter
 
 import ru.dimagor555.core.SortingOrder
+import ru.dimagor555.password.domain.Password
+import ru.dimagor555.password.domain.UsageHistory
 
-data class PasswordSorting(
+internal class PasswordSorter(
     private val type: PasswordSortingType
 ) {
-    fun createComparator(): Comparator<Password> {
+    fun sortPassword(passwords: List<Password>) = passwords.sortedWith(createComparator())
+
+    private fun createComparator(): Comparator<Password> {
         val selector = createCompareSelectorByType()
         return when (type.order) {
             SortingOrder.Ascending -> compareBy(selector)
