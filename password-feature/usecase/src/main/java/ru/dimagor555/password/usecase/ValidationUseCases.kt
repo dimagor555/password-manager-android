@@ -1,17 +1,25 @@
 package ru.dimagor555.password.usecase
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import ru.dimagor555.password.domain.validation.validateLogin
 import ru.dimagor555.password.domain.validation.validatePasswordText
 import ru.dimagor555.password.domain.validation.validateTitle
 
 class ValidateTitleUseCase {
-    operator fun invoke(title: String) = validateTitle(title).firstOrNull()
+    suspend operator fun invoke(title: String) = withContext(Dispatchers.Default) {
+        validateTitle(title).firstOrNull()
+    }
 }
 
 class ValidateLoginUseCase {
-    operator fun invoke(login: String) = validateLogin(login).firstOrNull()
+    suspend operator fun invoke(login: String) = withContext(Dispatchers.Default) {
+        validateLogin(login).firstOrNull()
+    }
 }
 
 class ValidatePasswordTextUseCase {
-    operator fun invoke(passwordText: String) = validatePasswordText(passwordText).firstOrNull()
+    suspend operator fun invoke(passwordText: String) = withContext(Dispatchers.Default) {
+        validatePasswordText(passwordText).firstOrNull()
+    }
 }

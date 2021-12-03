@@ -1,10 +1,12 @@
 package ru.dimagor555.password.editingscreen
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import ru.dimagor555.core.UiComponentVisibility
 import ru.dimagor555.password.editingcore.CommonPasswordEditingUseCases
 import ru.dimagor555.password.editingcore.CommonPasswordEditingViewModel
@@ -13,6 +15,7 @@ import ru.dimagor555.password.editingscreen.model.PasswordEditingEvent
 import ru.dimagor555.password.editingscreen.model.PasswordEditingViewState
 import ru.dimagor555.password.usecase.UpdatePasswordUseCase
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 @HiltViewModel
 internal class PasswordEditingViewModel @Inject constructor(
@@ -26,17 +29,19 @@ internal class PasswordEditingViewModel @Inject constructor(
     private val _state = MutableStateFlow(PasswordEditingViewState())
     val state = _state.asStateFlow()
 
-    private lateinit var initialPasswordDto: PasswordEditingDto
+    private var initialPasswordDto: PasswordEditingDto by Delegates.notNull()
 
-    override suspend fun getInitialPasswordDto(): PasswordEditingDto {
-        createInitialPasswordDto()
-        return initialPasswordDto
+    init {
+        viewModelScope.launch {
+            initialPasswordDto = createInitialPasswordDto()
+            initState(initialPasswordDto)
+        }
     }
 
-    private suspend fun createInitialPasswordDto() {
+    private suspend fun createInitialPasswordDto(): PasswordEditingDto {
         val password = useCases.getPassword(passwordId)
         val decryptedPassword = useCases.decryptPassword(passwordId)
-        initialPasswordDto = PasswordEditingDto(password.title, password.login, decryptedPassword)
+        return PasswordEditingDto(password.title, password.login, decryptedPassword)
     }
 
     override suspend fun onFinishEditing(passwordDto: PasswordEditingDto) {

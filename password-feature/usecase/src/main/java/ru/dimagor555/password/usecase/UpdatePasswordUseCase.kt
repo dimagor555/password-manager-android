@@ -1,5 +1,7 @@
 package ru.dimagor555.password.usecase
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
 import ru.dimagor555.encryption.domain.Encryptor
 import ru.dimagor555.password.domain.Password
@@ -11,7 +13,7 @@ class UpdatePasswordUseCase(
     private val passwordRepository: PasswordRepository,
     private val encryptor: Encryptor
 ) {
-    suspend operator fun invoke(params: Params) {
+    suspend operator fun invoke(params: Params) = withContext(Dispatchers.Default) {
         validate(params)
         updatePassword(params)
     }

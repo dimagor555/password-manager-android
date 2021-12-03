@@ -2,7 +2,6 @@ package ru.dimagor555.password.editingcore
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -16,21 +15,11 @@ abstract class CommonPasswordEditingViewModel(
     private val _state = MutableStateFlow(PasswordEditingViewState())
     internal val state = _state.asStateFlow()
 
-    init {
-        initState()
-    }
-
-    private fun initState() {
-        viewModelScope.launch(Dispatchers.Default) {
-            _state.value = createInitialState()
+    protected fun initState(initialPasswordDto: PasswordEditingDto) {
+        viewModelScope.launch {
+            _state.value = initialPasswordDto.toPasswordEditingViewState()
         }
     }
-
-    private suspend fun createInitialState() =
-        getInitialPasswordDto()?.toPasswordEditingViewState()
-            ?: PasswordEditingViewState()
-
-    protected abstract suspend fun getInitialPasswordDto(): PasswordEditingDto?
 
     internal fun sendEvent(event: PasswordEditingEvent) {
         when (event) {
@@ -43,19 +32,19 @@ abstract class CommonPasswordEditingViewModel(
         }
     }
 
-    private fun changeTitle(title: String) = viewModelScope.launch(Dispatchers.Default) {
+    private fun changeTitle(title: String) = viewModelScope.launch {
         val error = useCases.validateTitle(title)
         val newTitleState = FieldViewState.Text(title, error?.toTextFieldError())
         _state.update { it.copy(titleState = newTitleState) }
     }
 
-    private fun changeLogin(login: String) = viewModelScope.launch(Dispatchers.Default) {
+    private fun changeLogin(login: String) = viewModelScope.launch {
         val error = useCases.validateLogin(login)
         val newLoginState = FieldViewState.Text(login, error?.toTextFieldError())
         _state.update { it.copy(loginState = newLoginState) }
     }
 
-    private fun changePassword(password: String) = viewModelScope.launch(Dispatchers.Default) {
+    private fun changePassword(password: String) = viewModelScope.launch {
         val error = useCases.validatePasswordText(password)
         _state.update {
             val newPasswordState = it.passwordState.copy(
@@ -74,7 +63,7 @@ abstract class CommonPasswordEditingViewModel(
         }
     }
 
-    private fun tryFinishEditing() = viewModelScope.launch(Dispatchers.Default) {
+    private fun tryFinishEditing() = viewModelScope.launch {
         val passwordDto = getCurrPasswordDto()
         val validationResult = validatePassword(passwordDto)
         if (hasValidationErrors(validationResult))
@@ -85,7 +74,7 @@ abstract class CommonPasswordEditingViewModel(
 
     protected fun getCurrPasswordDto() = _state.value.toPasswordEditingDto()
 
-    private fun validatePassword(passwordDto: PasswordEditingDto) = with(passwordDto) {
+    private suspend fun validatePassword(passwordDto: PasswordEditingDto) = with(passwordDto) {
         useCases.validatePassword(ValidatePasswordUseCase.Params(title, login, password))
     }
 

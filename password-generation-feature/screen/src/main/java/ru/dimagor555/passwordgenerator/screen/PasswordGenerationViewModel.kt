@@ -3,7 +3,6 @@ package ru.dimagor555.passwordgenerator.screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -35,7 +34,7 @@ internal class PasswordGenerationViewModel @Inject constructor(
         }
     }
 
-    private fun onGeneratePassword() = viewModelScope.launch(Dispatchers.Default) {
+    private fun onGeneratePassword() = viewModelScope.launch {
         _state.update {
             if (!it.isGenerateButtonEnabled)
                 return@launch
@@ -43,7 +42,7 @@ internal class PasswordGenerationViewModel @Inject constructor(
         }
     }
 
-    private fun generatePassword(state: PasswordGenerationViewState) =
+    private suspend fun generatePassword(state: PasswordGenerationViewState) =
         useCase.generatePassword(
             PasswordGenerationParams(
                 length = state.length,

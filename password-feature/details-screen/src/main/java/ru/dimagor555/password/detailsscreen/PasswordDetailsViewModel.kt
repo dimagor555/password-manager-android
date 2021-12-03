@@ -4,7 +4,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.dimagor555.core.DataState
@@ -77,11 +76,11 @@ internal class PasswordDetailsViewModel @Inject constructor(
         _state.update { it.copy(removeDialogVisibility = visibility) }
     }
 
-    private fun toggleFavourite() = viewModelScope.launch(Dispatchers.Default) {
+    private fun toggleFavourite() = viewModelScope.launch {
         useCases.toggleFavourite(passwordId)
     }
 
-    private fun togglePasswordVisibility() = viewModelScope.launch(Dispatchers.Default) {
+    private fun togglePasswordVisibility() = viewModelScope.launch {
         val isVisible = _state.value.passwordTextViewState.isVisible
         val newPasswordTextViewState = createToggledPasswordText(isVisible)
         _state.update { it.copy(passwordTextViewState = newPasswordTextViewState) }
@@ -93,15 +92,15 @@ internal class PasswordDetailsViewModel @Inject constructor(
         else
             createVisiblePasswordText(useCases.decryptPassword(passwordId))
 
-    private fun copyPassword() = viewModelScope.launch(Dispatchers.Default) {
+    private fun copyPassword() = viewModelScope.launch {
         useCases.copyPassword(passwordId)
     }
 
-    private fun copyLogin() = viewModelScope.launch(Dispatchers.Default) {
+    private fun copyLogin() = viewModelScope.launch {
         useCases.copyLogin(passwordId)
     }
 
-    private fun removePassword() = viewModelScope.launch(Dispatchers.Default) {
+    private fun removePassword() = viewModelScope.launch {
         useCases.removePassword(passwordId)
         sendEvent(PasswordDetailsEvent.OnPasswordRemoved)
     }
