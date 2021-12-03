@@ -1,7 +1,9 @@
 package ru.dimagor555.password.data
 
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import ru.dimagor555.password.data.dao.PasswordDao
@@ -20,11 +22,15 @@ internal class RoomPasswordRepository @Inject constructor(
         passwordDao.observeAll()
             .distinctUntilChanged()
             .map { it.map(PasswordEntity::toPassword) }
+            .flowOn(Dispatchers.IO)
+            .conflate()
 
     override fun observeById(id: Int) =
         passwordDao.observeById(id)
             .distinctUntilChanged()
             .map { it?.toPassword() }
+            .flowOn(Dispatchers.IO)
+            .conflate()
 
     override suspend fun getById(id: Int) = withContext(Dispatchers.IO) {
         passwordDao.getById(id)?.toPassword()
@@ -38,7 +44,5 @@ internal class RoomPasswordRepository @Inject constructor(
         passwordDao.update(password.toPasswordUpdateEntity())
     }
 
-    override suspend fun remove(passwordId: Int) = withContext(Dispatchers.IO) {
-        passwordDao.delete(passwordId = passwordId)
-    }
+    override suspend fun remove(passwordId: Int) = passwordDao.delete(passwordId)
 }

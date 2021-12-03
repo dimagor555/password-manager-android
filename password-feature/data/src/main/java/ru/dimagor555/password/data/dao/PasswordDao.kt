@@ -19,27 +19,27 @@ internal abstract class PasswordDao {
 
     @Transaction
     @Query("select * from PasswordModel where id = :id")
-    abstract fun getById(id: Int): PasswordEntity?
+    abstract suspend fun getById(id: Int): PasswordEntity?
 
     @Insert
-    abstract fun insert(passwordModel: PasswordModel)
+    abstract suspend fun insert(passwordModel: PasswordModel)
 
     @Transaction
-    open fun update(entity: PasswordUpdateEntity) {
+    open suspend fun update(entity: PasswordUpdateEntity) {
         updatePasswordModel(entity.passwordModel)
         insertUsageModels(entity.usageModelsToInsert)
         updateUsageModels(entity.usageModelsToUpdate)
     }
 
     @Update
-    protected abstract fun updatePasswordModel(passwordModel: PasswordModel)
+    protected abstract suspend fun updatePasswordModel(passwordModel: PasswordModel)
 
     @Insert
-    protected abstract fun insertUsageModels(usageModels: List<UsageModel>)
+    protected abstract suspend fun insertUsageModels(usageModels: List<UsageModel>)
 
     @Update
-    protected abstract fun updateUsageModels(usageModels: List<UsageModel>)
+    protected abstract suspend fun updateUsageModels(usageModels: List<UsageModel>)
 
     @Query("delete from PasswordModel where id = :passwordId")
-    abstract fun delete(passwordId: Int)
+    abstract suspend fun delete(passwordId: Int)
 }
