@@ -3,7 +3,6 @@ package ru.dimagor555.password.listscreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.dimagor555.core.DataState
@@ -76,7 +75,7 @@ internal class PasswordListViewModel @Inject constructor(
         }
     }
 
-    private fun filterAndSortPasswords() = viewModelScope.launch(Dispatchers.Default) {
+    private fun filterAndSortPasswords() = viewModelScope.launch {
         _state.update {
             val passwords = passwords.value
             val filteredPasswords = filterPasswords(passwords, it.filterViewState)
@@ -85,19 +84,17 @@ internal class PasswordListViewModel @Inject constructor(
         }
     }
 
-    private fun filterPasswords(passwords: List<Password>, filterViewState: FilterViewState) =
-        useCases.filterPassword(
+    private suspend fun filterPasswords(passwords: List<Password>, filterState: FilterViewState) =
+        useCases.filterPasswords(
             passwords = passwords,
-            passwordFilter = filterViewState.toPasswordFilter()
+            passwordFilter = filterState.toPasswordFilter()
         )
 
-    private fun sortPasswords(passwords: List<Password>, sortingType: PasswordSortingType) =
+    private suspend fun sortPasswords(passwords: List<Password>, sortingType: PasswordSortingType) =
         useCases.sortPasswords(
             passwords = passwords,
             sortingType = sortingType
         )
-
-    private fun List<Password>.toPasswordViewStates() = this.map { it.toPasswordViewState() }
 
     private fun updateSearchText(searchText: String) {
         updateFilterState(_state.value.filterViewState.copy(searchText = searchText))
@@ -117,11 +114,11 @@ internal class PasswordListViewModel @Inject constructor(
         sendEvent(PasswordListEvent.FilterAndSortPasswords)
     }
 
-    private fun copyPassword(passwordId: Int) = viewModelScope.launch(Dispatchers.Default) {
+    private fun copyPassword(passwordId: Int) = viewModelScope.launch {
         useCases.copyPassword(passwordId)
     }
 
-    private fun toggleFavourite(passwordId: Int) = viewModelScope.launch(Dispatchers.Default) {
+    private fun toggleFavourite(passwordId: Int) = viewModelScope.launch {
         useCases.toggleFavourite(passwordId)
     }
 }

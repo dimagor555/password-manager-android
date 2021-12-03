@@ -1,5 +1,7 @@
 package ru.dimagor555.password.listscreen.model
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import ru.dimagor555.password.domain.Password
 
 internal data class PasswordViewState(
@@ -9,7 +11,11 @@ internal data class PasswordViewState(
     val isFavourite: Boolean
 )
 
-internal fun Password.toPasswordViewState() = PasswordViewState(
+internal suspend fun List<Password>.toPasswordViewStates() = withContext(Dispatchers.Default) {
+    map { it.toPasswordViewState() }
+}
+
+private fun Password.toPasswordViewState() = PasswordViewState(
     id = id!!,
     title = title,
     login = login,

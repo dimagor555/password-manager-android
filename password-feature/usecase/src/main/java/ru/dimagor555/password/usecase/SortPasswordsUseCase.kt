@@ -1,16 +1,18 @@
 package ru.dimagor555.password.usecase
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import ru.dimagor555.password.domain.Password
 import ru.dimagor555.password.domain.PasswordSorting
 import ru.dimagor555.password.domain.PasswordSortingType
 
 class SortPasswordsUseCase {
-    operator fun invoke(
+    suspend operator fun invoke(
         passwords: List<Password>,
         sortingType: PasswordSortingType
-    ): List<Password> {
+    ): List<Password> = withContext(Dispatchers.Default) {
         val passwordSorting = PasswordSorting(sortingType)
         val comparator = passwordSorting.createComparator()
-        return passwords.sortedWith(comparator)
+        passwords.sortedWith(comparator)
     }
 }

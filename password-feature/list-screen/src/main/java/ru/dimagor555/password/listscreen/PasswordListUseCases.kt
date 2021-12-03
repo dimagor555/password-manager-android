@@ -18,6 +18,6 @@ internal class PasswordListUseCases @Inject constructor(
     val toggleFavourite = ToggleFavouriteUseCase(passwordRepository)
     val copyPassword = CopyPasswordUseCase(passwordRepository, clipboardRepository, decryptor)
 
-    val filterPassword = FilterPasswordsUseCase()
+    val filterPasswords = FilterPasswordsUseCase()
     val sortPasswords = SortPasswordsUseCase()
 }
