@@ -33,6 +33,7 @@ internal class PasswordEditingViewModel @Inject constructor(
         return initialPasswordDto
     }
 
+    // TODO: 04.12.2021 In my opinion, usecase should handle this logic
     private suspend fun createInitialPasswordDto() {
         val password = useCases.getPassword(passwordId)
         val decryptedPassword = useCases.decryptPassword(passwordId)

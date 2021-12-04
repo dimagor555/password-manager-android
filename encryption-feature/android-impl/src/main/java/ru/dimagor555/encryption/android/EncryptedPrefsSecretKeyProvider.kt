@@ -26,6 +26,13 @@ internal class EncryptedPrefsSecretKeyProvider(
         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
     )
 
+    /*
+      FIXME: 04.12.2021 here is a problem in this logic. *createKey()*
+             stores it with *apply* function of SharedPreference API.
+             Then you try to *getKey()* from the same prefs. The problem is -
+             function *apply* runs is asynchronous and it could leads to error.
+             Solve - use *commit* instead of *apply*
+     */
     fun provideKey(): SecretKey {
         if (!hasKey())
             createKey()

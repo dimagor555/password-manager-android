@@ -15,9 +15,16 @@ import ru.dimagor555.password.domain.Password
 import ru.dimagor555.password.repository.PasswordRepository
 import javax.inject.Inject
 
+/*
+ TODO: 04.12.2021 it's much suitable to inject whole database instead of dao.
+      For example, in your dao you was forced to add @Transaction to all functions, but
+      you really need it only for *update*. With data base class you will be able to
+      use *runInTransaction* method
+ */
 internal class RoomPasswordRepository @Inject constructor(
     private val passwordDao: PasswordDao
 ) : PasswordRepository {
+
     override fun observeAll() =
         passwordDao.observeAll()
             .distinctUntilChanged()

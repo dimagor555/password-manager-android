@@ -23,6 +23,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             PasswordManagerTheme {
                 val navController = rememberNavController()
+                /*
+                 FIXME: 04.12.2021 I'm strongly recommend to use constant or enum as you alraedy
+                        did with password length, for example
+                 */
                 NavHost(navController = navController, startDestination = "List") {
                     composable("List") {
                         PasswordListScreen(

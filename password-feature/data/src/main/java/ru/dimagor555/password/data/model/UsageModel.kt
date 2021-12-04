@@ -22,6 +22,11 @@ import ru.dimagor555.password.domain.Usage
         Index("passwordId")
     ]
 )
+/*
+    TODO: in order to avoid problems with access to the database when obfuscation will be enabled,
+          it's mandatory to use @ColumnInfo annotation. As you already know, only strings
+          are not being obfuscated
+ */
 internal data class UsageModel(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
     val timestamp: Long,

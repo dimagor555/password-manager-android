@@ -9,6 +9,7 @@ internal class AesCryptor(
     private val cryptoKeyRepository: CryptoKeyRepository,
     private val base64: Base64
 ) : Encryptor, Decryptor {
+
     override fun encrypt(input: String) = createCipher().encrypt(input)
 
     override fun decrypt(input: String) = createCipher().decrypt(input)

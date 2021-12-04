@@ -11,6 +11,10 @@ class ObservePasswordsUseCase(
     private val passwordRepository: PasswordRepository,
     private val passwordFilterRepository: PasswordFilterRepository
 ) {
+    /*
+      FIXME: 04.12.2021 I'm strongly recommend to operate Dispatchers where it calls, because
+             it much more difficult to mock it in tests.
+     */
     operator fun invoke() = createResultFlow()
         .flowOn(Dispatchers.Default)
         .conflate()
