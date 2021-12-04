@@ -28,3 +28,10 @@ include(
     ":password-generation-feature:domain",
     ":password-generation-feature:screen"
 )
+include(
+    ":master-password-feature",
+    ":master-password-feature:domain",
+    ":master-password-feature:usecase",
+    ":master-password-feature:data",
+    ":master-password-feature:hashing"
+)

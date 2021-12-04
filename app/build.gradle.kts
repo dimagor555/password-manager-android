@@ -57,6 +57,8 @@ hilt {
 
 dependencies {
     implementation(projects.encryptionFeature.androidImpl)
+    implementation(projects.masterPasswordFeature.data)
+    implementation(projects.masterPasswordFeature.hashing)
     implementation(projects.passwordFeature.data)
 
     implementation(projects.passwordFeature.listScreen)
