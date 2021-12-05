@@ -7,4 +7,7 @@ object AndroidX {
 
     private const val lifecycleVmKtxVersion = "2.4.0-alpha02"
     const val lifecycleVmKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVmKtxVersion"
+
+    private const val biometricVersion = "1.2.0-alpha04"
+    const val biometric = "androidx.biometric:biometric:$biometricVersion"
 }

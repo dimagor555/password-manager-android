@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="incorrect_password_error">Неверый пароль</string>
+    <string name="login">Войти</string>
+    <string name="biometry_login">Использовать биометрию для входа</string>
+</resources>

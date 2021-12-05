@@ -1,14 +1,15 @@
 package ru.dimagor555.passwordmanager
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
+import ru.dimagor555.masterpassword.loginscreen.LoginScreen
 import ru.dimagor555.password.creationscreen.PasswordCreationScreen
 import ru.dimagor555.password.detailsscreen.PasswordDetailsScreen
 import ru.dimagor555.password.editingscreen.PasswordEditingScreen
@@ -17,13 +18,21 @@ import ru.dimagor555.passwordgenerator.screen.PasswordGenerationScreen
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             PasswordManagerTheme {
                 val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = "List") {
+                NavHost(navController = navController, startDestination = "Login") {
+                    composable("Login") {
+                        LoginScreen(
+                            onSuccessfulLogin = {
+                                navController.popBackStack()
+                                navController.navigate("List")
+                            }
+                        )
+                    }
                     composable("List") {
                         PasswordListScreen(
                             navigateToPasswordDetailsScreen = { navController.navigate("Details/$it") },

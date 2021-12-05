@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="biometry_login_dialog_title">Login in Password Manager</string>
+    <string name="biometry_login_cancel_button_text">Use password instead</string>
+</resources>

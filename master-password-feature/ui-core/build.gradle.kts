@@ -3,7 +3,5 @@ plugins {
 }
 
 dependencies {
-    api(Compose.iconsExtended)
-
-    api(LocalizedString.lib)
+    implementation(projects.uiCore)
 }

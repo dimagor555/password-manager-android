@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="incorrect_password_error">Incorrect password</string>
+    <string name="login">Login</string>
+    <string name="biometry_login">Use biometrics to login</string>
+</resources>
