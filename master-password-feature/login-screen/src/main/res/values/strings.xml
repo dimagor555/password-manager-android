@@ -3,4 +3,6 @@
     <string name="incorrect_password_error">Incorrect password</string>
     <string name="login">Login</string>
     <string name="biometry_login">Use biometrics to login</string>
+    <string name="biometry_login_dialog_title">Login in Password Manager</string>
+    <string name="biometry_login_cancel_button_text">Use password instead</string>
 </resources>

@@ -88,7 +88,5 @@ dependencies {
     implementation(Hilt.android)
     kapt(Hilt.compiler)
 
-    implementation(AndroidX.biometric)
-
     coreLibraryDesugaring(AndroidDesugar.lib)
 }

@@ -10,7 +10,9 @@ internal sealed class LoginEvent {
     data class ShowError(val error: LocalizedString?) : LoginEvent()
 
     object LoginByPassword : LoginEvent()
-    object LoginByBiometry : LoginEvent()
+    object LoginByBiometrics : LoginEvent()
+
+    object EnableBiometricLogin : LoginEvent()
 
     object ExitLoginScreenWithSuccess : LoginEvent()
 }

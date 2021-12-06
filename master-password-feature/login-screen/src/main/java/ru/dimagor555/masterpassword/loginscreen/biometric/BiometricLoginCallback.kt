@@ -1,8 +1,8 @@
-package ru.dimagor555.masterpassword.biometry
+package ru.dimagor555.masterpassword.loginscreen.biometric
 
 import androidx.biometric.BiometricPrompt
 
-internal class BiometryLoginCallback(
+internal class BiometricLoginCallback(
     private val onSuccess: () -> Unit,
     private val onFail: () -> Unit
 ) : BiometricPrompt.AuthenticationCallback() {
@@ -12,5 +12,4 @@ internal class BiometryLoginCallback(
         onSuccess()
 
     override fun onAuthenticationFailed() = onFail()
-
 }

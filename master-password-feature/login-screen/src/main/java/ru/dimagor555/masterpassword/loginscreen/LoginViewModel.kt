@@ -20,21 +20,14 @@ internal class LoginViewModel @Inject constructor(
     private val _state = MutableStateFlow(LoginViewState())
     val state = _state.asStateFlow()
 
-    init {
-        viewModelScope.launch {
-            _state.update {
-                it.copy(isBiometricLoginButtonVisible = useCases.isBiometricLoginAvailable())
-            }
-        }
-    }
-
     fun sendEvent(event: LoginEvent) {
         when (event) {
             is LoginEvent.OnPasswordChanged -> changePassword(event.password)
             LoginEvent.TogglePasswordVisibility -> togglePasswordVisibility()
             is LoginEvent.ShowError -> showError(event.error)
             LoginEvent.LoginByPassword -> loginByPassword()
-            LoginEvent.LoginByBiometry -> loginByBiometry()
+            LoginEvent.LoginByBiometrics -> loginByBiometrics()
+            LoginEvent.EnableBiometricLogin -> enableBiometricLoginButton()
             LoginEvent.ExitLoginScreenWithSuccess -> exitScreenWithSuccess()
         }
     }
@@ -83,8 +76,12 @@ internal class LoginViewModel @Inject constructor(
         sendEvent(LoginEvent.ShowError(error))
     }
 
-    private fun loginByBiometry() {
+    private fun loginByBiometrics() {
         sendEvent(LoginEvent.ExitLoginScreenWithSuccess)
+    }
+
+    private fun enableBiometricLoginButton() {
+        _state.update { it.copy(isBiometricLoginButtonVisible = true) }
     }
 
     private fun exitScreenWithSuccess() {

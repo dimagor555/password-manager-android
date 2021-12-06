@@ -34,7 +34,6 @@ include(
     ":master-password-feature:usecase",
     ":master-password-feature:data",
     ":master-password-feature:hashing",
-    ":master-password-feature:biometry",
     ":master-password-feature:ui-core",
     ":master-password-feature:login-screen"
 )

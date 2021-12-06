@@ -3,4 +3,6 @@
     <string name="incorrect_password_error">Неверый пароль</string>
     <string name="login">Войти</string>
     <string name="biometry_login">Использовать биометрию для входа</string>
+    <string name="biometry_login_dialog_title">Вход в менеджер паролей</string>
+    <string name="biometry_login_cancel_button_text">Использовать пароль</string>
 </resources>
