@@ -45,7 +45,7 @@ internal class EncryptedPrefsSecretKeyProvider(
     private fun putEncodedKeyInPrefs(encodedKey: String) {
         with(encryptedPrefs.edit()) {
             putString(ENCRYPTION_KEY_PREFS_KEY, encodedKey)
-            apply()
+            commit()
         }
     }
 

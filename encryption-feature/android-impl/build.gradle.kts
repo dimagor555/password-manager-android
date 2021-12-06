@@ -5,5 +5,5 @@ plugins {
 dependencies {
     implementation(projects.encryptionFeature.coreImpl)
 
-    implementation(AndroidXSecurity.securityCrypto)
+    implementation(AndroidX.securityCrypto)
 }

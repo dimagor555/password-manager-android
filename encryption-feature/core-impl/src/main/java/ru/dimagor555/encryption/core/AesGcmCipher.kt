@@ -29,11 +29,8 @@ internal class AesGcmCipher(
     private fun createGcmParameterSpec(iv: ByteArray = generateRandomIv()) =
         GCMParameterSpec(TAG_SIZE_BITS, iv)
 
-    private fun generateRandomIv(): ByteArray {
-        val iv = ByteArray(IV_SIZE_BYTES)
-        SecureRandom().nextBytes(iv)
-        return iv
-    }
+    private fun generateRandomIv() = ByteArray(IV_SIZE_BYTES)
+        .also { SecureRandom().nextBytes(it) }
 
     fun decrypt(input: String): String {
         val (iv, encryptedBytes) = EncryptedValue(input, base64)

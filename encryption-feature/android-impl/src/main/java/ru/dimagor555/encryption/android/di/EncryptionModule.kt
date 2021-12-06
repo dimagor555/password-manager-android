@@ -20,12 +20,11 @@ object EncryptionModule {
     internal fun provideEncryptionModuleApi(
         base64: Base64,
         cryptoKey: CryptoKey
-    ): EncryptionModuleApi {
-        EncryptionModuleHolder.init(base64)
-        val encryptionModule = EncryptionModuleHolder.get()
-        encryptionModule.cryptoKeyRepository.setKey(cryptoKey)
-        return encryptionModule
-    }
+    ): EncryptionModuleApi =
+        EncryptionModuleHolder
+            .apply { init(base64) }
+            .get()
+            .apply { cryptoKeyRepository.setKey(cryptoKey) }
 
     @Provides
     fun provideEncryptor(encryptionModule: EncryptionModuleApi): Encryptor =
