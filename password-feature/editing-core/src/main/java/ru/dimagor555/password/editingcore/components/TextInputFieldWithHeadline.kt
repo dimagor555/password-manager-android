@@ -5,13 +5,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
-import ru.dimagor555.password.editingcore.model.FieldViewState
+import ru.dimagor555.password.editingcore.model.FieldState
 import ru.dimagor555.password.ui.core.RowWithSmallHeadline
 import ru.dimagor555.ui.core.components.SimpleErrorOutlinedTextField
 
 @Composable
 internal fun TextInputFieldWithHeadline(
-    state: FieldViewState,
+    state: FieldState,
     onValueChange: (String) -> Unit,
     headline: String,
     modifier: Modifier = Modifier
@@ -21,7 +21,7 @@ internal fun TextInputFieldWithHeadline(
             modifier = modifier,
             value = state.text,
             onValueChange = onValueChange,
-            error = state.error?.getMessage(LocalContext.current),
+            error = state.error?.resolve(LocalContext.current) as? String?,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
             singleLine = true
         )

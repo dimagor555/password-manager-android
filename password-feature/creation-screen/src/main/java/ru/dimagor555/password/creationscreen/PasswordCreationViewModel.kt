@@ -12,8 +12,7 @@ internal class PasswordCreationViewModel @Inject constructor(
     private val useCases: PasswordCreationUseCases,
     commonUseCases: CommonPasswordEditingUseCases
 ) : CommonPasswordEditingViewModel(commonUseCases) {
-    override suspend fun onFinishEditing(passwordDto: PasswordEditingDto) = with(passwordDto) {
+    override suspend fun onSaveEditedPassword(passwordDto: PasswordEditingDto) = with(passwordDto) {
         useCases.createPassword(CreatePasswordUseCase.Params(title, login, password))
-        sendExitScreenEvent()
     }
 }

@@ -17,9 +17,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.dimagor555.password.editingcore.R
-import ru.dimagor555.password.editingcore.model.FieldViewState
-import ru.dimagor555.password.editingcore.model.PasswordEditingViewState
-import ru.dimagor555.password.editingcore.model.TextFieldError
+import ru.dimagor555.password.editingcore.model.FieldState
+import ru.dimagor555.password.editingcore.model.PasswordEditingState
+import ru.dimagor555.password.editingcore.model.toLocalizedString
 import ru.dimagor555.password.ui.core.LargePaddingColumn
 import ru.dimagor555.password.ui.core.RowWithSmallHeadline
 import ru.dimagor555.password.validation.TextValidationError
@@ -30,7 +30,7 @@ import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 @OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class)
 @Composable
 internal fun PasswordEditingScreenContent(
-    state: PasswordEditingViewState,
+    state: PasswordEditingState,
     onTitleChange: (String) -> Unit,
     onLoginChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
@@ -73,7 +73,7 @@ internal fun PasswordEditingScreenContent(
 
 @Composable
 private fun TitleInputField(
-    state: FieldViewState,
+    state: FieldState,
     onTitleChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -87,7 +87,7 @@ private fun TitleInputField(
 
 @Composable
 private fun LoginInputField(
-    state: FieldViewState,
+    state: FieldState,
     onLoginChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -102,7 +102,7 @@ private fun LoginInputField(
 @ExperimentalComposeUiApi
 @Composable
 private fun PasswordInputField(
-    state: FieldViewState.Password,
+    state: FieldState.Password,
     onPasswordChange: (String) -> Unit,
     onTogglePasswordVisibility: () -> Unit,
     onTryFinishEditing: () -> Unit,
@@ -133,15 +133,15 @@ private fun PasswordEditingScreenContentPreview() {
     PasswordManagerTheme {
         Surface {
             PasswordEditingScreenContent(
-                state = PasswordEditingViewState(
-                    titleState = FieldViewState.Text(text = "Google"),
-                    loginState = FieldViewState.Text(
+                state = PasswordEditingState(
+                    titleState = FieldState.Text(text = "Google"),
+                    loginState = FieldState.Text(
                         text = "",
-                        error = TextFieldError(TextValidationError.IsBlank)
+                        error = TextValidationError.IsBlank.toLocalizedString()
                     ),
-                    passwordState = FieldViewState.Password(
+                    passwordState = FieldState.Password(
                         text = "test password",
-                        error = TextFieldError(TextValidationError.IsTooShort(16))
+                        error = TextValidationError.IsTooShort(16).toLocalizedString()
                     )
                 ),
                 {}, {}, {}, {}, {}, {}

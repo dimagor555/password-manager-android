@@ -1,12 +1,14 @@
 package ru.dimagor555.password.editingscreen
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import ru.dimagor555.core.UiComponentVisibility
 import ru.dimagor555.password.editingcore.CommonPasswordEditingScreen
 import ru.dimagor555.password.editingscreen.components.SaveChangesDialog
-import ru.dimagor555.password.editingscreen.model.PasswordEditingEvent.*
+import ru.dimagor555.password.editingscreen.model.PasswordEditingEvent.OnExitScreenRequest
+import ru.dimagor555.password.editingscreen.model.PasswordEditingEvent.UpdateSaveDialogVisibility
 
 @Composable
 fun PasswordEditingScreen(
@@ -23,14 +25,11 @@ fun PasswordEditingScreen(
         onNavigateBackRequest = { viewModel.sendEvent(OnExitScreenRequest) },
         navigateBack = navigateBack
     ) { onTryFinishEditing ->
-        if (state.saveDialogVisibility == UiComponentVisibility.Hide)
-            return@CommonPasswordEditingScreen
-        SaveChangesDialog(
-            onSave = onTryFinishEditing,
-            onDiscard = navigateBack,
-            onDismiss = {
-                viewModel.sendEvent(UpdateSaveDialogVisibility(UiComponentVisibility.Hide))
-            }
-        )
+        if (state.isSaveDialogVisible)
+            SaveChangesDialog(
+                onSave = onTryFinishEditing,
+                onDiscard = navigateBack,
+                onDismiss = { viewModel.sendEvent(UpdateSaveDialogVisibility(false)) }
+            )
     }
 }

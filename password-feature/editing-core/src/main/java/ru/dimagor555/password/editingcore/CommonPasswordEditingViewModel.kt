@@ -12,7 +12,7 @@ import ru.dimagor555.password.usecase.ValidatePasswordUseCase
 abstract class CommonPasswordEditingViewModel(
     private val useCases: CommonPasswordEditingUseCases
 ) : ViewModel() {
-    private val _state = MutableStateFlow(PasswordEditingViewState())
+    private val _state = MutableStateFlow(PasswordEditingState())
     internal val state = _state.asStateFlow()
 
     protected fun initState(initialPasswordDto: PasswordEditingDto) {
@@ -28,19 +28,20 @@ abstract class CommonPasswordEditingViewModel(
             is PasswordEditingEvent.OnPasswordChanged -> changePassword(event.password)
             PasswordEditingEvent.TogglePasswordVisibility -> togglePasswordVisibility()
             PasswordEditingEvent.TryFinishEditing -> tryFinishEditing()
-            PasswordEditingEvent.ExitScreen -> exitScreen()
+            PasswordEditingEvent.FinishEditing -> finishEditing()
+            PasswordEditingEvent.ExitScreen -> onExitScreen()
         }
     }
 
     private fun changeTitle(title: String) = viewModelScope.launch {
         val error = useCases.validateTitle(title)
-        val newTitleState = FieldViewState.Text(title, error?.toTextFieldError())
+        val newTitleState = FieldState.Text(title, error?.toLocalizedString())
         _state.update { it.copy(titleState = newTitleState) }
     }
 
     private fun changeLogin(login: String) = viewModelScope.launch {
         val error = useCases.validateLogin(login)
-        val newLoginState = FieldViewState.Text(login, error?.toTextFieldError())
+        val newLoginState = FieldState.Text(login, error?.toLocalizedString())
         _state.update { it.copy(loginState = newLoginState) }
     }
 
@@ -49,7 +50,7 @@ abstract class CommonPasswordEditingViewModel(
         _state.update {
             val newPasswordState = it.passwordState.copy(
                 text = password,
-                error = error?.toTextFieldError()
+                error = error?.toLocalizedString()
             )
             it.copy(passwordState = newPasswordState)
         }
@@ -87,21 +88,33 @@ abstract class CommonPasswordEditingViewModel(
         _state.update {
             it.copy(
                 titleState = it.titleState.copy(
-                    error = validationResult.titleError?.toTextFieldError()
+                    error = validationResult.titleError?.toLocalizedString()
                 ),
                 loginState = it.loginState.copy(
-                    error = validationResult.loginError?.toTextFieldError()
+                    error = validationResult.loginError?.toLocalizedString()
                 ),
                 passwordState = it.passwordState.copy(
-                    error = validationResult.passwordError?.toTextFieldError()
+                    error = validationResult.passwordError?.toLocalizedString()
                 ),
             )
         }
     }
 
-    protected abstract suspend fun onFinishEditing(passwordDto: PasswordEditingDto)
+    private suspend fun onFinishEditing(passwordDto: PasswordEditingDto) {
+        if (_state.value.isEditingFinished)
+            return
+        sendEvent(PasswordEditingEvent.FinishEditing)
+        onSaveEditedPassword(passwordDto)
+        sendEvent(PasswordEditingEvent.ExitScreen)
+    }
 
-    private fun exitScreen() {
+    protected abstract suspend fun onSaveEditedPassword(passwordDto: PasswordEditingDto)
+
+    private fun finishEditing() {
+        _state.update { it.copy(isEditingFinished = true) }
+    }
+
+    private fun onExitScreen() {
         _state.update { it.copy(isExitFromScreen = true) }
     }
 
