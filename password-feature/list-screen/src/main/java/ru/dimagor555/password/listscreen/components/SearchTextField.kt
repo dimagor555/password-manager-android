@@ -2,13 +2,17 @@ package ru.dimagor555.password.listscreen.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.dimagor555.password.listscreen.R
@@ -20,6 +24,7 @@ internal fun SearchTextField(
     searchText: String,
     onSearchTextChange: (String) -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
     OutlinedTextField(
         modifier = modifier,
         value = searchText,
@@ -29,7 +34,9 @@ internal fun SearchTextField(
         placeholder = { SearchPlaceholder() },
         leadingIcon = { SearchIcon() },
         trailingIcon = { ClearTextIcon(searchText, onSearchTextChange) },
-        colors = searchTextFieldColors()
+        colors = searchTextFieldColors(),
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+        keyboardActions = KeyboardActions(onSearch = { focusManager.clearFocus() })
     )
 }
 

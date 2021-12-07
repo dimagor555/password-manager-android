@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -108,17 +108,17 @@ private fun PasswordInputField(
     onTryFinishEditing: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
     RowWithSmallHeadline(headline = stringResource(R.string.password)) {
         ru.dimagor555.ui.core.components.PasswordInputField(
             value = state.text,
             onValueChange = onPasswordChange,
             isPasswordVisible = state.isVisible,
             onTogglePasswordVisibility = onTogglePasswordVisibility,
-            error = state.error?.getMessage(LocalContext.current),
+            error = state.error?.resolve(LocalContext.current) as? String?,
             modifier = modifier,
             keyboardActions = KeyboardActions(onDone = {
-                keyboardController?.hide()
+                focusManager.clearFocus()
                 onTryFinishEditing()
             })
         )
