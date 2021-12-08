@@ -76,11 +76,11 @@ private fun PasswordInputField(
     sendEvent: (LoginEvent) -> Unit
 ) {
     PasswordInputField(
-        value = state.password,
+        value = state.passwordState.text,
         onValueChange = { sendEvent(LoginEvent.OnPasswordChanged(it)) },
-        isPasswordVisible = state.isPasswordVisible,
+        isPasswordVisible = state.passwordState.isVisible,
         onTogglePasswordVisibility = { sendEvent(LoginEvent.TogglePasswordVisibility) },
-        error = state.error?.resolve(LocalContext.current) as String?,
+        error = state.passwordState.error?.resolve(LocalContext.current) as String?,
         keyboardActions = KeyboardActions(onDone = { sendEvent(LoginEvent.LoginByPassword) })
     )
 }

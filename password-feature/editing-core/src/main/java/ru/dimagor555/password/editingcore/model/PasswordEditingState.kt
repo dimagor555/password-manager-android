@@ -1,5 +1,7 @@
 package ru.dimagor555.password.editingcore.model
 
+import ru.dimagor555.ui.core.model.FieldState
+
 internal data class PasswordEditingState(
     val titleState: FieldState.Text = FieldState.Text(),
     val loginState: FieldState.Text = FieldState.Text(),

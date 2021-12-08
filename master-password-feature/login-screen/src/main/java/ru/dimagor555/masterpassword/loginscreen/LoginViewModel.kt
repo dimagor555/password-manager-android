@@ -11,6 +11,7 @@ import me.aartikov.sesame.localizedstring.LocalizedString
 import ru.dimagor555.masterpassword.loginscreen.model.LoginEvent
 import ru.dimagor555.masterpassword.loginscreen.model.LoginViewState
 import ru.dimagor555.masterpassword.ui.core.model.PasswordErrorIndicatorState
+import ru.dimagor555.ui.core.model.toggleVisibility
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,17 +34,23 @@ internal class LoginViewModel @Inject constructor(
     }
 
     private fun changePassword(password: String) {
-        _state.update { it.copy(password = password) }
+        _state.update {
+            it.copy(
+                passwordState = it.passwordState.copy(text = password)
+            )
+        }
     }
 
     private fun togglePasswordVisibility() {
-        _state.update { it.copy(isPasswordVisible = !it.isPasswordVisible) }
+        _state.update {
+            it.copy(passwordState = it.passwordState.toggleVisibility())
+        }
     }
 
     private fun showError(error: LocalizedString?) {
         _state.update {
             it.copy(
-                error = error,
+                passwordState = it.passwordState.copy(error = error),
                 errorIndicatorState = chooseErrorIndicatorState(error)
             )
         }
@@ -56,7 +63,7 @@ internal class LoginViewModel @Inject constructor(
 
     private fun loginByPassword() {
         sendEvent(LoginEvent.ShowError(null))
-        login { useCases.loginByPassword(_state.value.password) }
+        login { useCases.loginByPassword(_state.value.passwordState.text) }
     }
 
     private fun login(login: suspend () -> Boolean) = viewModelScope.launch {

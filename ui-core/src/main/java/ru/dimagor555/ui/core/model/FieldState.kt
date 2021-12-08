@@ -1,8 +1,8 @@
-package ru.dimagor555.password.editingcore.model
+package ru.dimagor555.ui.core.model
 
 import me.aartikov.sesame.localizedstring.LocalizedString
 
-internal sealed class FieldState {
+sealed class FieldState {
     abstract val text: String
     abstract val error: LocalizedString?
 
@@ -17,3 +17,5 @@ internal sealed class FieldState {
         val isVisible: Boolean = false
     ) : FieldState()
 }
+
+fun FieldState.Password.toggleVisibility() = copy(isVisible = !isVisible)

@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.dimagor555.password.editingcore.R
-import ru.dimagor555.password.editingcore.model.FieldState
+import ru.dimagor555.ui.core.model.FieldState
 import ru.dimagor555.password.editingcore.model.PasswordEditingState
 import ru.dimagor555.password.editingcore.model.toLocalizedString
 import ru.dimagor555.password.ui.core.LargePaddingColumn

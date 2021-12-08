@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.dimagor555.password.editingcore.model.*
 import ru.dimagor555.password.usecase.ValidatePasswordUseCase
+import ru.dimagor555.ui.core.model.FieldState
+import ru.dimagor555.ui.core.model.toggleVisibility
 
 abstract class CommonPasswordEditingViewModel(
     private val useCases: CommonPasswordEditingUseCases
@@ -57,9 +59,7 @@ abstract class CommonPasswordEditingViewModel(
 
     private fun togglePasswordVisibility() {
         _state.update {
-            val currVisible = it.passwordState.isVisible
-            val newPasswordState = it.passwordState.copy(isVisible = !currVisible)
-            it.copy(passwordState = newPasswordState)
+            it.copy(passwordState = it.passwordState.toggleVisibility())
         }
     }
 

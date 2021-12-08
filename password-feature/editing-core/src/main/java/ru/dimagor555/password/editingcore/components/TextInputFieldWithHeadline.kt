@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
-import ru.dimagor555.password.editingcore.model.FieldState
+import ru.dimagor555.ui.core.model.FieldState
 import ru.dimagor555.password.ui.core.RowWithSmallHeadline
 import ru.dimagor555.ui.core.components.SimpleErrorOutlinedTextField
 
