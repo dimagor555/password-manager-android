@@ -8,7 +8,6 @@ internal sealed class PasswordEditingEvent {
     object TogglePasswordVisibility : PasswordEditingEvent()
 
     object TryFinishEditing : PasswordEditingEvent()
-    object FinishEditing: PasswordEditingEvent()
 
     object ExitScreen: PasswordEditingEvent()
 }

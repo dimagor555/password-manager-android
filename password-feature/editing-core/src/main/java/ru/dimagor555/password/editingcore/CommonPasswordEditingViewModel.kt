@@ -28,7 +28,6 @@ abstract class CommonPasswordEditingViewModel(
             is PasswordEditingEvent.OnPasswordChanged -> changePassword(event.password)
             PasswordEditingEvent.TogglePasswordVisibility -> togglePasswordVisibility()
             PasswordEditingEvent.TryFinishEditing -> tryFinishEditing()
-            PasswordEditingEvent.FinishEditing -> finishEditing()
             PasswordEditingEvent.ExitScreen -> onExitScreen()
         }
     }
@@ -70,7 +69,7 @@ abstract class CommonPasswordEditingViewModel(
         if (hasValidationErrors(validationResult))
             showAllValidationErrors(validationResult)
         else
-            onFinishEditing(passwordDto)
+            finishEditing(passwordDto)
     }
 
     protected fun getCurrPasswordDto() = _state.value.toPasswordEditingDto()
@@ -100,25 +99,21 @@ abstract class CommonPasswordEditingViewModel(
         }
     }
 
-    private suspend fun onFinishEditing(passwordDto: PasswordEditingDto) {
-        if (_state.value.isEditingFinished)
+    private suspend fun finishEditing(passwordDto: PasswordEditingDto) {
+        if (_state.value.isSavingStarted)
             return
-        sendEvent(PasswordEditingEvent.FinishEditing)
+        _state.update { it.copy(isSavingStarted = true) }
         onSaveEditedPassword(passwordDto)
-        sendEvent(PasswordEditingEvent.ExitScreen)
+        sendExitScreenEvent()
     }
 
     protected abstract suspend fun onSaveEditedPassword(passwordDto: PasswordEditingDto)
 
-    private fun finishEditing() {
-        _state.update { it.copy(isEditingFinished = true) }
+    protected fun sendExitScreenEvent() {
+        sendEvent(PasswordEditingEvent.ExitScreen)
     }
 
     private fun onExitScreen() {
         _state.update { it.copy(isExitFromScreen = true) }
-    }
-
-    protected fun sendExitScreenEvent() {
-        sendEvent(PasswordEditingEvent.ExitScreen)
     }
 }
