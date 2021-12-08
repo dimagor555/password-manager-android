@@ -17,14 +17,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.dimagor555.password.editingcore.R
-import ru.dimagor555.ui.core.model.FieldState
 import ru.dimagor555.password.editingcore.model.PasswordEditingState
-import ru.dimagor555.password.editingcore.model.toLocalizedString
 import ru.dimagor555.password.ui.core.LargePaddingColumn
 import ru.dimagor555.password.ui.core.RowWithSmallHeadline
 import ru.dimagor555.password.validation.TextValidationError
+import ru.dimagor555.password.validation.ui.toLocalizedString
 import ru.dimagor555.ui.core.components.SimpleButton
 import ru.dimagor555.ui.core.components.bringIntoViewOnFocus
+import ru.dimagor555.ui.core.model.FieldState
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class)

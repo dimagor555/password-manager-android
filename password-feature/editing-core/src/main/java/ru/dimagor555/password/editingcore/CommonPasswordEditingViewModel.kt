@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.dimagor555.password.editingcore.model.*
 import ru.dimagor555.password.usecase.ValidatePasswordUseCase
+import ru.dimagor555.password.validation.ui.toLocalizedString
 import ru.dimagor555.ui.core.model.FieldState
 import ru.dimagor555.ui.core.model.toggleVisibility
 

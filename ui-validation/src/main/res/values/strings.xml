@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_is_blank">Should not be blank</string>
+    <plurals name="error_is_too_long">
+        <item quantity="one">Max length is %d character</item>
+        <item quantity="other">Max length is %d characters</item>
+    </plurals>
+    <plurals name="error_is_too_short">
+        <item quantity="one">Min length is %d character</item>
+        <item quantity="other">Min length is %d characters</item>
+    </plurals>
+    <string name="error_not_contain_digits">Add digits</string>
+    <string name="error_not_contain_lowercase_letters">Add lowercase letters</string>
+    <string name="error_not_contain_uppercase_letters">Add uppercase letters</string>
+    <string name="error_not_contain_special_symbols">Add special symbols</string>
+</resources>
