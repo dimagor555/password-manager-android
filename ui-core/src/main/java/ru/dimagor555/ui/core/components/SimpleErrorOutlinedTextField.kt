@@ -1,18 +1,20 @@
 package ru.dimagor555.ui.core.components
 
+import androidx.compose.animation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Error
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun SimpleErrorOutlinedTextField(
     value: String,
@@ -36,7 +38,7 @@ fun SimpleErrorOutlinedTextField(
             trailingIcon = {
                 when {
                     trailingIcon != null -> trailingIcon()
-                    isError -> ErrorIcon()
+                    else -> AnimatedErrorIcon(isVisible = isError)
                 }
             },
             textStyle = textStyle,
@@ -46,29 +48,67 @@ fun SimpleErrorOutlinedTextField(
             singleLine = singleLine
         )
         Spacer(modifier = Modifier.height(2.dp))
-        ErrorMessage(error ?: "")
+        ErrorMessageBox {
+            AnimatedErrorText(error)
+        }
+    }
+}
+
+@ExperimentalAnimationApi
+@Composable
+private fun AnimatedErrorIcon(isVisible: Boolean) {
+    AnimatedVisibility(
+        visible = isVisible,
+        enter = scaleIn(),
+        exit = scaleOut()
+    ) {
+        Icon(
+            imageVector = Icons.Default.Error,
+            contentDescription = null,
+            tint = MaterialTheme.colors.error
+        )
     }
 }
 
 @Composable
-private fun ErrorIcon() {
-    Icon(imageVector = Icons.Default.Error, contentDescription = null)
-}
-
-@Composable
-private fun ErrorMessage(error: String) {
+private fun ErrorMessageBox(errorMessage: @Composable BoxScope.() -> Unit) {
     Box(
         modifier = Modifier
             .requiredHeight(16.dp)
             .padding(start = 16.dp, end = 12.dp),
-        contentAlignment = Alignment.BottomCenter
+        contentAlignment = Alignment.BottomCenter,
+        content = errorMessage
+    )
+}
+
+@Composable
+private fun AnimatedErrorText(text: String?) {
+    val isVisible = text != null
+    val errorText = rememberLastNotNullText(text)
+    AnimatedVisibility(
+        visible = isVisible,
+        enter = fadeIn() + slideInVertically(),
+        exit = slideOutVertically() + fadeOut()
     ) {
-        ProvideMediumAlpha {
-            Text(
-                text = error,
-                style = MaterialTheme.typography.caption,
-                color = MaterialTheme.colors.error
-            )
-        }
+        ErrorText(errorText)
+    }
+}
+
+@Composable
+private fun rememberLastNotNullText(text: String?): String {
+    var rememberedText by remember { mutableStateOf("") }
+    if (text != null)
+        rememberedText = text
+    return rememberedText
+}
+
+@Composable
+private fun ErrorText(text: String) {
+    ProvideMediumAlpha {
+        Text(
+            text = text,
+            style = MaterialTheme.typography.caption,
+            color = MaterialTheme.colors.error
+        )
     }
 }
