@@ -9,8 +9,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import me.aartikov.sesame.localizedstring.LocalizedString
 import ru.dimagor555.masterpassword.loginscreen.model.LoginEvent
-import ru.dimagor555.masterpassword.loginscreen.model.LoginViewState
-import ru.dimagor555.masterpassword.ui.core.model.PasswordErrorIndicatorState
+import ru.dimagor555.masterpassword.loginscreen.model.LoginState
 import ru.dimagor555.ui.core.model.toggleVisibility
 import javax.inject.Inject
 
@@ -18,7 +17,7 @@ import javax.inject.Inject
 internal class LoginViewModel @Inject constructor(
     private val useCases: LoginUseCases
 ) : ViewModel() {
-    private val _state = MutableStateFlow(LoginViewState())
+    private val _state = MutableStateFlow(LoginState())
     val state = _state.asStateFlow()
 
     fun sendEvent(event: LoginEvent) {
@@ -50,15 +49,9 @@ internal class LoginViewModel @Inject constructor(
     private fun showError(error: LocalizedString?) {
         _state.update {
             it.copy(
-                passwordState = it.passwordState.copy(error = error),
-                errorIndicatorState = chooseErrorIndicatorState(error)
+                passwordState = it.passwordState.copy(error = error)
             )
         }
-    }
-
-    private fun chooseErrorIndicatorState(error: LocalizedString?) = when (error) {
-        null -> PasswordErrorIndicatorState.NoError
-        else -> PasswordErrorIndicatorState.Error
     }
 
     private fun loginByPassword() {

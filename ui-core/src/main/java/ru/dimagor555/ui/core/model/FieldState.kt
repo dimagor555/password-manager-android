@@ -18,4 +18,7 @@ sealed class FieldState {
     ) : FieldState()
 }
 
+val FieldState.isError
+    get() = error != null
+
 fun FieldState.Password.toggleVisibility() = copy(isVisible = !isVisible)

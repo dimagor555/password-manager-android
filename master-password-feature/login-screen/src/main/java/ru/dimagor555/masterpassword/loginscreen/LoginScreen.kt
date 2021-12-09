@@ -22,10 +22,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ru.dimagor555.masterpassword.loginscreen.biometric.BiometricLoginDialog
 import ru.dimagor555.masterpassword.loginscreen.biometric.OnCanUseBiometricLogin
 import ru.dimagor555.masterpassword.loginscreen.model.LoginEvent
-import ru.dimagor555.masterpassword.loginscreen.model.LoginViewState
+import ru.dimagor555.masterpassword.loginscreen.model.LoginState
 import ru.dimagor555.masterpassword.ui.core.PasswordErrorIndicator
 import ru.dimagor555.ui.core.components.PasswordInputField
 import ru.dimagor555.ui.core.components.SimpleButton
+import ru.dimagor555.ui.core.model.isError
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @Composable
@@ -45,9 +46,23 @@ fun LoginScreen(onSuccessfulLogin: () -> Unit) {
 
 @Composable
 private fun LoginScreenContent(
-    state: LoginViewState,
+    state: LoginState,
     sendEvent: (LoginEvent) -> Unit
 ) {
+    LoginScreenColumn {
+        PasswordErrorIndicator(isError = state.passwordState.isError)
+        Spacer(modifier = Modifier.height(16.dp))
+        PasswordInputField(state = state, sendEvent = sendEvent)
+        LoginButton(onLoginByPassword = { sendEvent(LoginEvent.LoginByPassword) })
+        if (state.isBiometricLoginButtonVisible)
+            BiometricLoginButton(
+                onSuccessfulLogin = { sendEvent(LoginEvent.ExitLoginScreenWithSuccess) }
+            )
+    }
+}
+
+@Composable
+private fun LoginScreenColumn(content: @Composable ColumnScope.() -> Unit) {
     Surface {
         Column(
             modifier = Modifier
@@ -56,23 +71,15 @@ private fun LoginScreenContent(
                 .padding(horizontal = 12.dp)
                 .padding(top = 48.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            PasswordErrorIndicator(state = state.errorIndicatorState)
-            Spacer(modifier = Modifier.height(16.dp))
-            PasswordInputField(state = state, sendEvent = sendEvent)
-            LoginButton(onLoginByPassword = { sendEvent(LoginEvent.LoginByPassword) })
-            if (state.isBiometricLoginButtonVisible)
-                BiometricLoginButton(
-                    onSuccessfulLogin = { sendEvent(LoginEvent.ExitLoginScreenWithSuccess) }
-                )
-        }
+            horizontalAlignment = Alignment.CenterHorizontally,
+            content = content
+        )
     }
 }
 
 @Composable
 private fun PasswordInputField(
-    state: LoginViewState,
+    state: LoginState,
     sendEvent: (LoginEvent) -> Unit
 ) {
     PasswordInputField(
@@ -114,7 +121,7 @@ private fun BiometricLoginButton(onSuccessfulLogin: () -> Unit) {
 private fun LoginScreenPreview() {
     PasswordManagerTheme {
         LoginScreenContent(
-            state = LoginViewState(isBiometricLoginButtonVisible = true),
+            state = LoginState(isBiometricLoginButtonVisible = true),
             sendEvent = {}
         )
     }

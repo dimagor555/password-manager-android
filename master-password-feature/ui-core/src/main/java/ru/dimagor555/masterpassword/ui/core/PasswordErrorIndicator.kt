@@ -13,18 +13,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.dimagor555.masterpassword.ui.core.model.PasswordErrorIndicatorColors
-import ru.dimagor555.masterpassword.ui.core.model.PasswordErrorIndicatorState
 import ru.dimagor555.masterpassword.ui.core.model.ThemePasswordErrorIndicatorColors
 import ru.dimagor555.ui.core.icons.Lock
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @Composable
 fun PasswordErrorIndicator(
-    state: PasswordErrorIndicatorState,
+    isError: Boolean,
     modifier: Modifier = Modifier
 ) {
+    val colors = PasswordErrorIndicatorColors.chooseColors(
+        isError = isError,
+        isLightTheme = MaterialTheme.colors.isLight
+    )
     PasswordErrorIndicator(
-        colors = state.getColors(MaterialTheme.colors.isLight),
+        colors = colors,
         modifier = modifier
     )
 }
