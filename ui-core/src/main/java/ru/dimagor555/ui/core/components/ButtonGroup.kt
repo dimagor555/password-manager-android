@@ -31,7 +31,10 @@ fun <T> ButtonGroup(
         values.forEachIndexed { index, value ->
             val isSelected = value == selectedValue
             OutlinedButton(
-                onClick = { onValueChange(value) },
+                onClick = {
+                    if (!isSelected)
+                        onValueChange(value)
+                },
                 modifier = Modifier
                     .weight(1f)
                     .offsetByIndex(index)
