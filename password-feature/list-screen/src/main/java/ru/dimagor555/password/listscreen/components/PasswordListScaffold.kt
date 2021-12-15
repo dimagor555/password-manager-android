@@ -12,7 +12,8 @@ import ru.dimagor555.password.domain.filter.PasswordFilterState
 import ru.dimagor555.password.listscreen.R
 import ru.dimagor555.password.listscreen.model.PasswordListEvent
 import ru.dimagor555.password.listscreen.model.PasswordListEvent.*
-import ru.dimagor555.ui.core.component.SingleSnackbarSimpleScaffold
+import ru.dimagor555.ui.core.component.SingleSnackbarScaffold
+import ru.dimagor555.ui.core.util.SnackbarMessage
 
 @Composable
 internal fun PasswordListScaffold(
@@ -20,10 +21,10 @@ internal fun PasswordListScaffold(
     sendEvent: (PasswordListEvent) -> Unit,
     navigateToPasswordCreationScreen: () -> Unit,
     navigateToSettingsScreen: () -> Unit,
-    content: @Composable (onShowSnackBar: (String, String?) -> Unit) -> Unit
+    content: @Composable (onShowSnackbar: (String, String?) -> Unit) -> Unit
 ) {
-    SingleSnackbarSimpleScaffold(
-        topAppBar = {
+    SingleSnackbarScaffold(
+        topBar = {
             PasswordListTopAppBar(
                 searchText = filterState.searchText,
                 onSearchTextChange = { sendEvent(SearchTextChanged(it)) },
@@ -45,6 +46,10 @@ internal fun PasswordListScaffold(
         },
         floatingActionButtonPosition = FabPosition.Center
     ) { _, onShowSnackbar ->
-        content(onShowSnackbar)
+        content(
+            onShowSnackbar = { message, actionLabel ->
+                onShowSnackbar(SnackbarMessage(message, actionLabel))
+            }
+        )
     }
 }

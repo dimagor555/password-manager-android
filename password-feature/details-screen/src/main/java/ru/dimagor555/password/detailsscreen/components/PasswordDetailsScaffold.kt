@@ -6,7 +6,8 @@ import ru.dimagor555.password.detailsscreen.model.PasswordDetailsEvent
 import ru.dimagor555.password.detailsscreen.model.PasswordDetailsEvent.ToggleFavourite
 import ru.dimagor555.password.detailsscreen.model.PasswordDetailsEvent.UpdateRemoveDialogVisibility
 import ru.dimagor555.password.detailsscreen.model.PasswordViewState
-import ru.dimagor555.ui.core.component.SingleSnackbarSimpleScaffold
+import ru.dimagor555.ui.core.component.SingleSnackbarScaffold
+import ru.dimagor555.ui.core.util.SnackbarMessage
 
 @Composable
 internal fun PasswordDetailsScaffold(
@@ -14,10 +15,10 @@ internal fun PasswordDetailsScaffold(
     sendEvent: (PasswordDetailsEvent) -> Unit,
     onNavigateBack: () -> Unit,
     navigateToPasswordEditingScreen: () -> Unit,
-    content: @Composable (onShowSnackBar: (String, String?) -> Unit) -> Unit
+    content: @Composable (onShowSnackbar: (String, String?) -> Unit) -> Unit
 ) {
-    SingleSnackbarSimpleScaffold(
-        topAppBar = {
+    SingleSnackbarScaffold(
+        topBar = {
             PasswordDetailsTopAppBar(
                 title = passwordState.title,
                 onRemovePasswordClicked = {
@@ -34,6 +35,10 @@ internal fun PasswordDetailsScaffold(
             )
         }
     ) { _, onShowSnackbar ->
-        content(onShowSnackbar)
+        content(
+            onShowSnackbar = { message, actionLabel ->
+                onShowSnackbar(SnackbarMessage(message, actionLabel))
+            }
+        )
     }
 }
