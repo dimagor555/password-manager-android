@@ -13,9 +13,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.dimagor555.password.domain.filter.PasswordSortingType
 import ru.dimagor555.password.listscreen.R
-import ru.dimagor555.ui.core.components.DefaultDialog
-import ru.dimagor555.ui.core.components.RadioTextOptionGroup
-import ru.dimagor555.ui.core.components.SingleLineText
+import ru.dimagor555.ui.core.component.DefaultDialog
+import ru.dimagor555.ui.core.component.button.RadioTextOptionGroup
+import ru.dimagor555.ui.core.component.SingleLineText
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @Composable

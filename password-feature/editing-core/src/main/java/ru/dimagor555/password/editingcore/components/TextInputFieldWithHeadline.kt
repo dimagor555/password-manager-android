@@ -7,7 +7,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import ru.dimagor555.ui.core.model.FieldState
 import ru.dimagor555.password.ui.core.RowWithSmallHeadline
-import ru.dimagor555.ui.core.components.SimpleErrorOutlinedTextField
+import ru.dimagor555.ui.core.component.textfield.SimpleErrorOutlinedTextField
 
 @Composable
 internal fun TextInputFieldWithHeadline(

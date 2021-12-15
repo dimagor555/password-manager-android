@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.dimagor555.password.ui.core.RowWithSmallHeadline
-import ru.dimagor555.ui.core.components.SimpleIconButton
+import ru.dimagor555.ui.core.component.button.SimpleIconButton
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @Composable

@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ru.dimagor555.password.editingscreen.R
-import ru.dimagor555.ui.core.components.SimpleTextButton
+import ru.dimagor555.ui.core.component.button.SimpleTextButton
 
 @Composable
 internal fun SaveChangesDialog(

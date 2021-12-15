@@ -5,7 +5,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import ru.dimagor555.password.detailsscreen.R
-import ru.dimagor555.ui.core.components.SimpleTextButton
+import ru.dimagor555.ui.core.component.button.SimpleTextButton
 
 @Composable
 internal fun RemovePasswordDialog(

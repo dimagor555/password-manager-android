@@ -22,8 +22,8 @@ import ru.dimagor555.password.ui.core.LargePaddingColumn
 import ru.dimagor555.password.ui.core.RowWithSmallHeadline
 import ru.dimagor555.password.validation.TextValidationError
 import ru.dimagor555.password.validation.ui.toLocalizedString
-import ru.dimagor555.ui.core.components.SimpleButton
-import ru.dimagor555.ui.core.components.bringIntoViewOnFocus
+import ru.dimagor555.ui.core.component.button.SimpleButton
+import ru.dimagor555.ui.core.util.bringIntoViewOnFocus
 import ru.dimagor555.ui.core.model.FieldState
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
@@ -110,7 +110,7 @@ private fun PasswordInputField(
 ) {
     val focusManager = LocalFocusManager.current
     RowWithSmallHeadline(headline = stringResource(R.string.password)) {
-        ru.dimagor555.ui.core.components.PasswordInputField(
+        ru.dimagor555.ui.core.component.textfield.PasswordInputField(
             value = state.text,
             onValueChange = onPasswordChange,
             isPasswordVisible = state.isVisible,

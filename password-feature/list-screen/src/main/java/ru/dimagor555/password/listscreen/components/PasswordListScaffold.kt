@@ -12,7 +12,7 @@ import ru.dimagor555.password.domain.filter.PasswordFilterState
 import ru.dimagor555.password.listscreen.R
 import ru.dimagor555.password.listscreen.model.PasswordListEvent
 import ru.dimagor555.password.listscreen.model.PasswordListEvent.*
-import ru.dimagor555.ui.core.components.SingleSnackbarSimpleScaffold
+import ru.dimagor555.ui.core.component.SingleSnackbarSimpleScaffold
 
 @Composable
 internal fun PasswordListScaffold(

@@ -3,7 +3,7 @@ package ru.dimagor555.password.detailsscreen.components
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import ru.dimagor555.password.detailsscreen.R
-import ru.dimagor555.ui.core.components.SimpleButton
+import ru.dimagor555.ui.core.component.button.SimpleButton
 
 @Composable
 internal fun TogglePasswordVisibilityButton(

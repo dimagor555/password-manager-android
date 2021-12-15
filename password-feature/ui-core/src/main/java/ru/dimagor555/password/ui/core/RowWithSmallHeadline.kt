@@ -7,7 +7,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import ru.dimagor555.ui.core.components.ProvideMediumAlpha
+import ru.dimagor555.ui.core.util.ProvideMediumAlpha
 
 @Composable
 fun RowWithSmallHeadline(

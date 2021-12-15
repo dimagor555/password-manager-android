@@ -17,9 +17,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.dimagor555.password.listscreen.R
 import ru.dimagor555.password.listscreen.model.PasswordViewState
-import ru.dimagor555.ui.core.components.ProvideMediumAlpha
-import ru.dimagor555.ui.core.components.SimpleIconButton
-import ru.dimagor555.ui.core.components.SingleLineText
+import ru.dimagor555.ui.core.util.ProvideMediumAlpha
+import ru.dimagor555.ui.core.component.button.SimpleIconButton
+import ru.dimagor555.ui.core.component.SingleLineText
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @Composable

@@ -14,8 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ru.dimagor555.ui.core.components.ProvideMediumAlpha
-import ru.dimagor555.ui.core.icons.Lock
+import ru.dimagor555.ui.core.util.ProvideMediumAlpha
+import ru.dimagor555.ui.core.icon.Lock
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @Composable

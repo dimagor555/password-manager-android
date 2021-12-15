@@ -6,7 +6,7 @@ import ru.dimagor555.password.detailsscreen.model.PasswordDetailsEvent
 import ru.dimagor555.password.detailsscreen.model.PasswordDetailsEvent.ToggleFavourite
 import ru.dimagor555.password.detailsscreen.model.PasswordDetailsEvent.UpdateRemoveDialogVisibility
 import ru.dimagor555.password.detailsscreen.model.PasswordViewState
-import ru.dimagor555.ui.core.components.SingleSnackbarSimpleScaffold
+import ru.dimagor555.ui.core.component.SingleSnackbarSimpleScaffold
 
 @Composable
 internal fun PasswordDetailsScaffold(

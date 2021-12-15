@@ -9,7 +9,7 @@ import ru.dimagor555.password.listscreen.R
 import ru.dimagor555.password.listscreen.model.PasswordListEvent
 import ru.dimagor555.password.listscreen.model.PasswordListViewState
 import ru.dimagor555.password.listscreen.model.PasswordViewState
-import ru.dimagor555.ui.core.components.FullscreenCircularProgressBar
+import ru.dimagor555.ui.core.component.FullscreenCircularProgressBar
 
 @Composable
 internal fun PasswordListScreenContent(

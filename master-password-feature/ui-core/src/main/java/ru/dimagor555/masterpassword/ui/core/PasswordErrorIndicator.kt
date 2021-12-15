@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.dimagor555.masterpassword.ui.core.model.PasswordErrorIndicatorColors
 import ru.dimagor555.masterpassword.ui.core.model.ThemePasswordErrorIndicatorColors
-import ru.dimagor555.ui.core.icons.Lock
+import ru.dimagor555.ui.core.icon.Lock
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @Composable

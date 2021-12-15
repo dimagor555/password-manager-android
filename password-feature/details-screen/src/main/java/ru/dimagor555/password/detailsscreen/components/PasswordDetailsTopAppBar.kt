@@ -8,7 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import ru.dimagor555.password.detailsscreen.R
-import ru.dimagor555.ui.core.components.*
+import ru.dimagor555.ui.core.component.*
+import ru.dimagor555.ui.core.component.button.SimpleIconButton
+import ru.dimagor555.ui.core.component.topappbar.DefaultTopAppBarDropdownMenu
+import ru.dimagor555.ui.core.component.topappbar.SimpleBackArrowTopAppBar
+import ru.dimagor555.ui.core.component.topappbar.SimpleDropdownMenuItem
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @Composable

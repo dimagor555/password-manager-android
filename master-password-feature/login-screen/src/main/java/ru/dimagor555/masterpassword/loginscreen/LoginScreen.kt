@@ -24,8 +24,8 @@ import ru.dimagor555.masterpassword.loginscreen.biometric.OnCanUseBiometricLogin
 import ru.dimagor555.masterpassword.loginscreen.model.LoginEvent
 import ru.dimagor555.masterpassword.loginscreen.model.LoginState
 import ru.dimagor555.masterpassword.ui.core.PasswordErrorIndicator
-import ru.dimagor555.ui.core.components.PasswordInputField
-import ru.dimagor555.ui.core.components.SimpleButton
+import ru.dimagor555.ui.core.component.textfield.PasswordInputField
+import ru.dimagor555.ui.core.component.button.SimpleButton
 import ru.dimagor555.ui.core.model.isError
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
