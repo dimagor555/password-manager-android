@@ -12,14 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationEvent
-import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationViewState
+import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationStore.Action
+import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationStore.State
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @Composable
 internal fun PasswordGenerationScreenContent(
-    state: PasswordGenerationViewState,
-    sendEvent: (PasswordGenerationEvent) -> Unit
+    state: State,
+    sendAction: (Action) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -29,11 +29,11 @@ internal fun PasswordGenerationScreenContent(
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        GeneratedPasswordText(text = state.generatedPassword)
+        GeneratedPasswordText(text = state.password)
         PasswordGenerationSettings(
             state = state,
-            onChangeLength = { sendEvent(PasswordGenerationEvent.OnLengthChanged(it)) },
-            onToggleCharGroup = { sendEvent(PasswordGenerationEvent.OnToggleCharGroup(it)) }
+            onChangeLength = { sendAction(Action.ChooseLength(it)) },
+            onToggleCharGroup = { sendAction(Action.ToggleCharGroup(it)) }
         )
     }
 }
@@ -46,8 +46,8 @@ private fun PasswordGenerationScreenContentPreview() {
     PasswordManagerTheme {
         Surface {
             PasswordGenerationScreenContent(
-                state = PasswordGenerationViewState(),
-                sendEvent = {}
+                state = State(),
+                sendAction = {}
             )
         }
     }

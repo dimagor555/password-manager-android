@@ -13,6 +13,4 @@ class CharGroupsSelection(
         else
             selectedCharGroups += charGroup
     }
-
-    fun hasSelectedGroups() = selectedCharGroups.isNotEmpty()
 }

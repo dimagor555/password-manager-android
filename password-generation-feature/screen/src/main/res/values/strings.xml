@@ -6,4 +6,5 @@
     <string name="char_group_name_uppercase">Uppercase letters\n(A-Z)</string>
     <string name="char_group_name_special">Special characters\n(!@#$%^*-_.)</string>
     <string name="length">Length</string>
+    <string name="can_not_generate_error">Password could not be generated. Make sure to select at least 1 option</string>
 </resources>

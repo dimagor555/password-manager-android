@@ -6,4 +6,5 @@
     <string name="char_group_name_uppercase">Заглавные буквы\n(A-Z)</string>
     <string name="char_group_name_special">Специальные символы\n(!@#$%^*-_.)</string>
     <string name="length">Длина</string>
+    <string name="can_not_generate_error">Невозможно сгенерировать пароль. Проверьте, что вы выбрали хотя бы 1 опцию</string>
 </resources>

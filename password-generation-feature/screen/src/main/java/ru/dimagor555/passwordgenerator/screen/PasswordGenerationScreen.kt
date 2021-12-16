@@ -6,24 +6,26 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import ru.dimagor555.passwordgenerator.screen.components.PasswordGenerationScaffold
-import ru.dimagor555.passwordgenerator.screen.components.PasswordGenerationScreenContent
-import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationViewState
+import ru.dimagor555.passwordgenerator.screen.component.PasswordGenerationScaffold
+import ru.dimagor555.passwordgenerator.screen.component.PasswordGenerationScreenContent
+import ru.dimagor555.passwordgenerator.screen.component.SideEffectHandler
+import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationStore.State
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @Composable
 fun PasswordGenerationScreen(
-    onNavigateBack: (String?) -> Unit
+    onNavigateBack: (generatedPassword: String?) -> Unit
 ) {
     val viewModel: PasswordGenerationViewModel = hiltViewModel()
     val state by viewModel.state.collectAsState()
 
     PasswordGenerationScaffold(
         state = state,
-        sendEvent = viewModel::sendEvent,
+        sendAction = viewModel::sendAction,
         onNavigateBack = onNavigateBack
-    ) {
-        PasswordGenerationScreenContent(state = state, sendEvent = viewModel::sendEvent)
+    ) { onShowSnackbar ->
+        PasswordGenerationScreenContent(state = state, sendAction = viewModel::sendAction)
+        SideEffectHandler(viewModel = viewModel, onShowSnackbar = onShowSnackbar)
     }
 }
 
@@ -34,11 +36,9 @@ fun PasswordGenerationScreen(
 private fun PasswordGenerationScreenPreview() {
     PasswordManagerTheme {
         PasswordGenerationScaffold(
-            state = PasswordGenerationViewState(),
-            sendEvent = {},
+            state = State(),
+            sendAction = {},
             onNavigateBack = {}
-        ) {
-
-        }
+        ) {}
     }
 }

@@ -4,5 +4,6 @@ plugins {
 
 dependencies {
     implementation(projects.passwordGenerationFeature.domain)
+    implementation(projects.mvi.android)
     implementation(projects.uiCore)
 }

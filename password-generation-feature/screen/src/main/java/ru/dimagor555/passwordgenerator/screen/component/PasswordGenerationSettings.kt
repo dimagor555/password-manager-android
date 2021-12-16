@@ -15,13 +15,13 @@ import androidx.compose.ui.unit.dp
 import ru.dimagor555.passwordgeneration.domain.PasswordCharGroup
 import ru.dimagor555.passwordgeneration.domain.PasswordLength
 import ru.dimagor555.passwordgenerator.screen.R
-import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationViewState
+import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationStore.State
 import ru.dimagor555.ui.core.component.button.ButtonGroup
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @Composable
 internal fun PasswordGenerationSettings(
-    state: PasswordGenerationViewState,
+    state: State,
     onChangeLength: (PasswordLength) -> Unit,
     onToggleCharGroup: (PasswordCharGroup) -> Unit
 ) {
@@ -96,7 +96,7 @@ private fun PasswordGenerationSettingsPreview() {
         androidx.compose.material.Surface {
             Column {
                 PasswordGenerationSettings(
-                    state = PasswordGenerationViewState(),
+                    state = State(),
                     onChangeLength = {}
                 ) {}
             }
