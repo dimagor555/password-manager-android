@@ -11,5 +11,9 @@ data class SnackbarMessage(
 
 suspend fun SnackbarHostState.showSingleSnackbar(snackbarMessage: SnackbarMessage) {
     currentSnackbarData?.dismiss()
+    showSnackbar(snackbarMessage)
+}
+
+suspend fun SnackbarHostState.showSnackbar(snackbarMessage: SnackbarMessage) {
     snackbarMessage.run { showSnackbar(message, actionLabel, duration) }
 }
