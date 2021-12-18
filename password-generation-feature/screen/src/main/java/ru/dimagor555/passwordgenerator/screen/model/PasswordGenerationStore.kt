@@ -1,9 +1,9 @@
 package ru.dimagor555.passwordgenerator.screen.model
 
 import me.aartikov.sesame.localizedstring.LocalizedString
-import ru.dimagor555.core.mvi.abstraction.Store
-import ru.dimagor555.core.mvi.implementation.SimpleActionBootstrapper
-import ru.dimagor555.core.mvi.implementation.StoreImpl
+import ru.dimagor555.mvicompose.abstraction.Store
+import ru.dimagor555.mvicompose.implementation.SimpleActionBootstrapper
+import ru.dimagor555.mvicompose.implementation.StoreImpl
 import ru.dimagor555.passwordgeneration.domain.PasswordCharGroup
 import ru.dimagor555.passwordgeneration.domain.PasswordLength
 import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationStore.*

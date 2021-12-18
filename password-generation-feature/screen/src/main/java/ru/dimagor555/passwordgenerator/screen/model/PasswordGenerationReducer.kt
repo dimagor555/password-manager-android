@@ -1,6 +1,6 @@
 package ru.dimagor555.passwordgenerator.screen.model
 
-import ru.dimagor555.core.mvi.abstraction.Reducer
+import ru.dimagor555.mvicompose.abstraction.Reducer
 import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationStore.Message
 import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationStore.State
 

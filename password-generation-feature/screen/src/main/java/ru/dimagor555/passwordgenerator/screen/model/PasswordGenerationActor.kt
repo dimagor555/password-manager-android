@@ -1,7 +1,7 @@
 package ru.dimagor555.passwordgenerator.screen.model
 
 import me.aartikov.sesame.localizedstring.LocalizedString
-import ru.dimagor555.core.mvi.abstraction.Actor
+import ru.dimagor555.mvicompose.abstraction.Actor
 import ru.dimagor555.passwordgeneration.domain.PasswordCharGroup
 import ru.dimagor555.passwordgeneration.domain.PasswordGenerationParams
 import ru.dimagor555.passwordgeneration.domain.PasswordLength
