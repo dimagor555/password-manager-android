@@ -1,6 +1,3 @@
 plugins {
-    id(Conventions.kotlinLibrary)
-}
-
-dependencies {
+    `kotlin-library`
 }

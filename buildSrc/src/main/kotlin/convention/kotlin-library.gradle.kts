@@ -1,4 +1,4 @@
-package scripts
+package convention
 
 plugins {
     `java-library`

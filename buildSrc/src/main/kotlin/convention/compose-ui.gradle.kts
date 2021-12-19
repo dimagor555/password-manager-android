@@ -1,10 +1,6 @@
-package scripts
+package convention
 
-plugins {
-    id("scripts.android-library")
-}
-
-android {
+androidCommon {
     buildFeatures {
         compose = true
     }
@@ -14,13 +10,9 @@ android {
 }
 
 dependencies {
-    implementation(Libs.AndroidX.lifecycleVmKtx)
-
     implementation(Libs.Compose.activity)
     implementation(Libs.Compose.ui)
-    implementation(Libs.Compose.material)
     implementation(Libs.Compose.tooling)
-
-    implementation(Libs.Navigation.compose)
-    implementation(Libs.Navigation.hiltCompose)
+    implementation(Libs.Compose.material)
+    implementation(Libs.Compose.iconsExtended)
 }

@@ -1,10 +1,8 @@
 plugins {
-    id(Conventions.uiAndroidLibrary)
+    `compose-screen`
 }
 
 dependencies {
     implementation(projects.passwordGenerationFeature.domain)
     implementation(projects.uiCore)
-    implementation(Libs.MviCompose.core)
-    implementation(Libs.MviCompose.android)
 }

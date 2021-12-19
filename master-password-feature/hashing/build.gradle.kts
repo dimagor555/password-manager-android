@@ -1,5 +1,5 @@
 plugins {
-    id(Conventions.androidLibrary)
+    `android-library`
 }
 
 dependencies {

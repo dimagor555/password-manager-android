@@ -1,9 +1,7 @@
 plugins {
-    id(Conventions.uiAndroidLibrary)
+    `compose-ui-library`
 }
 
 dependencies {
-    api(Libs.Compose.iconsExtended)
-
     api(Libs.localizedString)
 }

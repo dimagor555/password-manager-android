@@ -1,32 +1,30 @@
-package scripts
+package convention
+
+import Android
+import Libs
 
 plugins {
-    id("com.android.library")
     kotlin("android")
     kotlin("kapt")
 }
 
-android {
+androidCommon {
     compileSdk = Android.compileSdk
 
     defaultConfig {
         minSdk = Android.minSdk
-        targetSdk = Android.targetSdk
         version = Android.versionCode
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
-            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
     }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8

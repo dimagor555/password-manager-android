@@ -1,5 +1,5 @@
 plugins {
-    id(Conventions.uiAndroidLibrary)
+    `compose-ui-library`
 }
 
 
