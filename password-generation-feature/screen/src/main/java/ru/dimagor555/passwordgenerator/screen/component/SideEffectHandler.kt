@@ -5,7 +5,7 @@ import androidx.compose.material.SnackbarDuration
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import me.aartikov.sesame.localizedstring.LocalizedString
-import ru.dimagor555.android.OnSideEffect
+import ru.dimagor555.mvicompose.android.OnSideEffect
 import ru.dimagor555.passwordgenerator.screen.PasswordGenerationViewModel
 import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationStore
 import ru.dimagor555.ui.core.util.SnackbarMessage
