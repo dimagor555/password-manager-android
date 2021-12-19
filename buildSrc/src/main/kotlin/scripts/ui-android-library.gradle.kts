@@ -9,19 +9,18 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Compose.composeVersion
+        kotlinCompilerExtensionVersion = Versions.compose
     }
 }
 
 dependencies {
-    implementation(AndroidX.lifecycleVmKtx)
+    implementation(Libs.AndroidX.lifecycleVmKtx)
 
-    implementation(Compose.activity)
-    implementation(Compose.ui)
-    implementation(Compose.material)
-    implementation(Compose.tooling)
-    implementation(Compose.navigation)
-    implementation(Compose.hiltNavigation)
+    implementation(Libs.Compose.activity)
+    implementation(Libs.Compose.ui)
+    implementation(Libs.Compose.material)
+    implementation(Libs.Compose.tooling)
 
-    implementation(Google.material)
+    implementation(Libs.Navigation.compose)
+    implementation(Libs.Navigation.hiltCompose)
 }

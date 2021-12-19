@@ -42,9 +42,9 @@ android {
 }
 
 dependencies {
-    implementation(AndroidX.coreKtx)
-    implementation(AndroidX.appCompat)
+    implementation(Libs.AndroidX.coreKtx)
+    implementation(Libs.AndroidX.appCompat)
 
-    implementation(Hilt.android)
-    kapt(Hilt.compiler)
+    implementation(Libs.Hilt.android)
+    kapt(Libs.Hilt.compiler)
 }

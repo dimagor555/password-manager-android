@@ -1,8 +1,8 @@
 plugins {
-    id(ScriptPlugins.androidLibrary)
+    id(Conventions.androidLibrary)
 }
 
 dependencies {
     implementation(projects.masterPasswordFeature.domain)
-    implementation(Kotlinx.coroutinesCore)
+    implementation(Libs.KotlinX.coroutinesCore)
 }

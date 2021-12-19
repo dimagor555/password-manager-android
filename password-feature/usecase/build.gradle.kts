@@ -1,5 +1,5 @@
 plugins {
-    id(ScriptPlugins.kotlinLibrary)
+    id(Conventions.kotlinLibrary)
 }
 
 dependencies {
@@ -7,5 +7,5 @@ dependencies {
     api(projects.passwordFeature.domain)
     api(projects.encryptionFeature.domain)
 
-    implementation(Kotlinx.coroutinesCore)
+    implementation(Libs.KotlinX.coroutinesCore)
 }

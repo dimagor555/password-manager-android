@@ -1,10 +1,10 @@
 plugins {
-    id(ScriptPlugins.uiAndroidLibrary)
+    id(Conventions.uiAndroidLibrary)
 }
 
 dependencies {
     implementation(projects.passwordGenerationFeature.domain)
     implementation(projects.uiCore)
-    implementation(MviCompose.core)
-    implementation(MviCompose.android)
+    implementation(Libs.MviCompose.core)
+    implementation(Libs.MviCompose.android)
 }

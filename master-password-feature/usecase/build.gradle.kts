@@ -1,8 +1,9 @@
 plugins {
-    id(ScriptPlugins.kotlinLibrary)
+    id(Conventions.kotlinLibrary)
 }
 
 dependencies {
     api(projects.masterPasswordFeature.domain)
-    implementation(Kotlinx.coroutinesCore)
+    implementation(projects.validation)
+    implementation(Libs.KotlinX.coroutinesCore)
 }

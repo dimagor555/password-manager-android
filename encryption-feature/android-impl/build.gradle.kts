@@ -1,9 +1,9 @@
 plugins {
-    id(ScriptPlugins.androidLibrary)
+    id(Conventions.androidLibrary)
 }
 
 dependencies {
     implementation(projects.encryptionFeature.coreImpl)
 
-    implementation(AndroidX.securityCrypto)
+    implementation(Libs.AndroidX.securityCrypto)
 }

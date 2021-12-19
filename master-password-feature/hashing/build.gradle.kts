@@ -1,9 +1,9 @@
 plugins {
-    id(ScriptPlugins.androidLibrary)
+    id(Conventions.androidLibrary)
 }
 
 dependencies {
     implementation(projects.masterPasswordFeature.domain)
-    implementation(Hashing.argon2)
-    implementation(Kotlinx.coroutinesCore)
+    implementation(Libs.argon2kt)
+    implementation(Libs.KotlinX.coroutinesCore)
 }

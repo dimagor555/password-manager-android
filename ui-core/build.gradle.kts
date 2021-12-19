@@ -1,9 +1,9 @@
 plugins {
-    id(ScriptPlugins.uiAndroidLibrary)
+    id(Conventions.uiAndroidLibrary)
 }
 
 dependencies {
-    api(Compose.iconsExtended)
+    api(Libs.Compose.iconsExtended)
 
-    api(LocalizedString.lib)
+    api(Libs.localizedString)
 }

@@ -1,8 +1,8 @@
 plugins {
-    id(ScriptPlugins.androidLibrary)
+    id(Conventions.androidLibrary)
 }
 
 dependencies {
     implementation(projects.validation)
-    implementation(LocalizedString.lib)
+    implementation(Libs.localizedString)
 }

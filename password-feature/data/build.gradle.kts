@@ -1,11 +1,11 @@
 plugins {
-    id(ScriptPlugins.androidLibrary)
+    id(Conventions.androidLibrary)
 }
 
 dependencies {
     implementation(projects.passwordFeature.usecase)
 
-    implementation(Room.runtime)
-    implementation(Room.ktx)
-    kapt(Room.compiler)
+    implementation(Libs.Room.runtime)
+    implementation(Libs.Room.ktx)
+    kapt(Libs.Room.compiler)
 }

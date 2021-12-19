@@ -1,10 +1,10 @@
 plugins {
-    id(ScriptPlugins.kotlinLibrary)
+    id(Conventions.kotlinLibrary)
 }
 
 dependencies {
     api(projects.core)
     api(projects.validation)
 
-    api(Kotlinx.datetime)
+    api(Libs.KotlinX.datetime)
 }

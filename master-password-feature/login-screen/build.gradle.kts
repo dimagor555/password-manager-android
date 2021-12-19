@@ -1,5 +1,5 @@
 plugins {
-    id(ScriptPlugins.uiAndroidLibrary)
+    id(Conventions.uiAndroidLibrary)
 }
 
 dependencies {
@@ -7,5 +7,5 @@ dependencies {
     implementation(projects.masterPasswordFeature.uiCore)
     implementation(projects.uiCore)
 
-    implementation(AndroidX.biometric)
+    implementation(Libs.AndroidX.biometric)
 }

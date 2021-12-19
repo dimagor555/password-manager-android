@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
-    id(Hilt.plugin)
+    id(Plugins.hilt)
 }
 
 android {
@@ -42,7 +42,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Compose.composeVersion
+        kotlinCompilerExtensionVersion = Versions.compose
     }
     packagingOptions {
         resources {
@@ -72,19 +72,20 @@ dependencies {
 
     implementation(projects.uiCore)
 
-    implementation(AndroidX.coreKtx)
-    implementation(AndroidX.appCompat)
-    implementation(AndroidX.lifecycleVmKtx)
+    implementation(Libs.AndroidX.coreKtx)
+    implementation(Libs.AndroidX.appCompat)
+    implementation(Libs.AndroidX.lifecycleVmKtx)
 
-    implementation(Compose.activity)
-    implementation(Compose.ui)
-    implementation(Compose.material)
-    implementation(Compose.tooling)
-    implementation(Compose.navigation)
-    implementation(Compose.hiltNavigation)
+    implementation(Libs.Compose.activity)
+    implementation(Libs.Compose.ui)
+    implementation(Libs.Compose.material)
+    implementation(Libs.Compose.tooling)
 
-    implementation(Hilt.android)
-    kapt(Hilt.compiler)
+    implementation(Libs.Navigation.compose)
+    implementation(Libs.Navigation.hiltCompose)
 
-    coreLibraryDesugaring(AndroidDesugar.lib)
+    implementation(Libs.Hilt.android)
+    kapt(Libs.Hilt.compiler)
+
+    coreLibraryDesugaring(Libs.jdkDesugar)
 }
