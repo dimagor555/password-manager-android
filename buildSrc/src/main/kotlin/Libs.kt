@@ -25,7 +25,6 @@ object Libs {
 
         const val appCompat = "androidx.appcompat:appcompat:1.3.1"
 
-        const val lifecycleVmKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0-alpha02"
         const val securityCrypto = "androidx.security:security-crypto:1.1.0-alpha03"
         const val biometric = "androidx.biometric:biometric:1.2.0-alpha04"
     }
