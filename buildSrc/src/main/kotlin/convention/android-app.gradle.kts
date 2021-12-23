@@ -33,6 +33,8 @@ hilt {
 }
 
 dependencies {
+    implementation(Libs.AndroidX.splashScreen)
+
     implementation(Libs.Navigation.compose)
 
     coreLibraryDesugaring(Libs.jdkDesugar)

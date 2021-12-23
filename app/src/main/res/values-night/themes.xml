@@ -1,6 +1,15 @@
 <resources>
-    <style name="Theme.PasswordManager" parent="Theme.AppCompat.DayNight.NoActionBar" >
+
+    <style name="Theme.PasswordManager" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:colorPrimary">#F7A326</item>
         <item name="android:colorAccent">#F7A326</item>
+    </style>
+
+    <style name="Theme.PasswordManager.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#121212</item>
+
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_dark</item>
+
+        <item name="postSplashScreenTheme">@style/Theme.PasswordManager</item>
     </style>
 </resources>

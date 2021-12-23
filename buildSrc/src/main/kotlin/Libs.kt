@@ -25,6 +25,8 @@ object Libs {
 
         const val appCompat = "androidx.appcompat:appcompat:1.3.1"
 
+        const val splashScreen = "androidx.core:core-splashscreen:1.0.0-alpha01"
+
         const val securityCrypto = "androidx.security:security-crypto:1.1.0-alpha03"
         const val biometric = "androidx.biometric:biometric:1.2.0-alpha04"
     }

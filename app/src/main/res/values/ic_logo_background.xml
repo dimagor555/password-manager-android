@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_logo_background_light">#E3F8FC</color>
+    <color name="ic_logo_background_dark">#5CD7ED</color>
+</resources>
