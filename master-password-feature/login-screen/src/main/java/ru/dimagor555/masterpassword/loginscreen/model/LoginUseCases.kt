@@ -1,4 +1,4 @@
-package ru.dimagor555.masterpassword.loginscreen
+package ru.dimagor555.masterpassword.loginscreen.model
 
 import dagger.hilt.android.scopes.ViewModelScoped
 import ru.dimagor555.masterpassword.domain.MasterPasswordRepository

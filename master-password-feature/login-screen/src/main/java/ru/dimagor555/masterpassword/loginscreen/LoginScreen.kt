@@ -21,11 +21,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ru.dimagor555.masterpassword.loginscreen.biometric.BiometricLoginDialog
 import ru.dimagor555.masterpassword.loginscreen.biometric.OnCanUseBiometricLogin
-import ru.dimagor555.masterpassword.loginscreen.model.LoginEvent
-import ru.dimagor555.masterpassword.loginscreen.model.LoginState
+import ru.dimagor555.masterpassword.loginscreen.model.LoginStore.Action
+import ru.dimagor555.masterpassword.loginscreen.model.LoginStore.State
 import ru.dimagor555.masterpassword.ui.core.PasswordErrorIndicator
-import ru.dimagor555.ui.core.component.textfield.PasswordInputField
 import ru.dimagor555.ui.core.component.button.SimpleButton
+import ru.dimagor555.ui.core.component.textfield.PasswordInputField
 import ru.dimagor555.ui.core.model.isError
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
@@ -35,9 +35,9 @@ fun LoginScreen(onSuccessfulLogin: () -> Unit) {
     val state by viewModel.state.collectAsState()
     LoginScreenContent(
         state = state,
-        sendEvent = viewModel::sendEvent
+        sendAction = viewModel::sendAction
     )
-    OnCanUseBiometricLogin { viewModel.sendEvent(LoginEvent.EnableBiometricLogin) }
+    OnCanUseBiometricLogin { viewModel.sendAction(Action.EnableBiometricLogin) }
     LaunchedEffect(key1 = state.isExitScreenWithSuccess) {
         if (state.isExitScreenWithSuccess)
             onSuccessfulLogin()
@@ -46,17 +46,17 @@ fun LoginScreen(onSuccessfulLogin: () -> Unit) {
 
 @Composable
 private fun LoginScreenContent(
-    state: LoginState,
-    sendEvent: (LoginEvent) -> Unit
+    state: State,
+    sendAction: (Action) -> Unit
 ) {
     LoginScreenColumn {
-        PasswordErrorIndicator(isError = state.passwordState.isError)
+        PasswordErrorIndicator(isError = state.password.isError)
         Spacer(modifier = Modifier.height(16.dp))
-        PasswordInputField(state = state, sendEvent = sendEvent)
-        LoginButton(onLoginByPassword = { sendEvent(LoginEvent.LoginByPassword) })
-        if (state.isBiometricLoginButtonVisible)
+        PasswordInputField(state = state, sendAction = sendAction)
+        LoginButton(onLoginByPassword = { sendAction(Action.LoginByPassword) })
+        if (state.isBiometricLoginEnabled)
             BiometricLoginButton(
-                onSuccessfulLogin = { sendEvent(LoginEvent.ExitLoginScreenWithSuccess) }
+                onSuccessfulLogin = { sendAction(Action.ExitScreenWithSuccess) }
             )
     }
 }
@@ -79,16 +79,16 @@ private fun LoginScreenColumn(content: @Composable ColumnScope.() -> Unit) {
 
 @Composable
 private fun PasswordInputField(
-    state: LoginState,
-    sendEvent: (LoginEvent) -> Unit
+    state: State,
+    sendAction: (Action) -> Unit
 ) {
     PasswordInputField(
-        value = state.passwordState.text,
-        onValueChange = { sendEvent(LoginEvent.OnPasswordChanged(it)) },
-        isPasswordVisible = state.passwordState.isVisible,
-        onTogglePasswordVisibility = { sendEvent(LoginEvent.TogglePasswordVisibility) },
-        error = state.passwordState.error?.resolve(LocalContext.current) as String?,
-        keyboardActions = KeyboardActions(onDone = { sendEvent(LoginEvent.LoginByPassword) })
+        value = state.password.text,
+        onValueChange = { sendAction(Action.ChangePassword(it)) },
+        isPasswordVisible = state.password.isVisible,
+        onTogglePasswordVisibility = { sendAction(Action.TogglePasswordVisibility) },
+        error = state.password.error?.resolve(LocalContext.current) as String?,
+        keyboardActions = KeyboardActions(onDone = { sendAction(Action.LoginByPassword) })
     )
 }
 
@@ -121,8 +121,8 @@ private fun BiometricLoginButton(onSuccessfulLogin: () -> Unit) {
 private fun LoginScreenPreview() {
     PasswordManagerTheme {
         LoginScreenContent(
-            state = LoginState(isBiometricLoginButtonVisible = true),
-            sendEvent = {}
+            state = State(isBiometricLoginEnabled = true),
+            sendAction = {}
         )
     }
 }
