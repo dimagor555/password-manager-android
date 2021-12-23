@@ -15,5 +15,7 @@ class ToggleFavouriteUseCase(
         passwordRepository.update(newPassword)
     }
 
-    private fun Password.toggledFavourite() = copy(isFavourite = !isFavourite)
+    private fun Password.toggledFavourite() = copy(
+        metadata = metadata.copy(isFavourite = !metadata.isFavourite)
+    )
 }

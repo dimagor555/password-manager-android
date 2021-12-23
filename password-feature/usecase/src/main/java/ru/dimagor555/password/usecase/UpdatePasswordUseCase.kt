@@ -32,7 +32,7 @@ class UpdatePasswordUseCase(
         title = params.title,
         login = params.login,
         encryptedPassword = encryptor.encrypt(params.password),
-        editingDateTime = Clock.System.now()
+        metadata = metadata.copy(editingDateTime = Clock.System.now())
     )
 
     data class Params(

@@ -2,20 +2,16 @@ package ru.dimagor555.password.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import ru.dimagor555.password.data.dao.PasswordDao
+import ru.dimagor555.password.data.dao.PasswordModelDao
 import ru.dimagor555.password.data.model.PasswordModel
-import ru.dimagor555.password.data.model.UsageModel
 
 @Database(
-    entities = [
-        PasswordModel::class,
-        UsageModel::class
-    ],
-    version = 2,
+    entities = [PasswordModel::class],
+    version = 1,
     exportSchema = false
 )
 internal abstract class PasswordDatabase : RoomDatabase() {
-    abstract fun passwordDao(): PasswordDao
+    abstract fun passwordModelDao(): PasswordModelDao
 
     companion object {
         const val DATABASE_NAME = "password_feature_database"

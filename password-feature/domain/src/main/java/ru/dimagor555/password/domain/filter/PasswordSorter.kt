@@ -2,7 +2,6 @@ package ru.dimagor555.password.domain.filter
 
 import ru.dimagor555.core.SortingOrder
 import ru.dimagor555.password.domain.Password
-import ru.dimagor555.password.domain.UsageHistory
 
 internal class PasswordSorter(
     private val type: PasswordSortingType
@@ -20,10 +19,10 @@ internal class PasswordSorter(
     private fun createCompareSelectorByType(): ((Password) -> Comparable<*>) {
         return when (type) {
             PasswordSortingType.Title -> { it -> it.title }
-            PasswordSortingType.RecentUsage -> { it -> UsageHistory(it.usages).lastUsageDateTime }
-            PasswordSortingType.FrequentUsage -> { it -> UsageHistory(it.usages).usagesCount }
-            PasswordSortingType.CreationDate -> { it -> it.creationDateTime }
-            PasswordSortingType.EditingDate -> { it -> it.editingDateTime }
+            PasswordSortingType.RecentUsage -> { it -> it.metadata.usageHistory.lastUsageDateTime }
+            PasswordSortingType.FrequentUsage -> { it -> it.metadata.usageHistory.usagesCount }
+            PasswordSortingType.CreationDate -> { it -> it.metadata.creationDateTime }
+            PasswordSortingType.EditingDate -> { it -> it.metadata.editingDateTime }
         }
     }
 }

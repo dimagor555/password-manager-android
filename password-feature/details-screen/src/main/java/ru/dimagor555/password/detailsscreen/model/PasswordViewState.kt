@@ -11,5 +11,5 @@ internal data class PasswordViewState(
 internal fun Password.toPasswordViewState() = PasswordViewState(
     title = title,
     login = login,
-    isFavourite = isFavourite
+    isFavourite = metadata.isFavourite
 )

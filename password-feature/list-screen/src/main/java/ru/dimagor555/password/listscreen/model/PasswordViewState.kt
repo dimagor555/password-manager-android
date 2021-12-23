@@ -19,5 +19,5 @@ private fun Password.toPasswordViewState() = PasswordViewState(
     id = id!!,
     title = title,
     login = login,
-    isFavourite = isFavourite
+    isFavourite = metadata.isFavourite
 )

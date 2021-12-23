@@ -29,9 +29,6 @@ object PasswordDataModule {
         ).fallbackToDestructiveMigration()
             .build()
 
-    @Provides
-    internal fun providePasswordDao(db: PasswordDatabase) = db.passwordDao()
-
     @Singleton
     @Provides
     internal fun provideClipboardRepository(repository: ClipboardRepositoryImpl): ClipboardRepository {
@@ -40,8 +37,8 @@ object PasswordDataModule {
 
     @Singleton
     @Provides
-    internal fun providePasswordRepository(repository: RoomPasswordRepository): PasswordRepository {
-        return repository
+    internal fun providePasswordRepository(db: PasswordDatabase): PasswordRepository {
+        return RoomPasswordRepository(db.passwordModelDao())
     }
 
     @Singleton

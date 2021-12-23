@@ -1,11 +1,14 @@
 package ru.dimagor555.password.domain
 
+import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 
-class UsageHistory(private val usages: List<Usage>) {
-    val usagesCount
-        get() = usages.size
+data class UsageHistory(
+    val usagesCount: Int = 0,
+    val lastUsageDateTime: Instant = Instant.DISTANT_PAST
+)
 
-    val lastUsageDateTime
-        get() = usages.maxOfOrNull { it.datetime } ?: Instant.DISTANT_PAST
-}
+fun UsageHistory.plusUsage() = copy(
+    usagesCount = usagesCount + 1,
+    lastUsageDateTime = Clock.System.now()
+)

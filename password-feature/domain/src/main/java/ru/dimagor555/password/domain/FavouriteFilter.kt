@@ -8,6 +8,6 @@ sealed class FavouriteFilter {
     }
 
     object Favourite : FavouriteFilter() {
-        override fun matches(password: Password) = password.isFavourite
+        override fun matches(password: Password) = password.metadata.isFavourite
     }
 }
