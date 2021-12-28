@@ -101,7 +101,7 @@ private fun LoginButton(
         onClick = onLoginByPassword,
         enabled = enabled
     ) {
-        Text(text = stringResource(R.string.login))
+        Text(text = stringResource(R.string.login_button_text))
     }
 }
 
