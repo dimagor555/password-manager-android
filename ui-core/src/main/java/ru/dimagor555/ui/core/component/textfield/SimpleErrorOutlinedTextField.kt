@@ -23,6 +23,7 @@ fun SimpleErrorOutlinedTextField(
     error: String?,
     modifier: Modifier = Modifier,
     textStyle: TextStyle = LocalTextStyle.current,
+    placeholder: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
@@ -36,6 +37,7 @@ fun SimpleErrorOutlinedTextField(
             value = value,
             onValueChange = onValueChange,
             isError = isError,
+            placeholder = placeholder,
             trailingIcon = {
                 when {
                     trailingIcon != null -> trailingIcon()

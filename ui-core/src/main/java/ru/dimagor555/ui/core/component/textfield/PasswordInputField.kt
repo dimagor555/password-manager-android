@@ -20,6 +20,7 @@ fun PasswordInputField(
     onTogglePasswordVisibility: () -> Unit,
     modifier: Modifier = Modifier,
     textStyle: TextStyle = LocalTextStyle.current,
+    placeholder: (@Composable () -> Unit)? = null,
     error: String? = null,
     imeAction: ImeAction = ImeAction.Done,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
@@ -30,6 +31,7 @@ fun PasswordInputField(
         value = value,
         onValueChange = onValueChange,
         error = error,
+        placeholder = placeholder,
         trailingIcon = {
             VisibilityIconButton(
                 isVisible = isPasswordVisible,

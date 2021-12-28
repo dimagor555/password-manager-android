@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
+import ru.dimagor555.masterpassword.editscreen.EditMasterPasswordScreen
 import ru.dimagor555.masterpassword.loginscreen.LoginScreen
 import ru.dimagor555.password.creationscreen.PasswordCreationScreen
 import ru.dimagor555.password.detailsscreen.PasswordDetailsScreen
@@ -33,6 +34,16 @@ class MainActivity : AppCompatActivity() {
                                 navController.popBackStack()
                                 navController.navigate("List")
                             }
+                        )
+                    }
+                    composable("EditMasterPassword") {
+                        EditMasterPasswordScreen(
+                            onSuccess = {
+                                navController.popBackStack()
+                                navController.navigate("List")
+                            },
+                            onCancel = { navController.popBackStack() },
+                            onNavigateToPasswordGenerationScreen = { navController.navigate("Generation") }
                         )
                     }
                     composable("List") {

@@ -3,6 +3,6 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.validation)
+    api(projects.validation)
     implementation(Libs.localizedString)
 }

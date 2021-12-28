@@ -6,4 +6,6 @@
     <string name="show">Show</string>
     <string name="hide">Hide</string>
     <string name="generate">Generate</string>
+    <string name="next">Next</string>
+    <string name="ready">Ready</string>
 </resources>

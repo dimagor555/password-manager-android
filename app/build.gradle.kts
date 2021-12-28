@@ -16,6 +16,7 @@ dependencies {
     implementation(projects.masterPasswordFeature.data)
     implementation(projects.masterPasswordFeature.hashing)
     implementation(projects.masterPasswordFeature.loginScreen)
+    implementation(projects.masterPasswordFeature.editScreen)
 
     implementation(projects.uiCore)
 }
