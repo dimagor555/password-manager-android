@@ -16,7 +16,8 @@ internal class LoginStore(useCases: LoginUseCases) :
 
     data class State(
         val password: FieldState.Password = FieldState.Password(),
-        val isBiometricLoginEnabled: Boolean = false,
+        val canLogin: Boolean = true,
+        val canUseBiometricLogin: Boolean = false,
         val isExitScreenWithSuccess: Boolean = false
     )
 
@@ -35,6 +36,9 @@ internal class LoginStore(useCases: LoginUseCases) :
         data class ShowPassword(val password: String) : Message()
         data class ShowError(val error: LocalizedString?) : Message()
         object TogglePasswordVisibility : Message()
+
+        object EnableLogin : Message()
+        object DisableLogin : Message()
 
         object EnableBiometricLogin : Message()
 

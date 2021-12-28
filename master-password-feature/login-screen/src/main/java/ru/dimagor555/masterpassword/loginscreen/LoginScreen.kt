@@ -5,10 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Icon
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Fingerprint
 import androidx.compose.runtime.*
@@ -24,7 +21,6 @@ import ru.dimagor555.masterpassword.loginscreen.biometric.OnCanUseBiometricLogin
 import ru.dimagor555.masterpassword.loginscreen.model.LoginStore.Action
 import ru.dimagor555.masterpassword.loginscreen.model.LoginStore.State
 import ru.dimagor555.masterpassword.ui.core.PasswordErrorIndicator
-import ru.dimagor555.ui.core.component.button.SimpleButton
 import ru.dimagor555.ui.core.component.textfield.PasswordInputField
 import ru.dimagor555.ui.core.model.isError
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
@@ -53,9 +49,13 @@ private fun LoginScreenContent(
         PasswordErrorIndicator(isError = state.password.isError)
         Spacer(modifier = Modifier.height(16.dp))
         PasswordInputField(state = state, sendAction = sendAction)
-        LoginButton(onLoginByPassword = { sendAction(Action.LoginByPassword) })
-        if (state.isBiometricLoginEnabled)
+        LoginButton(
+            enabled = state.canLogin,
+            onLoginByPassword = { sendAction(Action.LoginByPassword) }
+        )
+        if (state.canUseBiometricLogin)
             BiometricLoginButton(
+                enabled = state.canLogin,
                 onSuccessfulLogin = { sendAction(Action.ExitScreenWithSuccess) }
             )
     }
@@ -93,17 +93,28 @@ private fun PasswordInputField(
 }
 
 @Composable
-private fun LoginButton(onLoginByPassword: () -> Unit) {
-    SimpleButton(
-        text = stringResource(R.string.login),
-        onClick = onLoginByPassword
-    )
+private fun LoginButton(
+    enabled: Boolean,
+    onLoginByPassword: () -> Unit
+) {
+    Button(
+        onClick = onLoginByPassword,
+        enabled = enabled
+    ) {
+        Text(text = stringResource(R.string.login))
+    }
 }
 
 @Composable
-private fun BiometricLoginButton(onSuccessfulLogin: () -> Unit) {
+private fun BiometricLoginButton(
+    enabled: Boolean,
+    onSuccessfulLogin: () -> Unit
+) {
     var showBiometricLoginDialog by remember { mutableStateOf(false) }
-    TextButton(onClick = { showBiometricLoginDialog = true }) {
+    TextButton(
+        enabled = enabled,
+        onClick = { showBiometricLoginDialog = true }
+    ) {
         Icon(imageVector = Icons.Default.Fingerprint, contentDescription = null)
         Text(text = stringResource(R.string.biometry_login))
     }
@@ -121,7 +132,7 @@ private fun BiometricLoginButton(onSuccessfulLogin: () -> Unit) {
 private fun LoginScreenPreview() {
     PasswordManagerTheme {
         LoginScreenContent(
-            state = State(isBiometricLoginEnabled = true),
+            state = State(canUseBiometricLogin = true),
             sendAction = {}
         )
     }

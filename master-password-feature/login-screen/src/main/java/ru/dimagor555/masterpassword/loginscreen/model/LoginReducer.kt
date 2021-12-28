@@ -11,7 +11,9 @@ internal class LoginReducer : Reducer<State, Message> {
             is Message.ShowPassword -> copy(password = password.copy(text = msg.password))
             is Message.ShowError -> copy(password = password.copy(error = msg.error))
             Message.TogglePasswordVisibility -> copy(password = password.toggleVisibility())
-            Message.EnableBiometricLogin -> copy(isBiometricLoginEnabled = true)
+            Message.EnableLogin -> copy(canLogin = true)
+            Message.DisableLogin -> copy(canLogin = false)
+            Message.EnableBiometricLogin -> copy(canUseBiometricLogin = true)
             Message.ExitScreenWithSuccess -> copy(isExitScreenWithSuccess = true)
         }
 }
