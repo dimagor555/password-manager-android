@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="data_storage_disclaimer">Все данные хранятся на вашем устройстве</string>
+    <string name="server_disclaimer">Ничего не отправляется на сервера</string>
+    <string name="welcome_screen_description">Придумайте основной пароль и получите все остальные в один клик</string>
+</resources>

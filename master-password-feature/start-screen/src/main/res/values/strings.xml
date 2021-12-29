@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="data_storage_disclaimer">All data is stored on your device</string>
+    <string name="server_disclaimer">Nothing is sent to servers</string>
+    <string name="welcome_screen_description">Come up with a master password and get the rest in one click</string>
+</resources>

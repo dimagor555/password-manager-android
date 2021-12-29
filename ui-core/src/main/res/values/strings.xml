@@ -8,4 +8,10 @@
     <string name="generate">Generate</string>
     <string name="next">Next</string>
     <string name="ready">Ready</string>
+    <string name="start">Start</string>
+
+    <string-array name="app_name_words">
+        <item>Password</item>
+        <item>Manager</item>
+    </string-array>
 </resources>

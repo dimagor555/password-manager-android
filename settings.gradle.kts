@@ -37,6 +37,7 @@ include(
     ":master-password-feature:data",
     ":master-password-feature:hashing",
     ":master-password-feature:ui-core",
+    ":master-password-feature:start-screen",
     ":master-password-feature:login-screen",
-    ":master-password-feature:edit-screen"
+    ":master-password-feature:edit-screen",
 )
