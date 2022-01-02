@@ -2,6 +2,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "password-manager-android"
 
 include(":app", ":core")
+include(":navigation")
 include(":ui-core")
 include(
     ":validation",

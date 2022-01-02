@@ -20,11 +20,16 @@ import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @Composable
 fun PasswordDetailsScreen(
+    passwordId: Int,
     navigateBack: () -> Unit,
     navigateToPasswordEditingScreen: () -> Unit
 ) {
     val viewModel: PasswordDetailsViewModel = hiltViewModel()
     val state by viewModel.state.collectAsState()
+
+    LaunchedEffect(passwordId) {
+        viewModel.sendEvent(PasswordDetailsEvent.LoadPassword(passwordId))
+    }
 
     PasswordDetailsScaffold(
         passwordState = state.passwordViewState,

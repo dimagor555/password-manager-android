@@ -5,6 +5,8 @@ import ru.dimagor555.core.UiComponentVisibility
 import ru.dimagor555.password.domain.Password
 
 internal sealed class PasswordDetailsEvent {
+    data class LoadPassword(val passwordId: Int) : PasswordDetailsEvent()
+
     data class ShowPassword(val password: Password) : PasswordDetailsEvent()
 
     data class UpdateProgressBarState(val value: ProgressBarState) : PasswordDetailsEvent()

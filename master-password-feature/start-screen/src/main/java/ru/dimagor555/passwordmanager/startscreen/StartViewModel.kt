@@ -28,7 +28,7 @@ internal class StartViewModel @Inject constructor(
 }
 
 @Composable
-fun hasMasterPassword(): State<Boolean?> {
+fun observeHasMasterPassword(): State<Boolean?> {
     val viewModel: StartViewModel = hiltViewModel()
     return viewModel.hasMasterPassword.collectAsState()
 }

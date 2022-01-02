@@ -1,6 +1,5 @@
 package ru.dimagor555.password.detailsscreen
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,19 +11,35 @@ import ru.dimagor555.core.UiComponentVisibility
 import ru.dimagor555.password.detailsscreen.model.*
 import ru.dimagor555.password.domain.Password
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 @HiltViewModel
 internal class PasswordDetailsViewModel @Inject constructor(
-    private val useCases: PasswordDetailsUseCases,
-    savedStateHandle: SavedStateHandle
+    private val useCases: PasswordDetailsUseCases
 ) : ViewModel() {
-    private val passwordId = savedStateHandle.get<Int>("passwordId")
-        ?: error("passwordId argument is not passed")
+    private var passwordId: Int by Delegates.notNull()
 
     private val _state = MutableStateFlow(PasswordDetailsViewState())
     val state = _state.asStateFlow()
 
-    init {
+    fun sendEvent(event: PasswordDetailsEvent) {
+        when (event) {
+            is PasswordDetailsEvent.LoadPassword -> loadPassword(event.passwordId)
+            is PasswordDetailsEvent.ShowPassword -> showPassword(event.password)
+            is PasswordDetailsEvent.UpdateProgressBarState -> updateProgressBarState(event.value)
+            is PasswordDetailsEvent.UpdateRemoveDialogVisibility ->
+                updateRemoveDialogVisibility(event.visibility)
+            PasswordDetailsEvent.ToggleFavourite -> toggleFavourite()
+            PasswordDetailsEvent.TogglePasswordVisibility -> togglePasswordVisibility()
+            PasswordDetailsEvent.CopyPassword -> copyPassword()
+            PasswordDetailsEvent.CopyLogin -> copyLogin()
+            PasswordDetailsEvent.RemovePassword -> removePassword()
+            PasswordDetailsEvent.OnPasswordRemoved -> onPasswordRemoved()
+        }
+    }
+
+    private fun loadPassword(passwordId: Int) {
+        this.passwordId = passwordId
         observePassword()
     }
 
@@ -46,21 +61,6 @@ internal class PasswordDetailsViewModel @Inject constructor(
             is DataState.Loading -> {
                 sendEvent(PasswordDetailsEvent.UpdateProgressBarState(ProgressBarState.Loading))
             }
-        }
-    }
-
-    fun sendEvent(event: PasswordDetailsEvent) {
-        when (event) {
-            is PasswordDetailsEvent.ShowPassword -> showPassword(event.password)
-            is PasswordDetailsEvent.UpdateProgressBarState -> updateProgressBarState(event.value)
-            is PasswordDetailsEvent.UpdateRemoveDialogVisibility ->
-                updateRemoveDialogVisibility(event.visibility)
-            PasswordDetailsEvent.ToggleFavourite -> toggleFavourite()
-            PasswordDetailsEvent.TogglePasswordVisibility -> togglePasswordVisibility()
-            PasswordDetailsEvent.CopyPassword -> copyPassword()
-            PasswordDetailsEvent.CopyLogin -> copyLogin()
-            PasswordDetailsEvent.RemovePassword -> removePassword()
-            PasswordDetailsEvent.OnPasswordRemoved -> onPasswordRemoved()
         }
     }
 

@@ -14,6 +14,7 @@ import ru.dimagor555.password.editingcore.model.PasswordEditingEvent
 fun CommonPasswordEditingScreen(
     topAppBarTitle: String,
     viewModel: CommonPasswordEditingViewModel,
+    generatedPassword: String?,
     onNavigateToPasswordGenerationScreen: () -> Unit,
     onNavigateBackRequest: () -> Unit,
     navigateBack: () -> Unit,
@@ -22,6 +23,11 @@ fun CommonPasswordEditingScreen(
     val state by viewModel.state.collectAsState()
     val sendEvent = viewModel::sendEvent
     val onTryFinishEditing = { sendEvent(PasswordEditingEvent.TryFinishEditing) }
+
+    LaunchedEffect(generatedPassword) {
+        if (generatedPassword != null)
+            sendEvent(PasswordEditingEvent.OnPasswordChanged(generatedPassword))
+    }
 
     Scaffold(
         topBar = {

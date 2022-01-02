@@ -1,6 +1,5 @@
 package ru.dimagor555.password.editingscreen
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,28 +19,13 @@ import kotlin.properties.Delegates
 internal class PasswordEditingViewModel @Inject constructor(
     private val useCases: PasswordEditingUseCases,
     commonUseCases: CommonPasswordEditingUseCases,
-    savedStateHandle: SavedStateHandle
 ) : CommonPasswordEditingViewModel(commonUseCases) {
-    private val passwordId = savedStateHandle.get<Int>("passwordId")
-        ?: error("passwordId argument is not passed")
+    private var passwordId: Int by Delegates.notNull()
 
     private val _state = MutableStateFlow(PasswordEditingState())
     val state = _state.asStateFlow()
 
-    private var initialPasswordDto: PasswordEditingDto by Delegates.notNull()
-
-    init {
-        viewModelScope.launch {
-            initialPasswordDto = createInitialPasswordDto()
-            initState(initialPasswordDto)
-        }
-    }
-
-    private suspend fun createInitialPasswordDto(): PasswordEditingDto {
-        val password = useCases.getPassword(passwordId)
-        val decryptedPassword = useCases.decryptPassword(passwordId)
-        return PasswordEditingDto(password.title, password.login, decryptedPassword)
-    }
+    private var initialPasswordDto: PasswordEditingDto? = null
 
     override suspend fun onSaveEditedPassword(passwordDto: PasswordEditingDto) {
         if (passwordDto != initialPasswordDto)
@@ -56,6 +40,10 @@ internal class PasswordEditingViewModel @Inject constructor(
 
     fun sendEvent(event: PasswordEditingEvent) {
         when (event) {
+            is PasswordEditingEvent.LoadPassword -> {
+                this.passwordId = event.passwordId
+                tryLoadPassword()
+            }
             is PasswordEditingEvent.UpdateSaveDialogVisibility -> {
                 _state.update { it.copy(isSaveDialogVisible = event.visible) }
             }
@@ -63,6 +51,24 @@ internal class PasswordEditingViewModel @Inject constructor(
                 onExitScreenRequest()
             }
         }
+    }
+
+    private fun tryLoadPassword() {
+        if (initialPasswordDto == null)
+            loadPassword()
+    }
+
+    private fun loadPassword() {
+        viewModelScope.launch {
+            initialPasswordDto = createInitialPasswordDto()
+            initState(initialPasswordDto!!)
+        }
+    }
+
+    private suspend fun createInitialPasswordDto(): PasswordEditingDto {
+        val password = useCases.getPassword(passwordId)
+        val decryptedPassword = useCases.decryptPassword(passwordId)
+        return PasswordEditingDto(password.title, password.login, decryptedPassword)
     }
 
     private fun onExitScreenRequest() {

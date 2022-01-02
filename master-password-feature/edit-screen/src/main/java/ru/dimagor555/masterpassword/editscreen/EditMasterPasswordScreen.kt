@@ -14,12 +14,19 @@ import ru.dimagor555.masterpassword.editscreen.model.EditMasterPasswordStore.Sta
 
 @Composable
 fun EditMasterPasswordScreen(
+    generatedPassword: String?,
     onSuccess: () -> Unit,
     onCancel: () -> Unit,
     onNavigateToPasswordGenerationScreen: () -> Unit
 ) {
     val viewModel: EditMasterPasswordViewModel = hiltViewModel()
     val state by viewModel.state.collectAsState()
+
+    LaunchedEffect(generatedPassword) {
+        if (generatedPassword != null)
+            viewModel.sendAction(Action.ChangePassword(generatedPassword))
+    }
+
     Surface {
         when (state.stage) {
             State.Stage.Primary -> {
