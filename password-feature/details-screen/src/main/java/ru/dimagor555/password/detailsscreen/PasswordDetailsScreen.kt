@@ -7,15 +7,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import ru.dimagor555.core.UiComponentVisibility
 import ru.dimagor555.password.detailsscreen.components.PasswordDetailsScaffold
 import ru.dimagor555.password.detailsscreen.components.PasswordDetailsScreenContent
 import ru.dimagor555.password.detailsscreen.components.RemovePasswordDialog
-import ru.dimagor555.password.detailsscreen.model.PasswordDetailsEvent
-import ru.dimagor555.password.detailsscreen.model.PasswordDetailsEvent.RemovePassword
-import ru.dimagor555.password.detailsscreen.model.PasswordDetailsEvent.UpdateRemoveDialogVisibility
-import ru.dimagor555.password.detailsscreen.model.PasswordDetailsViewState
-import ru.dimagor555.password.detailsscreen.model.PasswordViewState
+import ru.dimagor555.password.detailsscreen.components.SideEffectHandler
+import ru.dimagor555.password.detailsscreen.model.PasswordDetailsStore.Action
+import ru.dimagor555.password.detailsscreen.model.PasswordDetailsStore.State
+import ru.dimagor555.password.detailsscreen.model.PasswordState
+import ru.dimagor555.ui.core.component.FullscreenCircularProgressBar
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @Composable
@@ -28,37 +27,56 @@ fun PasswordDetailsScreen(
     val state by viewModel.state.collectAsState()
 
     LaunchedEffect(passwordId) {
-        viewModel.sendEvent(PasswordDetailsEvent.LoadPassword(passwordId))
+        viewModel.sendAction(Action.LoadPassword(passwordId))
     }
 
-    PasswordDetailsScaffold(
-        passwordState = state.passwordViewState,
-        sendEvent = viewModel::sendEvent,
-        onNavigateBack = navigateBack,
-        navigateToPasswordEditingScreen = navigateToPasswordEditingScreen
-    ) { onShowSnackbar ->
-        PasswordDetailsScreenContent(
+    when (state.isLoading) {
+        true -> FullscreenCircularProgressBar()
+        false -> PasswordDetailsScreen(
+            viewModel = viewModel,
             state = state,
-            sendEvent = viewModel::sendEvent,
-            showSnackbar = onShowSnackbar
+            navigateBack = navigateBack,
+            navigateToPasswordEditingScreen = navigateToPasswordEditingScreen
         )
-        RemovePasswordDialogWrapper(state = state, sendEvent = viewModel::sendEvent)
     }
-    LaunchedEffect(key1 = state.isPasswordRemoved) {
-        if (state.isPasswordRemoved)
+
+    LaunchedEffect(state.isExitScreen) {
+        if (state.isExitScreen)
             navigateBack()
     }
 }
 
 @Composable
-private fun RemovePasswordDialogWrapper(
-    state: PasswordDetailsViewState,
-    sendEvent: (PasswordDetailsEvent) -> Unit
+private fun PasswordDetailsScreen(
+    viewModel: PasswordDetailsViewModel,
+    state: State,
+    navigateBack: () -> Unit,
+    navigateToPasswordEditingScreen: () -> Unit
 ) {
-    if (state.removeDialogVisibility == UiComponentVisibility.Show)
+    PasswordDetailsScaffold(
+        passwordState = state.passwordState,
+        sendAction = viewModel::sendAction,
+        onNavigateBack = navigateBack,
+        navigateToPasswordEditingScreen = navigateToPasswordEditingScreen
+    ) { onShowSnackbar ->
+        PasswordDetailsScreenContent(
+            state = state,
+            sendAction = viewModel::sendAction
+        )
+        RemovePasswordDialogWrapper(state = state, sendAction = viewModel::sendAction)
+        SideEffectHandler(viewModel = viewModel, onShowSnackbar = onShowSnackbar)
+    }
+}
+
+@Composable
+private fun RemovePasswordDialogWrapper(
+    state: State,
+    sendAction: (Action) -> Unit
+) {
+    if (state.isRemoveDialogVisible)
         RemovePasswordDialog(
-            onRemovePassword = { sendEvent(RemovePassword) },
-            onDismiss = { sendEvent(UpdateRemoveDialogVisibility(UiComponentVisibility.Hide)) }
+            onRemovePassword = { sendAction(Action.RemovePassword) },
+            onDismiss = { sendAction(Action.ChangeRemoveDialogVisibility(visible = false)) }
         )
 }
 
@@ -67,7 +85,7 @@ private fun RemovePasswordDialogWrapper(
 @Preview("Password details screen (dark)", uiMode = UI_MODE_NIGHT_YES)
 @Composable
 private fun PasswordDetailsScreenPreview() {
-    val passwordViewState = PasswordViewState(
+    val passwordViewState = PasswordState(
         title = "Google",
         login = "username",
         isFavourite = false
@@ -75,14 +93,13 @@ private fun PasswordDetailsScreenPreview() {
     PasswordManagerTheme {
         PasswordDetailsScaffold(
             passwordState = passwordViewState,
-            sendEvent = {},
+            sendAction = {},
             onNavigateBack = { },
             navigateToPasswordEditingScreen = { }
         ) {
             PasswordDetailsScreenContent(
-                state = PasswordDetailsViewState(passwordViewState = passwordViewState),
-                sendEvent = {},
-                showSnackbar = it
+                state = State(passwordState = passwordViewState),
+                sendAction = {}
             )
         }
     }

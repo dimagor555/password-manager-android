@@ -22,9 +22,7 @@ internal fun CopyableTextRow(
     text: String,
     headline: String,
     buttonContentDescription: String,
-    onCopy: () -> Unit,
-    showSnackbar: (String, String?) -> Unit,
-    snackbarMessage: String
+    onCopy: () -> Unit
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -39,10 +37,7 @@ internal fun CopyableTextRow(
         SimpleIconButton(
             icon = Icons.Default.ContentCopy,
             contentDescription = buttonContentDescription,
-            onClick = {
-                onCopy()
-                showSnackbar(snackbarMessage, "OK")
-            }
+            onClick = onCopy
         )
     }
 }
@@ -57,9 +52,7 @@ private fun CopyableTextRowPreview() {
                 text = "Username1234",
                 headline = "Login",
                 buttonContentDescription = "Copy login",
-                onCopy = { },
-                showSnackbar = { _, _ -> },
-                snackbarMessage = ""
+                onCopy = { }
             )
         }
     }

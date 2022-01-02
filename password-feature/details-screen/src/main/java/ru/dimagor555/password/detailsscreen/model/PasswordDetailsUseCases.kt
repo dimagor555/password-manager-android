@@ -1,4 +1,4 @@
-package ru.dimagor555.password.detailsscreen
+package ru.dimagor555.password.detailsscreen.model
 
 import dagger.hilt.android.scopes.ViewModelScoped
 import ru.dimagor555.encryption.domain.Decryptor

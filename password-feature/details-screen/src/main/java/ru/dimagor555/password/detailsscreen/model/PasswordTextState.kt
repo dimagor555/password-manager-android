@@ -1,13 +1,13 @@
 package ru.dimagor555.password.detailsscreen.model
 
-internal data class PasswordTextViewState(
+internal data class PasswordTextState(
     val passwordText: String = HiddenPasswordText,
     val isVisible: Boolean = false
 )
 
-internal fun createHiddenPasswordText() = PasswordTextViewState()
+internal fun createHiddenPasswordText() = PasswordTextState()
 
-internal fun createVisiblePasswordText(passwordText: String) = PasswordTextViewState(
+internal fun createVisiblePasswordText(passwordText: String) = PasswordTextState(
     passwordText = passwordText,
     isVisible = true
 )
