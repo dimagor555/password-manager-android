@@ -23,11 +23,9 @@ internal class EditMasterPasswordReducer : Reducer<State, Message> {
 
     private fun State.updatePasswordOnStage(password: FieldState.Password, stage: State.Stage) =
         copy(
-            passwordsByStages =
-            passwordsByStages
+            passwordsByStages = passwordsByStages
                 .toMutableMap()
                 .apply { this[stage] = password }
-                .toMap()
         )
 
     private fun State.goToPrimaryStage() = copy(stage = State.Stage.Primary)

@@ -17,10 +17,7 @@ internal class EditMasterPasswordStore(useCases: EditMasterPasswordUseCases) :
 
     data class State(
         val stage: Stage = Stage.Primary,
-        val passwordsByStages: Map<Stage, FieldState.Password> = mapOf(
-            Stage.Primary to FieldState.Password(),
-            Stage.Confirm to FieldState.Password()
-        ),
+        val passwordsByStages: Map<Stage, FieldState.Password> = initialPasswordsByStages,
         val isSavingStarted: Boolean = false,
         val exitScreenState: ExitScreenState = ExitScreenState.NotExit
     ) {
@@ -40,6 +37,14 @@ internal class EditMasterPasswordStore(useCases: EditMasterPasswordUseCases) :
         sealed class ExitScreenState {
             object NotExit : ExitScreenState()
             data class Exit(val success: Boolean) : ExitScreenState()
+        }
+
+        companion object {
+            private val initialPasswordsByStages = mapOf(
+                *Stage.values()
+                    .map { stage -> stage to FieldState.Password() }
+                    .toTypedArray()
+            )
         }
     }
 
