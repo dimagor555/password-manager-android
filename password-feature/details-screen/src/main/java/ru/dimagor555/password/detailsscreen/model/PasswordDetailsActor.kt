@@ -3,7 +3,6 @@ package ru.dimagor555.password.detailsscreen.model
 import androidx.annotation.StringRes
 import kotlinx.coroutines.flow.collect
 import me.aartikov.sesame.localizedstring.LocalizedString
-import ru.dimagor555.core.DataState
 import ru.dimagor555.mvicompose.abstraction.Actor
 import ru.dimagor555.password.detailsscreen.R
 import ru.dimagor555.password.detailsscreen.model.PasswordDetailsStore.*
@@ -34,15 +33,12 @@ internal class PasswordDetailsActor(
 
     private suspend fun observePassword() {
         useCases.observePassword(getState().passwordId)
-            .collect { unwrapPasswordDataState(it) }
-    }
-
-    private suspend fun unwrapPasswordDataState(dataState: DataState<Password>) {
-        when (dataState) {
-            is DataState.Data -> onNewPassword(dataState.data)
-            is DataState.Nothing -> sendMessage(Message.ExitScreen)
-            else -> {}
-        }
+            .collect {
+                if (it != null)
+                    onNewPassword(it)
+                else
+                    sendMessage(Message.ExitScreen)
+            }
     }
 
     private suspend fun onNewPassword(password: Password) {
