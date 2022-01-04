@@ -1,8 +1,10 @@
 package ru.dimagor555.password.usecase
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
-import ru.dimagor555.core.DataState
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import ru.dimagor555.password.domain.filter.PasswordFilter
 import ru.dimagor555.password.repository.PasswordFilterRepository
 import ru.dimagor555.password.repository.PasswordRepository
@@ -12,15 +14,11 @@ class ObservePasswordsUseCase(
     private val passwordFilterRepository: PasswordFilterRepository
 ) {
     operator fun invoke() = createResultFlow()
-        .flowOn(Dispatchers.Default)
-        .conflate()
 
-    private fun createResultFlow() = flow {
-        emit(DataState.Loading())
-        observeFilteredPasswords().collect {
-            emit(DataState.Data(it))
-        }
-    }
+    private fun createResultFlow() =
+        observeFilteredPasswords()
+            .flowOn(Dispatchers.Default)
+            .conflate()
 
     private fun observeFilteredPasswords() = combine(
         passwordRepository.observeAll(),

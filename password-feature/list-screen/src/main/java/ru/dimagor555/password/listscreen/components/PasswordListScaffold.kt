@@ -7,32 +7,31 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import ru.dimagor555.core.UiComponentVisibility
 import ru.dimagor555.password.domain.filter.PasswordFilterState
 import ru.dimagor555.password.listscreen.R
-import ru.dimagor555.password.listscreen.model.PasswordListEvent
-import ru.dimagor555.password.listscreen.model.PasswordListEvent.*
+import ru.dimagor555.password.listscreen.model.PasswordListStore.Action
 import ru.dimagor555.ui.core.component.SingleSnackbarScaffold
 import ru.dimagor555.ui.core.util.SnackbarMessage
 
 @Composable
 internal fun PasswordListScaffold(
     filterState: PasswordFilterState,
-    sendEvent: (PasswordListEvent) -> Unit,
+    sendAction: (Action) -> Unit,
     navigateToPasswordCreationScreen: () -> Unit,
     navigateToSettingsScreen: () -> Unit,
-    content: @Composable (onShowSnackbar: (String, String?) -> Unit) -> Unit
+    content: @Composable ((SnackbarMessage) -> Unit) -> Unit
 ) {
     SingleSnackbarScaffold(
         topBar = {
             PasswordListTopAppBar(
                 searchText = filterState.searchText,
-                onSearchTextChange = { sendEvent(SearchTextChanged(it)) },
+                onSearchTextChange = { sendAction(Action.ChangeSearchText(it)) },
+                onClearSearchText = { sendAction(Action.ClearSearchText) },
                 favouriteFilter = filterState.favouriteFilter,
-                onFavouriteFilterChange = { sendEvent(FavouriteFilterChanged(it)) },
+                onFavouriteFilterChange = { sendAction(Action.ChangeFavouriteFilter(it)) },
                 navigateToSettingsScreen = navigateToSettingsScreen,
-                onSortingClicked = {
-                    sendEvent(UpdateSortingDialogVisibility(UiComponentVisibility.Show))
+                onSortingButtonClicked = {
+                    sendAction(Action.ChangeSortingDialogVisibility(isVisible = true))
                 }
             )
         },
@@ -46,10 +45,6 @@ internal fun PasswordListScaffold(
         },
         floatingActionButtonPosition = FabPosition.Center
     ) { _, onShowSnackbar ->
-        content(
-            onShowSnackbar = { message, actionLabel ->
-                onShowSnackbar(SnackbarMessage(message, actionLabel))
-            }
-        )
+        content(onShowSnackbar)
     }
 }

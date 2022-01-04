@@ -2,34 +2,28 @@ package ru.dimagor555.password.listscreen.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import ru.dimagor555.core.ProgressBarState
 import ru.dimagor555.password.domain.FavouriteFilter
 import ru.dimagor555.password.domain.filter.PasswordFilterState
 import ru.dimagor555.password.listscreen.R
-import ru.dimagor555.password.listscreen.model.PasswordListEvent
-import ru.dimagor555.password.listscreen.model.PasswordListViewState
-import ru.dimagor555.password.listscreen.model.PasswordViewState
+import ru.dimagor555.password.listscreen.model.PasswordListStore.Action
+import ru.dimagor555.password.listscreen.model.PasswordListStore.State
+import ru.dimagor555.password.listscreen.model.PasswordState
 import ru.dimagor555.ui.core.component.FullscreenCircularProgressBar
 
 @Composable
 internal fun PasswordListScreenContent(
-    state: PasswordListViewState,
-    sendEvent: (PasswordListEvent) -> Unit,
+    state: State,
+    sendAction: (Action) -> Unit,
     navigateToPasswordDetailsScreen: (id: Int) -> Unit,
-    onShowSnackbar: (String, String?) -> Unit
 ) {
     when {
-        state.progressBarState == ProgressBarState.Loading ->
-            FullscreenCircularProgressBar()
-        state.passwordViewStates.isEmpty() ->
-            NoPasswords(state.filterState)
-        else ->
-            PasswordListWrapper(
-                passwordViewStates = state.passwordViewStates,
-                navigateToPasswordDetailsScreen = navigateToPasswordDetailsScreen,
-                onTriggerEvent = sendEvent,
-                showSnackbar = onShowSnackbar
-            )
+        state.isLoading -> FullscreenCircularProgressBar()
+        state.hasNoPasswords -> NoPasswords(state.filterState)
+        else -> PasswordListWrapper(
+            passwordStates = state.passwordStates,
+            navigateToPasswordDetailsScreen = navigateToPasswordDetailsScreen,
+            onTriggerEvent = sendAction,
+        )
     }
 }
 
@@ -56,16 +50,14 @@ private fun NoPasswords(filterState: PasswordFilterState) {
 
 @Composable
 private fun PasswordListWrapper(
-    passwordViewStates: List<PasswordViewState>,
+    passwordStates: List<PasswordState>,
     navigateToPasswordDetailsScreen: (Int) -> Unit,
-    onTriggerEvent: (PasswordListEvent) -> Unit,
-    showSnackbar: (String, String?) -> Unit
+    onTriggerEvent: (Action) -> Unit,
 ) {
     PasswordList(
-        passwordViewStates = passwordViewStates,
+        passwordStates = passwordStates,
         navigateToPasswordDetailsScreen = navigateToPasswordDetailsScreen,
-        onToggleFavourite = { onTriggerEvent(PasswordListEvent.ToggleFavourite(it)) },
-        onCopyPassword = { onTriggerEvent(PasswordListEvent.CopyPassword(it)) },
-        showSnackbar = showSnackbar
+        onToggleFavourite = { onTriggerEvent(Action.ToggleFavourite(it)) },
+        onCopyPassword = { onTriggerEvent(Action.CopyPassword(it)) },
     )
 }

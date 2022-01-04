@@ -4,18 +4,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.dimagor555.password.domain.Password
 
-internal data class PasswordViewState(
+internal data class PasswordState(
     val id: Int,
     val title: String,
     val login: String,
     val isFavourite: Boolean
 )
 
-internal suspend fun List<Password>.toPasswordViewStates() = withContext(Dispatchers.Default) {
-    map { it.toPasswordViewState() }
+internal suspend fun List<Password>.toPasswordStates() = withContext(Dispatchers.Default) {
+    map { it.toPasswordState() }
 }
 
-private fun Password.toPasswordViewState() = PasswordViewState(
+private fun Password.toPasswordState() = PasswordState(
     id = id!!,
     title = title,
     login = login,

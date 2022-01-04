@@ -6,17 +6,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import ru.dimagor555.core.ProgressBarState
-import ru.dimagor555.core.UiComponentVisibility
 import ru.dimagor555.password.domain.filter.PasswordFilterState
 import ru.dimagor555.password.listscreen.components.PasswordListScaffold
 import ru.dimagor555.password.listscreen.components.PasswordListScreenContent
+import ru.dimagor555.password.listscreen.components.SideEffectHandler
 import ru.dimagor555.password.listscreen.components.SortingDialog
-import ru.dimagor555.password.listscreen.model.PasswordListEvent
-import ru.dimagor555.password.listscreen.model.PasswordListEvent.SortingTypeChanged
-import ru.dimagor555.password.listscreen.model.PasswordListEvent.UpdateSortingDialogVisibility
-import ru.dimagor555.password.listscreen.model.PasswordListViewState
-import ru.dimagor555.password.listscreen.model.PasswordViewState
+import ru.dimagor555.password.listscreen.model.PasswordListStore.Action
+import ru.dimagor555.password.listscreen.model.PasswordListStore.State
+import ru.dimagor555.password.listscreen.model.PasswordState
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @Composable
@@ -30,32 +27,30 @@ fun PasswordListScreen(
 
     PasswordListScaffold(
         filterState = state.filterState,
-        sendEvent = viewModel::sendEvent,
+        sendAction = viewModel::sendAction,
         navigateToPasswordCreationScreen = navigateToPasswordCreationScreen,
         navigateToSettingsScreen = navigateToSettingsScreen
     ) { onShowSnackbar ->
         PasswordListScreenContent(
             state = state,
-            sendEvent = viewModel::sendEvent,
+            sendAction = viewModel::sendAction,
             navigateToPasswordDetailsScreen = navigateToPasswordDetailsScreen,
-            onShowSnackbar = onShowSnackbar
         )
-        SortingDialogWrapper(state = state, sendEvent = viewModel::sendEvent)
+        SortingDialogWrapper(state = state, sendAction = viewModel::sendAction)
+        SideEffectHandler(viewModel = viewModel, onShowSnackbar = onShowSnackbar)
     }
 }
 
 @Composable
 private fun SortingDialogWrapper(
-    state: PasswordListViewState,
-    sendEvent: (PasswordListEvent) -> Unit
+    state: State,
+    sendAction: (Action) -> Unit
 ) {
-    if (state.sortingDialogVisibility == UiComponentVisibility.Show)
+    if (state.isSortingDialogVisible)
         SortingDialog(
             sortingType = state.filterState.sortingType,
-            onDismiss = {
-                sendEvent(UpdateSortingDialogVisibility(UiComponentVisibility.Hide))
-            },
-            onChangeSortingType = { sendEvent(SortingTypeChanged(it)) }
+            onDismiss = { sendAction(Action.ChangeSortingDialogVisibility(isVisible = false)) },
+            onChangeSortingType = { sendAction(Action.ChangeSortingType(it)) }
         )
 }
 
@@ -68,14 +63,13 @@ private fun EmptyPasswordListScreenPreview() {
         PasswordListScaffold(
             filterState = PasswordFilterState(),
             navigateToPasswordCreationScreen = {},
-            sendEvent = {},
+            sendAction = {},
             navigateToSettingsScreen = {}
-        ) { onShowSnackbar ->
+        ) {
             PasswordListScreenContent(
-                state = PasswordListViewState(progressBarState = ProgressBarState.Idle),
-                sendEvent = {},
-                navigateToPasswordDetailsScreen = {},
-                onShowSnackbar = onShowSnackbar
+                state = State(isLoading = false),
+                sendAction = {},
+                navigateToPasswordDetailsScreen = {}
             )
         }
     }
@@ -90,24 +84,23 @@ private fun FilledPasswordListScreenPreview() {
         PasswordListScaffold(
             filterState = PasswordFilterState(),
             navigateToPasswordCreationScreen = {},
-            sendEvent = {},
+            sendAction = {},
             navigateToSettingsScreen = {}
-        ) { onShowSnackbar ->
+        ) {
             PasswordListScreenContent(
-                state = PasswordListViewState(
-                    progressBarState = ProgressBarState.Idle,
-                    passwordViewStates = (0..10).map {
-                        PasswordViewState(
+                state = State(
+                    passwordStates = (0..10).map {
+                        PasswordState(
                             id = it,
                             title = "Test title",
                             login = "test login",
                             isFavourite = it % 2 == 1
                         )
-                    }
+                    },
+                    isLoading = false
                 ),
-                sendEvent = {},
-                navigateToPasswordDetailsScreen = {},
-                onShowSnackbar = onShowSnackbar
+                sendAction = {},
+                navigateToPasswordDetailsScreen = {}
             )
         }
     }

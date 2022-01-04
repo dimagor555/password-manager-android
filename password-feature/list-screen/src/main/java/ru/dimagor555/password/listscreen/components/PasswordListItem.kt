@@ -16,30 +16,30 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.dimagor555.password.listscreen.R
-import ru.dimagor555.password.listscreen.model.PasswordViewState
-import ru.dimagor555.ui.core.util.ProvideMediumAlpha
-import ru.dimagor555.ui.core.component.button.SimpleIconButton
+import ru.dimagor555.password.listscreen.model.PasswordState
 import ru.dimagor555.ui.core.component.SingleLineText
+import ru.dimagor555.ui.core.component.button.SimpleIconButton
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
+import ru.dimagor555.ui.core.util.ProvideMediumAlpha
 
 @Composable
 internal fun PasswordListItem(
-    passwordViewState: PasswordViewState,
+    passwordState: PasswordState,
     onToggleFavourite: (id: Int) -> Unit,
     onCopyPassword: (id: Int) -> Unit,
     onPasswordSelected: (id: Int) -> Unit
 ) {
-    PasswordCard(onPasswordSelected = { onPasswordSelected(passwordViewState.id) }) {
+    PasswordCard(onPasswordSelected = { onPasswordSelected(passwordState.id) }) {
         PasswordContent(
             modifier = Modifier.weight(1f),
-            passwordViewState = passwordViewState,
+            passwordState = passwordState,
             onToggleFavourite = onToggleFavourite
         )
         Spacer(modifier = Modifier.width(12.dp))
         SimpleIconButton(
             icon = Icons.Default.ContentCopy,
             contentDescription = stringResource(R.string.copy_password),
-            onClick = { onCopyPassword(passwordViewState.id) }
+            onClick = { onCopyPassword(passwordState.id) }
         )
     }
 }
@@ -67,7 +67,7 @@ private fun PasswordCard(
 @Composable
 private fun PasswordContent(
     modifier: Modifier = Modifier,
-    passwordViewState: PasswordViewState,
+    passwordState: PasswordState,
     onToggleFavourite: (id: Int) -> Unit,
 ) {
     Column(
@@ -75,13 +75,13 @@ private fun PasswordContent(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         PasswordTitleWithStarRow(
-            title = passwordViewState.title,
-            isFavourite = passwordViewState.isFavourite,
-            onToggleFavourite = { onToggleFavourite(passwordViewState.id) }
+            title = passwordState.title,
+            isFavourite = passwordState.isFavourite,
+            onToggleFavourite = { onToggleFavourite(passwordState.id) }
         )
         ProvideMediumAlpha {
             SingleLineText(
-                text = passwordViewState.login,
+                text = passwordState.login,
                 style = MaterialTheme.typography.body1
             )
         }
@@ -119,7 +119,7 @@ private fun PasswordListItemPreview() {
         Surface {
             Column(modifier = Modifier.padding(8.dp)) {
                 PasswordListItem(
-                    passwordViewState = PasswordViewState(
+                    passwordState = PasswordState(
                         id = 0,
                         title = "Very very very long service name",
                         login = "Very long and beautiful username login user",
@@ -131,7 +131,7 @@ private fun PasswordListItemPreview() {
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 PasswordListItem(
-                    passwordViewState = PasswordViewState(
+                    passwordState = PasswordState(
                         id = 0,
                         title = "Yandex",
                         login = "Ivan Ivanov",

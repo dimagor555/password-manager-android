@@ -9,21 +9,18 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import ru.dimagor555.password.listscreen.R
-import ru.dimagor555.password.listscreen.model.PasswordViewState
+import ru.dimagor555.password.listscreen.model.PasswordState
 
 @Composable
 internal fun PasswordList(
-    passwordViewStates: List<PasswordViewState>,
+    passwordStates: List<PasswordState>,
     navigateToPasswordDetailsScreen: (Int) -> Unit,
     onToggleFavourite: (id: Int) -> Unit,
     onCopyPassword: (id: Int) -> Unit,
-    showSnackbar: (String, String?) -> Unit
 ) {
     val listState = rememberLazyListState()
-    LaunchedEffect(key1 = passwordViewStates.size) {
+    LaunchedEffect(key1 = passwordStates.size) {
         listState.scrollToItem(0)
     }
     LazyColumn(
@@ -37,15 +34,11 @@ internal fun PasswordList(
         ),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        items(items = passwordViewStates) {
-            val passwordCopiedSnackbarMessage = stringResource(R.string.password_copied)
+        items(items = passwordStates) {
             PasswordListItem(
-                passwordViewState = it,
+                passwordState = it,
                 onToggleFavourite = onToggleFavourite,
-                onCopyPassword = { id ->
-                    onCopyPassword(id)
-                    showSnackbar(passwordCopiedSnackbarMessage, "OK")
-                },
+                onCopyPassword = onCopyPassword,
                 onPasswordSelected = navigateToPasswordDetailsScreen
             )
         }

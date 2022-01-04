@@ -19,8 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.dimagor555.password.domain.FavouriteFilter
 import ru.dimagor555.password.listscreen.R
-import ru.dimagor555.ui.core.component.button.SimpleIconButton
 import ru.dimagor555.ui.core.component.SingleLineText
+import ru.dimagor555.ui.core.component.button.SimpleIconButton
 import ru.dimagor555.ui.core.component.topappbar.UnlimitedDefaultTopAppBar
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
@@ -28,10 +28,11 @@ import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 internal fun PasswordListTopAppBar(
     searchText: String,
     onSearchTextChange: (String) -> Unit,
+    onClearSearchText: () -> Unit,
     favouriteFilter: FavouriteFilter,
     onFavouriteFilterChange: (FavouriteFilter) -> Unit,
     navigateToSettingsScreen: () -> Unit,
-    onSortingClicked: () -> Unit
+    onSortingButtonClicked: () -> Unit
 ) {
     UnlimitedDefaultTopAppBar {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -47,12 +48,13 @@ internal fun PasswordListTopAppBar(
                 SearchTextField(
                     modifier = Modifier.weight(1f),
                     searchText = searchText,
-                    onSearchTextChange = onSearchTextChange
+                    onSearchTextChange = onSearchTextChange,
+                    onClearSearchText = onClearSearchText
                 )
                 SimpleIconButton(
                     icon = Icons.Default.Sort,
                     contentDescription = stringResource(R.string.sorting),
-                    onClick = onSortingClicked
+                    onClick = onSortingButtonClicked
                 )
             }
             FavouriteFilterTabs(
@@ -101,10 +103,11 @@ private fun TopAppBarPreview() {
         PasswordListTopAppBar(
             searchText = "",
             onSearchTextChange = {},
+            onClearSearchText = {},
             favouriteFilter = FavouriteFilter.All,
             onFavouriteFilterChange = {},
             navigateToSettingsScreen = {},
-            onSortingClicked = {}
+            onSortingButtonClicked = {}
         )
     }
 }

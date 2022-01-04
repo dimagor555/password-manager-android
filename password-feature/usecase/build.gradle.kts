@@ -3,7 +3,6 @@ plugins {
 }
 
 dependencies {
-    api(projects.core)
     api(projects.passwordFeature.domain)
     api(projects.encryptionFeature.domain)
 

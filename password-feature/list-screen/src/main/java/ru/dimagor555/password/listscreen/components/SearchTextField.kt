@@ -22,7 +22,8 @@ import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 internal fun SearchTextField(
     modifier: Modifier = Modifier,
     searchText: String,
-    onSearchTextChange: (String) -> Unit
+    onSearchTextChange: (String) -> Unit,
+    onClearSearchText: () -> Unit
 ) {
     val focusManager = LocalFocusManager.current
     OutlinedTextField(
@@ -33,7 +34,7 @@ internal fun SearchTextField(
         singleLine = true,
         placeholder = { SearchPlaceholder() },
         leadingIcon = { SearchIcon() },
-        trailingIcon = { ClearTextIcon(searchText, onSearchTextChange) },
+        trailingIcon = { ClearTextIcon(searchText, onClearSearchText) },
         colors = searchTextFieldColors(),
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(onSearch = { focusManager.clearFocus() })
@@ -57,13 +58,13 @@ private fun SearchIcon() {
 }
 
 @Composable
-private fun ClearTextIcon(text: String, onTextChange: (String) -> Unit) {
+private fun ClearTextIcon(text: String, onClearText: () -> Unit) {
     if (text.isEmpty())
         return
     Icon(
         Icons.Default.Clear,
         contentDescription = stringResource(R.string.clear),
-        modifier = Modifier.clickable { onTextChange("") }
+        modifier = Modifier.clickable(onClick = onClearText)
     )
 }
 
@@ -81,7 +82,9 @@ private fun EmptySearchTextFieldPreview() {
             SearchTextField(
                 modifier = Modifier.padding(10.dp),
                 searchText = "",
-                onSearchTextChange = {})
+                onSearchTextChange = {},
+                onClearSearchText = {}
+            )
         }
     }
 }
@@ -94,7 +97,9 @@ private fun FilledSearchTextFieldPreview() {
             SearchTextField(
                 modifier = Modifier.padding(10.dp),
                 searchText = "Google",
-                onSearchTextChange = {})
+                onSearchTextChange = {},
+                onClearSearchText = {}
+            )
         }
     }
 }
