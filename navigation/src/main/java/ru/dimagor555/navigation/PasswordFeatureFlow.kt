@@ -3,15 +3,15 @@ package ru.dimagor555.navigation
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import ru.dimagor555.password.creationscreen.PasswordCreationScreen
+import ru.dimagor555.password.createscreen.CreatePasswordScreen
 import ru.dimagor555.password.detailsscreen.PasswordDetailsScreen
-import ru.dimagor555.password.editingscreen.PasswordEditingScreen
+import ru.dimagor555.password.editscreen.EditPasswordScreen
 import ru.dimagor555.password.listscreen.PasswordListScreen
 
 internal object PasswordScreen {
     object Overview : Screen("PasswordOverview")
 
-    object Creation : Screen("PasswordCreation")
+    object Create : Screen("CreatePassword")
 
     object Details : Screen(
         route = "PasswordDetails",
@@ -19,9 +19,9 @@ internal object PasswordScreen {
         arguments = listOf(passwordIdArgument)
     )
 
-    object Editing : Screen(
-        route = "PasswordEditing",
-        registryRoute = "PasswordEditing/{${ArgName.PASSWORD_ID}}",
+    object Edit : Screen(
+        route = "EditPassword",
+        registryRoute = "EditPassword/{${ArgName.PASSWORD_ID}}",
         arguments = listOf(passwordIdArgument)
     )
 
@@ -40,18 +40,18 @@ internal fun NavGraphBuilder.registerPasswordFeatureFlow(navController: NavContr
             },
             navigateToSettingsScreen = {},
             navigateToPasswordCreationScreen = {
-                navController.navigate(PasswordScreen.Creation.route)
+                navController.navigate(PasswordScreen.Create.route)
             }
         )
     }
-    registerScreen(PasswordScreen.Creation) {
+    registerScreen(PasswordScreen.Create) {
         val generatedPassword = it.getGeneratedPassword()
-        PasswordCreationScreen(
+        CreatePasswordScreen(
             generatedPassword = generatedPassword,
             onNavigateToPasswordGenerationScreen = {
                 navController.navigate(PasswordGenerationScreen.route)
             },
-            navigateBack = { navController.popBackStack() }
+            onNavigateBack = { navController.popBackStack() }
         )
     }
     registerScreen(PasswordScreen.Details) {
@@ -60,20 +60,20 @@ internal fun NavGraphBuilder.registerPasswordFeatureFlow(navController: NavContr
             passwordId = passwordId,
             navigateBack = { navController.popBackStack() },
             navigateToPasswordEditingScreen = {
-                navController.navigate("${PasswordScreen.Editing.route}/$passwordId")
+                navController.navigate("${PasswordScreen.Edit.route}/$passwordId")
             }
         )
     }
-    registerScreen(PasswordScreen.Editing) {
+    registerScreen(PasswordScreen.Edit) {
         val passwordId = it.getPasswordId()
         val generatedPassword = it.getGeneratedPassword()
-        PasswordEditingScreen(
+        EditPasswordScreen(
             passwordId = passwordId,
             generatedPassword = generatedPassword,
             onNavigateToPasswordGenerationScreen = {
                 navController.navigate(PasswordGenerationScreen.route)
             },
-            navigateBack = { navController.popBackStack() }
+            onNavigateBack = { navController.popBackStack() }
         )
     }
 }

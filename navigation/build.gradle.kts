@@ -5,8 +5,8 @@ plugins {
 dependencies {
     implementation(projects.passwordFeature.listScreen)
     implementation(projects.passwordFeature.detailsScreen)
-    implementation(projects.passwordFeature.creationScreen)
-    implementation(projects.passwordFeature.editingScreen)
+    implementation(projects.passwordFeature.createScreen)
+    implementation(projects.passwordFeature.editScreen)
 
     implementation(projects.passwordGenerationFeature.screen)
 

@@ -22,3 +22,11 @@ val FieldState.isError
     get() = error != null
 
 fun FieldState.Password.toggleVisibility() = copy(isVisible = !isVisible)
+
+fun FieldState.copy(
+    text: String = this.text,
+    error: LocalizedString? = this.error
+) = when (this) {
+    is FieldState.Text -> copy(text = text, error = error)
+    is FieldState.Password -> copy(text = text, error = error)
+}
