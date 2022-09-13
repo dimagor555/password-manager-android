@@ -1,8 +1,9 @@
 package ru.dimagor555.password.validation.ui
 
 import me.aartikov.sesame.localizedstring.LocalizedString
-import ru.dimagor555.password.validation.PasswordValidationError
-import ru.dimagor555.password.validation.TextValidationError
+import ru.dimagor555.password.validation.core.PasswordValidationError
+import ru.dimagor555.password.validation.core.TextValidationError
+import ru.dimagor555.validation.core.R
 
 fun TextValidationError.toLocalizedString(): LocalizedString =
     when (this) {

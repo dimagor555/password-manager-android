@@ -1,4 +1,4 @@
-package ru.dimagor555.password.validation
+package ru.dimagor555.password.validation.core
 
 object TextValidationUtil {
     fun validate(text: String, lengthSpec: LengthSpec): List<TextValidationError> {

@@ -1,4 +1,4 @@
-package ru.dimagor555.password.validation
+package ru.dimagor555.password.validation.core
 
 object PasswordValidationUtil {
     fun validate(password: String) = validateSymbols(password)
