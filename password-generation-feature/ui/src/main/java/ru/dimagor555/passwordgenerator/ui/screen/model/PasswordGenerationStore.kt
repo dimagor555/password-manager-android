@@ -1,4 +1,4 @@
-package ru.dimagor555.passwordgenerator.screen.model
+package ru.dimagor555.passwordgenerator.ui.screen.model
 
 import me.aartikov.sesame.localizedstring.LocalizedString
 import ru.dimagor555.mvicompose.abstraction.Store
@@ -6,7 +6,7 @@ import ru.dimagor555.mvicompose.implementation.SimpleActionBootstrapper
 import ru.dimagor555.mvicompose.implementation.StoreImpl
 import ru.dimagor555.passwordgeneration.domain.PasswordCharGroup
 import ru.dimagor555.passwordgeneration.domain.PasswordLength
-import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationStore.*
+import ru.dimagor555.passwordgenerator.ui.screen.model.PasswordGenerationStore.*
 
 internal class PasswordGenerationStore :
     Store<Action, State, SideEffect> by StoreImpl(

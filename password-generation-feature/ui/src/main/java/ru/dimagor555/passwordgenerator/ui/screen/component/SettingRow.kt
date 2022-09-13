@@ -1,4 +1,4 @@
-package ru.dimagor555.passwordgenerator.screen.component
+package ru.dimagor555.passwordgenerator.ui.screen.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

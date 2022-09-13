@@ -1,8 +1,8 @@
-package ru.dimagor555.passwordgenerator.screen.component
+package ru.dimagor555.passwordgenerator.ui.screen.component
 
 import androidx.compose.runtime.Composable
-import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationStore.Action
-import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationStore.State
+import ru.dimagor555.passwordgenerator.ui.screen.model.PasswordGenerationStore.Action
+import ru.dimagor555.passwordgenerator.ui.screen.model.PasswordGenerationStore.State
 import ru.dimagor555.ui.core.component.SingleSnackbarScaffold
 import ru.dimagor555.ui.core.util.SnackbarMessage
 

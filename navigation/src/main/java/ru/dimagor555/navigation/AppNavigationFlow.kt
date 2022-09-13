@@ -5,7 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import ru.dimagor555.passwordmanager.startscreen.observeHasMasterPassword
+import ru.dimagor555.masterpassword.ui.startscreen.observeHasMasterPassword
 
 @Composable
 fun AppNavigationFlow(onShowFirstScreen: () -> Unit) {

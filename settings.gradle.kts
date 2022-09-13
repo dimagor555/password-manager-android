@@ -24,7 +24,7 @@ include(
 include(
     ":password-generation-feature",
     ":password-generation-feature:domain",
-    ":password-generation-feature:screen"
+    ":password-generation-feature:ui"
 )
 include(
     ":master-password-feature",

@@ -1,4 +1,4 @@
-package ru.dimagor555.passwordgenerator.screen.component
+package ru.dimagor555.passwordgenerator.ui.screen.component
 
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.FloatingActionButton
@@ -9,7 +9,7 @@ import androidx.compose.material.icons.filled.Autorenew
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.res.stringResource
-import ru.dimagor555.passwordgenerator.screen.R
+import ru.dimagor555.passwordgenerator.ui.R
 
 @Composable
 internal fun GeneratePasswordFloatingActionButton(

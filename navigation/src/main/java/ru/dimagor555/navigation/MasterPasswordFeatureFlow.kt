@@ -2,9 +2,9 @@ package ru.dimagor555.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import ru.dimagor555.masterpassword.editscreen.EditMasterPasswordScreen
-import ru.dimagor555.masterpassword.loginscreen.LoginScreen
-import ru.dimagor555.passwordmanager.startscreen.WelcomeScreen
+import ru.dimagor555.masterpassword.ui.editscreen.EditMasterPasswordScreen
+import ru.dimagor555.masterpassword.ui.loginscreen.LoginScreen
+import ru.dimagor555.masterpassword.ui.startscreen.WelcomeScreen
 
 internal object MasterPasswordScreen {
     object Welcome : Screen("Welcome")

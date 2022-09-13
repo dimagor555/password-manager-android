@@ -3,16 +3,11 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.passwordFeature.listScreen)
-    implementation(projects.passwordFeature.detailsScreen)
-    implementation(projects.passwordFeature.createScreen)
-    implementation(projects.passwordFeature.editScreen)
+    implementation(projects.passwordFeature.ui)
 
-    implementation(projects.passwordGenerationFeature.screen)
+    implementation(projects.passwordGenerationFeature.ui)
 
-    implementation(projects.masterPasswordFeature.startScreen)
-    implementation(projects.masterPasswordFeature.loginScreen)
-    implementation(projects.masterPasswordFeature.editScreen)
+    implementation(projects.masterPasswordFeature.ui)
 
     implementation(Libs.Navigation.compose)
 }

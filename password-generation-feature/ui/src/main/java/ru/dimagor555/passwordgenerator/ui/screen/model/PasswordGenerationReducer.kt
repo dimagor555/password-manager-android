@@ -1,8 +1,8 @@
-package ru.dimagor555.passwordgenerator.screen.model
+package ru.dimagor555.passwordgenerator.ui.screen.model
 
 import ru.dimagor555.mvicompose.abstraction.Reducer
-import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationStore.Message
-import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationStore.State
+import ru.dimagor555.passwordgenerator.ui.screen.model.PasswordGenerationStore.Message
+import ru.dimagor555.passwordgenerator.ui.screen.model.PasswordGenerationStore.State
 
 internal class PasswordGenerationReducer : Reducer<State, Message> {
     override fun State.reduce(msg: Message) =

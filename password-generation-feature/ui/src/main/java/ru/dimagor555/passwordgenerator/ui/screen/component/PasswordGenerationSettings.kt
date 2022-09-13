@@ -1,4 +1,4 @@
-package ru.dimagor555.passwordgenerator.screen.component
+package ru.dimagor555.passwordgenerator.ui.screen.component
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -14,8 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.dimagor555.passwordgeneration.domain.PasswordCharGroup
 import ru.dimagor555.passwordgeneration.domain.PasswordLength
-import ru.dimagor555.passwordgenerator.screen.R
-import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationStore.State
+import ru.dimagor555.passwordgenerator.ui.screen.model.PasswordGenerationStore.State
+import ru.dimagor555.passwordgenerator.ui.R
 import ru.dimagor555.ui.core.component.button.ButtonGroup
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 

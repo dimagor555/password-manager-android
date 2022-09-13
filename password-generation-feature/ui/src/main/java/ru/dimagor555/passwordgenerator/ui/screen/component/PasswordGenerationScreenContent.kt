@@ -1,4 +1,4 @@
-package ru.dimagor555.passwordgenerator.screen.component
+package ru.dimagor555.passwordgenerator.ui.screen.component
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -12,8 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationStore.Action
-import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationStore.State
+import ru.dimagor555.passwordgenerator.ui.screen.model.PasswordGenerationStore.Action
+import ru.dimagor555.passwordgenerator.ui.screen.model.PasswordGenerationStore.State
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @Composable

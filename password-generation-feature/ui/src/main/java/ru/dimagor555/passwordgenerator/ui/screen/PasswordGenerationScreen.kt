@@ -1,4 +1,4 @@
-package ru.dimagor555.passwordgenerator.screen
+package ru.dimagor555.passwordgenerator.ui.screen
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.runtime.Composable
@@ -6,10 +6,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import ru.dimagor555.passwordgenerator.screen.component.PasswordGenerationScaffold
-import ru.dimagor555.passwordgenerator.screen.component.PasswordGenerationScreenContent
-import ru.dimagor555.passwordgenerator.screen.component.SideEffectHandler
-import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationStore.State
+import ru.dimagor555.passwordgenerator.ui.screen.component.PasswordGenerationScaffold
+import ru.dimagor555.passwordgenerator.ui.screen.component.PasswordGenerationScreenContent
+import ru.dimagor555.passwordgenerator.ui.screen.component.SideEffectHandler
+import ru.dimagor555.passwordgenerator.ui.screen.model.PasswordGenerationStore.State
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @Composable

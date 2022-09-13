@@ -3,7 +3,7 @@ package ru.dimagor555.navigation
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import ru.dimagor555.passwordgenerator.screen.PasswordGenerationScreen
+import ru.dimagor555.passwordgenerator.ui.screen.PasswordGenerationScreen
 
 internal object PasswordGenerationScreen : Screen("PasswordGenerationScreen") {
     object ResultName {

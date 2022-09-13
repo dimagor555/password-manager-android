@@ -1,4 +1,4 @@
-package ru.dimagor555.passwordgenerator.screen.model
+package ru.dimagor555.passwordgenerator.ui.screen.model
 
 import ru.dimagor555.passwordgeneration.usecase.GeneratePasswordUseCase
 import ru.dimagor555.passwordgeneration.usecase.ToggleCharGroupUseCase

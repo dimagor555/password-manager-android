@@ -1,12 +1,12 @@
-package ru.dimagor555.passwordgenerator.screen.model
+package ru.dimagor555.passwordgenerator.ui.screen.model
 
 import me.aartikov.sesame.localizedstring.LocalizedString
 import ru.dimagor555.mvicompose.abstraction.Actor
 import ru.dimagor555.passwordgeneration.domain.PasswordCharGroup
 import ru.dimagor555.passwordgeneration.domain.PasswordGenerationParams
 import ru.dimagor555.passwordgeneration.domain.PasswordLength
-import ru.dimagor555.passwordgenerator.screen.R
-import ru.dimagor555.passwordgenerator.screen.model.PasswordGenerationStore.*
+import ru.dimagor555.passwordgenerator.ui.screen.model.PasswordGenerationStore.*
+import ru.dimagor555.passwordgenerator.ui.R
 
 internal class PasswordGenerationActor(
     private val useCases: PasswordGenerationUseCases = PasswordGenerationUseCases()
