@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search">Поиск</string>
+    <string name="clear">Очистить</string>
+    <string name="settings">Настройки</string>
+    <string name="sorting">Сортировка</string>
+    <string name="empty_favourite_screen_title">Здесь будут избранные пароли</string>
+    <string name="empty_favourite_screen_content">Нажмите на звёздочку, чтобы добавить пароль в избранные</string>
+    <string name="creation_date">Недавно созданный</string>
+    <string name="editing_date">Недавно изменённый</string>
+    <string name="frequent_usage">Часто используемый</string>
+    <string name="recent_usage">Недавно используемый</string>
+    <string name="sort_by">Сортировать по</string>
+    <string name="empty_passwords_screen_title">Здесь будут ваши пароли</string>
+    <string name="empty_passwords_screen_content">Вы не создали ещё ни одного пароля</string>
+    <string name="add">Добивать</string>
+    <string name="not_found_screen_title">Ничего не найдено</string>
+    <string name="not_found_screen_content">Попробуйте изменить поисковой запрос</string>
+    <string name="all_passwords">Все пароли</string>
+    <string name="favourite">Избранные</string>
+
+    <string name="remove_password_dialog_title">Удалить пароль?</string>
+    <string name="remove_password_dialog_text">Вы не сможете отменить это действие</string>
+    <string name="remove">Удалить</string>
+    <string name="edit">Изменить</string>
+    <string name="copy_login">Скопировать логин</string>
+    <string name="login_copied">Логин скопирован</string>
+    <string name="show_password">Показать пароль</string>
+    <string name="hide_password">Скрыть пароль</string>
+
+    <string name="save_changes_dialog_title">Сохранить изменения?</string>
+    <string name="save">Сохранить</string>
+    <string name="discard">Не сохранять</string>
+
+    <string name="toggle_favourite">Переключить изрбанное</string>
+    <string name="password_copied">Пароль скопирован</string>
+    <string name="copy_password">Скопировать пароль</string>
+    <string name="title">Название</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="create">Создать</string>
+</resources>

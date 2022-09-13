@@ -3,10 +3,10 @@ package ru.dimagor555.navigation
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import ru.dimagor555.password.createscreen.CreatePasswordScreen
-import ru.dimagor555.password.detailsscreen.PasswordDetailsScreen
-import ru.dimagor555.password.editscreen.EditPasswordScreen
-import ru.dimagor555.password.listscreen.PasswordListScreen
+import ru.dimagor555.password.ui.createscreen.CreatePasswordScreen
+import ru.dimagor555.password.ui.detailsscreen.PasswordDetailsScreen
+import ru.dimagor555.password.ui.editscreen.EditPasswordScreen
+import ru.dimagor555.password.ui.listscreen.PasswordListScreen
 
 internal object PasswordScreen {
     object Overview : Screen("PasswordOverview")

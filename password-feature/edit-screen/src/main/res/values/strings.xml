@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="save_changes_dialog_title">Save changes?</string>
-    <string name="save">Save</string>
-    <string name="discard">Discard</string>
-</resources>

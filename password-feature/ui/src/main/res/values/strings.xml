@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search">Search</string>
+    <string name="clear">Clear</string>
+    <string name="settings">Settings</string>
+    <string name="sorting">Sorting</string>
+    <string name="empty_favourite_screen_title">Favourite passwords will be here</string>
+    <string name="empty_favourite_screen_content">Click on the star to add a password to favorites</string>
+    <string name="frequent_usage">Frequently used</string>
+    <string name="recent_usage">Recently used</string>
+    <string name="creation_date">Recently created</string>
+    <string name="editing_date">Recently edited</string>
+    <string name="sort_by">Sort by</string>
+    <string name="empty_passwords_screen_title">Your passwords will be here</string>
+    <string name="empty_passwords_screen_content">You have not created any passwords yet</string>
+    <string name="add">Add</string>
+    <string name="not_found_screen_title">Nothing found</string>
+    <string name="not_found_screen_content">Try to change your search query</string>
+    <string name="all_passwords">All passwords</string>
+    <string name="favourite">Favourite</string>
+
+    <string name="remove_password_dialog_title">Remove password?</string>
+    <string name="remove_password_dialog_text">You cannot undo this action</string>
+    <string name="remove">Remove</string>
+    <string name="edit">Edit</string>
+    <string name="copy_login">Copy login</string>
+    <string name="login_copied">Login copied</string>
+    <string name="show_password">Show password</string>
+    <string name="hide_password">Hide password</string>
+
+    <string name="save_changes_dialog_title">Save changes?</string>
+    <string name="save">Save</string>
+    <string name="discard">Discard</string>
+
+    <string name="toggle_favourite">Toggle favourite</string>
+    <string name="password_copied">Password copied</string>
+    <string name="copy_password">Copy password</string>
+    <string name="title">Title</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="create">Create</string>
+</resources>

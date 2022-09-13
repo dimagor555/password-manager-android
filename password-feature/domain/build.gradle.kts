@@ -4,7 +4,8 @@ plugins {
 
 dependencies {
     api(projects.core)
-    api(projects.validation)
+//    api(projects.validationCore)
+    implementation(projects.validation.core)
 
     api(Libs.KotlinX.datetime)
 }

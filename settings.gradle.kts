@@ -13,12 +13,7 @@ include(
     ":password-feature:domain",
     ":password-feature:usecase",
     ":password-feature:data",
-    ":password-feature:ui-core",
-    ":password-feature:list-screen",
-    ":password-feature:details-screen",
-    ":password-feature:common-edit",
-    ":password-feature:create-screen",
-    ":password-feature:edit-screen"
+    ":password-feature:ui"
 )
 include(
     ":encryption-feature",

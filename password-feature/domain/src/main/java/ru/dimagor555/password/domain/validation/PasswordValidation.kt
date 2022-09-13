@@ -1,7 +1,7 @@
 package ru.dimagor555.password.domain.validation
 
-import ru.dimagor555.password.validation.LengthSpec
-import ru.dimagor555.password.validation.TextValidationUtil
+import ru.dimagor555.password.validation.core.LengthSpec
+import ru.dimagor555.password.validation.core.TextValidationUtil
 
 class PasswordValidation(
     val title: String,

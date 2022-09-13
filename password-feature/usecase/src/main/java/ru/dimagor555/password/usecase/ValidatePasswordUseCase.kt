@@ -5,7 +5,7 @@ import kotlinx.coroutines.withContext
 import ru.dimagor555.password.domain.validation.validateLogin
 import ru.dimagor555.password.domain.validation.validatePasswordText
 import ru.dimagor555.password.domain.validation.validateTitle
-import ru.dimagor555.password.validation.TextValidationError
+import ru.dimagor555.password.validation.core.TextValidationError
 
 class ValidatePasswordUseCase {
     suspend operator fun invoke(params: Params) = withContext(Dispatchers.Default) {
