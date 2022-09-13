@@ -2,7 +2,7 @@ package ru.dimagor555.masterpassword.usecase
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.dimagor555.password.validation.*
+import ru.dimagor555.password.validation.core.*
 
 class ValidatePasswordUseCase {
     suspend operator fun invoke(password: String) = withContext(Dispatchers.Default) {

@@ -4,6 +4,7 @@ plugins {
 
 dependencies {
     api(projects.masterPasswordFeature.domain)
-    implementation(projects.validation)
+//    api(projects.validationCore)
+    implementation(projects.validation.core)
     implementation(Libs.KotlinX.coroutinesCore)
 }

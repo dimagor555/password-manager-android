@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="incorrect_password_error">Неверный пароль</string>
-    <string name="login_button_text">Войти</string>
-    <string name="biometry_login">Использовать биометрию для входа</string>
-    <string name="biometry_login_dialog_title">Вход в менеджер паролей</string>
-    <string name="biometry_login_cancel_button_text">Использовать пароль</string>
-</resources>
