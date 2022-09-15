@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
+import org.koin.androidx.compose.koinViewModel
 import ru.dimagor555.password.domain.filter.PasswordFilterState
 import ru.dimagor555.password.ui.listscreen.components.PasswordListScaffold
 import ru.dimagor555.password.ui.listscreen.components.PasswordListScreenContent
@@ -22,7 +22,7 @@ fun PasswordListScreen(
     navigateToSettingsScreen: () -> Unit,
     navigateToPasswordCreationScreen: () -> Unit
 ) {
-    val viewModel: PasswordListViewModel = hiltViewModel()
+    val viewModel = koinViewModel<PasswordListViewModel>()
     val state by viewModel.state.collectAsState()
 
     PasswordListScaffold(

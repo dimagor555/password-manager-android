@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.hilt.navigation.compose.hiltViewModel
+import org.koin.androidx.compose.koinViewModel
 import ru.dimagor555.masterpassword.ui.editscreen.component.EditConfirmPasswordScreenContent
 import ru.dimagor555.masterpassword.ui.editscreen.component.EditPrimaryPasswordScreenContent
 import ru.dimagor555.masterpassword.ui.editscreen.model.EditMasterPasswordStore.Action
@@ -19,7 +19,7 @@ fun EditMasterPasswordScreen(
     onCancel: () -> Unit,
     onNavigateToPasswordGenerationScreen: () -> Unit
 ) {
-    val viewModel: EditMasterPasswordViewModel = hiltViewModel()
+    val viewModel = koinViewModel<EditMasterPasswordViewModel>()
     val state by viewModel.state.collectAsState()
 
     LaunchedEffect(generatedPassword) {

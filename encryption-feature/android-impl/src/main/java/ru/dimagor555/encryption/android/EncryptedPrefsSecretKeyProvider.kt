@@ -10,8 +10,8 @@ import javax.crypto.spec.SecretKeySpec
 
 internal class EncryptedPrefsSecretKeyProvider(
     applicationContext: Context,
-    private val secretKeyGenerator: AesSecretKeyGenerator = AesSecretKeyGenerator(),
-    private val base64: Base64 = AndroidBase64()
+    private val secretKeyGenerator: AesSecretKeyGenerator,
+    private val base64: Base64
 ) {
     private val masterKey = MasterKey.Builder(applicationContext)
         .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)

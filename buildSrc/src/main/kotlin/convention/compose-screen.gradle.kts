@@ -10,7 +10,5 @@ dependencies {
     implementation(Libs.MviCompose.core)
     implementation(Libs.MviCompose.android)
 
-    implementation(Libs.Navigation.hiltCompose)
-
     implementation(Libs.localizedString)
 }

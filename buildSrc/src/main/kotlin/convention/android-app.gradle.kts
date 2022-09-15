@@ -7,7 +7,6 @@ plugins {
     id("com.android.application")
     id("convention.android")
     id("convention.compose-ui")
-    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -26,10 +25,6 @@ android {
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
     }
-}
-
-hilt {
-    enableAggregatingTask = true
 }
 
 dependencies {

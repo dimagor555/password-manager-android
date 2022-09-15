@@ -5,12 +5,12 @@ plugins {
 
 dependencies {
     implementation(projects.masterPasswordFeature.usecase)
-//    implementation(projects.masterPasswordFeature.ui)
+    implementation(projects.masterPasswordFeature.data)
+    implementation(projects.masterPasswordFeature.hashing)
     implementation(projects.uiCore)
 
     implementation(Libs.AndroidX.biometric)
 
-//    implementation(projects.uiValidation)
     implementation(projects.validation.ui)
     implementation(projects.validation.core)
 }

@@ -1,15 +1,12 @@
 package ru.dimagor555.password.ui.listscreen.model
 
-import dagger.hilt.android.scopes.ViewModelScoped
 import ru.dimagor555.encryption.domain.Decryptor
 import ru.dimagor555.password.repository.ClipboardRepository
 import ru.dimagor555.password.repository.PasswordFilterRepository
 import ru.dimagor555.password.repository.PasswordRepository
 import ru.dimagor555.password.usecase.*
-import javax.inject.Inject
 
-@ViewModelScoped
-internal class PasswordListUseCases @Inject constructor(
+internal class PasswordListUseCases(
     passwordRepository: PasswordRepository,
     passwordFilterRepository: PasswordFilterRepository,
     clipboardRepository: ClipboardRepository,

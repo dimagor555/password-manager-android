@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
+import org.koin.androidx.compose.koinViewModel
 import ru.dimagor555.passwordgenerator.ui.screen.component.PasswordGenerationScaffold
 import ru.dimagor555.passwordgenerator.ui.screen.component.PasswordGenerationScreenContent
 import ru.dimagor555.passwordgenerator.ui.screen.component.SideEffectHandler
@@ -16,7 +16,7 @@ import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 fun PasswordGenerationScreen(
     onNavigateBack: (generatedPassword: String?) -> Unit
 ) {
-    val viewModel: PasswordGenerationViewModel = hiltViewModel()
+    val viewModel = koinViewModel<PasswordGenerationViewModel>()
     val state by viewModel.state.collectAsState()
 
     PasswordGenerationScaffold(

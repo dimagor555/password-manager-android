@@ -3,11 +3,11 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.passwordFeature.ui)
+    api(projects.passwordFeature.ui)
 
-    implementation(projects.passwordGenerationFeature.ui)
+    api(projects.passwordGenerationFeature.ui)
 
-    implementation(projects.masterPasswordFeature.ui)
+    api(projects.masterPasswordFeature.ui)
 
     implementation(Libs.Navigation.compose)
 }

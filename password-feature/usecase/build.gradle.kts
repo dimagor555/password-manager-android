@@ -9,4 +9,5 @@ dependencies {
     implementation(projects.validation.core)
 
     implementation(Libs.KotlinX.coroutinesCore)
+    implementation(Libs.Koin.core)
 }

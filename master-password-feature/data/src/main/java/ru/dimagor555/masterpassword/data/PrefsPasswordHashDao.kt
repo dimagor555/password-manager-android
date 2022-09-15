@@ -2,14 +2,12 @@ package ru.dimagor555.masterpassword.data
 
 import android.annotation.SuppressLint
 import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.dimagor555.masterpassword.domain.PasswordHashDao
-import javax.inject.Inject
 
-internal class PrefsPasswordHashDao @Inject constructor(
-    @ApplicationContext context: Context
+internal class PrefsPasswordHashDao(
+    context: Context
 ) : PasswordHashDao {
     private val prefs = context.getSharedPreferences(PASSWORD_HASH_PREFS_NAME, Context.MODE_PRIVATE)
 

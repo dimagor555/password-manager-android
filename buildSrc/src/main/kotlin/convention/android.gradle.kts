@@ -43,6 +43,7 @@ dependencies {
     implementation(Libs.AndroidX.coreKtx)
     implementation(Libs.AndroidX.appCompat)
 
-    implementation(Libs.Hilt.android)
-    kapt(Libs.Hilt.compiler)
+    implementation(Libs.Koin.core)
+    implementation(Libs.Koin.android)
+    implementation(Libs.Koin.compose)
 }

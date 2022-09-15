@@ -2,7 +2,6 @@ package ru.dimagor555.password.ui.editscreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import ru.dimagor555.password.ui.commoneditscreen.model.CommonEditPasswordStore
@@ -10,10 +9,8 @@ import ru.dimagor555.password.ui.commoneditscreen.model.CommonEditPasswordUseCas
 import ru.dimagor555.password.ui.editscreen.model.EditPasswordStore
 import ru.dimagor555.password.ui.editscreen.model.EditPasswordUseCases
 import ru.dimagor555.password.ui.editscreen.model.PasswordDto
-import javax.inject.Inject
 
-@HiltViewModel
-internal class EditPasswordViewModel @Inject constructor(
+internal class EditPasswordViewModel(
     editPasswordUseCases: EditPasswordUseCases,
     commonEditPasswordUseCases: CommonEditPasswordUseCases,
 ) : ViewModel() {

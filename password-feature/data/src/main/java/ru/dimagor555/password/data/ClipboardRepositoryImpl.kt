@@ -3,14 +3,11 @@ package ru.dimagor555.password.data
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.dimagor555.password.repository.ClipboardRepository
-import javax.inject.Inject
 
-internal class ClipboardRepositoryImpl @Inject constructor(
-    @ApplicationContext
+internal class ClipboardRepositoryImpl(
     private val applicationContext: Context
 ) : ClipboardRepository {
     override suspend fun setText(text: String) = withContext(Dispatchers.Main) {

@@ -17,7 +17,6 @@ object Libs {
 
     object Navigation {
         const val compose = "androidx.navigation:navigation-compose:2.4.0-alpha10"
-        const val hiltCompose = "androidx.hilt:hilt-navigation-compose:1.0.0-alpha03"
     }
 
     object AndroidX {
@@ -49,8 +48,10 @@ object Libs {
         const val ktx = "androidx.room:room-ktx:$roomVersion"
     }
 
-    object Hilt {
-        const val android = "com.google.dagger:hilt-android:${Versions.hilt}"
-        const val compiler = "com.google.dagger:hilt-compiler:${Versions.hilt}"
+    object Koin {
+        private const val version = "3.2.0"
+        const val core = "io.insert-koin:koin-core:$version"
+        const val android = "io.insert-koin:koin-android:$version"
+        const val compose = "io.insert-koin:koin-androidx-compose:$version"
     }
 }

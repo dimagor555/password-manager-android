@@ -6,13 +6,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
+import org.koin.androidx.compose.koinViewModel
+import ru.dimagor555.password.ui.R
 import ru.dimagor555.password.ui.commoneditscreen.CommonEditPasswordScreen
 import ru.dimagor555.password.ui.commoneditscreen.model.CommonEditPasswordStore
 import ru.dimagor555.password.ui.editscreen.component.SaveChangesDialog
 import ru.dimagor555.password.ui.editscreen.model.EditPasswordStore.Action
 import ru.dimagor555.password.ui.editscreen.model.EditPasswordStore.State
-import ru.dimagor555.password.ui.R
 
 @Composable
 fun EditPasswordScreen(
@@ -21,7 +21,7 @@ fun EditPasswordScreen(
     onNavigateToPasswordGenerationScreen: () -> Unit,
     onNavigateBack: () -> Unit
 ) {
-    val viewModel: EditPasswordViewModel = hiltViewModel()
+    val viewModel = koinViewModel<EditPasswordViewModel>()
     val state by viewModel.state.collectAsState()
 
     LaunchedEffect(passwordId) {

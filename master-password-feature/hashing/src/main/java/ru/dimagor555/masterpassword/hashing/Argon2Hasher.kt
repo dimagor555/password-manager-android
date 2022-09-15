@@ -6,9 +6,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.dimagor555.masterpassword.domain.Hasher
 import java.security.SecureRandom
-import javax.inject.Inject
 
-internal class Argon2Hasher @Inject constructor(
+internal class Argon2Hasher(
     private val argon2: Argon2Kt
 ) : Hasher {
     override suspend fun hash(password: String) = withContext(Dispatchers.Default) {

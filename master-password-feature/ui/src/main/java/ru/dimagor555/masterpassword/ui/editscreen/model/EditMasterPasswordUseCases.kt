@@ -1,13 +1,10 @@
 package ru.dimagor555.masterpassword.ui.editscreen.model
 
-import dagger.hilt.android.scopes.ViewModelScoped
 import ru.dimagor555.masterpassword.domain.MasterPasswordRepository
 import ru.dimagor555.masterpassword.usecase.SetMasterPasswordUseCase
 import ru.dimagor555.masterpassword.usecase.ValidatePasswordUseCase
-import javax.inject.Inject
 
-@ViewModelScoped
-internal class EditMasterPasswordUseCases @Inject constructor(
+internal class EditMasterPasswordUseCases(
     masterPasswordRepository: MasterPasswordRepository
 ) {
     val validatePassword = ValidatePasswordUseCase()

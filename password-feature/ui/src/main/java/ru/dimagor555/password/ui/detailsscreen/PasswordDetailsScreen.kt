@@ -6,7 +6,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
+import org.koin.androidx.compose.koinViewModel
 import ru.dimagor555.password.ui.detailsscreen.components.PasswordDetailsScaffold
 import ru.dimagor555.password.ui.detailsscreen.components.PasswordDetailsScreenContent
 import ru.dimagor555.password.ui.detailsscreen.components.RemovePasswordDialog
@@ -23,7 +23,7 @@ fun PasswordDetailsScreen(
     navigateBack: () -> Unit,
     navigateToPasswordEditingScreen: () -> Unit
 ) {
-    val viewModel: PasswordDetailsViewModel = hiltViewModel()
+    val viewModel = koinViewModel<PasswordDetailsViewModel>()
     val state by viewModel.state.collectAsState()
 
     LaunchedEffect(passwordId) {

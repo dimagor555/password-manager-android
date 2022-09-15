@@ -15,20 +15,20 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import org.koin.androidx.compose.koinViewModel
+import ru.dimagor555.masterpassword.ui.R
+import ru.dimagor555.masterpassword.ui.core.PasswordErrorIndicator
 import ru.dimagor555.masterpassword.ui.loginscreen.biometric.BiometricLoginDialog
 import ru.dimagor555.masterpassword.ui.loginscreen.biometric.OnCanUseBiometricLogin
 import ru.dimagor555.masterpassword.ui.loginscreen.model.LoginStore.Action
 import ru.dimagor555.masterpassword.ui.loginscreen.model.LoginStore.State
-import ru.dimagor555.masterpassword.ui.R
-import ru.dimagor555.masterpassword.ui.core.PasswordErrorIndicator
 import ru.dimagor555.ui.core.component.textfield.PasswordInputField
 import ru.dimagor555.ui.core.model.isError
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @Composable
 fun LoginScreen(onSuccessfulLogin: () -> Unit) {
-    val viewModel: LoginViewModel = hiltViewModel()
+    val viewModel = koinViewModel<LoginViewModel>()
     val state by viewModel.state.collectAsState()
     LoginScreenContent(
         state = state,
