@@ -3,12 +3,11 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.encryptionFeature.androidImpl)
+    implementation(projects.encryptionCore)
 
-    implementation(projects.passwordFeature.data)
+    implementation(projects.passwordFeature)
 
-    implementation(projects.masterPasswordFeature.data)
-    implementation(projects.masterPasswordFeature.hashing)
+    implementation(projects.masterPasswordFeature)
 
     implementation(projects.navigation)
 
