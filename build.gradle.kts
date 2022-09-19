@@ -1,22 +1,6 @@
-buildscript {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath(BuildPlugins.androidBuildTools)
-        classpath(BuildPlugins.kotlinGradlePlugin)
-    }
-}
+plugins {
+    kotlin("android") apply false
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
+    id("com.android.application") apply false
+    id("com.android.library") apply false
 }
