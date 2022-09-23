@@ -42,7 +42,7 @@ object Libs {
     }
 
     object Room {
-        private const val roomVersion = "2.3.0"
+        private const val roomVersion = "2.5.0-alpha03"
         const val runtime = "androidx.room:room-runtime:$roomVersion"
         const val compiler = "androidx.room:room-compiler:$roomVersion"
         const val ktx = "androidx.room:room-ktx:$roomVersion"
@@ -53,5 +53,12 @@ object Libs {
         const val core = "io.insert-koin:koin-core:$version"
         const val android = "io.insert-koin:koin-android:$version"
         const val compose = "io.insert-koin:koin-androidx-compose:$version"
+    }
+
+    object MokoResources {
+        private const val version = "0.20.1"
+        const val commonMain = "dev.icerock.moko:resources:$version"
+        const val androidMain = "dev.icerock.moko:resources-compose:$version"
+        const val jvmMain = "dev.icerock.moko:resources-compose:$version"
     }
 }

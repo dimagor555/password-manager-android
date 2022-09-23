@@ -4,6 +4,7 @@ plugins {
     id("com.android.library")
     id("convention.android")
     id("convention.compose-ui")
+    id("org.jetbrains.compose")
 }
 
 dependencies {

@@ -5,7 +5,7 @@ androidCommon {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.compose
+        kotlinCompilerExtensionVersion = "1.3.1"
     }
 }
 
