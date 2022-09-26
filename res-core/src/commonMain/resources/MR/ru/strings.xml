@@ -27,4 +27,12 @@
     <string name="edit_password_screen_advice">Запишите его и храните в надёжном месте</string>
     <string name="primary_password_field_placeholder">Придумайте основной пароль</string>
     <string name="confirm_password_field_placeholder">Повторите основной пароль</string>
+
+    <!-- validation-core -->
+
+    <string name="error_is_blank">Не должно быть пустым</string>
+    <string name="error_not_contain_digits">Добавьте цифры</string>
+    <string name="error_not_contain_lowercase_letters">Добавьте строчные буквы</string>
+    <string name="error_not_contain_uppercase_letters">Добавьте заглавные буквы</string>
+    <string name="error_not_contain_special_symbols">Добавьте специальные символы</string>
 </resources>

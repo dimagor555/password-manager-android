@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- validation-core -->
+
+    <plurals name="error_is_too_long">
+        <item quantity="one">Max length is %d character</item>
+        <item quantity="other">Max length is %d characters</item>
+    </plurals>
+    <plurals name="error_is_too_short">
+        <item quantity="one">Min length is %d character</item>
+        <item quantity="other">Min length is %d characters</item>
+    </plurals>
+</resources>

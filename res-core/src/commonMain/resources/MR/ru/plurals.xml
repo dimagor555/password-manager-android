@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <string name="error_is_blank">Не должно быть пустым</string>
+    <!-- validation-core -->
+
     <plurals name="error_is_too_long">
         <item quantity="one">Максимальная длина %d символ</item>
         <item quantity="few">Максимальная длина %d символа</item>
@@ -11,8 +12,4 @@
         <item quantity="few">Минимальная длина %d символа</item>
         <item quantity="many">Минимальная длина %d символов</item>
     </plurals>
-    <string name="error_not_contain_digits">Добавьте цифры</string>
-    <string name="error_not_contain_lowercase_letters">Добавьте строчные буквы</string>
-    <string name="error_not_contain_uppercase_letters">Добавьте заглавные буквы</string>
-    <string name="error_not_contain_special_symbols">Добавьте специальные символы</string>
 </resources>

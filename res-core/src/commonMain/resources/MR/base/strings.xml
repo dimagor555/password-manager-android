@@ -30,4 +30,12 @@
     <string name="edit_password_screen_warning">If you forget your master password, you will lose access to all saved passwords</string>
     <string name="primary_password_field_placeholder">Come up with a master password</string>
     <string name="confirm_password_field_placeholder">Repeat the master password</string>
+
+    <!-- validation-core -->
+
+    <string name="error_is_blank">Should not be blank</string>
+    <string name="error_not_contain_digits">Add digits</string>
+    <string name="error_not_contain_lowercase_letters">Add lowercase letters</string>
+    <string name="error_not_contain_uppercase_letters">Add uppercase letters</string>
+    <string name="error_not_contain_special_symbols">Add special symbols</string>
 </resources>
