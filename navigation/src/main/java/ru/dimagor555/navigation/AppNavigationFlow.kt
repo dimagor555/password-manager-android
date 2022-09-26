@@ -24,6 +24,7 @@ private fun determineStartDestination(): State<String?> {
         when (hasMasterPassword) {
             true -> startDestinationState.value = MasterPasswordScreen.Login.route
             false -> startDestinationState.value = MasterPasswordScreen.Welcome.route
+            else -> {}
         }
     }
     return startDestinationState

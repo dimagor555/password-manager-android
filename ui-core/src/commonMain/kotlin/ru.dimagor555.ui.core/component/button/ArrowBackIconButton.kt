@@ -3,7 +3,7 @@ package ru.dimagor555.ui.core.component.button
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import ru.dimagor555.ui.core.MR
+import ru.dimagor555.res.core.MR
 import ru.dimagor555.ui.core.util.stringResource
 
 @Composable

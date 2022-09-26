@@ -1,11 +1,10 @@
 plugins {
     kotlin("multiplatform")
-    id("org.jetbrains.compose")
     id("com.android.library")
     id("dev.icerock.mobile.multiplatform-resources")
 }
 
-group = "ru.dimagor555.ui.core"
+group = "ru.dimagor555.res.core"
 version = "1.0"
 
 kotlin {
@@ -18,15 +17,6 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(compose.runtime)
-                api(compose.foundation)
-                api(compose.material)
-                api(compose.preview)
-                api(compose.ui)
-                api(compose.materialIconsExtended)
-
-                implementation(projects.resCore)
-
                 implementation(Libs.MokoResources.commonMain)
             }
         }
@@ -37,8 +27,6 @@ kotlin {
         }
         val desktopMain by getting {
             dependencies {
-                api(compose.preview)
-
                 implementation(Libs.MokoResources.jvmMain)
             }
         }
@@ -64,10 +52,6 @@ android {
     }
 }
 
-dependencies {
-    
-}
-
 multiplatformResources {
-    multiplatformResourcesPackage = "ru.dimagor555.ui.core"
+    multiplatformResourcesPackage = "ru.dimagor555.res.core"
 }

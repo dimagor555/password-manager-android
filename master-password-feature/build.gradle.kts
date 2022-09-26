@@ -1,17 +1,83 @@
 plugins {
-    `compose-ui-library`
-    `compose-screen`
+    kotlin("multiplatform")
+    id("org.jetbrains.compose")
+    id("com.android.library")
+    id("dev.icerock.mobile.multiplatform-resources")
 }
 
-dependencies {
-    implementation(Libs.KotlinX.coroutinesCore)
+group = "ru.dimagor555.masterpassword"
+version = "1.0"
 
-    implementation(Libs.argon2kt)
+kotlin {
+    android()
+    jvm("desktop") {
+        compilations.all {
+            kotlinOptions.jvmTarget = "11"
+        }
+    }
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                api(compose.runtime)
+                api(compose.foundation)
+                api(compose.material)
+                api(compose.preview)
+                api(compose.ui)
+                api(compose.materialIconsExtended)
 
-    implementation(projects.uiCore)
+                implementation(projects.uiCore)
+                implementation(projects.resCore)
+                implementation(projects.validationCore)
 
-    implementation(Libs.AndroidX.biometric)
+                implementation(Libs.MviCompose.core)
+                implementation(Libs.MviCompose.android)
+                
+                implementation(Libs.Koin.core)
+                implementation(Libs.Koin.android)
+                implementation(Libs.Koin.compose)
 
-    implementation(projects.validationCore)
-    implementation(projects.validationCore)
+                implementation(Libs.MokoResources.commonMain)
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(Libs.MviCompose.core)
+                implementation(Libs.MviCompose.android)
+
+                implementation(Libs.argon2kt)
+
+                implementation(Libs.MokoResources.androidMain)
+            }
+        }
+        val desktopMain by getting {
+            dependencies {
+                api(compose.preview)
+
+                implementation(Libs.MokoResources.jvmMain)
+            }
+        }
+    }
+}
+
+android {
+    compileSdk = 33
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    defaultConfig {
+        minSdk = 21
+        targetSdk = 33
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.3.1"
+    }
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "ru.dimagor555.masterpassword"
 }

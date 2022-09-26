@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="back">Back</string>
+    <string name="cancel">Cancel</string>
+    <string name="menu">Menu</string>
+    <string name="show">Show</string>
+    <string name="hide">Hide</string>
+    <string name="generate">Generate</string>
+    <string name="next">Next</string>
+    <string name="ready">Ready</string>
+    <string name="start">Start</string>
+
+    <string name="app_name_word_first">Password</string>
+    <string name="app_name_word_second">Manager</string>
+
+    <string name="data_storage_disclaimer">All data is stored on your device</string>
+    <string name="server_disclaimer">Nothing is sent to servers</string>
+    <string name="welcome_screen_description">Come up with a master password and get the rest in one click</string>
+
+    <string name="incorrect_password_error">Incorrect password</string>
+    <string name="login_button_text">Login</string>
+    <string name="biometry_login">Use biometrics to login</string>
+    <string name="biometry_login_dialog_title">Login in Password Manager</string>
+    <string name="biometry_login_cancel_button_text">Use password instead</string>
+
+    <string name="error_password_not_match">Password does not match</string>
+    <string name="primary_password_screen_title">You need to come up with a master password that will be used to log in the app</string>
+    <string name="confirm_password_screen_title">Enter the master password again to confirm your choice</string>
+    <string name="edit_password_screen_advice">Write it down and keep it in a safe place</string>
+    <string name="edit_password_screen_warning">If you forget your master password, you will lose access to all saved passwords</string>
+    <string name="primary_password_field_placeholder">Come up with a master password</string>
+    <string name="confirm_password_field_placeholder">Repeat the master password</string>
+</resources>

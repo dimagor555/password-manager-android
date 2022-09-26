@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="back">Назад</string>
+    <string name="cancel">Отмена</string>
+    <string name="menu">Меню</string>
+    <string name="show">Показать</string>
+    <string name="hide">Скрыть</string>
+    <string name="generate">Сгенерировать</string>
+    <string name="next">Далее</string>
+    <string name="ready">Готово</string>
+    <string name="start">Начать</string>
+
+    <string name="data_storage_disclaimer">Все данные хранятся на вашем устройстве</string>
+    <string name="server_disclaimer">Ничего не отправляется на сервера</string>
+    <string name="welcome_screen_description">Придумайте основной пароль и получите все остальные в один клик</string>
+
+    <string name="incorrect_password_error">Неверный пароль</string>
+    <string name="login_button_text">Войти</string>
+    <string name="biometry_login">Использовать биометрию для входа</string>
+    <string name="biometry_login_dialog_title">Вход в менеджер паролей</string>
+    <string name="biometry_login_cancel_button_text">Использовать пароль</string>
+
+    <string name="error_password_not_match">Пароль не совпадает</string>
+    <string name="primary_password_screen_title">Вам нужно придумать основной пароль, который будет использоваться для входа в приложение</string>
+    <string name="confirm_password_screen_title">Введите основной пароль ещё раз, чтобы подтвердить ваш выбор</string>
+    <string name="edit_password_screen_warning">Если вы забудете свой основной пароль, то потеряете доступ ко всем сохранённым паролям</string>
+    <string name="edit_password_screen_advice">Запишите его и храните в надёжном месте</string>
+    <string name="primary_password_field_placeholder">Придумайте основной пароль</string>
+    <string name="confirm_password_field_placeholder">Повторите основной пароль</string>
+</resources>

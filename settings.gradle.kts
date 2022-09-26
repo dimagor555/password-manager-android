@@ -21,9 +21,11 @@ dependencyResolutionManagement {
 }
 
 include(":app")
+include(":desktop")
 include(":navigation")
 
 include(":ui-core")
+include(":res-core")
 include(":validation-core")
 include(":encryption-core")
 
