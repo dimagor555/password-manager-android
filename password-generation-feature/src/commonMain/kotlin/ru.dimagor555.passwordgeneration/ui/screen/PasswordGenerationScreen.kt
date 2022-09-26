@@ -1,16 +1,15 @@
 package ru.dimagor555.passwordgeneration.ui.screen
 
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.tooling.preview.Preview
 import org.koin.androidx.compose.koinViewModel
 import ru.dimagor555.passwordgeneration.ui.screen.component.PasswordGenerationScaffold
 import ru.dimagor555.passwordgeneration.ui.screen.component.PasswordGenerationScreenContent
 import ru.dimagor555.passwordgeneration.ui.screen.component.SideEffectHandler
 import ru.dimagor555.passwordgeneration.ui.screen.model.PasswordGenerationStore.State
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
+import ru.dimagor555.ui.core.util.Preview
 
 @Composable
 fun PasswordGenerationScreen(
@@ -29,9 +28,7 @@ fun PasswordGenerationScreen(
     }
 }
 
-@Preview("Password generation screen")
-@Preview("Password generation screen (ru)", locale = "ru")
-@Preview("Password generation screen (dark)", uiMode = UI_MODE_NIGHT_YES)
+@Preview
 @Composable
 private fun PasswordGenerationScreenPreview() {
     PasswordManagerTheme {

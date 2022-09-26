@@ -8,8 +8,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Autorenew
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.res.stringResource
-import ru.dimagor555.passwordgeneration.R
+import ru.dimagor555.res.core.MR
+import ru.dimagor555.ui.core.util.stringResource
 
 @Composable
 internal fun GeneratePasswordFloatingActionButton(
@@ -21,7 +21,7 @@ internal fun GeneratePasswordFloatingActionButton(
         CompositionLocalProvider(LocalContentAlpha provides iconAlpha) {
             Icon(
                 imageVector = Icons.Default.Autorenew,
-                contentDescription = stringResource(R.string.generate_new)
+                contentDescription = stringResource(MR.strings.generate_new)
             )
         }
     }

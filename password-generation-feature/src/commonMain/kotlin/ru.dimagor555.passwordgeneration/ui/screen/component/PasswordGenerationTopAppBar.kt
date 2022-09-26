@@ -1,16 +1,15 @@
 package ru.dimagor555.passwordgeneration.ui.screen.component
 
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import ru.dimagor555.passwordgeneration.R
-import ru.dimagor555.ui.core.component.topappbar.SimpleBackArrowTopAppBar
+import ru.dimagor555.res.core.MR
 import ru.dimagor555.ui.core.component.button.SimpleIconButton
+import ru.dimagor555.ui.core.component.topappbar.SimpleBackArrowTopAppBar
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
+import ru.dimagor555.ui.core.util.Preview
+import ru.dimagor555.ui.core.util.stringResource
 
 @Composable
 internal fun PasswordGenerationTopAppBar(
@@ -18,7 +17,7 @@ internal fun PasswordGenerationTopAppBar(
     onNavigateBack: () -> Unit
 ) {
     SimpleBackArrowTopAppBar(
-        title = { Text(text = stringResource(R.string.generate)) },
+        title = { Text(text = stringResource(MR.strings.generate)) },
         onArrowBackClick = onNavigateBack,
         actions = {
             SimpleIconButton(
@@ -30,9 +29,7 @@ internal fun PasswordGenerationTopAppBar(
     )
 }
 
-@Preview("Password generation TopAppBar")
-@Preview("Password generation TopAppBar (ru)", locale = "ru")
-@Preview("Password generation TopAppBar (dark)", uiMode = UI_MODE_NIGHT_YES)
+@Preview
 @Composable
 private fun PasswordGenerationTopAppBarPreview() {
     PasswordManagerTheme {

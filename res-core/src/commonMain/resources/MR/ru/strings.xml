@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- ui-core -->
+
     <string name="back">Назад</string>
     <string name="cancel">Отмена</string>
     <string name="menu">Меню</string>
@@ -9,6 +11,8 @@
     <string name="next">Далее</string>
     <string name="ready">Готово</string>
     <string name="start">Начать</string>
+
+    <!-- master-password-feature -->
 
     <string name="data_storage_disclaimer">Все данные хранятся на вашем устройстве</string>
     <string name="server_disclaimer">Ничего не отправляется на сервера</string>
@@ -35,4 +39,15 @@
     <string name="error_not_contain_lowercase_letters">Добавьте строчные буквы</string>
     <string name="error_not_contain_uppercase_letters">Добавьте заглавные буквы</string>
     <string name="error_not_contain_special_symbols">Добавьте специальные символы</string>
+
+    <!-- passwordgeneration-feature -->
+
+    <string name="generate_new">Сгенерировать новый</string>
+    <string name="char_group_name_digits">Цифры\n(0–9)</string>
+    <string name="char_group_name_lowercase">Строчные буквы\n(a-z)</string>
+    <string name="char_group_name_uppercase">Заглавные буквы\n(A-Z)</string>
+    <string name="char_group_name_special">Специальные символы\n(!@#$%^*-_.)</string>
+    <string name="length">Длина</string>
+    <string name="can_not_generate_error">Невозможно сгенерировать пароль. Проверьте, что вы выбрали хотя бы 1 опцию</string>
+
 </resources>

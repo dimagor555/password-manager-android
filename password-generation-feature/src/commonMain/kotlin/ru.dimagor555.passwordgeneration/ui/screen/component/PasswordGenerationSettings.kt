@@ -1,6 +1,5 @@
 package ru.dimagor555.passwordgeneration.ui.screen.component
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -9,15 +8,15 @@ import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.dimagor555.passwordgeneration.domain.PasswordCharGroup
 import ru.dimagor555.passwordgeneration.domain.PasswordLength
 import ru.dimagor555.passwordgeneration.ui.screen.model.PasswordGenerationStore.State
-import ru.dimagor555.passwordgeneration.R
+import ru.dimagor555.res.core.MR
 import ru.dimagor555.ui.core.component.button.ButtonGroup
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
+import ru.dimagor555.ui.core.util.Preview
+import ru.dimagor555.ui.core.util.stringResource
 
 @Composable
 internal fun PasswordGenerationSettings(
@@ -37,7 +36,7 @@ private fun LengthSetting(
     length: PasswordLength,
     onChangeLength: (PasswordLength) -> Unit
 ) {
-    SettingRow(name = stringResource(R.string.length)) {
+    SettingRow(name = stringResource(MR.strings.length)) {
         ButtonGroup(
             values = PasswordLength.values(),
             selectedValue = length,
@@ -69,10 +68,10 @@ private fun CharGroupSettings(
 @Composable
 private fun getCharGroupName(charGroup: PasswordCharGroup) = stringResource(
     when (charGroup) {
-        PasswordCharGroup.Digits -> R.string.char_group_name_digits
-        PasswordCharGroup.LowercaseLetters -> R.string.char_group_name_lowercase
-        PasswordCharGroup.UppercaseLetters -> R.string.char_group_name_uppercase
-        PasswordCharGroup.Special -> R.string.char_group_name_special
+        PasswordCharGroup.Digits -> MR.strings.char_group_name_digits
+        PasswordCharGroup.LowercaseLetters -> MR.strings.char_group_name_lowercase
+        PasswordCharGroup.UppercaseLetters -> MR.strings.char_group_name_uppercase
+        PasswordCharGroup.Special -> MR.strings.char_group_name_special
     }
 )
 
@@ -87,9 +86,7 @@ private fun CharGroupSetting(
     }
 }
 
-@Preview("PasswordGenerationSettings")
-@Preview("PasswordGenerationSettings (ru)", locale = "ru")
-@Preview("PasswordGenerationSettings (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview
 @Composable
 private fun PasswordGenerationSettingsPreview() {
     PasswordManagerTheme {

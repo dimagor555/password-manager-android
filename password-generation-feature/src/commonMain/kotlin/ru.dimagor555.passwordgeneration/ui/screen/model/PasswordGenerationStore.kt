@@ -1,6 +1,6 @@
 package ru.dimagor555.passwordgeneration.ui.screen.model
 
-import me.aartikov.sesame.localizedstring.LocalizedString
+import dev.icerock.moko.resources.desc.StringDesc
 import ru.dimagor555.mvicompose.abstraction.Store
 import ru.dimagor555.mvicompose.implementation.SimpleActionBootstrapper
 import ru.dimagor555.mvicompose.implementation.StoreImpl
@@ -38,6 +38,6 @@ internal class PasswordGenerationStore :
     }
 
     sealed class SideEffect {
-        data class ShowMessage(val message: LocalizedString) : SideEffect()
+        data class ShowMessage(val message: StringDesc) : SideEffect()
     }
 }

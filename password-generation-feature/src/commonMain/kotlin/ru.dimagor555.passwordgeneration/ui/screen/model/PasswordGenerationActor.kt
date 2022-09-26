@@ -1,12 +1,12 @@
 package ru.dimagor555.passwordgeneration.ui.screen.model
 
-import me.aartikov.sesame.localizedstring.LocalizedString
+import dev.icerock.moko.resources.desc.desc
 import ru.dimagor555.mvicompose.abstraction.Actor
 import ru.dimagor555.passwordgeneration.domain.PasswordCharGroup
 import ru.dimagor555.passwordgeneration.domain.PasswordGenerationParams
 import ru.dimagor555.passwordgeneration.domain.PasswordLength
 import ru.dimagor555.passwordgeneration.ui.screen.model.PasswordGenerationStore.*
-import ru.dimagor555.passwordgeneration.R
+import ru.dimagor555.res.core.MR
 
 internal class PasswordGenerationActor(
     private val useCases: PasswordGenerationUseCases = PasswordGenerationUseCases()
@@ -26,7 +26,7 @@ internal class PasswordGenerationActor(
     }
 
     private suspend fun showCannotGenerateMessage() {
-        val message = LocalizedString.resource(R.string.can_not_generate_error)
+        val message = MR.strings.can_not_generate_error.desc()
         sendSideEffect(SideEffect.ShowMessage(message))
     }
 
