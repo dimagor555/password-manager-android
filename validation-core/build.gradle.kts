@@ -29,9 +29,6 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation(Libs.AndroidX.coreKtx)
-                implementation(Libs.AndroidX.appCompat)
-
                 implementation(Libs.Koin.core)
                 implementation(Libs.Koin.compose)
 

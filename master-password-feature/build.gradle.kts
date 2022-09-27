@@ -33,7 +33,6 @@ kotlin {
                 implementation(Libs.MviCompose.android)
                 
                 implementation(Libs.Koin.core)
-                implementation(Libs.Koin.android)
                 implementation(Libs.Koin.compose)
 
                 implementation(Libs.MokoResources.commonMain)
@@ -45,6 +44,8 @@ kotlin {
                 implementation(Libs.MviCompose.android)
 
                 implementation(Libs.argon2kt)
+
+                implementation(Libs.AndroidX.biometric)
 
                 implementation(Libs.MokoResources.androidMain)
             }
