@@ -3,13 +3,10 @@ package ru.dimagor555.ui.core.component
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.FabPosition
 import androidx.compose.material.Scaffold
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import kotlinx.coroutines.launch
-import ru.dimagor555.ui.core.util.SnackbarMessage
-import ru.dimagor555.ui.core.util.showSingleSnackbar
 
 @Composable
 fun SingleSnackbarScaffold(
@@ -17,9 +14,8 @@ fun SingleSnackbarScaffold(
     topBar: @Composable () -> Unit = {},
     floatingActionButton: @Composable () -> Unit = {},
     floatingActionButtonPosition: FabPosition = FabPosition.Center,
-    content: @Composable (PaddingValues, onShowSnackbar: (SnackbarMessage) -> Unit) -> Unit
+    content: @Composable (PaddingValues, snackbarHostState: SnackbarHostState) -> Unit
 ) {
-    val coroutineScope = rememberCoroutineScope()
     val scaffoldState = rememberScaffoldState()
     Scaffold(
         modifier = modifier,
@@ -28,11 +24,6 @@ fun SingleSnackbarScaffold(
         floatingActionButton = floatingActionButton,
         floatingActionButtonPosition = floatingActionButtonPosition
     ) {
-        val onShowSnackbar = { snackbarMessage: SnackbarMessage ->
-            coroutineScope.launch {
-                scaffoldState.snackbarHostState.showSingleSnackbar(snackbarMessage)
-            }
-        }
-        content(it, onShowSnackbar)
+        content(it, scaffoldState.snackbarHostState)
     }
 }

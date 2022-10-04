@@ -32,5 +32,7 @@ dependencies {
 
     implementation(Libs.Navigation.compose)
 
+    implementation(Libs.Decompose.decompose)
+
     coreLibraryDesugaring(Libs.jdkDesugar)
 }

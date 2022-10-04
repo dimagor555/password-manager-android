@@ -25,6 +25,9 @@ kotlin {
                 api(compose.ui)
                 api(compose.materialIconsExtended)
 
+                implementation(Libs.Decompose.decompose)
+
+                implementation(projects.core)
                 implementation(projects.resCore)
 
                 implementation(Libs.MokoResources.commonMain)

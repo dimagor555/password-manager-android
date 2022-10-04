@@ -61,4 +61,10 @@ object Libs {
         const val androidMain = "dev.icerock.moko:resources-compose:$version"
         const val jvmMain = "dev.icerock.moko:resources-compose:$version"
     }
+
+    object Decompose {
+        private const val VERSION = "1.0.0-alpha-04"
+        const val decompose = "com.arkivanov.decompose:decompose:$VERSION"
+        const val extensionsCompose = "com.arkivanov.decompose:extensions-compose-jetbrains:$VERSION"
+    }
 }

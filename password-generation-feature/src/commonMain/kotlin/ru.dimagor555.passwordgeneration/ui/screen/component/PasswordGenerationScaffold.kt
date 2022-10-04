@@ -1,17 +1,17 @@
 package ru.dimagor555.passwordgeneration.ui.screen.component
 
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
 import ru.dimagor555.passwordgeneration.ui.screen.model.PasswordGenerationStore.Action
 import ru.dimagor555.passwordgeneration.ui.screen.model.PasswordGenerationStore.State
 import ru.dimagor555.ui.core.component.SingleSnackbarScaffold
-import ru.dimagor555.ui.core.util.SnackbarMessage
 
 @Composable
 internal fun PasswordGenerationScaffold(
     state: State,
     sendAction: (Action) -> Unit,
     onNavigateBack: (String?) -> Unit,
-    content: @Composable ((SnackbarMessage) -> Unit) -> Unit
+    content: @Composable (snackbarHostState: SnackbarHostState) -> Unit
 ) {
     SingleSnackbarScaffold(
         topBar = {
@@ -26,7 +26,7 @@ internal fun PasswordGenerationScaffold(
                 onGeneratePassword = { sendAction(Action.GeneratePassword) }
             )
         }
-    ) { _, onShowSnackbar ->
-        content(onShowSnackbar)
+    ) { _, snackbarHostState ->
+        content(snackbarHostState)
     }
 }

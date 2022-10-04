@@ -33,7 +33,11 @@ kotlin {
                 implementation(Libs.Koin.core)
                 implementation(Libs.Koin.compose)
 
+                implementation(Libs.Decompose.decompose)
+
                 implementation(Libs.MokoResources.commonMain)
+
+                implementation(projects.core)
             }
         }
         val androidMain by getting {

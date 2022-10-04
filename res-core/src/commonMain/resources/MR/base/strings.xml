@@ -11,6 +11,7 @@
     <string name="next">Next</string>
     <string name="ready">Ready</string>
     <string name="start">Start</string>
+    <string name="ok">OK</string>
 
     <string name="app_name_word_first">Password</string>
     <string name="app_name_word_second">Manager</string>
