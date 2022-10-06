@@ -2,15 +2,17 @@ package ru.dimagor555.masterpassword.ui.editscreen.model
 
 import dev.icerock.moko.resources.desc.StringDesc
 import dev.icerock.moko.resources.desc.desc
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import ru.dimagor555.masterpassword.ui.editscreen.model.EditMasterPasswordStore.*
 import ru.dimagor555.res.core.MR
 import ru.dimagor555.masterpassword.usecase.ValidatePasswordUseCase
 import ru.dimagor555.mvicompose.abstraction.Actor
 import ru.dimagor555.password.validation.ui.desc
 
-internal class EditMasterPasswordActor(
-    private val useCases: EditMasterPasswordUseCases
-) : Actor<State, Action, Message, Nothing>() {
+internal class EditMasterPasswordActor : Actor<State, Action, Message, Nothing>(), KoinComponent {
+
+    private val useCases: EditMasterPasswordUseCases by inject()
 
     override suspend fun onAction(action: Action) {
         when (getState().stage) {

@@ -15,7 +15,6 @@ import ru.dimagor555.masterpassword.ui.core.PasswordErrorIndicator
 import ru.dimagor555.ui.core.component.textfield.SimpleErrorOutlinedTextField
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 import kotlin.random.Random
-import ru.dimagor555.ui.core.UiCoreRes
 import ru.dimagor555.res.core.MR
 import ru.dimagor555.ui.core.util.Preview
 import ru.dimagor555.ui.core.util.stringResource

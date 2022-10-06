@@ -1,30 +1,24 @@
 package ru.dimagor555.masterpassword.ui.editscreen
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import org.koin.androidx.compose.koinViewModel
 import ru.dimagor555.masterpassword.ui.editscreen.component.EditConfirmPasswordScreenContent
 import ru.dimagor555.masterpassword.ui.editscreen.component.EditPrimaryPasswordScreenContent
 import ru.dimagor555.masterpassword.ui.editscreen.model.EditMasterPasswordStore.Action
 import ru.dimagor555.masterpassword.ui.editscreen.model.EditMasterPasswordStore.State
 
 @Composable
-fun EditMasterPasswordScreen(
-    generatedPassword: String?,
-    onSuccess: () -> Unit,
-    onCancel: () -> Unit,
-    onNavigateToPasswordGenerationScreen: () -> Unit
-) {
-    val viewModel = koinViewModel<EditMasterPasswordViewModel>()
-    val state by viewModel.state.collectAsState()
+fun EditMasterPasswordScreen(component: EditMasterPassword) {
+    component as EditMasterPasswordComponent
 
-    LaunchedEffect(generatedPassword) {
-        if (generatedPassword != null)
-            viewModel.sendAction(Action.ChangePassword(generatedPassword))
+    val state by component.state.collectAsState()
+
+    LaunchedEffect(component.generatedPassword) {
+        if (component.generatedPassword != null)
+            component.sendAction(Action.ChangePassword(component.generatedPassword))
     }
 
     Surface {
@@ -32,26 +26,25 @@ fun EditMasterPasswordScreen(
             State.Stage.Primary -> {
                 EditPrimaryPasswordScreenContent(
                     state = state,
-                    sendAction = viewModel::sendAction,
-                    onGeneratePassword = onNavigateToPasswordGenerationScreen
+                    sendAction = component::sendAction,
+                    onGeneratePassword = { component.navigateToPasswordGenerationScreen() }
                 )
             }
             State.Stage.Confirm -> {
                 EditConfirmPasswordScreenContent(
                     state = state,
-                    sendAction = viewModel::sendAction
+                    sendAction = component::sendAction
                 )
             }
         }
     }
-    BackHandler { viewModel.sendAction(Action.GoBack) }
     LaunchedEffect(state.exitScreenState) {
         val exitScreenState = state.exitScreenState
         if (exitScreenState !is State.ExitScreenState.Exit)
             return@LaunchedEffect
         when (exitScreenState.success) {
-            true -> onSuccess()
-            false -> onCancel()
+            true -> component.navigateToOverviewScreen()
+            false -> component.navigateBack()
         }
     }
 }

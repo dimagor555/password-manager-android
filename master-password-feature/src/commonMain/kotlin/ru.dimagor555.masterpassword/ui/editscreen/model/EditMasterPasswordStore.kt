@@ -8,10 +8,10 @@ import ru.dimagor555.mvicompose.implementation.StoreImpl
 import ru.dimagor555.ui.core.model.FieldState
 import ru.dimagor555.ui.core.model.isError
 
-internal class EditMasterPasswordStore(useCases: EditMasterPasswordUseCases) :
+internal class EditMasterPasswordStore :
     Store<Action, State, Nothing> by StoreImpl(
         initialState = State(),
-        actor = EditMasterPasswordActor(useCases),
+        actor = EditMasterPasswordActor(),
         reducer = EditMasterPasswordReducer()
     ) {
 

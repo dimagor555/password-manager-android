@@ -2,13 +2,15 @@ package ru.dimagor555.masterpassword.ui.loginscreen.model
 
 import dev.icerock.moko.resources.desc.desc
 import kotlinx.coroutines.delay
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import ru.dimagor555.masterpassword.ui.loginscreen.model.LoginStore.*
 import ru.dimagor555.res.core.MR
 import ru.dimagor555.mvicompose.abstraction.Actor
 
-internal class LoginActor(
-    private val useCases: LoginUseCases
-) : Actor<State, Action, Message, Nothing>() {
+internal class LoginActor : Actor<State, Action, Message, Nothing>(), KoinComponent {
+
+    private val useCases: LoginUseCases by inject()
 
     override suspend fun onAction(action: Action) {
         when (action) {

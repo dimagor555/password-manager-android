@@ -12,17 +12,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ru.dimagor555.masterpassword.ui.core.PasswordErrorIndicator
+import ru.dimagor555.res.core.MR
 import ru.dimagor555.ui.core.component.button.SimpleButton
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
-import ru.dimagor555.ui.core.util.ProvideMediumAlpha
-import ru.dimagor555.res.core.MR
 import ru.dimagor555.ui.core.util.Preview
+import ru.dimagor555.ui.core.util.ProvideMediumAlpha
 import ru.dimagor555.ui.core.util.stringResource
 
 @Composable
-fun WelcomeScreen(
-    onNavigateNext: () -> Unit
-) {
+fun WelcomeScreen(component: Welcome) {
+    component as WelcomeComponent
+
+    WelcomeSurface { component.navigateNext() }
+}
+
+@Composable
+fun WelcomeSurface(navigateNext: () -> Unit) {
     Surface {
         Column(
             modifier = Modifier
@@ -37,7 +42,7 @@ fun WelcomeScreen(
             DataStorageAndServerDisclaimer()
             SimpleButton(
                 text = stringResource(MR.strings.start),
-                onClick = onNavigateNext
+                onClick = { navigateNext() }
             )
         }
     }
@@ -108,6 +113,6 @@ private fun DataStorageAndServerDisclaimer() {
 @Composable
 private fun WelcomeScreenPreview() {
     PasswordManagerTheme {
-        WelcomeScreen {}
+        WelcomeSurface {  }
     }
 }

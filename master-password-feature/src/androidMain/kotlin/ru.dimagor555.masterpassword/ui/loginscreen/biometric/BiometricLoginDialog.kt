@@ -6,10 +6,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.fragment.app.FragmentActivity
 import kotlinx.coroutines.launch
-import ru.dimagor555.masterpassword.ui.loginscreen.biometric.loginByBiometrics
 
 @Composable
-internal fun BiometricLoginDialog(
+internal actual fun BiometricLoginDialog(
     onSuccess: () -> Unit,
     onDismiss: () -> Unit
 ) {

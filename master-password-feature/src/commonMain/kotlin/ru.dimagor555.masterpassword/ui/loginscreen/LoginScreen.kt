@@ -1,6 +1,5 @@
 package ru.dimagor555.masterpassword.ui.loginscreen
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
@@ -11,33 +10,34 @@ import androidx.compose.material.icons.filled.Fingerprint
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.koin.androidx.compose.koinViewModel
-import ru.dimagor555.masterpassword.R
 import ru.dimagor555.masterpassword.ui.core.PasswordErrorIndicator
 import ru.dimagor555.masterpassword.ui.loginscreen.biometric.BiometricLoginDialog
 import ru.dimagor555.masterpassword.ui.loginscreen.biometric.OnCanUseBiometricLogin
 import ru.dimagor555.masterpassword.ui.loginscreen.model.LoginStore.Action
 import ru.dimagor555.masterpassword.ui.loginscreen.model.LoginStore.State
+import ru.dimagor555.res.core.MR
 import ru.dimagor555.ui.core.component.textfield.PasswordInputField
 import ru.dimagor555.ui.core.model.isError
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
+import ru.dimagor555.ui.core.util.Preview
+import ru.dimagor555.ui.core.util.resolve
+import ru.dimagor555.ui.core.util.stringResource
 
 @Composable
-fun LoginScreen(onSuccessfulLogin: () -> Unit) {
-    val viewModel = koinViewModel<LoginViewModel>()
-    val state by viewModel.state.collectAsState()
+fun LoginScreen(component: Login) {
+    component as LoginComponent
+
+    val state by component.state.collectAsState()
+
     LoginScreenContent(
         state = state,
-        sendAction = viewModel::sendAction
+        sendAction = component::sendAction
     )
-    OnCanUseBiometricLogin { viewModel.sendAction(Action.EnableBiometricLogin) }
+    OnCanUseBiometricLogin { component.sendAction(Action.EnableBiometricLogin) }
     LaunchedEffect(key1 = state.isExitScreenWithSuccess) {
         if (state.isExitScreenWithSuccess)
-            onSuccessfulLogin()
+            component.successfulLogin()
     }
 }
 
@@ -88,7 +88,7 @@ private fun PasswordInputField(
         onValueChange = { sendAction(Action.ChangePassword(it)) },
         isPasswordVisible = state.password.isVisible,
         onTogglePasswordVisibility = { sendAction(Action.TogglePasswordVisibility) },
-        error = state.password.error?.resolve(LocalContext.current) as String?,
+        error = state.password.error?.resolve(),
         keyboardActions = KeyboardActions(onDone = { sendAction(Action.LoginByPassword) })
     )
 }
@@ -102,7 +102,7 @@ private fun LoginButton(
         onClick = onLoginByPassword,
         enabled = enabled
     ) {
-        Text(text = stringResource(R.string.login_button_text))
+        Text(text = stringResource(MR.strings.login_button_text))
     }
 }
 
@@ -117,7 +117,7 @@ private fun BiometricLoginButton(
         onClick = { showBiometricLoginDialog = true }
     ) {
         Icon(imageVector = Icons.Default.Fingerprint, contentDescription = null)
-        Text(text = stringResource(R.string.biometry_login))
+        Text(text = stringResource(MR.strings.biometry_login))
     }
     if (showBiometricLoginDialog)
         BiometricLoginDialog(
@@ -126,9 +126,7 @@ private fun BiometricLoginButton(
         )
 }
 
-@Preview("LoginScreen")
-@Preview("LoginScreen (ru)", locale = "ru")
-@Preview("LoginScreen (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview
 @Composable
 private fun LoginScreenPreview() {
     PasswordManagerTheme {

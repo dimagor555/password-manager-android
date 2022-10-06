@@ -7,10 +7,10 @@ import ru.dimagor555.mvicompose.abstraction.Store
 import ru.dimagor555.mvicompose.implementation.StoreImpl
 import ru.dimagor555.ui.core.model.FieldState
 
-internal class LoginStore(useCases: LoginUseCases) :
+internal class LoginStore :
     Store<Action, State, Nothing> by StoreImpl(
         initialState = State(),
-        actor = LoginActor(useCases),
+        actor = LoginActor(),
         reducer = LoginReducer()
     ) {
 

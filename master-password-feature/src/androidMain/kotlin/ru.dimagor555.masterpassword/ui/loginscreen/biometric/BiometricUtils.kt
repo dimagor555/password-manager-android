@@ -7,10 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.fragment.app.FragmentActivity
-import ru.dimagor555.masterpassword.R
+import ru.dimagor555.res.core.MR
+import ru.dimagor555.ui.core.util.stringResource
 
 @Composable
-internal fun OnCanUseBiometricLogin(action: () -> Unit) {
+internal actual fun OnCanUseBiometricLogin(action: () -> Unit) {
     val context = LocalContext.current
     LaunchedEffect(Unit) {
         if (context.canUseBiometricLogin())
@@ -27,8 +28,8 @@ internal fun FragmentActivity.loginByBiometrics(onSuccess: () -> Unit, onFail: (
 
 private fun Context.createPromptInfo() =
     BiometricPrompt.PromptInfo.Builder()
-        .setTitle(getString(R.string.biometry_login_dialog_title))
-        .setNegativeButtonText(getString(R.string.biometry_login_cancel_button_text))
+        .setTitle(stringResource(MR.strings.biometry_login_dialog_title))
+        .setNegativeButtonText(stringResource(MR.strings.biometry_login_cancel_button_text))
         .setAllowedAuthenticators(DEFAULT_AUTHENTICATOR)
         .build()
 
