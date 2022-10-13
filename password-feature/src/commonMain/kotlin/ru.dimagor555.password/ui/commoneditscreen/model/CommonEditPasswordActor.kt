@@ -1,14 +1,16 @@
 package ru.dimagor555.password.ui.commoneditscreen.model
 
 import dev.icerock.moko.resources.desc.StringDesc
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import ru.dimagor555.mvicompose.abstraction.Actor
 import ru.dimagor555.password.ui.commoneditscreen.model.CommonEditPasswordStore.*
 import ru.dimagor555.password.usecase.ValidatePasswordUseCase
 import ru.dimagor555.password.validation.ui.desc
 
-internal class CommonEditPasswordActor(
-    private val useCases: CommonEditPasswordUseCases
-) : Actor<State, Action, Message, SideEffect>() {
+internal class CommonEditPasswordActor : Actor<State, Action, Message, SideEffect>(), KoinComponent {
+
+    private val useCases: CommonEditPasswordUseCases by inject()
 
     override suspend fun onAction(action: Action) {
         when (action) {

@@ -2,15 +2,16 @@ package ru.dimagor555.password.ui.detailsscreen.model
 
 import dev.icerock.moko.resources.StringResource
 import dev.icerock.moko.resources.desc.desc
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import ru.dimagor555.mvicompose.abstraction.Actor
 import ru.dimagor555.password.domain.Password
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsStore.*
 import ru.dimagor555.res.core.MR
-import ru.dimagor555.ui.core.util.stringResource
 
-internal class PasswordDetailsActor(
-    private val useCases: PasswordDetailsUseCases
-) : Actor<State, Action, Message, SideEffect>() {
+internal class PasswordDetailsActor : Actor<State, Action, Message, SideEffect>(), KoinComponent {
+
+    private val useCases: PasswordDetailsUseCases by inject()
 
     override suspend fun onAction(action: Action) {
         when (action) {

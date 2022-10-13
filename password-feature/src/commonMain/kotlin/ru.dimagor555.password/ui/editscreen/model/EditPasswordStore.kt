@@ -4,11 +4,9 @@ import ru.dimagor555.mvicompose.abstraction.Store
 import ru.dimagor555.mvicompose.implementation.StoreImpl
 import ru.dimagor555.password.ui.editscreen.model.EditPasswordStore.*
 
-internal class EditPasswordStore(
-    useCases: EditPasswordUseCases
-) : Store<Action, State, SideEffect> by StoreImpl(
+internal class EditPasswordStore : Store<Action, State, SideEffect> by StoreImpl(
     initialState = State(),
-    actor = EditPasswordActor(useCases),
+    actor = EditPasswordActor(),
     reducer = EditPasswordReducer()
 ) {
 

@@ -1,31 +1,26 @@
 package ru.dimagor555.password.ui.createscreen
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import ru.dimagor555.res.core.MR
 import ru.dimagor555.password.ui.commoneditscreen.CommonEditPasswordScreen
 import ru.dimagor555.ui.core.util.stringResource
 
 @Composable
-fun CreatePasswordScreen(
-    generatedPassword: String?,
-    onNavigateToPasswordGenerationScreen: () -> Unit,
-    onNavigateBack: () -> Unit
-) {
-    val viewModel = koinViewModel<CreatePasswordViewModel>()
-    val state by viewModel.state.collectAsState()
+fun CreatePasswordScreen(component: CreatePasswordComponent) {
+    component as CreatePasswordComponentImpl
+
+    val state by component.passwordState.collectAsState()
 
     CommonEditPasswordScreen(
-        store = viewModel.commonEditPasswordStore,
-        generatedPassword = generatedPassword,
+        store = component.commonEditPasswordStore,
+        generatedPassword = component.commonEditPasswordState.value.password.text,
         topAppBarTitle = stringResource(MR.strings.create),
-        onNavigateToPasswordGenerationScreen = onNavigateToPasswordGenerationScreen,
-        onNavigateBack = onNavigateBack
+        onNavigateToPasswordGenerationScreen = component.callbacks.onNavigateToPasswordGenerationScreen ,
+        onNavigateBack = component.callbacks.onNavigateBack
     )
     LaunchedEffect(state.isExitScreen) {
-        if (state.isExitScreen)
-            onNavigateBack()
+        if (state.isExitScreen) {
+            component.callbacks.onNavigateBack()
+        }
     }
 }

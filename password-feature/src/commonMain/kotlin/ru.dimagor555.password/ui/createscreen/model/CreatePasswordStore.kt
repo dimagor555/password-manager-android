@@ -1,5 +1,7 @@
 package ru.dimagor555.password.ui.createscreen.model
 
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import ru.dimagor555.mvicompose.abstraction.Actor
 import ru.dimagor555.mvicompose.abstraction.Reducer
 import ru.dimagor555.mvicompose.abstraction.Store
@@ -8,11 +10,9 @@ import ru.dimagor555.password.ui.createscreen.model.CreatePasswordStore.Action
 import ru.dimagor555.password.ui.createscreen.model.CreatePasswordStore.State
 import ru.dimagor555.password.usecase.CreatePasswordUseCase
 
-internal class CreatePasswordStore(
-    useCases: CreatePasswordUseCases
-) : Store<Action, State, Nothing> by StoreImpl(
+internal class CreatePasswordStore : Store<Action, State, Nothing> by StoreImpl(
     initialState = State(),
-    actor = ActorImpl(useCases),
+    actor = ActorImpl(),
     reducer = ReducerImpl()
 ) {
 
@@ -35,9 +35,9 @@ internal class CreatePasswordStore(
         object ExitScreen : Message
     }
 
-    class ActorImpl(
-        private val useCases: CreatePasswordUseCases
-    ) : Actor<State, Action, Message, Nothing>() {
+    class ActorImpl : Actor<State, Action, Message, Nothing>(), KoinComponent {
+
+        private val useCases: CreatePasswordUseCases by inject()
 
         override suspend fun onAction(action: Action) {
             when (action) {

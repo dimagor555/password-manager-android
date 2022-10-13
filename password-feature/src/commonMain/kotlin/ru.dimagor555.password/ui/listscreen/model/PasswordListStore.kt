@@ -9,11 +9,9 @@ import ru.dimagor555.password.domain.filter.PasswordFilterState
 import ru.dimagor555.password.domain.filter.PasswordSortingType
 import ru.dimagor555.password.ui.listscreen.model.PasswordListStore.*
 
-internal class PasswordListStore(
-    useCases: PasswordListUseCases
-) : Store<Action, State, SideEffect> by StoreImpl(
+internal class PasswordListStore : Store<Action, State, SideEffect> by StoreImpl(
     initialState = State(),
-    actor = PasswordListActor(useCases),
+    actor = PasswordListActor(),
     reducer = PasswordListReducer(),
     bootstrapper = SimpleActionBootstrapper(Action.InitScreen)
 ) {

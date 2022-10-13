@@ -5,11 +5,9 @@ import ru.dimagor555.mvicompose.abstraction.Store
 import ru.dimagor555.mvicompose.implementation.StoreImpl
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsStore.*
 
-internal class PasswordDetailsStore(
-    useCases: PasswordDetailsUseCases
-) : Store<Action, State, SideEffect> by StoreImpl(
+internal class PasswordDetailsStore : Store<Action, State, SideEffect> by StoreImpl(
     initialState = State(),
-    actor = PasswordDetailsActor(useCases),
+    actor = PasswordDetailsActor(),
     reducer = PasswordDetailsReducer()
 ) {
 

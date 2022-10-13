@@ -3,6 +3,7 @@ package ru.dimagor555.password.ui.listscreen.components
 import androidx.compose.material.FabPosition
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
@@ -10,7 +11,6 @@ import ru.dimagor555.password.domain.filter.PasswordFilterState
 import ru.dimagor555.res.core.MR
 import ru.dimagor555.password.ui.listscreen.model.PasswordListStore.Action
 import ru.dimagor555.ui.core.component.SingleSnackbarScaffold
-import ru.dimagor555.ui.core.util.SnackbarMessage
 import ru.dimagor555.ui.core.util.stringResource
 
 @Composable
@@ -19,7 +19,7 @@ internal fun PasswordListScaffold(
     sendAction: (Action) -> Unit,
     navigateToPasswordCreationScreen: () -> Unit,
     navigateToSettingsScreen: () -> Unit,
-    content: @Composable ((SnackbarMessage) -> Unit) -> Unit
+    content: @Composable (snackbarHostState: SnackbarHostState) -> Unit
 ) {
     SingleSnackbarScaffold(
         topBar = {

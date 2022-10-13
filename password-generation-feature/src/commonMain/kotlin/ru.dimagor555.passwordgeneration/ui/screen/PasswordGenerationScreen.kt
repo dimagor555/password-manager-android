@@ -13,8 +13,8 @@ import ru.dimagor555.ui.core.util.Preview
 import ru.dimagor555.ui.core.util.createLongSnackbarMessage
 
 @Composable
-fun PasswordGenerationScreen(component: PasswordGeneration) {
-    component as PasswordGenerationComponent
+fun PasswordGenerationScreen(component: PasswordGenerationComponent) {
+    component as PasswordGenerationComponentImpl
 
     val state by component.state.collectAsState()
 

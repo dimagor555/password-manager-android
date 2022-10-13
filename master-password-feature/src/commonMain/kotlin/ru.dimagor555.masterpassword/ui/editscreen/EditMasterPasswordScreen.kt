@@ -7,19 +7,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import ru.dimagor555.masterpassword.ui.editscreen.component.EditConfirmPasswordScreenContent
 import ru.dimagor555.masterpassword.ui.editscreen.component.EditPrimaryPasswordScreenContent
-import ru.dimagor555.masterpassword.ui.editscreen.model.EditMasterPasswordStore.Action
 import ru.dimagor555.masterpassword.ui.editscreen.model.EditMasterPasswordStore.State
 
 @Composable
-fun EditMasterPasswordScreen(component: EditMasterPassword) {
-    component as EditMasterPasswordComponent
+fun EditMasterPasswordScreen(component: EditMasterPasswordComponent) {
+    component as EditMasterPasswordComponentImpl
 
     val state by component.state.collectAsState()
-
-    LaunchedEffect(component.generatedPassword) {
-        if (component.generatedPassword != null)
-            component.sendAction(Action.ChangePassword(component.generatedPassword))
-    }
 
     Surface {
         when (state.stage) {
@@ -27,7 +21,7 @@ fun EditMasterPasswordScreen(component: EditMasterPassword) {
                 EditPrimaryPasswordScreenContent(
                     state = state,
                     sendAction = component::sendAction,
-                    onGeneratePassword = { component.navigateToPasswordGenerationScreen() }
+                    onGeneratePassword = { component.callbacks.onNavigateToPasswordGenerationScreen() }
                 )
             }
             State.Stage.Confirm -> {
@@ -43,8 +37,8 @@ fun EditMasterPasswordScreen(component: EditMasterPassword) {
         if (exitScreenState !is State.ExitScreenState.Exit)
             return@LaunchedEffect
         when (exitScreenState.success) {
-            true -> component.navigateToOverviewScreen()
-            false -> component.navigateBack()
+            true -> component.callbacks.onSuccess()
+            false -> component.callbacks.onCancel()
         }
     }
 }

@@ -1,12 +1,14 @@
 package ru.dimagor555.password.ui.editscreen.model
 
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import ru.dimagor555.mvicompose.abstraction.Actor
 import ru.dimagor555.password.ui.editscreen.model.EditPasswordStore.*
 import ru.dimagor555.password.usecase.UpdatePasswordUseCase
 
-internal class EditPasswordActor(
-    private val useCases: EditPasswordUseCases
-) : Actor<State, Action, Message, SideEffect>() {
+internal class EditPasswordActor : Actor<State, Action, Message, SideEffect>(), KoinComponent {
+
+    private val useCases: EditPasswordUseCases by inject()
 
     override suspend fun onAction(action: Action) = when (action) {
         is Action.LoadPassword -> loadPasswordIfNotLoaded(action.passwordId)

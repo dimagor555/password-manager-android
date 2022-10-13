@@ -6,11 +6,9 @@ import ru.dimagor555.mvicompose.implementation.StoreImpl
 import ru.dimagor555.password.ui.commoneditscreen.model.CommonEditPasswordStore.*
 import ru.dimagor555.ui.core.model.FieldState
 
-class CommonEditPasswordStore(
-    useCases: CommonEditPasswordUseCases
-) : Store<Action, State, SideEffect> by StoreImpl(
+class CommonEditPasswordStore : Store<Action, State, SideEffect> by StoreImpl(
     initialState = State(),
-    actor = CommonEditPasswordActor(useCases),
+    actor = CommonEditPasswordActor(),
     reducer = CommonEditPasswordReducer()
 ) {
 

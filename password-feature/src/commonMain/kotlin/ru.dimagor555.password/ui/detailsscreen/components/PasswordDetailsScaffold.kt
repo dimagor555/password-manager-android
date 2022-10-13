@@ -1,10 +1,10 @@
 package ru.dimagor555.password.ui.detailsscreen.components
 
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsStore.Action
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordState
 import ru.dimagor555.ui.core.component.SingleSnackbarScaffold
-import ru.dimagor555.ui.core.util.SnackbarMessage
 
 @Composable
 internal fun PasswordDetailsScaffold(
@@ -12,7 +12,7 @@ internal fun PasswordDetailsScaffold(
     sendAction: (Action) -> Unit,
     onNavigateBack: () -> Unit,
     navigateToPasswordEditingScreen: () -> Unit,
-    content: @Composable ((SnackbarMessage) -> Unit) -> Unit
+    content: @Composable (snackbarHostState: SnackbarHostState) -> Unit
 ) {
     SingleSnackbarScaffold(
         topBar = {

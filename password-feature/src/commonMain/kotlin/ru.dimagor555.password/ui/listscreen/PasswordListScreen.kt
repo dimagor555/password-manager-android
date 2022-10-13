@@ -6,36 +6,45 @@ import androidx.compose.runtime.getValue
 import ru.dimagor555.password.domain.filter.PasswordFilterState
 import ru.dimagor555.password.ui.listscreen.components.PasswordListScaffold
 import ru.dimagor555.password.ui.listscreen.components.PasswordListScreenContent
-import ru.dimagor555.password.ui.listscreen.components.SideEffectHandler
 import ru.dimagor555.password.ui.listscreen.components.SortingDialog
+import ru.dimagor555.password.ui.listscreen.model.PasswordListStore
 import ru.dimagor555.password.ui.listscreen.model.PasswordListStore.Action
 import ru.dimagor555.password.ui.listscreen.model.PasswordListStore.State
 import ru.dimagor555.password.ui.listscreen.model.PasswordState
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
+import ru.dimagor555.ui.core.util.OnSideEffect
 import ru.dimagor555.ui.core.util.Preview
+import ru.dimagor555.ui.core.util.createLongSnackbarMessage
 
 @Composable
-fun PasswordListScreen(
-    navigateToPasswordDetailsScreen: (Int) -> Unit,
-    navigateToSettingsScreen: () -> Unit,
-    navigateToPasswordCreationScreen: () -> Unit
-) {
-    val viewModel = koinViewModel<PasswordListViewModel>()
-    val state by viewModel.state.collectAsState()
+fun PasswordListScreen(component: PasswordListComponent) {
+    component as PasswordListComponentImpl
+
+    val state by component.state.collectAsState()
 
     PasswordListScaffold(
         filterState = state.filterState,
-        sendAction = viewModel::sendAction,
-        navigateToPasswordCreationScreen = navigateToPasswordCreationScreen,
-        navigateToSettingsScreen = navigateToSettingsScreen
-    ) { onShowSnackbar ->
+        sendAction = component::sendAction,
+        navigateToPasswordCreationScreen = component.callbacks.navigateToPasswordCreationScreen,
+        navigateToSettingsScreen = component.callbacks.navigateToSettingsScreen
+    ) { snackbarHostState ->
         PasswordListScreenContent(
             state = state,
-            sendAction = viewModel::sendAction,
-            navigateToPasswordDetailsScreen = navigateToPasswordDetailsScreen,
+            sendAction = component::sendAction,
+            navigateToPasswordDetailsScreen = component.callbacks.navigateToPasswordDetailsScreen,
         )
-        SortingDialogWrapper(state = state, sendAction = viewModel::sendAction)
-        SideEffectHandler(viewModel = viewModel, onShowSnackbar = onShowSnackbar)
+        SortingDialogWrapper(state = state, sendAction = component::sendAction)
+        OnSideEffect(
+            component = component,
+            snackbarHostState = snackbarHostState,
+            onSideEffect = { sideEffect, showSnackbar ->
+                when (sideEffect) {
+                    is PasswordListStore.SideEffect.ShowMessage -> showSnackbar(
+                        createLongSnackbarMessage(sideEffect.message)
+                    )
+                }
+            }
+        )
     }
 }
 

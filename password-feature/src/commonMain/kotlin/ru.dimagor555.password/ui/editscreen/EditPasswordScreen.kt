@@ -13,36 +13,30 @@ import ru.dimagor555.password.ui.editscreen.model.EditPasswordStore.State
 import ru.dimagor555.ui.core.util.stringResource
 
 @Composable
-fun EditPasswordScreen(
-    passwordId: Int,
-    generatedPassword: String?,
-    onNavigateToPasswordGenerationScreen: () -> Unit,
-    onNavigateBack: () -> Unit
-) {
-    val viewModel = koinViewModel<EditPasswordViewModel>()
-    val state by viewModel.state.collectAsState()
+fun EditPasswordScreen(component: EditPasswordComponent) {
+    component as EditPasswordComponentImpl
 
-    LaunchedEffect(passwordId) {
-        viewModel.sendAction(Action.LoadPassword(passwordId))
+    val state by component.editPasswordState.collectAsState()
+
+    LaunchedEffect(component.passwordId) {
+        component.sendAction(Action.LoadPassword(component.passwordId))
     }
 
     CommonEditPasswordScreen(
-        store = viewModel.commonEditPasswordStore,
-        generatedPassword = generatedPassword,
+        store = component.commonEditPasswordStore,
+        generatedPassword = component.commonEditPasswordState.value.password.text,
         topAppBarTitle = stringResource(MR.strings.edit),
-        onNavigateToPasswordGenerationScreen = onNavigateToPasswordGenerationScreen,
-        onNavigateBack = { viewModel.sendAction(Action.RequestExitScreen) }
+        onNavigateToPasswordGenerationScreen = component.callbacks.onNavigateToPasswordGenerationScreen,
+        onNavigateBack = { component.sendAction(Action.RequestExitScreen) }
     )
     SaveChangesDialogWrapper(
         state = state,
-        sendAction = viewModel::sendAction,
-        commonEditPasswordStore = viewModel.commonEditPasswordStore
+        sendAction = component::sendAction,
+        commonEditPasswordStore = component.commonEditPasswordStore
     )
-
-    BackHandler { viewModel.sendAction(Action.RequestExitScreen) }
     LaunchedEffect(state.exitScreenState) {
         if (state.isExitScreen)
-            onNavigateBack()
+            component.callbacks.onNavigateBack()
     }
 }
 

@@ -7,62 +7,73 @@ import androidx.compose.runtime.getValue
 import ru.dimagor555.password.ui.detailsscreen.components.PasswordDetailsScaffold
 import ru.dimagor555.password.ui.detailsscreen.components.PasswordDetailsScreenContent
 import ru.dimagor555.password.ui.detailsscreen.components.RemovePasswordDialog
-import ru.dimagor555.password.ui.detailsscreen.components.SideEffectHandler
+import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsStore
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsStore.Action
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsStore.State
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordState
 import ru.dimagor555.ui.core.component.FullscreenCircularProgressBar
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
+import ru.dimagor555.ui.core.util.OnSideEffect
 import ru.dimagor555.ui.core.util.Preview
+import ru.dimagor555.ui.core.util.createLongSnackbarMessage
 
 @Composable
-fun PasswordDetailsScreen(
-    passwordId: Int,
-    navigateBack: () -> Unit,
-    navigateToPasswordEditingScreen: () -> Unit
-) {
-    val viewModel = koinViewModel<PasswordDetailsViewModel>()
-    val state by viewModel.state.collectAsState()
+fun PasswordDetailsScreen(component: PasswordDetailsComponent) {
+    component as PasswordDetailsComponentImpl
 
-    LaunchedEffect(passwordId) {
-        viewModel.sendAction(Action.LoadPassword(passwordId))
+    val state by component.state.collectAsState()
+
+    LaunchedEffect(component.passwordId) {
+        component.sendAction(Action.LoadPassword(component.passwordId))
     }
 
     when (state.isLoading) {
         true -> FullscreenCircularProgressBar()
         false -> PasswordDetailsScreen(
-            viewModel = viewModel,
+            component = component,
             state = state,
-            navigateBack = navigateBack,
-            navigateToPasswordEditingScreen = navigateToPasswordEditingScreen
+            navigateBack = component.callbacks.navigateBack,
+            navigateToPasswordEditingScreen = {
+                component.callbacks.navigateToPasswordEditingScreen(state.passwordId)
+            }
         )
     }
 
     LaunchedEffect(state.isExitScreen) {
         if (state.isExitScreen)
-            navigateBack()
+            component.callbacks.navigateBack()
     }
 }
 
 @Composable
 private fun PasswordDetailsScreen(
-    viewModel: PasswordDetailsViewModel,
+    component: PasswordDetailsComponentImpl,
     state: State,
     navigateBack: () -> Unit,
     navigateToPasswordEditingScreen: () -> Unit
 ) {
     PasswordDetailsScaffold(
         passwordState = state.passwordState,
-        sendAction = viewModel::sendAction,
+        sendAction = component::sendAction,
         onNavigateBack = navigateBack,
         navigateToPasswordEditingScreen = navigateToPasswordEditingScreen
-    ) { onShowSnackbar ->
+    ) { snackbarHostState ->
         PasswordDetailsScreenContent(
             state = state,
-            sendAction = viewModel::sendAction
+            sendAction = component::sendAction
         )
-        RemovePasswordDialogWrapper(state = state, sendAction = viewModel::sendAction)
-        SideEffectHandler(viewModel = viewModel, onShowSnackbar = onShowSnackbar)
+        RemovePasswordDialogWrapper(state = state, sendAction = component::sendAction)
+        OnSideEffect(
+            component = component,
+            snackbarHostState = snackbarHostState,
+            onSideEffect = { sideEffect, showSnackbar ->
+                when(sideEffect) {
+                    is PasswordDetailsStore.SideEffect.ShowMessage -> showSnackbar(
+                        createLongSnackbarMessage(sideEffect.message)
+                    )
+                }
+            }
+        )
     }
 }
 

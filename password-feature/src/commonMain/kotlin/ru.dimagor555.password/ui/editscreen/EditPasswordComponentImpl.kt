@@ -1,30 +1,55 @@
 package ru.dimagor555.password.ui.editscreen
 
+import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.essenty.backhandler.BackCallback
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
+import ru.dimagor555.core.presentation.componentScope
+import ru.dimagor555.core.presentation.getStore
 import ru.dimagor555.password.ui.commoneditscreen.model.CommonEditPasswordStore
-import ru.dimagor555.password.ui.commoneditscreen.model.CommonEditPasswordUseCases
+import ru.dimagor555.password.ui.editscreen.EditPasswordComponent.EditPasswordComponentCallbacks
 import ru.dimagor555.password.ui.editscreen.model.EditPasswordStore
-import ru.dimagor555.password.ui.editscreen.model.EditPasswordUseCases
+import ru.dimagor555.password.ui.editscreen.model.EditPasswordStore.Action
 import ru.dimagor555.password.ui.editscreen.model.PasswordDto
 
-internal class EditPasswordViewModel(
-    editPasswordUseCases: EditPasswordUseCases,
-    commonEditPasswordUseCases: CommonEditPasswordUseCases,
-) : ViewModel() {
-    private val editPasswordStore = EditPasswordStore(editPasswordUseCases)
-    val commonEditPasswordStore = CommonEditPasswordStore(commonEditPasswordUseCases)
+fun createEditPasswordComponent(
+    componentContext: ComponentContext,
+    passwordId: Int,
+    callbacks: EditPasswordComponentCallbacks,
+): EditPasswordComponent {
+    return EditPasswordComponentImpl(
+        componentContext,
+        passwordId,
+        callbacks,
+    )
+}
 
-    val state = editPasswordStore.state
+internal class EditPasswordComponentImpl constructor(
+    componentContext: ComponentContext,
+    val passwordId: Int,
+    val callbacks: EditPasswordComponentCallbacks,
+) : EditPasswordComponent, ComponentContext by componentContext {
 
-    init {
-        initStores()
-        bindStores()
+    private val componentScope by componentScope()
+
+    private val backCallback = BackCallback {
+        sendAction(Action.RequestExitScreen)
     }
 
-    private fun initStores() {
-        editPasswordStore.init(viewModelScope)
-        commonEditPasswordStore.init(viewModelScope)
+    private val editPasswordStore = instanceKeeper.getStore {
+            EditPasswordStore()
+        }
+
+    val commonEditPasswordStore = instanceKeeper.getStore {
+            CommonEditPasswordStore()
+        }
+
+    val editPasswordState = editPasswordStore.state
+    val commonEditPasswordState = commonEditPasswordStore.state
+
+    init {
+        bindStores()
+        backHandler.register(backCallback)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -33,11 +58,11 @@ internal class EditPasswordViewModel(
             .map(::mapEditSideEffectToCommonEditAction)
             .flatMapLatest { flowOf(*it.toTypedArray()) }
             .onEach { commonEditPasswordStore.sendAction(it) }
-            .launchIn(viewModelScope)
+            .launchIn(componentScope)
         commonEditPasswordStore.sideEffects
             .map(::mapCommonEditSideEffectToEditAction)
             .onEach { editPasswordStore.sendAction(it) }
-            .launchIn(viewModelScope)
+            .launchIn(componentScope)
     }
 
     private fun mapEditSideEffectToCommonEditAction(
@@ -58,7 +83,7 @@ internal class EditPasswordViewModel(
         sideEffect: CommonEditPasswordStore.SideEffect
     ) = when (sideEffect) {
         is CommonEditPasswordStore.SideEffect.ValidationSucceed ->
-            EditPasswordStore.Action.OnPasswordValidationSucceed(
+            Action.OnPasswordValidationSucceed(
                 PasswordDto(
                     sideEffect.title,
                     sideEffect.login,
@@ -66,8 +91,14 @@ internal class EditPasswordViewModel(
                 )
             )
         CommonEditPasswordStore.SideEffect.ValidationFailed ->
-            EditPasswordStore.Action.OnPasswordValidationFailed
+            Action.OnPasswordValidationFailed
     }
 
-    fun sendAction(action: EditPasswordStore.Action) = editPasswordStore.sendAction(action)
+    fun sendAction(action: Action) = editPasswordStore.sendAction(action)
+
+    override fun sendGeneratedPassword(generatedPassword: String) {
+        commonEditPasswordStore.sendAction(
+            CommonEditPasswordStore.Action.ChangePassword(generatedPassword)
+        )
+    }
 }

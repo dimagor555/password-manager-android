@@ -3,17 +3,19 @@ package ru.dimagor555.password.ui.listscreen.model
 import dev.icerock.moko.resources.desc.desc
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import ru.dimagor555.mvicompose.abstraction.Actor
 import ru.dimagor555.password.domain.FavouriteFilter
 import ru.dimagor555.password.domain.Password
 import ru.dimagor555.password.domain.filter.PasswordSortingType
-import ru.dimagor555.res.core.MR
 import ru.dimagor555.password.ui.listscreen.model.PasswordListStore.*
-import ru.dimagor555.ui.core.util.stringResource
+import ru.dimagor555.res.core.MR
 
-internal class PasswordListActor(
-    private val useCases: PasswordListUseCases
-) : Actor<State, Action, Message, SideEffect>() {
+internal class PasswordListActor : Actor<State, Action, Message, SideEffect>(), KoinComponent {
+
+    private val useCases: PasswordListUseCases by inject()
+
     override suspend fun onAction(action: Action) {
         when (action) {
             Action.InitScreen -> initScreen()

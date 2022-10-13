@@ -20,8 +20,8 @@ import ru.dimagor555.ui.core.util.ProvideMediumAlpha
 import ru.dimagor555.ui.core.util.stringResource
 
 @Composable
-fun WelcomeScreen(component: Welcome) {
-    component as WelcomeComponent
+fun WelcomeScreen(component: WelcomeComponent) {
+    component as WelcomeComponentImpl
 
     WelcomeSurface { component.navigateNext() }
 }

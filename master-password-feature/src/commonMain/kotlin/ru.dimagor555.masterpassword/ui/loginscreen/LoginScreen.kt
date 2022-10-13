@@ -25,8 +25,8 @@ import ru.dimagor555.ui.core.util.resolve
 import ru.dimagor555.ui.core.util.stringResource
 
 @Composable
-fun LoginScreen(component: Login) {
-    component as LoginComponent
+fun LoginScreen(component: LoginComponent) {
+    component as LoginComponentImpl
 
     val state by component.state.collectAsState()
 
@@ -37,7 +37,7 @@ fun LoginScreen(component: Login) {
     OnCanUseBiometricLogin { component.sendAction(Action.EnableBiometricLogin) }
     LaunchedEffect(key1 = state.isExitScreenWithSuccess) {
         if (state.isExitScreenWithSuccess)
-            component.successfulLogin()
+            component.onSuccessfulLogin()
     }
 }
 
