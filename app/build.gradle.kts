@@ -9,7 +9,7 @@ dependencies {
 
     implementation(projects.masterPasswordFeature)
 
-    implementation(projects.navigation)
+    implementation(projects.root)
 
     implementation(projects.uiCore)
 }

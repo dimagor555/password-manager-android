@@ -23,7 +23,7 @@ dependencyResolutionManagement {
 include(":app")
 include(":desktop")
 include(":core")
-include(":navigation")
+include(":root")
 
 include(":ui-core")
 include(":res-core")

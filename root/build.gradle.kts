@@ -3,7 +3,7 @@ plugins {
     id("com.android.library")
 }
 
-group = "ru.dimagor555.core"
+group = "ru.dimagor555.root"
 version = "1.0"
 
 kotlin {
@@ -16,6 +16,15 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                api(projects.passwordFeature)
+
+                api(projects.passwordGenerationFeature)
+
+                api(projects.masterPasswordFeature)
+
+                implementation(projects.core)
+
+                implementation(Libs.Koin.core)
                 implementation(Libs.MviCompose.core)
 
                 implementation(Libs.KotlinX.coroutinesCore)
@@ -26,7 +35,6 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-
             }
         }
         val desktopMain by getting {
