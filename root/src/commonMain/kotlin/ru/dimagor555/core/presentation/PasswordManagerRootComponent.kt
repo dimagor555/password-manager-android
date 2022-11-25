@@ -109,13 +109,12 @@ class PasswordManagerRootComponent(
 
     private fun observeGeneratedPassword() = componentScope.launch {
         generatedPassword.collect {
-            val password = it.generatedPassword
-            if (password != null) {
-                childStack.value.items
-                    .filterIsInstance<Child.Created<*, RootComponent.Child>>()
-                    .map { child -> child.instance }
-                    .sendChildrenGeneratedPassword(password)
-            }
+            val password = it.generatedPassword ?: return@collect
+            childStack.value.items
+                .filterIsInstance<Child.Created<*, RootComponent.Child>>()
+                .map { child -> child.instance }
+                .sendGeneratedPasswordToChildren(password)
+
         }
     }
 
