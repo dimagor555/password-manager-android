@@ -78,7 +78,20 @@ class PasswordManagerRootComponent(
         observeGeneratedPassword()
     }
 
-    private fun createChild(config: Config, componentContext: ComponentContext): RootComponent.Child =
+    private fun determineStartDestination(): Config = runBlocking {
+        hasMasterPassword = masterPasswordRepository.hasPassword()
+        withContext(Dispatchers.Main) {
+            when (hasMasterPassword) {
+                true -> Config.Login
+                else -> Config.Welcome
+            }
+        }
+    }
+
+    private fun createChild(
+        config: Config,
+        componentContext: ComponentContext
+    ): RootComponent.Child =
         when (config) {
             Config.Welcome -> Welcome(welcome(componentContext))
             Config.Login -> Login(login(componentContext))
@@ -213,14 +226,4 @@ class PasswordManagerRootComponent(
                 }
             },
         )
-
-    private fun determineStartDestination(): Config = runBlocking {
-        hasMasterPassword = masterPasswordRepository.hasPassword()
-        withContext(Dispatchers.Main) {
-            when (hasMasterPassword) {
-                true -> Config.Login
-                else -> Config.Welcome
-            }
-        }
-    }
 }
