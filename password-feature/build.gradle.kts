@@ -5,9 +5,6 @@ plugins {
     id("dev.icerock.mobile.multiplatform-resources")
 }
 
-group = "ru.dimagor555.password"
-version = "1.0"
-
 kotlin {
     android()
     jvm("desktop") {

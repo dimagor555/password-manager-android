@@ -3,9 +3,6 @@ plugins {
     id("com.android.library")
 }
 
-group = "ru.dimagor555.encryption"
-version = "1.0"
-
 kotlin {
     android()
     jvm("desktop") {

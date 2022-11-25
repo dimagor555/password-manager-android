@@ -4,9 +4,6 @@ plugins {
     id("dev.icerock.mobile.multiplatform-resources")
 }
 
-group = "ru.dimagor555.res.core"
-version = "1.0"
-
 kotlin {
     android()
     jvm("desktop") {
