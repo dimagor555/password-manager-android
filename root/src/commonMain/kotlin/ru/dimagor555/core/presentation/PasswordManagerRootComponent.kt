@@ -118,9 +118,9 @@ class PasswordManagerRootComponent(
         }
     }
 
-    private fun List<RootComponent.Child>.sendChildrenGeneratedPassword(password: String) {
+    private fun List<RootComponent.Child>.sendGeneratedPasswordToChildren(password: String) {
         this.forEach { child ->
-            when(child) {
+            when (child) {
                 is CreatePassword -> child.component.sendGeneratedPassword(password)
                 is EditMaster -> child.component.sendGeneratedPassword(password)
                 is EditPassword -> child.component.sendGeneratedPassword(password)
