@@ -4,6 +4,7 @@ import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 
 internal sealed class Config : Parcelable {
+
     @Parcelize
     object Welcome : Config()
 
@@ -27,5 +28,4 @@ internal sealed class Config : Parcelable {
 
     @Parcelize
     object PasswordGeneration : Config()
-
 }
