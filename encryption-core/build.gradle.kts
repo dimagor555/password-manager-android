@@ -27,11 +27,6 @@ kotlin {
                 implementation(Libs.Koin.android)
             }
         }
-        val desktopMain by getting {
-            dependencies {
-
-            }
-        }
     }
 }
 

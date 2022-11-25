@@ -33,15 +33,6 @@ kotlin {
                 implementation(Libs.Decompose.extensionsCompose)
             }
         }
-        val androidMain by getting {
-            dependencies {
-            }
-        }
-        val desktopMain by getting {
-            dependencies {
-
-            }
-        }
     }
 }
 
