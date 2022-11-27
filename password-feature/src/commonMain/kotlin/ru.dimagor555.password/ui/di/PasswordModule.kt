@@ -7,16 +7,12 @@ import ru.dimagor555.password.ui.createscreen.model.CreatePasswordUseCases
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsUseCases
 import ru.dimagor555.password.ui.editscreen.model.EditPasswordUseCases
 import ru.dimagor555.password.ui.listscreen.model.PasswordListUseCases
-import ru.dimagor555.password.usecase.*
+import ru.dimagor555.password.usecase.field.CopyPasswordUseCase
+import ru.dimagor555.password.usecase.password.CreatePasswordUseCase
+import ru.dimagor555.password.usecase.field.DecryptPasswordUseCase
+import ru.dimagor555.password.usecase.password.UpdatePasswordUseCase
 
-val passwordUiModule = module {
-//    includes(passwordDataModule)
-
-//    viewModelOf(::CreatePasswordViewModel)
-//    viewModelOf(::PasswordDetailsViewModel)
-//    viewModelOf(::EditPasswordViewModel)
-//    viewModelOf(::PasswordListViewModel)
-
+val passwordModule = module {
     factoryOf(::CreatePasswordUseCases)
     factoryOf(::CommonEditPasswordUseCases)
     factoryOf(::PasswordDetailsUseCases)
