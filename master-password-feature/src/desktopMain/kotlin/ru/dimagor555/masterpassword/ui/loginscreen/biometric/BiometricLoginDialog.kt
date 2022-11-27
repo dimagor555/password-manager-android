@@ -6,6 +6,4 @@ import androidx.compose.runtime.Composable
 internal actual fun BiometricLoginDialog(
     onSuccess: () -> Unit,
     onDismiss: () -> Unit,
-) {
-
-}
+) = Unit
