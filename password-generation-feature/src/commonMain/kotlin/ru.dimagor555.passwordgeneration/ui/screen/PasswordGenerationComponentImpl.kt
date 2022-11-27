@@ -23,5 +23,4 @@ internal class PasswordGenerationComponentImpl constructor(
     fun navigateBack(result: String?) {
         onNavigateBack(Result.GeneratedPassword(result))
     }
-
 }
