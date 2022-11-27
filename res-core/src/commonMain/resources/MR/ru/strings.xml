@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ui-core -->
+
+    <string name="back">Назад</string>
+    <string name="cancel">Отмена</string>
+    <string name="menu">Меню</string>
+    <string name="show">Показать</string>
+    <string name="hide">Скрыть</string>
+    <string name="generate">Сгенерировать</string>
+    <string name="next">Далее</string>
+    <string name="ready">Готово</string>
+    <string name="start">Начать</string>
+    <string name="ok">ОК</string>
+
+    <!-- master-password-feature -->
+
+    <string name="data_storage_disclaimer">Все данные хранятся на вашем устройстве</string>
+    <string name="server_disclaimer">Ничего не отправляется на сервера</string>
+    <string name="welcome_screen_description">Придумайте основной пароль и получите все остальные в один клик</string>
+
+    <string name="incorrect_password_error">Неверный пароль</string>
+    <string name="login_button_text">Войти</string>
+    <string name="biometry_login">Использовать биометрию для входа</string>
+    <string name="biometry_login_dialog_title">Вход в менеджер паролей</string>
+    <string name="biometry_login_cancel_button_text">Использовать пароль</string>
+
+    <string name="error_password_not_match">Пароль не совпадает</string>
+    <string name="primary_password_screen_title">Вам нужно придумать основной пароль, который будет использоваться для входа в приложение</string>
+    <string name="confirm_password_screen_title">Введите основной пароль ещё раз, чтобы подтвердить ваш выбор</string>
+    <string name="edit_password_screen_warning">Если вы забудете свой основной пароль, то потеряете доступ ко всем сохранённым паролям</string>
+    <string name="edit_password_screen_advice">Запишите его и храните в надёжном месте</string>
+    <string name="primary_password_field_placeholder">Придумайте основной пароль</string>
+    <string name="confirm_password_field_placeholder">Повторите основной пароль</string>
+
+    <!-- validation-core -->
+
+    <string name="error_is_blank">Не должно быть пустым</string>
+    <string name="error_not_contain_digits">Добавьте цифры</string>
+    <string name="error_not_contain_lowercase_letters">Добавьте строчные буквы</string>
+    <string name="error_not_contain_uppercase_letters">Добавьте заглавные буквы</string>
+    <string name="error_not_contain_special_symbols">Добавьте специальные символы</string>
+
+    <!-- password-generation-feature -->
+
+    <string name="generate_new">Сгенерировать новый</string>
+    <string name="char_group_name_digits">Цифры\n(0–9)</string>
+    <string name="char_group_name_lowercase">Строчные буквы\n(a-z)</string>
+    <string name="char_group_name_uppercase">Заглавные буквы\n(A-Z)</string>
+    <string name="char_group_name_special">Специальные символы\n(!@#$%^*-_.)</string>
+    <string name="length">Длина</string>
+    <string name="can_not_generate_error">Невозможно сгенерировать пароль. Проверьте, что вы выбрали хотя бы 1 опцию</string>
+
+    <!-- password-feature -->
+
+    <string name="search">Поиск</string>
+    <string name="clear">Очистить</string>
+    <string name="settings">Настройки</string>
+    <string name="sorting">Сортировка</string>
+    <string name="empty_favourite_screen_title">Здесь будут избранные пароли</string>
+    <string name="empty_favourite_screen_content">Нажмите на звёздочку, чтобы добавить пароль в избранные</string>
+    <string name="creation_date">Недавно созданный</string>
+    <string name="editing_date">Недавно изменённый</string>
+    <string name="frequent_usage">Часто используемый</string>
+    <string name="recent_usage">Недавно используемый</string>
+    <string name="sort_by">Сортировать по</string>
+    <string name="empty_passwords_screen_title">Здесь будут ваши пароли</string>
+    <string name="empty_passwords_screen_content">Вы не создали ещё ни одного пароля</string>
+    <string name="add">Добивать</string>
+    <string name="not_found_screen_title">Ничего не найдено</string>
+    <string name="not_found_screen_content">Попробуйте изменить поисковой запрос</string>
+    <string name="all_passwords">Все пароли</string>
+    <string name="favourite">Избранные</string>
+
+    <string name="remove_password_dialog_title">Удалить пароль?</string>
+    <string name="remove_password_dialog_text">Вы не сможете отменить это действие</string>
+    <string name="remove">Удалить</string>
+    <string name="edit">Изменить</string>
+    <string name="copy_login">Скопировать логин</string>
+    <string name="login_copied">Логин скопирован</string>
+    <string name="show_password">Показать пароль</string>
+    <string name="hide_password">Скрыть пароль</string>
+
+    <string name="save_changes_dialog_title">Сохранить изменения?</string>
+    <string name="save">Сохранить</string>
+    <string name="discard">Не сохранять</string>
+
+    <string name="toggle_favourite">Переключить изрбанное</string>
+    <string name="password_copied">Пароль скопирован</string>
+    <string name="copy_password">Скопировать пароль</string>
+    <string name="title">Название</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="create">Создать</string>
+
+</resources>

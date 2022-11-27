@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- validation-core -->
+
+    <plurals name="error_is_too_long">
+        <item quantity="one">Максимальная длина %d символ</item>
+        <item quantity="few">Максимальная длина %d символа</item>
+        <item quantity="many">Максимальная длина %d символов</item>
+    </plurals>
+    <plurals name="error_is_too_short">
+        <item quantity="one">Минимальная длина %d символ</item>
+        <item quantity="few">Минимальная длина %d символа</item>
+        <item quantity="many">Минимальная длина %d символов</item>
+    </plurals>
+</resources>

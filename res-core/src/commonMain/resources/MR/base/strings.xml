@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ui-core -->
+
+    <string name="back">Back</string>
+    <string name="cancel">Cancel</string>
+    <string name="menu">Menu</string>
+    <string name="show">Show</string>
+    <string name="hide">Hide</string>
+    <string name="generate">Generate</string>
+    <string name="next">Next</string>
+    <string name="ready">Ready</string>
+    <string name="start">Start</string>
+    <string name="ok">OK</string>
+
+    <string name="app_name_word_first">Password</string>
+    <string name="app_name_word_second">Manager</string>
+
+    <!-- master-password-feature -->
+
+    <string name="data_storage_disclaimer">All data is stored on your device</string>
+    <string name="server_disclaimer">Nothing is sent to servers</string>
+    <string name="welcome_screen_description">Come up with a master password and get the rest in one click</string>
+
+    <string name="incorrect_password_error">Incorrect password</string>
+    <string name="login_button_text">Login</string>
+    <string name="biometry_login">Use biometrics to login</string>
+    <string name="biometry_login_dialog_title">Login in Password Manager</string>
+    <string name="biometry_login_cancel_button_text">Use password instead</string>
+
+    <string name="error_password_not_match">Password does not match</string>
+    <string name="primary_password_screen_title">You need to come up with a master password that will be used to log in the app</string>
+    <string name="confirm_password_screen_title">Enter the master password again to confirm your choice</string>
+    <string name="edit_password_screen_advice">Write it down and keep it in a safe place</string>
+    <string name="edit_password_screen_warning">If you forget your master password, you will lose access to all saved passwords</string>
+    <string name="primary_password_field_placeholder">Come up with a master password</string>
+    <string name="confirm_password_field_placeholder">Repeat the master password</string>
+
+    <!-- validation-core -->
+
+    <string name="error_is_blank">Should not be blank</string>
+    <string name="error_not_contain_digits">Add digits</string>
+    <string name="error_not_contain_lowercase_letters">Add lowercase letters</string>
+    <string name="error_not_contain_uppercase_letters">Add uppercase letters</string>
+    <string name="error_not_contain_special_symbols">Add special symbols</string>
+
+    <!-- password-generation-feature -->
+
+    <string name="generate_new">Generate new</string>
+    <string name="char_group_name_digits">Digits\n(0–9)</string>
+    <string name="char_group_name_lowercase">Lowercase letters\n(a-z)</string>
+    <string name="char_group_name_uppercase">Uppercase letters\n(A-Z)</string>
+    <string name="char_group_name_special">Special characters\n(!@#$%^*-_.)</string>
+    <string name="length">Length</string>
+    <string name="can_not_generate_error">Password could not be generated. Make sure to select at least 1 option</string>
+
+    <!-- password-feature -->
+
+    <string name="search">Search</string>
+    <string name="clear">Clear</string>
+    <string name="settings">Settings</string>
+    <string name="sorting">Sorting</string>
+    <string name="empty_favourite_screen_title">Favourite passwords will be here</string>
+    <string name="empty_favourite_screen_content">Click on the star to add a password to favorites</string>
+    <string name="frequent_usage">Frequently used</string>
+    <string name="recent_usage">Recently used</string>
+    <string name="creation_date">Recently created</string>
+    <string name="editing_date">Recently edited</string>
+    <string name="sort_by">Sort by</string>
+    <string name="empty_passwords_screen_title">Your passwords will be here</string>
+    <string name="empty_passwords_screen_content">You have not created any passwords yet</string>
+    <string name="add">Add</string>
+    <string name="not_found_screen_title">Nothing found</string>
+    <string name="not_found_screen_content">Try to change your search query</string>
+    <string name="all_passwords">All passwords</string>
+    <string name="favourite">Favourite</string>
+
+    <string name="remove_password_dialog_title">Remove password?</string>
+    <string name="remove_password_dialog_text">You cannot undo this action</string>
+    <string name="remove">Remove</string>
+    <string name="edit">Edit</string>
+    <string name="copy_login">Copy login</string>
+    <string name="login_copied">Login copied</string>
+    <string name="show_password">Show password</string>
+    <string name="hide_password">Hide password</string>
+
+    <string name="save_changes_dialog_title">Save changes?</string>
+    <string name="save">Save</string>
+    <string name="discard">Discard</string>
+
+    <string name="toggle_favourite">Toggle favourite</string>
+    <string name="password_copied">Password copied</string>
+    <string name="copy_password">Copy password</string>
+    <string name="title">Title</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="create">Create</string>
+
+</resources>
