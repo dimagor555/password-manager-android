@@ -48,10 +48,11 @@ internal class CreatePasswordComponentImpl constructor(
     }
 
     private fun onCommonEditPasswordSideEffect(sideEffect: CommonEditPasswordStore.SideEffect) {
-        if (sideEffect is CommonEditPasswordStore.SideEffect.ValidationSucceed)
+        if (sideEffect is CommonEditPasswordStore.SideEffect.ValidationSucceed) {
             createPasswordStore.sendAction(
                 Action.CreatePassword(sideEffect.title, sideEffect.login, sideEffect.password)
             )
+        }
     }
 
     override fun sendGeneratedPassword(generatedPassword: String) {
