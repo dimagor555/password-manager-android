@@ -23,7 +23,7 @@ import ru.dimagor555.ui.core.util.stringResource
 fun WelcomeScreen(component: WelcomeComponent) {
     component as WelcomeComponentImpl
 
-    WelcomeSurface { component.navigateNext() }
+    WelcomeSurface(navigateNext = { component.navigateNext() })
 }
 
 @Composable
