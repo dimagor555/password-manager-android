@@ -5,7 +5,7 @@ import org.koin.dsl.module
 import ru.dimagor555.masterpassword.ui.editscreen.model.EditMasterPasswordUseCases
 import ru.dimagor555.masterpassword.ui.loginscreen.model.LoginUseCases
 
-val masterPasswordUiModule = module {
+val masterPasswordModule = module {
     factoryOf(::LoginUseCases)
     factoryOf(::EditMasterPasswordUseCases)
 }
