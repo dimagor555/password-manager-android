@@ -1,6 +1,6 @@
 package ru.dimagor555.password.ui.detailsscreen
 
-sealed interface PasswordDetailsComponent {
+interface PasswordDetailsComponent {
 
     data class PasswordDetailsComponentCallbacks(
         val navigateBack: () -> Unit,

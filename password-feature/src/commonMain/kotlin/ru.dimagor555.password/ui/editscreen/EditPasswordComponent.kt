@@ -1,6 +1,6 @@
 package ru.dimagor555.password.ui.editscreen
 
-sealed interface EditPasswordComponent {
+interface EditPasswordComponent {
 
     fun sendGeneratedPassword(generatedPassword: String)
 

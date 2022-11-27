@@ -1,6 +1,6 @@
 package ru.dimagor555.password.ui.createscreen
 
-sealed interface CreatePasswordComponent {
+interface CreatePasswordComponent {
 
     fun sendGeneratedPassword(generatedPassword: String)
 

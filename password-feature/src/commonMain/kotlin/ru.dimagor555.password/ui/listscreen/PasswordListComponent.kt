@@ -1,6 +1,6 @@
 package ru.dimagor555.password.ui.listscreen
 
-sealed interface PasswordListComponent {
+interface PasswordListComponent {
 
     data class PasswordListComponentCallbacks(
         val navigateToPasswordDetailsScreen: (Int) -> Unit,

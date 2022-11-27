@@ -1,6 +1,6 @@
 package ru.dimagor555.passwordgeneration.ui.screen
 
-sealed interface PasswordGenerationComponent {
+interface PasswordGenerationComponent {
 
     sealed interface Result {
 
