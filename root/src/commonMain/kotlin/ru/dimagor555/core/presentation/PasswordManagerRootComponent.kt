@@ -74,6 +74,10 @@ class PasswordManagerRootComponent(
 
     private var hasMasterPassword: Boolean? = null
 
+    private val generatedPassword = MutableSharedFlow<GeneratedPassword>(
+        extraBufferCapacity = Int.MAX_VALUE,
+    )
+
     init {
         observeGeneratedPassword()
     }
