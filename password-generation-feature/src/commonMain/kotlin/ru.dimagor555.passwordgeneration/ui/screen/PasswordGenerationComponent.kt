@@ -6,5 +6,4 @@ interface PasswordGenerationComponent {
 
         data class GeneratedPassword(val generatedPassword: String?) : Result
     }
-
 }
