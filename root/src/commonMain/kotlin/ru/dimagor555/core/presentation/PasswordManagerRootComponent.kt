@@ -59,7 +59,7 @@ class PasswordManagerRootComponent(
 
     private val navigation = StackNavigation<Config>()
 
-    private val componentScope by this.componentScope()
+    private val componentScope by componentScope()
 
     private val _childStack =
         childStack(
