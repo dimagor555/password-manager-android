@@ -10,5 +10,4 @@ class WelcomeComponentImpl constructor(
     fun navigateNext() {
         onNavigateNext()
     }
-
 }
