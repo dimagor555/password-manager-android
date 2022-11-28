@@ -17,6 +17,9 @@ fun TextValidationError.desc(): StringDesc =
         is TextValidationError.IsTooShort -> {
             MR.plurals.error_is_too_short.format(minLength, minLength)
         }
+        TextValidationError.IsIncorrectFormat -> {
+            MR.strings.error_invalid_special_characters.desc()
+        }
     }
 
 fun PasswordValidationError.desc(): StringDesc =

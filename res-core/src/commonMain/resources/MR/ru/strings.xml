@@ -36,6 +36,7 @@
     <!-- validation-core -->
 
     <string name="error_is_blank">Не должно быть пустым</string>
+    <string name="error_invalid_special_characters">Содержит недопустимые специальные символы</string>
     <string name="error_not_contain_digits">Добавьте цифры</string>
     <string name="error_not_contain_lowercase_letters">Добавьте строчные буквы</string>
     <string name="error_not_contain_uppercase_letters">Добавьте заглавные буквы</string>

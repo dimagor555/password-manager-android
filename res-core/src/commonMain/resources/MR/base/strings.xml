@@ -39,6 +39,7 @@
     <!-- validation-core -->
 
     <string name="error_is_blank">Should not be blank</string>
+    <string name="error_invalid_special_characters">Contains invalid special characters</string>
     <string name="error_not_contain_digits">Add digits</string>
     <string name="error_not_contain_lowercase_letters">Add lowercase letters</string>
     <string name="error_not_contain_uppercase_letters">Add uppercase letters</string>

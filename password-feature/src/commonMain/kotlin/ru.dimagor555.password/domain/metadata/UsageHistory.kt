@@ -1,4 +1,4 @@
-package ru.dimagor555.password.domain
+package ru.dimagor555.password.domain.metadata
 
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
