@@ -1,6 +1,6 @@
 package ru.dimagor555.password.domain.filter
 
-enum class PasswordSortingType(val order: SortingOrder) {
+enum class SortingType(val order: SortingOrder) {
     Title(SortingOrder.Ascending),
     RecentUsage(SortingOrder.Descending),
     FrequentUsage(SortingOrder.Descending),
