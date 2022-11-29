@@ -1,9 +1,9 @@
-package ru.dimagor555.password.usecase
+package ru.dimagor555.password.usecase.field
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.dimagor555.password.domain.Password
-import ru.dimagor555.password.domain.plusUsage
+import ru.dimagor555.password.domain.metadata.plusUsage
+import ru.dimagor555.password.domain.password.Password
 import ru.dimagor555.password.repository.ClipboardRepository
 import ru.dimagor555.password.repository.PasswordRepository
 import ru.dimagor555.password.repository.getByIdOrThrowException
@@ -12,7 +12,8 @@ abstract class CopyUseCase(
     private val passwordRepository: PasswordRepository,
     private val clipboardRepository: ClipboardRepository
 ) {
-    suspend operator fun invoke(passwordId: Int) = withContext(Dispatchers.Default) {
+
+    suspend operator fun invoke(passwordId: String) = withContext(Dispatchers.Default) {
         val password = passwordRepository.getByIdOrThrowException(passwordId)
         val textToCopy = getTextToCopy(password)
         setTextToClipboard(textToCopy)
