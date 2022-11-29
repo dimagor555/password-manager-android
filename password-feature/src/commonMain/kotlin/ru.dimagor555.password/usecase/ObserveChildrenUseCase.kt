@@ -44,6 +44,6 @@ abstract class ObserveChildrenUseCase<T>(
     }
 
     private fun observeFilter(): Flow<Filter> =
-        filterRepository.observePasswordFilterState()
+        filterRepository.observeFilterState()
             .map { Filter(it) }
 }
