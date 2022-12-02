@@ -4,12 +4,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
 import ru.dimagor555.encryption.domain.Encryptor
-import ru.dimagor555.password.domain.password.Password
-import ru.dimagor555.password.domain.password.PasswordFields
+import ru.dimagor555.password.domain.password.*
 import ru.dimagor555.password.domain.password.field.EncryptedPasswordField
 import ru.dimagor555.password.domain.password.field.PASSWORD_FIELD_KEY
-import ru.dimagor555.password.domain.password.updateFieldByKey
-import ru.dimagor555.password.domain.password.validate
 import ru.dimagor555.password.repository.PasswordRepository
 import ru.dimagor555.password.validation.core.TextValidationError
 
@@ -26,11 +23,19 @@ class UpdatePasswordUseCase(
     suspend operator fun invoke(params: Params): Result =
         withContext(Dispatchers.Default) {
             validate(params)
-            updatePassword(params)
         }
 
-    private fun validate(params: Params): Result = with(params) {
-        Result.ValidationError(fields.validate())
+    private suspend fun validate(params: Params): Result = with(params) {
+        val errors = fields.validate()
+        if (errors.isEmpty()) {
+            updatePassword(params)
+        } else {
+            Result.ValidationError(
+                fields.fields.associate {
+                    Pair(it.key, findFieldError(it))
+                }
+            )
+        }
     }
 
     private suspend fun updatePassword(params: Params): Result =
@@ -61,6 +66,8 @@ class UpdatePasswordUseCase(
 
         object Error : Result
 
-        data class ValidationError(val errors: List<TextValidationError>) : Result
+        data class ValidationError(
+            val errorsByFieldTypes: Map<String, TextValidationError?>
+        ) : Result
     }
 }
