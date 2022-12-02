@@ -8,15 +8,17 @@ import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsStore.*
 
 fun createPasswordDetailsComponent(
     componentContext: ComponentContext,
-    passwordId: Int,
+    passwordId: String,
+    parentId: String,
     callbacks: PasswordDetailsComponentCallbacks,
 ): PasswordDetailsComponent {
-    return PasswordDetailsComponentImpl(componentContext, passwordId, callbacks)
+    return PasswordDetailsComponentImpl(componentContext, passwordId, parentId, callbacks)
 }
 
 internal class PasswordDetailsComponentImpl constructor(
     componentContext: ComponentContext,
-    val passwordId: Int,
+    val passwordId: String,
+    val parentId: String,
     val callbacks: PasswordDetailsComponentCallbacks,
 ) : MviComponentContext<Action, State, SideEffect>(
     componentContext = componentContext,

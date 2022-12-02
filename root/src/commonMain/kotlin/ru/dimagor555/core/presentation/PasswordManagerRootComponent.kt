@@ -105,6 +105,9 @@ class PasswordManagerRootComponent(
                 editPassword(componentContext, config.passwordId)
             )
             Config.CreatePassword -> CreatePassword(createPassword(componentContext))
+            is Config.PasswordDetails -> PasswordDetails(
+                passwordDetails(componentContext, config.passwordId, config.parentId)
+            )
             Config.PasswordGeneration -> Generation(passwordGeneration(componentContext))
         }
 
@@ -191,10 +194,15 @@ class PasswordManagerRootComponent(
             onNavigateBack = { navigation.pop() },
         )
 
-    private fun passwordDetails(componentContext: ComponentContext, passwordId: Int) =
+    private fun passwordDetails(
+        componentContext: ComponentContext,
+        passwordId: String,
+        parentId: String
+    ) =
         createPasswordDetailsComponent(
             componentContext = componentContext,
             passwordId = passwordId,
+            parentId = parentId,
             callbacks = createPasswordDetailsComponentCallbacks(),
         )
 

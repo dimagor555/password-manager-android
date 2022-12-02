@@ -2,6 +2,7 @@ package ru.dimagor555.password.ui.detailsscreen.components
 
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
+import ru.dimagor555.password.domain.password.field.TITLE_FIELD_KEY
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsStore.Action
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordState
 import ru.dimagor555.ui.core.component.SingleSnackbarScaffold
@@ -17,7 +18,7 @@ internal fun PasswordDetailsScaffold(
     SingleSnackbarScaffold(
         topBar = {
             PasswordDetailsTopAppBar(
-                title = passwordState.title,
+                title = passwordState.fields[TITLE_FIELD_KEY] ?: "",
                 onRemovePasswordClicked = {
                     sendAction(Action.ChangeRemoveDialogVisibility(visible = true))
                 },

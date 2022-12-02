@@ -7,6 +7,8 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ru.dimagor555.password.domain.password.field.LOGIN_FIELD_KEY
+import ru.dimagor555.password.domain.password.field.PASSWORD_FIELD_KEY
 import ru.dimagor555.password.ui.core.LargePaddingColumn
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsStore.Action
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsStore.State
@@ -23,16 +25,16 @@ internal fun PasswordDetailsScreenContent(
 ) {
     LargePaddingColumn(modifier = Modifier.fillMaxWidth()) {
         LoginTextRow(
-            login = state.passwordState.login,
-            onCopyLogin = { sendAction(Action.CopyLogin) }
+            login = state.passwordState.fields[LOGIN_FIELD_KEY] ?: "",
+            onCopyLogin = { sendAction(Action.CopyLogin) },
         )
         PasswordTextRow(
-            password = state.passwordText.passwordText,
-            onCopyPassword = { sendAction(Action.CopyPassword) }
+            password = state.passwordState.fields[PASSWORD_FIELD_KEY]!!,
+            onCopyPassword = { sendAction(Action.CopyPassword) },
         )
         TogglePasswordVisibilityButton(
-            isVisible = state.passwordText.isVisible,
-            onToggleVisibility = { sendAction(Action.TogglePasswordVisibility) }
+            isVisible =  state.passwordState.isPasswordVisible,
+            onToggleVisibility = { sendAction(Action.TogglePasswordVisibility) },
         )
     }
 }
@@ -40,26 +42,26 @@ internal fun PasswordDetailsScreenContent(
 @Composable
 private fun LoginTextRow(
     login: String,
-    onCopyLogin: () -> Unit
+    onCopyLogin: () -> Unit,
 ) {
     CopyableTextRow(
         text = login,
         headline = stringResource(MR.strings.login),
         buttonContentDescription = stringResource(MR.strings.copy_login),
-        onCopy = onCopyLogin
+        onCopy = onCopyLogin,
     )
 }
 
 @Composable
 private fun PasswordTextRow(
     password: String,
-    onCopyPassword: () -> Unit
+    onCopyPassword: () -> Unit,
 ) {
     CopyableTextRow(
         text = password,
         headline = stringResource(MR.strings.password),
         buttonContentDescription = stringResource(MR.strings.copy_password),
-        onCopy = onCopyPassword
+        onCopy = onCopyPassword,
     )
 }
 
@@ -71,9 +73,9 @@ private fun PasswordDetailsScreenContentPreview() {
             Box(modifier = Modifier.padding(8.dp)) {
                 PasswordDetailsScreenContent(
                     state = State(
-                        passwordState = PasswordState(login = "Username1234")
+                        passwordState = PasswordState(fields = mapOf(LOGIN_FIELD_KEY to "Username1234"))
                     ),
-                    sendAction = {}
+                    sendAction = {},
                 )
             }
         }

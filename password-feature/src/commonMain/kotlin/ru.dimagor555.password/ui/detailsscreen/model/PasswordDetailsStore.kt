@@ -3,25 +3,26 @@ package ru.dimagor555.password.ui.detailsscreen.model
 import dev.icerock.moko.resources.desc.StringDesc
 import ru.dimagor555.mvicompose.abstraction.Store
 import ru.dimagor555.mvicompose.implementation.StoreImpl
+import ru.dimagor555.password.domain.folder.Folder
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsStore.*
 
 internal class PasswordDetailsStore : Store<Action, State, SideEffect> by StoreImpl(
     initialState = State(),
     actor = PasswordDetailsActor(),
-    reducer = PasswordDetailsReducer()
+    reducer = PasswordDetailsReducer(),
 ) {
 
     data class State(
-        val passwordId: Int = 0,
+        val passwordId: String = "",
+        val parentId: String = Folder.ROOT_FOLDER_ID,
         val passwordState: PasswordState = PasswordState(),
-        val passwordText: PasswordTextState = PasswordTextState(),
         val isLoading: Boolean = true,
         val isRemoveDialogVisible: Boolean = false,
-        val isExitScreen: Boolean = false
+        val isExitScreen: Boolean = false,
     )
 
     sealed interface Action {
-        data class LoadPassword(val passwordId: Int) : Action
+        data class LoadPassword(val passwordId: String, val parentId: String) : Action
 
         object TogglePasswordVisibility : Action
 
@@ -36,10 +37,11 @@ internal class PasswordDetailsStore : Store<Action, State, SideEffect> by StoreI
     }
 
     sealed interface Message {
-        data class ChangePasswordId(val passwordId: Int) : Message
+        data class ChangePasswordId(val passwordId: String) : Message
 
-        data class ShowPasswordState(val passwordState: PasswordState) : Message
-        data class ShowPasswordText(val passwordText: PasswordTextState) : Message
+        data class ChangeParentId(val parentId: String) : Message
+
+        data class ShowPassword(val passwordState: PasswordState) : Message
 
         object FinishLoading : Message
 

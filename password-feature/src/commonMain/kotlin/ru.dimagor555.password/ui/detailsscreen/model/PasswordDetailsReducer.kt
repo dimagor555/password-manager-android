@@ -8,8 +8,8 @@ internal class PasswordDetailsReducer : Reducer<State, Message> {
     override fun State.reduce(msg: Message) =
         when (msg) {
             is Message.ChangePasswordId -> copy(passwordId = msg.passwordId)
-            is Message.ShowPasswordState -> copy(passwordState = msg.passwordState)
-            is Message.ShowPasswordText -> copy(passwordText = msg.passwordText)
+            is Message.ChangeParentId -> copy(parentId = msg.parentId)
+            is Message.ShowPassword -> copy(passwordState = msg.passwordState)
             Message.FinishLoading -> copy(isLoading = false)
             is Message.ChangeRemoveDialogVisibility -> copy(isRemoveDialogVisible = msg.visible)
             Message.ExitScreen -> copy(isExitScreen = true)

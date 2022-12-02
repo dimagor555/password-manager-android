@@ -4,6 +4,6 @@ interface PasswordDetailsComponent {
 
     data class PasswordDetailsComponentCallbacks(
         val navigateBack: () -> Unit,
-        val navigateToPasswordEditingScreen: (Int) -> Unit,
+        val navigateToPasswordEditingScreen: (String) -> Unit,
     )
 }

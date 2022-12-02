@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import ru.dimagor555.password.domain.password.field.*
 import ru.dimagor555.password.ui.detailsscreen.components.PasswordDetailsScaffold
 import ru.dimagor555.password.ui.detailsscreen.components.PasswordDetailsScreenContent
 import ru.dimagor555.password.ui.detailsscreen.components.RemovePasswordDialog
@@ -23,8 +24,8 @@ fun PasswordDetailsScreen(component: PasswordDetailsComponent) {
 
     val state by component.state.collectAsState()
 
-    LaunchedEffect(component.passwordId) {
-        component.sendAction(Action.LoadPassword(component.passwordId))
+    LaunchedEffect(component.passwordId, component.parentId) {
+        component.sendAction(Action.LoadPassword(component.passwordId, component.parentId))
     }
 
     when (state.isLoading) {
@@ -35,7 +36,7 @@ fun PasswordDetailsScreen(component: PasswordDetailsComponent) {
             navigateBack = component.callbacks.navigateBack,
             navigateToPasswordEditingScreen = {
                 component.callbacks.navigateToPasswordEditingScreen(state.passwordId)
-            }
+            },
         )
     }
 
@@ -50,17 +51,17 @@ private fun PasswordDetailsScreen(
     component: PasswordDetailsComponentImpl,
     state: State,
     navigateBack: () -> Unit,
-    navigateToPasswordEditingScreen: () -> Unit
+    navigateToPasswordEditingScreen: () -> Unit,
 ) {
     PasswordDetailsScaffold(
         passwordState = state.passwordState,
         sendAction = component::sendAction,
         onNavigateBack = navigateBack,
-        navigateToPasswordEditingScreen = navigateToPasswordEditingScreen
+        navigateToPasswordEditingScreen = navigateToPasswordEditingScreen,
     ) { snackbarHostState ->
         PasswordDetailsScreenContent(
             state = state,
-            sendAction = component::sendAction
+            sendAction = component::sendAction,
         )
         RemovePasswordDialogWrapper(state = state, sendAction = component::sendAction)
         OnSideEffect(
@@ -72,7 +73,7 @@ private fun PasswordDetailsScreen(
                         createLongSnackbarMessage(sideEffect.message)
                     )
                 }
-            }
+            },
         )
     }
 }
@@ -85,7 +86,7 @@ private fun RemovePasswordDialogWrapper(
     if (state.isRemoveDialogVisible)
         RemovePasswordDialog(
             onRemovePassword = { sendAction(Action.RemovePassword) },
-            onDismiss = { sendAction(Action.ChangeRemoveDialogVisibility(visible = false)) }
+            onDismiss = { sendAction(Action.ChangeRemoveDialogVisibility(visible = false)) },
         )
 }
 
@@ -93,20 +94,26 @@ private fun RemovePasswordDialogWrapper(
 @Composable
 private fun PasswordDetailsScreenPreview() {
     val passwordViewState = PasswordState(
-        title = "Google",
-        login = "username",
-        isFavourite = false
+        fields = mapOf(
+            SITE_FIELD_KEY to "",
+            TITLE_FIELD_KEY to "",
+            LOGIN_FIELD_KEY to "",
+            PHONE_FIELD_KEY to "",
+            PASSWORD_FIELD_KEY to "",
+        ),
+        isPasswordVisible = true,
+        isFavourite = false,
     )
     PasswordManagerTheme {
         PasswordDetailsScaffold(
             passwordState = passwordViewState,
             sendAction = {},
             onNavigateBack = { },
-            navigateToPasswordEditingScreen = { }
+            navigateToPasswordEditingScreen = { },
         ) {
             PasswordDetailsScreenContent(
                 state = State(passwordState = passwordViewState),
-                sendAction = {}
+                sendAction = {},
             )
         }
     }

@@ -5,7 +5,7 @@ import dev.icerock.moko.resources.desc.desc
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import ru.dimagor555.mvicompose.abstraction.Actor
-import ru.dimagor555.password.domain.Password
+import ru.dimagor555.password.domain.password.Password
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsStore.*
 import ru.dimagor555.res.core.MR
 
@@ -15,7 +15,7 @@ internal class PasswordDetailsActor : Actor<State, Action, Message, SideEffect>(
 
     override suspend fun onAction(action: Action) {
         when (action) {
-            is Action.LoadPassword -> loadPassword(action.passwordId)
+            is Action.LoadPassword -> loadPassword(action.passwordId, action.parentId)
             Action.TogglePasswordVisibility -> togglePasswordVisibility()
             Action.ToggleFavourite -> toggleFavourite(getState().passwordId)
             Action.CopyPassword -> copyPassword(getState().passwordId)
@@ -27,8 +27,9 @@ internal class PasswordDetailsActor : Actor<State, Action, Message, SideEffect>(
         }
     }
 
-    private suspend fun loadPassword(passwordId: Int) {
+    private suspend fun loadPassword(passwordId: String, parentId: String) {
         sendMessage(Message.ChangePasswordId(passwordId))
+        sendMessage(Message.ChangeParentId(parentId))
         observePassword()
     }
 
@@ -44,38 +45,36 @@ internal class PasswordDetailsActor : Actor<State, Action, Message, SideEffect>(
 
     private suspend fun onNewPassword(password: Password) {
         val passwordState = password.toPasswordState()
-        sendMessage(Message.ShowPasswordState(passwordState))
+        sendMessage(Message.ShowPassword(passwordState))
         updatePasswordTextIfVisible()
         sendMessage(Message.FinishLoading)
     }
 
     private suspend fun updatePasswordTextIfVisible() {
-        val isVisible = getState().passwordText.isVisible
+        val isVisible = getState().passwordState.isPasswordVisible
         if (!isVisible)
             return
-        val newPasswordText = createVisiblePasswordText(decryptPassword())
-        sendMessage(Message.ShowPasswordText(newPasswordText))
+        updatePasswordTextByVisibility(true)
     }
 
     private suspend fun togglePasswordVisibility() {
-        val isVisible = getState().passwordText.isVisible
-        val newPasswordText = createToggledPasswordText(isVisible)
-        sendMessage(Message.ShowPasswordText(newPasswordText))
+        val isVisible = getState().passwordState.isPasswordVisible
+        updatePasswordTextByVisibility(!isVisible)
     }
 
-    private suspend fun createToggledPasswordText(isVisible: Boolean) =
-        when (isVisible) {
-            true -> createHiddenPasswordText()
-            false -> createVisiblePasswordText(decryptPassword())
-        }
+    private suspend fun updatePasswordTextByVisibility(isVisible: Boolean) {
+        val passwordState = getState().passwordState
+        val updatedPasswordState = passwordState.updatePasswordText(decryptPassword(), isVisible)
+        sendMessage(Message.ShowPassword(updatedPasswordState))
+    }
 
-    private suspend fun decryptPassword() = useCases.decryptPassword(getState().passwordId)
+    private suspend fun decryptPassword(): String = useCases.decryptPassword(getState().passwordId)
 
-    private suspend fun toggleFavourite(passwordId: Int) {
+    private suspend fun toggleFavourite(passwordId: String) {
         useCases.toggleFavourite(passwordId)
     }
 
-    private suspend fun copyPassword(passwordId: Int) {
+    private suspend fun copyPassword(passwordId: String) {
         useCases.copyPassword(passwordId)
         showMessage(MR.strings.password_copied)
     }
@@ -85,12 +84,12 @@ internal class PasswordDetailsActor : Actor<State, Action, Message, SideEffect>(
         sendSideEffect(SideEffect.ShowMessage(message))
     }
 
-    private suspend fun copyLogin(passwordId: Int) {
+    private suspend fun copyLogin(passwordId: String) {
         useCases.copyLogin(passwordId)
         showMessage(MR.strings.login_copied)
     }
 
-    private suspend fun removePassword(passwordId: Int) {
+    private suspend fun removePassword(passwordId: String) {
         useCases.removePassword(passwordId)
     }
 }
