@@ -89,8 +89,10 @@
     <string name="toggle_favourite">Переключить изрбанное</string>
     <string name="password_copied">Пароль скопирован</string>
     <string name="copy_password">Скопировать пароль</string>
+    <string name="password_update_error">Ошибка при обновлении пароля</string>
     <string name="title">Название</string>
     <string name="login">Логин</string>
+    <string name="phone">Телефон</string>
     <string name="password">Пароль</string>
     <string name="create">Создать</string>
 

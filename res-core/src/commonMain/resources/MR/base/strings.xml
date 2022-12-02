@@ -92,8 +92,10 @@
     <string name="toggle_favourite">Toggle favourite</string>
     <string name="password_copied">Password copied</string>
     <string name="copy_password">Copy password</string>
+    <string name="password_update_error">Error updating password</string>
     <string name="title">Title</string>
     <string name="login">Login</string>
+    <string name="phone">Phone</string>
     <string name="password">Password</string>
     <string name="create">Create</string>
 

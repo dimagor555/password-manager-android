@@ -3,69 +3,72 @@ package ru.dimagor555.password.ui.commoneditscreen.model
 import dev.icerock.moko.resources.desc.StringDesc
 import ru.dimagor555.mvicompose.abstraction.Store
 import ru.dimagor555.mvicompose.implementation.StoreImpl
+import ru.dimagor555.password.domain.folder.Folder
+import ru.dimagor555.password.domain.password.PasswordFields
+import ru.dimagor555.password.domain.password.field.Field.Companion.createFieldByKey
+import ru.dimagor555.password.domain.password.field.copy
 import ru.dimagor555.password.ui.commoneditscreen.model.CommonEditPasswordStore.*
+import ru.dimagor555.password.validation.core.TextValidationError
 import ru.dimagor555.ui.core.model.FieldState
 
 class CommonEditPasswordStore : Store<Action, State, SideEffect> by StoreImpl(
     initialState = State(),
     actor = CommonEditPasswordActor(),
-    reducer = CommonEditPasswordReducer()
+    reducer = CommonEditPasswordReducer(),
 ) {
 
     internal data class State(
-        val fieldsByTypes: Map<FieldType, FieldState> = initialFieldsByTypes
+        val parentId: String = Folder.ROOT_FOLDER_ID,
+        val fieldsByKeys: Map<String, FieldState> = emptyMap(),
     ) {
-        val title
-            get() = fieldsByTypes[FieldType.Title]!! as FieldState.Text
-        val login
-            get() = fieldsByTypes[FieldType.Login]!! as FieldState.Text
-        val password
-            get() = fieldsByTypes[FieldType.Password]!! as FieldState.Password
 
-        enum class FieldType(val initialFieldState: FieldState) {
-            Title(FieldState.Text()),
-            Login(FieldState.Text()),
-            Password(FieldState.Password())
-        }
-
-        companion object {
-            private val initialFieldsByTypes = mapOf(
-                *FieldType.values()
-                    .map { fieldType -> fieldType to fieldType.initialFieldState }
-                    .toTypedArray()
+        val passwordFields
+            get() = PasswordFields(
+                fieldsByKeys.mapNotNull {
+                    createFieldByKey(it.key)?.copy(it.value.text)
+                }.toSet()
             )
-        }
     }
 
     sealed interface Action {
+
         object Validate : Action
 
-        data class ChangeTitle(val title: String) : Action
-        data class ChangeLogin(val login: String) : Action
-        data class ChangePassword(val password: String) : Action
+        data class LoadPasswordFields(val fields: PasswordFields) : Action, Message
+
+        data class ChangeFieldByKey(val key: String, val text: String) : Action
 
         object TogglePasswordVisibility : Action, Message
+
+        data class ShowUpdateErrors(
+            val errorsByFieldTypes: Map<String, TextValidationError?>
+        ) : Action
+
+        object ShowUnknownUpdateError : Action
     }
 
     internal sealed interface Message {
+
         data class ShowFieldText(
-            val fieldType: State.FieldType,
-            val text: String
+            val fieldKey: String,
+            val text: String,
         ) : Message
 
         data class ShowFieldError(
-            val fieldType: State.FieldType,
-            val error: StringDesc?
+            val fieldKey: String,
+            val error: StringDesc?,
         ) : Message
     }
 
     sealed interface SideEffect {
+
         data class ValidationSucceed(
-            val title: String,
-            val login: String,
-            val password: String
+            val parentId: String,
+            val passwordFields: PasswordFields,
         ) : SideEffect
 
         object ValidationFailed : SideEffect
+
+        data class ShowUnknownUpdateError(val message: StringDesc) : SideEffect
     }
 }
