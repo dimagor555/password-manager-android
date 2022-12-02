@@ -22,6 +22,9 @@ kotlin {
                 api(compose.ui)
                 api(compose.materialIconsExtended)
 
+                implementation(Libs.MviCompose.core)
+                implementation(Libs.MviCompose.android)
+
                 implementation(Libs.Decompose.decompose)
 
                 implementation(projects.core)

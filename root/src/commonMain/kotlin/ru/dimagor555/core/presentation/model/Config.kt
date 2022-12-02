@@ -18,7 +18,7 @@ internal sealed class Config : Parcelable {
     object PasswordList : Config()
 
     @Parcelize
-    data class EditPassword(val passwordId: Int) : Config()
+    data class EditPassword(val passwordId: String) : Config()
 
     @Parcelize
     data class PasswordDetails(val passwordId: Int) : Config()

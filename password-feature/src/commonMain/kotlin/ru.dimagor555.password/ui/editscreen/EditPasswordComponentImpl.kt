@@ -6,15 +6,15 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import ru.dimagor555.core.presentation.componentScope
 import ru.dimagor555.core.presentation.getStore
+import ru.dimagor555.password.domain.password.field.PASSWORD_FIELD_KEY
 import ru.dimagor555.password.ui.commoneditscreen.model.CommonEditPasswordStore
 import ru.dimagor555.password.ui.editscreen.EditPasswordComponent.EditPasswordComponentCallbacks
 import ru.dimagor555.password.ui.editscreen.model.EditPasswordStore
-import ru.dimagor555.password.ui.editscreen.model.EditPasswordStore.Action
-import ru.dimagor555.password.ui.editscreen.model.PasswordDto
+import ru.dimagor555.password.ui.editscreen.model.EditPasswordStore.*
 
 fun createEditPasswordComponent(
     componentContext: ComponentContext,
-    passwordId: Int,
+    passwordId: String,
     callbacks: EditPasswordComponentCallbacks,
 ): EditPasswordComponent {
     return EditPasswordComponentImpl(
@@ -26,7 +26,7 @@ fun createEditPasswordComponent(
 
 internal class EditPasswordComponentImpl constructor(
     componentContext: ComponentContext,
-    val passwordId: Int,
+    val passwordId: String,
     val callbacks: EditPasswordComponentCallbacks,
 ) : EditPasswordComponent, ComponentContext by componentContext {
 
@@ -60,45 +60,46 @@ internal class EditPasswordComponentImpl constructor(
             .onEach { commonEditPasswordStore.sendAction(it) }
             .launchIn(componentScope)
         commonEditPasswordStore.sideEffects
-            .map(::mapCommonEditSideEffectToEditAction)
+            .mapNotNull(::mapCommonEditSideEffectToEditAction)
             .onEach { editPasswordStore.sendAction(it) }
             .launchIn(componentScope)
     }
 
     private fun mapEditSideEffectToCommonEditAction(
-        sideEffect: EditPasswordStore.SideEffect
+        sideEffect: SideEffect,
     ): List<CommonEditPasswordStore.Action> =
         when (sideEffect) {
-            is EditPasswordStore.SideEffect.PasswordLoaded -> listOf(
-                CommonEditPasswordStore.Action.ChangeTitle(sideEffect.password.title),
-                CommonEditPasswordStore.Action.ChangeLogin(sideEffect.password.login),
-                CommonEditPasswordStore.Action.ChangePassword(sideEffect.password.password)
+            is SideEffect.PasswordLoaded -> listOf(
+                CommonEditPasswordStore.Action.LoadPasswordFields(sideEffect.fields),
             )
-            EditPasswordStore.SideEffect.RequestValidatePassword -> listOf(
+            SideEffect.RequestValidatePassword -> listOf(
                 CommonEditPasswordStore.Action.Validate
+            )
+            is SideEffect.RequestShowUpdateErrors -> listOf(
+                CommonEditPasswordStore.Action.ShowUpdateErrors(sideEffect.errorsByFieldTypes)
+            )
+            is SideEffect.ShowUnknownUpdateError -> listOf(
+                CommonEditPasswordStore.Action.ShowUnknownUpdateError
             )
         }
 
     private fun mapCommonEditSideEffectToEditAction(
         sideEffect: CommonEditPasswordStore.SideEffect
-    ) = when (sideEffect) {
+    ): Action? = when (sideEffect) {
         is CommonEditPasswordStore.SideEffect.ValidationSucceed ->
             Action.OnPasswordValidationSucceed(
-                PasswordDto(
-                    sideEffect.title,
-                    sideEffect.login,
-                    sideEffect.password
-                )
+                sideEffect.passwordFields,
             )
         CommonEditPasswordStore.SideEffect.ValidationFailed ->
             Action.OnPasswordValidationFailed
+        else -> null
     }
 
     fun sendAction(action: Action) = editPasswordStore.sendAction(action)
 
     override fun sendGeneratedPassword(generatedPassword: String) {
         commonEditPasswordStore.sendAction(
-            CommonEditPasswordStore.Action.ChangePassword(generatedPassword)
+            CommonEditPasswordStore.Action.ChangeFieldByKey(PASSWORD_FIELD_KEY, generatedPassword),
         )
     }
 }

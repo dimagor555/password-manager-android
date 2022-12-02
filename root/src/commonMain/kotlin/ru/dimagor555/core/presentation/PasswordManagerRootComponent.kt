@@ -101,15 +101,12 @@ class PasswordManagerRootComponent(
             Config.Login -> Login(login(componentContext))
             Config.EditMasterPassword -> EditMaster(editMasterPassword(componentContext))
             Config.PasswordList -> PasswordList(passwordList(componentContext))
-            is Config.EditPassword -> EditPassword(editPassword(componentContext, config.passwordId))
-            is Config.PasswordDetails -> PasswordDetails(passwordDetails(componentContext, config.passwordId))
+            is Config.EditPassword -> EditPassword(
+                editPassword(componentContext, config.passwordId)
+            )
             Config.CreatePassword -> CreatePassword(createPassword(componentContext))
             Config.PasswordGeneration -> Generation(passwordGeneration(componentContext))
         }
-
-    private val generatedPassword = MutableSharedFlow<GeneratedPassword>(
-        extraBufferCapacity = Int.MAX_VALUE,
-    )
 
     private fun observeGeneratedPassword() = componentScope.launch {
         generatedPassword.collect {
@@ -174,12 +171,14 @@ class PasswordManagerRootComponent(
 
     private fun createPasswordListComponentCallbacks() =
         PasswordListComponentCallbacks(
-            navigateToPasswordDetailsScreen = { navigation.push(Config.PasswordDetails(it)) },
+            navigateToPasswordDetailsScreen = { passwordId, parentId ->
+                navigation.push(Config.PasswordDetails(passwordId, parentId))
+            },
             navigateToSettingsScreen = {},
             navigateToPasswordCreationScreen = { navigation.push(Config.CreatePassword) },
         )
 
-    private fun editPassword(componentContext: ComponentContext, passwordId: Int) =
+    private fun editPassword(componentContext: ComponentContext, passwordId: String) =
         createEditPasswordComponent(
             componentContext = componentContext,
             passwordId = passwordId,

@@ -2,19 +2,21 @@ package ru.dimagor555.password.ui.editscreen.model
 
 import ru.dimagor555.mvicompose.abstraction.Store
 import ru.dimagor555.mvicompose.implementation.StoreImpl
+import ru.dimagor555.password.domain.password.PasswordFields
 import ru.dimagor555.password.ui.editscreen.model.EditPasswordStore.*
+import ru.dimagor555.password.validation.core.TextValidationError
 
 internal class EditPasswordStore : Store<Action, State, SideEffect> by StoreImpl(
     initialState = State(),
     actor = EditPasswordActor(),
-    reducer = EditPasswordReducer()
+    reducer = EditPasswordReducer(),
 ) {
 
     data class State(
-        val passwordId: Int = 0,
-        val initialPassword: PasswordDto? = null,
+        val passwordId: String = "",
+        val initialPassword: PasswordFields? = null,
         val isSavingStarted: Boolean = false,
-        val exitScreenState: ExitScreenState = ExitScreenState.NotExit
+        val exitScreenState: ExitScreenState = ExitScreenState.NotExit,
     ) {
         val isSaveDialogVisible
             get() = exitScreenState is ExitScreenState.Request
@@ -34,9 +36,9 @@ internal class EditPasswordStore : Store<Action, State, SideEffect> by StoreImpl
     }
 
     sealed interface Action {
-        data class LoadPassword(val passwordId: Int) : Action
+        data class LoadPassword(val passwordId: String) : Action
 
-        data class OnPasswordValidationSucceed(val password: PasswordDto) : Action
+        data class OnPasswordValidationSucceed(val password: PasswordFields) : Action
         object OnPasswordValidationFailed : Action
 
         object RequestExitScreen : Action, Message
@@ -46,7 +48,10 @@ internal class EditPasswordStore : Store<Action, State, SideEffect> by StoreImpl
     }
 
     sealed interface Message {
-        data class SetInitialPassword(val passwordId: Int, val password: PasswordDto) : Message
+        data class SetInitialPassword(
+            val passwordId: String,
+            val passwordFields: PasswordFields,
+            ) : Message
 
         object ShowSaveDialog : Message
 
@@ -56,8 +61,14 @@ internal class EditPasswordStore : Store<Action, State, SideEffect> by StoreImpl
     }
 
     sealed interface SideEffect {
-        data class PasswordLoaded(val password: PasswordDto) : SideEffect
+        data class PasswordLoaded(val fields: PasswordFields) : SideEffect
+
+        data class RequestShowUpdateErrors(
+            val errorsByFieldTypes: Map<String, TextValidationError?>
+        )  : SideEffect
 
         object RequestValidatePassword : SideEffect
+
+        object ShowUnknownUpdateError : SideEffect
     }
 }

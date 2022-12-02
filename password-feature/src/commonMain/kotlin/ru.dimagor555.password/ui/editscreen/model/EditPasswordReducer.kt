@@ -7,7 +7,7 @@ internal class EditPasswordReducer : Reducer<State, Message> {
     override fun State.reduce(msg: Message) = when (msg) {
         is Message.SetInitialPassword -> copy(
             passwordId = msg.passwordId,
-            initialPassword = msg.password
+            initialPassword = msg.passwordFields,
         )
         Action.RequestExitScreen -> copy(exitScreenState = State.ExitScreenState.Request())
         Action.DismissExitScreenRequest -> copy(exitScreenState = State.ExitScreenState.NotExit)
