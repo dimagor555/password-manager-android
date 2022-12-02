@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import ru.dimagor555.core.presentation.componentScope
 import ru.dimagor555.core.presentation.getStore
+import ru.dimagor555.password.domain.password.field.PASSWORD_FIELD_KEY
 import ru.dimagor555.password.ui.commoneditscreen.model.CommonEditPasswordStore
 import ru.dimagor555.password.ui.createscreen.CreatePasswordComponent.CreatePasswordComponentCallbacks
 import ru.dimagor555.password.ui.createscreen.model.CreatePasswordStore
@@ -50,14 +51,14 @@ internal class CreatePasswordComponentImpl constructor(
     private fun onCommonEditPasswordSideEffect(sideEffect: CommonEditPasswordStore.SideEffect) {
         if (sideEffect is CommonEditPasswordStore.SideEffect.ValidationSucceed) {
             createPasswordStore.sendAction(
-                Action.CreatePassword(sideEffect.title, sideEffect.login, sideEffect.password)
+                Action.CreatePassword(sideEffect.parentId, sideEffect.passwordFields),
             )
         }
     }
 
     override fun sendGeneratedPassword(generatedPassword: String) {
         commonEditPasswordStore.sendAction(
-            CommonEditPasswordStore.Action.ChangePassword(generatedPassword)
+        CommonEditPasswordStore.Action.ChangeFieldByKey(PASSWORD_FIELD_KEY, generatedPassword)
         )
     }
 }

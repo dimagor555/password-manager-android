@@ -6,26 +6,26 @@ import ru.dimagor555.mvicompose.abstraction.Actor
 import ru.dimagor555.mvicompose.abstraction.Reducer
 import ru.dimagor555.mvicompose.abstraction.Store
 import ru.dimagor555.mvicompose.implementation.StoreImpl
+import ru.dimagor555.password.domain.password.PasswordFields
 import ru.dimagor555.password.ui.createscreen.model.CreatePasswordStore.Action
 import ru.dimagor555.password.ui.createscreen.model.CreatePasswordStore.State
-import ru.dimagor555.password.usecase.CreatePasswordUseCase
+import ru.dimagor555.password.usecase.password.CreatePasswordUseCase
 
 internal class CreatePasswordStore : Store<Action, State, Nothing> by StoreImpl(
     initialState = State(),
     actor = ActorImpl(),
-    reducer = ReducerImpl()
+    reducer = ReducerImpl(),
 ) {
 
     data class State(
         val isCreatingStarted: Boolean = false,
-        val isExitScreen: Boolean = false
+        val isExitScreen: Boolean = false,
     )
 
     sealed interface Action {
         data class CreatePassword(
-            val title: String,
-            val login: String,
-            val password: String
+            val parentId: String,
+            val passwordFields: PasswordFields,
         ) : Action
     }
 
@@ -41,15 +41,20 @@ internal class CreatePasswordStore : Store<Action, State, Nothing> by StoreImpl(
 
         override suspend fun onAction(action: Action) {
             when (action) {
-                is Action.CreatePassword -> createPassword(action.title, action.login, action.password)
+                is Action.CreatePassword -> createPassword(action.parentId, action.passwordFields)
             }
         }
 
-        private suspend fun createPassword(title: String, login: String, password: String) {
+        private suspend fun createPassword(parentId: String, passwordFields: PasswordFields) {
             if (getState().isCreatingStarted)
                 return
             sendMessage(Message.StartCreating)
-            useCases.createPassword(CreatePasswordUseCase.Params(title, login, password))
+            useCases.createPassword(
+                CreatePasswordUseCase.Params(
+                    parentId = parentId,
+                    fields = passwordFields,
+                )
+            )
             sendMessage(Message.ExitScreen)
         }
     }
