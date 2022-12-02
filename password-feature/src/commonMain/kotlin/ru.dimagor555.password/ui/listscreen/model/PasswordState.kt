@@ -2,13 +2,16 @@ package ru.dimagor555.password.ui.listscreen.model
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.dimagor555.password.domain.Password
+import ru.dimagor555.password.domain.password.Password
+import ru.dimagor555.password.domain.password.getUniqueIdentifier
+import ru.dimagor555.password.domain.password.title
 
 internal data class PasswordState(
-    val id: Int,
+    val passwordId: String,
+    val parentId: String,
     val title: String,
-    val login: String,
-    val isFavourite: Boolean
+    val uniqueIdentifier: String,
+    val isFavourite: Boolean,
 )
 
 internal suspend fun List<Password>.toPasswordStates() = withContext(Dispatchers.Default) {
@@ -16,8 +19,9 @@ internal suspend fun List<Password>.toPasswordStates() = withContext(Dispatchers
 }
 
 private fun Password.toPasswordState() = PasswordState(
-    id = id!!,
-    title = title,
-    login = login,
-    isFavourite = metadata.isFavourite
+    passwordId = id!!,
+    parentId = parentId,
+    title = fields.title.text,
+    uniqueIdentifier = this.getUniqueIdentifier(),
+    isFavourite = metadata.isFavourite,
 )

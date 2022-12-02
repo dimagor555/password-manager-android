@@ -3,7 +3,8 @@ package ru.dimagor555.password.ui.listscreen
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import ru.dimagor555.password.domain.filter.PasswordFilterState
+import ru.dimagor555.password.domain.filter.FilterState
+import ru.dimagor555.password.domain.folder.Folder
 import ru.dimagor555.password.ui.listscreen.components.PasswordListScaffold
 import ru.dimagor555.password.ui.listscreen.components.PasswordListScreenContent
 import ru.dimagor555.password.ui.listscreen.components.SortingDialog
@@ -26,7 +27,7 @@ fun PasswordListScreen(component: PasswordListComponent) {
         filterState = state.filterState,
         sendAction = component::sendAction,
         navigateToPasswordCreationScreen = component.callbacks.navigateToPasswordCreationScreen,
-        navigateToSettingsScreen = component.callbacks.navigateToSettingsScreen
+        navigateToSettingsScreen = component.callbacks.navigateToSettingsScreen,
     ) { snackbarHostState ->
         PasswordListScreenContent(
             state = state,
@@ -43,7 +44,7 @@ fun PasswordListScreen(component: PasswordListComponent) {
                         createLongSnackbarMessage(sideEffect.message)
                     )
                 }
-            }
+            },
         )
     }
 }
@@ -51,13 +52,13 @@ fun PasswordListScreen(component: PasswordListComponent) {
 @Composable
 private fun SortingDialogWrapper(
     state: State,
-    sendAction: (Action) -> Unit
+    sendAction: (Action) -> Unit,
 ) {
     if (state.isSortingDialogVisible)
         SortingDialog(
             sortingType = state.filterState.sortingType,
             onDismiss = { sendAction(Action.ChangeSortingDialogVisibility(isVisible = false)) },
-            onChangeSortingType = { sendAction(Action.ChangeSortingType(it)) }
+            onChangeSortingType = { sendAction(Action.ChangeSortingType(it)) },
         )
 }
 
@@ -66,15 +67,15 @@ private fun SortingDialogWrapper(
 private fun EmptyPasswordListScreenPreview() {
     PasswordManagerTheme {
         PasswordListScaffold(
-            filterState = PasswordFilterState(),
+            filterState = FilterState(),
             navigateToPasswordCreationScreen = {},
             sendAction = {},
-            navigateToSettingsScreen = {}
+            navigateToSettingsScreen = {},
         ) {
             PasswordListScreenContent(
                 state = State(isLoading = false),
                 sendAction = {},
-                navigateToPasswordDetailsScreen = {}
+                navigateToPasswordDetailsScreen = {passwordId, parentId ->  },
             )
         }
     }
@@ -85,25 +86,26 @@ private fun EmptyPasswordListScreenPreview() {
 private fun FilledPasswordListScreenPreview() {
     PasswordManagerTheme {
         PasswordListScaffold(
-            filterState = PasswordFilterState(),
+            filterState = FilterState(),
             navigateToPasswordCreationScreen = {},
             sendAction = {},
-            navigateToSettingsScreen = {}
+            navigateToSettingsScreen = {},
         ) {
             PasswordListScreenContent(
                 state = State(
                     passwordStates = (0..10).map {
                         PasswordState(
-                            id = it,
+                            passwordId = it.toString(),
+                            parentId = Folder.ROOT_FOLDER_ID,
                             title = "Test title",
-                            login = "test login",
+                            uniqueIdentifier = "test login",
                             isFavourite = it % 2 == 1
                         )
                     },
                     isLoading = false
                 ),
                 sendAction = {},
-                navigateToPasswordDetailsScreen = {}
+                navigateToPasswordDetailsScreen = {passwordId, parentId ->  },
             )
         }
     }

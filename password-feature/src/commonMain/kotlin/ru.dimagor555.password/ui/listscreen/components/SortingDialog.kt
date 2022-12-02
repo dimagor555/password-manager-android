@@ -8,7 +8,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ru.dimagor555.password.domain.filter.PasswordSortingType
+import ru.dimagor555.password.domain.filter.SortingType
 import ru.dimagor555.res.core.MR
 import ru.dimagor555.ui.core.component.DefaultDialog
 import ru.dimagor555.ui.core.component.SingleLineText
@@ -19,9 +19,9 @@ import ru.dimagor555.ui.core.util.stringResource
 
 @Composable
 internal fun SortingDialog(
-    sortingType: PasswordSortingType,
-    onChangeSortingType: (PasswordSortingType) -> Unit,
-    onDismiss: () -> Unit
+    sortingType: SortingType,
+    onChangeSortingType: (SortingType) -> Unit,
+    onDismiss: () -> Unit,
 ) {
     DefaultDialog(onDismissRequest = onDismiss) {
         SortingDialogContent(
@@ -34,9 +34,9 @@ internal fun SortingDialog(
 
 @Composable
 private fun SortingDialogContent(
-    sortingType: PasswordSortingType,
+    sortingType: SortingType,
     onDismiss: () -> Unit,
-    onChangeSortingType: (PasswordSortingType) -> Unit,
+    onChangeSortingType: (SortingType) -> Unit,
 ) {
     Column(
         modifier = Modifier.padding(horizontal = 12.dp, vertical = 16.dp),
@@ -44,39 +44,39 @@ private fun SortingDialogContent(
     ) {
         SingleLineText(
             text = stringResource(MR.strings.sort_by),
-            style = MaterialTheme.typography.subtitle1
+            style = MaterialTheme.typography.subtitle1,
         )
         SortingOptionGroup(
             sortingType = sortingType,
             onOptionSelected = {
                 onChangeSortingType(it)
                 onDismiss()
-            }
+            },
         )
     }
 }
 
 @Composable
 private fun SortingOptionGroup(
-    sortingType: PasswordSortingType,
-    onOptionSelected: (PasswordSortingType) -> Unit
+    sortingType: SortingType,
+    onOptionSelected: (SortingType) -> Unit,
 ) {
     RadioTextOptionGroup(
-        options = PasswordSortingType.values(),
+        options = SortingType.values(),
         selectedOption = sortingType,
         onOptionSelected = onOptionSelected,
-        getOptionTitle = { getSortingTypeTitle(it) }
+        getOptionTitle = { getSortingTypeTitle(it) },
     )
 }
 
 @Composable
-private fun getSortingTypeTitle(sortingType: PasswordSortingType) =
+private fun getSortingTypeTitle(sortingType: SortingType) =
     when (sortingType) {
-        PasswordSortingType.Title -> stringResource(MR.strings.title)
-        PasswordSortingType.RecentUsage -> stringResource(MR.strings.recent_usage)
-        PasswordSortingType.FrequentUsage -> stringResource(MR.strings.frequent_usage)
-        PasswordSortingType.CreationDate -> stringResource(MR.strings.creation_date)
-        PasswordSortingType.EditingDate -> stringResource(MR.strings.editing_date)
+        SortingType.Title -> stringResource(MR.strings.title)
+        SortingType.RecentUsage -> stringResource(MR.strings.recent_usage)
+        SortingType.FrequentUsage -> stringResource(MR.strings.frequent_usage)
+        SortingType.CreationDate -> stringResource(MR.strings.creation_date)
+        SortingType.EditingDate -> stringResource(MR.strings.editing_date)
     }
 
 @Preview
@@ -85,7 +85,7 @@ private fun SortingDialogPreview() {
     PasswordManagerTheme {
         Card {
             SortingDialogContent(
-                sortingType = PasswordSortingType.FrequentUsage,
+                sortingType = SortingType.FrequentUsage,
                 onDismiss = {},
                 onChangeSortingType = {},
             )

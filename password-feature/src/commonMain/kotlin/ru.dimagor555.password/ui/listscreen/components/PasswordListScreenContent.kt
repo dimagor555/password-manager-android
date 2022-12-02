@@ -1,8 +1,8 @@
 package ru.dimagor555.password.ui.listscreen.components
 
 import androidx.compose.runtime.Composable
-import ru.dimagor555.password.domain.FavouriteFilter
-import ru.dimagor555.password.domain.filter.PasswordFilterState
+import ru.dimagor555.password.domain.filter.FavouriteFilter
+import ru.dimagor555.password.domain.filter.FilterState
 import ru.dimagor555.password.ui.listscreen.model.PasswordListStore.Action
 import ru.dimagor555.password.ui.listscreen.model.PasswordListStore.State
 import ru.dimagor555.password.ui.listscreen.model.PasswordState
@@ -14,7 +14,7 @@ import ru.dimagor555.ui.core.util.stringResource
 internal fun PasswordListScreenContent(
     state: State,
     sendAction: (Action) -> Unit,
-    navigateToPasswordDetailsScreen: (id: Int) -> Unit,
+    navigateToPasswordDetailsScreen: (passwordId: String, parentId: String) -> Unit,
 ) {
     when {
         state.isLoading -> FullscreenCircularProgressBar()
@@ -28,22 +28,22 @@ internal fun PasswordListScreenContent(
 }
 
 @Composable
-private fun NoPasswords(filterState: PasswordFilterState) {
+private fun NoPasswords(filterState: FilterState) {
     when {
         filterState.searchText.isNotBlank() ->
             FullscreenInformationContent(
                 title = stringResource(MR.strings.not_found_screen_title),
-                contentText = stringResource(MR.strings.not_found_screen_content)
+                contentText = stringResource(MR.strings.not_found_screen_content),
             )
         filterState.favouriteFilter == FavouriteFilter.All ->
             FullscreenInformationContent(
                 title = stringResource(MR.strings.empty_passwords_screen_title),
-                contentText = stringResource(MR.strings.empty_passwords_screen_content)
+                contentText = stringResource(MR.strings.empty_passwords_screen_content),
             )
         filterState.favouriteFilter == FavouriteFilter.Favourite ->
             FullscreenInformationContent(
                 title = stringResource(MR.strings.empty_favourite_screen_title),
-                contentText = stringResource(MR.strings.empty_favourite_screen_content)
+                contentText = stringResource(MR.strings.empty_favourite_screen_content),
             )
     }
 }
@@ -51,7 +51,7 @@ private fun NoPasswords(filterState: PasswordFilterState) {
 @Composable
 private fun PasswordListWrapper(
     passwordStates: List<PasswordState>,
-    navigateToPasswordDetailsScreen: (Int) -> Unit,
+    navigateToPasswordDetailsScreen: (passwordId: String, parentId: String) -> Unit,
     onTriggerEvent: (Action) -> Unit,
 ) {
     PasswordList(

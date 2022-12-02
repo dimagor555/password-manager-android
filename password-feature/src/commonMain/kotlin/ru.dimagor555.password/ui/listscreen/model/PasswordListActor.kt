@@ -6,9 +6,9 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import ru.dimagor555.mvicompose.abstraction.Actor
-import ru.dimagor555.password.domain.FavouriteFilter
-import ru.dimagor555.password.domain.Password
-import ru.dimagor555.password.domain.filter.PasswordSortingType
+import ru.dimagor555.password.domain.filter.FavouriteFilter
+import ru.dimagor555.password.domain.password.Password
+import ru.dimagor555.password.domain.filter.SortingType
 import ru.dimagor555.password.ui.listscreen.model.PasswordListStore.*
 import ru.dimagor555.res.core.MR
 
@@ -70,13 +70,13 @@ internal class PasswordListActor : Actor<State, Action, Message, SideEffect>(), 
         sendMessage(Message.ShowLoading(isLoading = true))
     }
 
-    private suspend fun changeSortingType(sortingType: PasswordSortingType) {
+    private suspend fun changeSortingType(sortingType: SortingType) {
         useCases.updatePasswordFilterState(
             getState().filterState.copy(sortingType = sortingType)
         )
     }
 
-    private suspend fun copyPassword(passwordId: Int) {
+    private suspend fun copyPassword(passwordId: String) {
         useCases.copyPassword(passwordId)
         showPasswordCopiedMessage()
     }
@@ -86,7 +86,7 @@ internal class PasswordListActor : Actor<State, Action, Message, SideEffect>(), 
         sendSideEffect(SideEffect.ShowMessage(message))
     }
 
-    private suspend fun toggleFavourite(passwordId: Int) {
+    private suspend fun toggleFavourite(passwordId: String) {
         useCases.toggleFavourite(passwordId)
     }
 }

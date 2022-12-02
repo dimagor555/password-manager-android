@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ru.dimagor555.password.domain.FavouriteFilter
+import ru.dimagor555.password.domain.filter.FavouriteFilter
 import ru.dimagor555.res.core.MR
 import ru.dimagor555.ui.core.component.SingleLineText
 import ru.dimagor555.ui.core.component.button.SimpleIconButton
@@ -31,34 +31,34 @@ internal fun PasswordListTopAppBar(
     favouriteFilter: FavouriteFilter,
     onFavouriteFilterChange: (FavouriteFilter) -> Unit,
     navigateToSettingsScreen: () -> Unit,
-    onSortingButtonClicked: () -> Unit
+    onSortingButtonClicked: () -> Unit,
 ) {
     UnlimitedDefaultTopAppBar {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 SimpleIconButton(
                     icon = Icons.Default.Settings,
                     contentDescription = stringResource(MR.strings.settings),
-                    onClick = navigateToSettingsScreen
+                    onClick = navigateToSettingsScreen,
                 )
                 SearchTextField(
                     modifier = Modifier.weight(1f),
                     searchText = searchText,
                     onSearchTextChange = onSearchTextChange,
-                    onClearSearchText = onClearSearchText
+                    onClearSearchText = onClearSearchText,
                 )
                 SimpleIconButton(
                     icon = Icons.Default.Sort,
                     contentDescription = stringResource(MR.strings.sorting),
-                    onClick = onSortingButtonClicked
+                    onClick = onSortingButtonClicked,
                 )
             }
             FavouriteFilterTabs(
                 selectedFavouriteFilter = favouriteFilter,
-                onFavouriteFilterChange = onFavouriteFilterChange
+                onFavouriteFilterChange = onFavouriteFilterChange,
             )
         }
     }
@@ -67,7 +67,7 @@ internal fun PasswordListTopAppBar(
 @Composable
 private fun FavouriteFilterTabs(
     selectedFavouriteFilter: FavouriteFilter,
-    onFavouriteFilterChange: (FavouriteFilter) -> Unit
+    onFavouriteFilterChange: (FavouriteFilter) -> Unit,
 ) {
     val tabs = listOf(FavouriteFilter.All, FavouriteFilter.Favourite)
     TabRow(selectedTabIndex = tabs.indexOf(selectedFavouriteFilter)) {
@@ -75,12 +75,12 @@ private fun FavouriteFilterTabs(
             val isSelected = it == selectedFavouriteFilter
             Tab(
                 selected = isSelected,
-                onClick = { onFavouriteFilterChange(it) }
+                onClick = { onFavouriteFilterChange(it) },
             ) {
                 SingleLineText(
                     modifier = Modifier.padding(4.dp),
                     text = getFavouriteFilterTitle(it),
-                    style = MaterialTheme.typography.h4
+                    style = MaterialTheme.typography.h4,
                 )
             }
         }
@@ -105,7 +105,7 @@ private fun TopAppBarPreview() {
             favouriteFilter = FavouriteFilter.All,
             onFavouriteFilterChange = {},
             navigateToSettingsScreen = {},
-            onSortingButtonClicked = {}
+            onSortingButtonClicked = {},
         )
     }
 }

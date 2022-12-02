@@ -24,21 +24,26 @@ import ru.dimagor555.ui.core.util.stringResource
 @Composable
 internal fun PasswordListItem(
     passwordState: PasswordState,
-    onToggleFavourite: (id: Int) -> Unit,
-    onCopyPassword: (id: Int) -> Unit,
-    onPasswordSelected: (id: Int) -> Unit
+    onToggleFavourite: (id: String) -> Unit,
+    onCopyPassword: (id: String) -> Unit,
+    onPasswordSelected: (passwordId: String, parentId: String) -> Unit,
 ) {
-    PasswordCard(onPasswordSelected = { onPasswordSelected(passwordState.id) }) {
+    PasswordCard(onPasswordSelected = {
+        onPasswordSelected(
+            passwordState.passwordId,
+            passwordState.parentId
+        )
+    }) {
         PasswordContent(
             modifier = Modifier.weight(1f),
             passwordState = passwordState,
-            onToggleFavourite = onToggleFavourite
+            onToggleFavourite = onToggleFavourite,
         )
         Spacer(modifier = Modifier.width(12.dp))
         SimpleIconButton(
             icon = Icons.Default.ContentCopy,
             contentDescription = stringResource(MR.strings.copy_password),
-            onClick = { onCopyPassword(passwordState.id) }
+            onClick = { onCopyPassword(passwordState.passwordId) },
         )
     }
 }
@@ -47,16 +52,16 @@ internal fun PasswordListItem(
 @Composable
 private fun PasswordCard(
     onPasswordSelected: () -> Unit,
-    content: @Composable RowScope.() -> Unit
+    content: @Composable RowScope.() -> Unit,
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        onClick = onPasswordSelected
+        onClick = onPasswordSelected,
     ) {
         Row(
             modifier = Modifier.padding(8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             content()
         }
@@ -67,7 +72,7 @@ private fun PasswordCard(
 private fun PasswordContent(
     modifier: Modifier = Modifier,
     passwordState: PasswordState,
-    onToggleFavourite: (id: Int) -> Unit,
+    onToggleFavourite: (id: String) -> Unit,
 ) {
     Column(
         modifier = modifier.padding(horizontal = 4.dp),
@@ -76,12 +81,12 @@ private fun PasswordContent(
         PasswordTitleWithStarRow(
             title = passwordState.title,
             isFavourite = passwordState.isFavourite,
-            onToggleFavourite = { onToggleFavourite(passwordState.id) }
+            onToggleFavourite = { onToggleFavourite(passwordState.passwordId) },
         )
         ProvideMediumAlpha {
             SingleLineText(
-                text = passwordState.login,
-                style = MaterialTheme.typography.body1
+                text = passwordState.uniqueIdentifier,
+                style = MaterialTheme.typography.body1,
             )
         }
     }
@@ -91,21 +96,21 @@ private fun PasswordContent(
 private fun PasswordTitleWithStarRow(
     title: String,
     isFavourite: Boolean,
-    onToggleFavourite: () -> Unit
+    onToggleFavourite: () -> Unit,
 ) {
     Row(
         modifier = Modifier.clickable { onToggleFavourite() },
         horizontalArrangement = Arrangement.spacedBy(4.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         SingleLineText(
             modifier = Modifier.weight(weight = 1f, fill = false),
             text = title,
-            style = MaterialTheme.typography.subtitle1
+            style = MaterialTheme.typography.subtitle1,
         )
         FavouriteIcon(
             modifier = Modifier.weight(weight = 0.1f, fill = false),
-            isFavourite = isFavourite
+            isFavourite = isFavourite,
         )
     }
 }
@@ -118,26 +123,28 @@ private fun PasswordListItemPreview() {
             Column(modifier = Modifier.padding(8.dp)) {
                 PasswordListItem(
                     passwordState = PasswordState(
-                        id = 0,
+                        passwordId = "0",
+                        parentId = "root",
                         title = "Very very very long service name",
-                        login = "Very long and beautiful username login user",
-                        isFavourite = false
+                        uniqueIdentifier = "Very long and beautiful username login user",
+                        isFavourite = false,
                     ),
                     onToggleFavourite = {},
                     onCopyPassword = {},
-                    onPasswordSelected = {}
+                    onPasswordSelected = { passwordId, parentId -> },
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 PasswordListItem(
                     passwordState = PasswordState(
-                        id = 0,
+                        passwordId = "0",
+                        parentId = "root",
                         title = "Yandex",
-                        login = "Ivan Ivanov",
-                        isFavourite = true
+                        uniqueIdentifier = "Ivan Ivanov",
+                        isFavourite = true,
                     ),
                     onToggleFavourite = {},
                     onCopyPassword = {},
-                    onPasswordSelected = {}
+                    onPasswordSelected = { passwordId, parentId -> },
                 )
             }
         }

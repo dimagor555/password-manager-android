@@ -15,9 +15,9 @@ import ru.dimagor555.password.ui.listscreen.model.PasswordState
 @Composable
 internal fun PasswordList(
     passwordStates: List<PasswordState>,
-    navigateToPasswordDetailsScreen: (Int) -> Unit,
-    onToggleFavourite: (id: Int) -> Unit,
-    onCopyPassword: (id: Int) -> Unit,
+    navigateToPasswordDetailsScreen: (passwordId: String, parentId: String) -> Unit,
+    onToggleFavourite: (id: String) -> Unit,
+    onCopyPassword: (id: String) -> Unit,
 ) {
     val listState = rememberLazyListState()
     LaunchedEffect(key1 = passwordStates.size) {
@@ -30,16 +30,16 @@ internal fun PasswordList(
             start = 8.dp,
             top = 8.dp,
             end = 8.dp,
-            bottom = 56.dp + 36.dp
+            bottom = 56.dp + 36.dp,
         ),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(items = passwordStates) {
             PasswordListItem(
                 passwordState = it,
                 onToggleFavourite = onToggleFavourite,
                 onCopyPassword = onCopyPassword,
-                onPasswordSelected = navigateToPasswordDetailsScreen
+                onPasswordSelected = navigateToPasswordDetailsScreen,
             )
         }
     }
