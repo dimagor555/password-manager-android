@@ -8,8 +8,14 @@ import ru.dimagor555.password.domain.password.field.TITLE_FIELD_KEY
 
 data class Folder(
     val id: String? = null,
-    val parentId: String? = null,
+    val parentId: String = ROOT_FOLDER_ID,
     val title: ShortTextField = ShortTextField(TITLE_FIELD_KEY),
     val metadata: FolderMetadata = FolderMetadata(),
     override val children: Set<Child> = emptySet(),
-) : Parent
+) : Parent {
+
+    companion object {
+        internal const val ROOT_FOLDER_ID: String = "root"
+    }
+}
+

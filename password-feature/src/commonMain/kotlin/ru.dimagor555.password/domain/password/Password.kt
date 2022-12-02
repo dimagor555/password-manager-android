@@ -1,11 +1,12 @@
 package ru.dimagor555.password.domain.password
 
 import ru.dimagor555.password.domain.Child
+import ru.dimagor555.password.domain.folder.Folder
 import ru.dimagor555.password.domain.metadata.PasswordMetadata
 
 data class Password(
     val id: String? = null,
-    val parentId: String? = null,
+    val parentId: String = Folder.ROOT_FOLDER_ID,
     val fields: PasswordFields,
     val metadata: PasswordMetadata = PasswordMetadata(),
 ) : Child
