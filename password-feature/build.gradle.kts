@@ -39,6 +39,10 @@ kotlin {
                 api(Libs.KotlinX.datetime)
 
                 implementation(Libs.MokoResources.commonMain)
+
+                implementation(Libs.Realm.base)
+
+                implementation(Libs.KotlinX.reflect)
             }
         }
         val androidMain by getting {

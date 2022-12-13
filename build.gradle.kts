@@ -8,4 +8,6 @@ plugins {
     id("org.jetbrains.compose") version "1.2.0-beta01" apply false
 
     id("dev.icerock.mobile.multiplatform-resources") version "0.20.1" apply false
+
+    id("io.realm.kotlin") version "1.4.0" apply false
 }

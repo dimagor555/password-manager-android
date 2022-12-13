@@ -33,6 +33,7 @@ object Libs {
     object KotlinX {
         const val datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.3.0"
         const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2"
+        const val reflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
     }
 
     object MviCompose {
@@ -46,6 +47,11 @@ object Libs {
         const val runtime = "androidx.room:room-runtime:$roomVersion"
         const val compiler = "androidx.room:room-compiler:$roomVersion"
         const val ktx = "androidx.room:room-ktx:$roomVersion"
+    }
+
+    object Realm {
+        private const val realmVersion = "1.5.0"
+        const val base = "io.realm.kotlin:library-base:$realmVersion"
     }
 
     object Koin {
