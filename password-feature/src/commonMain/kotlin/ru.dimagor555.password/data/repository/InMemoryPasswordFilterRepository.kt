@@ -1,0 +1,16 @@
+package ru.dimagor555.password.data.repository
+
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import ru.dimagor555.password.domain.filter.FilterState
+import ru.dimagor555.password.repository.FilterRepository
+
+internal class InMemoryPasswordFilterRepository : FilterRepository {
+    private val passwordFilterState = MutableStateFlow(FilterState())
+
+    override fun observeFilterState(): Flow<FilterState> = passwordFilterState
+
+    override suspend fun updateFilterState(filterState: FilterState) {
+        passwordFilterState.value = filterState
+    }
+}
