@@ -12,7 +12,7 @@ import ru.dimagor555.password.usecase.password.CreatePasswordUseCase
 import ru.dimagor555.password.usecase.field.DecryptPasswordUseCase
 import ru.dimagor555.password.usecase.password.UpdatePasswordUseCase
 
-val passwordModule = module {
+internal val passwordUiModule = module {
     factoryOf(::CreatePasswordUseCases)
     factoryOf(::CommonEditPasswordUseCases)
     factoryOf(::PasswordDetailsUseCases)
