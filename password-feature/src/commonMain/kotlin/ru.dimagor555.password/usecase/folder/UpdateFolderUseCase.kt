@@ -7,6 +7,7 @@ import ru.dimagor555.password.domain.Child
 import ru.dimagor555.password.domain.folder.Folder
 import ru.dimagor555.password.domain.password.field.FieldValidator
 import ru.dimagor555.password.domain.password.field.ShortTextField
+import ru.dimagor555.password.repository.FolderChildrenRepository
 import ru.dimagor555.password.repository.FolderRepository
 import ru.dimagor555.password.usecase.folder.UpdateFolderUseCase.Result.Error
 import ru.dimagor555.password.usecase.folder.UpdateFolderUseCase.Result.Success
@@ -14,10 +15,13 @@ import ru.dimagor555.password.validation.core.TextValidationError
 
 class UpdateFolderUseCase(
     private val folderRepository: FolderRepository,
+    private val folderChildrenRepository: FolderChildrenRepository,
 ) {
 
     data class Params(
         val id: String,
+        val fromId: String,
+        val toId: String?,
         val title: ShortTextField,
         val children: Set<Child>,
     )
@@ -32,15 +36,19 @@ class UpdateFolderUseCase(
         Result.ValidationError(FieldValidator.getValidatorByFieldType(title).validate(title))
     }
 
-    private suspend fun updateFolder(params: Params): Result =
+    private suspend fun updateFolder(params: Params): Result = with(params) {
         when (val oldFolder = folderRepository.getById(params.id)) {
             null -> Error
             else -> {
                 val newFolder = oldFolder.createUpdated(params)
                 folderRepository.update(newFolder)
+                if (toId != null) {
+                    folderChildrenRepository.replaceChildLocation(id, fromId, toId)
+                }
                 Success
             }
         }
+    }
 
     private fun Folder.createUpdated(params: Params) = copy(
         title = params.title,

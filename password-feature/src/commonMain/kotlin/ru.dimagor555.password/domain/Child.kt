@@ -1,3 +1,5 @@
 package ru.dimagor555.password.domain
 
-interface Child
+interface Child {
+    val id: String?
+}

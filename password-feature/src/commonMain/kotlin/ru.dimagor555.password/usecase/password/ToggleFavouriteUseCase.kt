@@ -9,7 +9,7 @@ import ru.dimagor555.password.repository.getByIdOrThrowException
 class ToggleFavouriteUseCase(
     private val passwordRepository: PasswordRepository
 ) {
-    suspend operator fun invoke(passwordId: String) = withContext(Dispatchers.Default) {
+    suspend operator fun invoke(passwordId: String, parentId: String) = withContext(Dispatchers.Default) {
         val oldPassword = passwordRepository.getByIdOrThrowException(passwordId)
         val newPassword = oldPassword.toggledFavourite()
         passwordRepository.update(newPassword)

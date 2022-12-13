@@ -7,16 +7,18 @@ interface FolderRepository {
 
     fun observeAll(): Flow<List<Folder>>
 
-    fun observeById(id: String): Flow<Folder?>
+    suspend fun observeById(id: String): Flow<Folder?>
 
     suspend fun getById(id: String): Folder?
 
-    suspend fun add(item: Folder)
+    suspend fun add(folder: Folder): String
 
-    suspend fun update(item: Folder)
+    suspend fun update(folder: Folder)
 
-    suspend fun remove(itemId: String)
+    suspend fun remove(id: String)
+
+    suspend fun removeFolderFolders(folderIds: List<String>)
 }
 
-internal suspend fun FolderRepository.getByIdOrThrowException(folderId: String) =
-    getById(folderId) ?: error("Password with id=$folderId does not exist")
+internal suspend fun FolderRepository.getByIdOrThrowException(id: String) =
+    getById(id) ?: error("Password with id=$id does not exist")

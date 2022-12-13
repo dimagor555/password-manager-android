@@ -5,8 +5,7 @@ import ru.dimagor555.password.domain.folder.Folder
 import ru.dimagor555.password.domain.metadata.PasswordMetadata
 
 data class Password(
-    val id: String? = null,
-    val parentId: String = Folder.ROOT_FOLDER_ID,
+    override val id: String? = null,
     val fields: PasswordFields,
     val metadata: PasswordMetadata = PasswordMetadata(),
 ) : Child

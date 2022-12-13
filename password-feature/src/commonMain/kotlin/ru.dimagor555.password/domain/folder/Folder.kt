@@ -7,8 +7,7 @@ import ru.dimagor555.password.domain.password.field.ShortTextField
 import ru.dimagor555.password.domain.password.field.TITLE_FIELD_KEY
 
 data class Folder(
-    val id: String? = null,
-    val parentId: String = ROOT_FOLDER_ID,
+    override val id: String? = null,
     val title: ShortTextField = ShortTextField(TITLE_FIELD_KEY),
     val metadata: FolderMetadata = FolderMetadata(),
     override val children: Set<Child> = emptySet(),
@@ -18,4 +17,3 @@ data class Folder(
         internal const val ROOT_FOLDER_ID: String = "root"
     }
 }
-

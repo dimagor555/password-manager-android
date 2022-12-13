@@ -2,6 +2,7 @@ package ru.dimagor555.password.ui.detailsscreen.model
 
 import ru.dimagor555.encryption.domain.Decryptor
 import ru.dimagor555.password.repository.ClipboardRepository
+import ru.dimagor555.password.repository.FolderChildrenRepository
 import ru.dimagor555.password.repository.PasswordRepository
 import ru.dimagor555.password.usecase.field.CopyLoginUseCase
 import ru.dimagor555.password.usecase.field.CopyPasswordUseCase
@@ -12,6 +13,7 @@ import ru.dimagor555.password.usecase.password.ToggleFavouriteUseCase
 
 internal class PasswordDetailsUseCases(
     passwordRepository: PasswordRepository,
+    folderChildrenRepository: FolderChildrenRepository,
     clipboardRepository: ClipboardRepository,
     decryptor: Decryptor,
 ) {
@@ -24,5 +26,5 @@ internal class PasswordDetailsUseCases(
     val copyPassword = CopyPasswordUseCase(passwordRepository, clipboardRepository, decryptor)
     val copyLogin = CopyLoginUseCase(passwordRepository, clipboardRepository)
 
-    val removePassword = RemovePasswordUseCase(passwordRepository)
+    val removePassword = RemovePasswordUseCase(passwordRepository, folderChildrenRepository)
 }

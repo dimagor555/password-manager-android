@@ -7,16 +7,20 @@ import ru.dimagor555.encryption.domain.Encryptor
 import ru.dimagor555.password.domain.password.*
 import ru.dimagor555.password.domain.password.field.EncryptedPasswordField
 import ru.dimagor555.password.domain.password.field.PASSWORD_FIELD_KEY
+import ru.dimagor555.password.repository.FolderChildrenRepository
 import ru.dimagor555.password.repository.PasswordRepository
 import ru.dimagor555.password.validation.core.TextValidationError
 
 class UpdatePasswordUseCase(
     private val passwordRepository: PasswordRepository,
-    private val encryptor: Encryptor
+    private val folderChildrenRepository: FolderChildrenRepository,
+    private val encryptor: Encryptor,
 ) {
 
     data class Params(
         val id: String,
+        val fromId: String,
+        val toId: String?,
         val fields: PasswordFields,
     )
 
@@ -38,15 +42,19 @@ class UpdatePasswordUseCase(
         }
     }
 
-    private suspend fun updatePassword(params: Params): Result =
-        when (val oldPassword = passwordRepository.getById(params.id)) {
+    private suspend fun updatePassword(params: Params): Result = with(params) {
+        when (val oldPassword = passwordRepository.getById(id)) {
             null -> Result.Error
             else -> {
                 val newPassword = oldPassword.createUpdated(params)
                 passwordRepository.update(newPassword)
+                if (toId != null) {
+                    folderChildrenRepository.replaceChildLocation(id, fromId, toId)
+                }
                 Result.Success
             }
         }
+    }
 
     private fun Password.createUpdated(params: Params) = copy(
         fields = updatePassword(params.fields),

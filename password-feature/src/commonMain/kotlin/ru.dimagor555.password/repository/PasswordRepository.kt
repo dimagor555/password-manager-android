@@ -11,12 +11,14 @@ interface PasswordRepository {
 
     suspend fun getById(id: String): Password?
 
-    suspend fun add(password: Password)
+    suspend fun add(password: Password): String
 
     suspend fun update(password: Password)
 
-    suspend fun remove(passwordId: String)
+    suspend fun remove(id: String)
+
+    suspend fun removeFolderPasswords(passwordIds: List<String>)
 }
 
-internal suspend fun PasswordRepository.getByIdOrThrowException(passwordId: String) =
-    getById(passwordId) ?: error("Password with id=$passwordId does not exist")
+internal suspend fun PasswordRepository.getByIdOrThrowException(id: String) =
+    getById(id) ?: error("Password with id=$id does not exist")
