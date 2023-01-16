@@ -1,11 +1,14 @@
 package ru.dimagor555.password.ui.detailsscreen.components
 
+import androidx.compose.material.AlertDialog
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import ru.dimagor555.res.core.MR
 import ru.dimagor555.ui.core.component.button.SimpleTextButton
 import ru.dimagor555.ui.core.util.stringResource
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun RemovePasswordDialog(
     onRemovePassword: () -> Unit,

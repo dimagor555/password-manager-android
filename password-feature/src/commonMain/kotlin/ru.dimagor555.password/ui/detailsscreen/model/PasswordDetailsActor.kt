@@ -23,7 +23,7 @@ internal class PasswordDetailsActor : Actor<State, Action, Message, SideEffect>(
             is Action.ChangeRemoveDialogVisibility -> sendMessage(
                 Message.ChangeRemoveDialogVisibility(action.visible)
             )
-            Action.RemovePassword -> removePassword(getState().passwordId)
+            Action.RemovePassword -> removePassword(getState().passwordId, getState().parentId)
         }
     }
 
@@ -89,7 +89,7 @@ internal class PasswordDetailsActor : Actor<State, Action, Message, SideEffect>(
         showMessage(MR.strings.login_copied)
     }
 
-    private suspend fun removePassword(passwordId: String) {
-        useCases.removePassword(passwordId)
+    private suspend fun removePassword(passwordId: String, parentId: String) {
+        useCases.removePassword(passwordId, parentId)
     }
 }

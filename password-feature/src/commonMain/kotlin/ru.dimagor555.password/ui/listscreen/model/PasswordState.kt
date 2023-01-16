@@ -8,7 +8,6 @@ import ru.dimagor555.password.domain.password.title
 
 internal data class PasswordState(
     val passwordId: String,
-    val parentId: String,
     val title: String,
     val uniqueIdentifier: String,
     val isFavourite: Boolean,
@@ -20,7 +19,6 @@ internal suspend fun List<Password>.toPasswordStates() = withContext(Dispatchers
 
 private fun Password.toPasswordState() = PasswordState(
     passwordId = id!!,
-    parentId = parentId,
     title = fields.title.text,
     uniqueIdentifier = this.getUniqueIdentifier(),
     isFavourite = metadata.isFavourite,

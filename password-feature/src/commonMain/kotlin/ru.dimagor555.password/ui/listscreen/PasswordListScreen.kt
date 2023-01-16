@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import ru.dimagor555.password.domain.filter.FilterState
-import ru.dimagor555.password.domain.folder.Folder
 import ru.dimagor555.password.ui.listscreen.components.PasswordListScaffold
 import ru.dimagor555.password.ui.listscreen.components.PasswordListScreenContent
 import ru.dimagor555.password.ui.listscreen.components.SortingDialog
@@ -32,7 +31,9 @@ fun PasswordListScreen(component: PasswordListComponent) {
         PasswordListScreenContent(
             state = state,
             sendAction = component::sendAction,
-            navigateToPasswordDetailsScreen = component.callbacks.navigateToPasswordDetailsScreen,
+            navigateToPasswordDetailsScreen = { id: String ->
+                component.callbacks.navigateToPasswordDetailsScreen(id, state.id)
+            },
         )
         SortingDialogWrapper(state = state, sendAction = component::sendAction)
         OnSideEffect(
@@ -75,7 +76,7 @@ private fun EmptyPasswordListScreenPreview() {
             PasswordListScreenContent(
                 state = State(isLoading = false),
                 sendAction = {},
-                navigateToPasswordDetailsScreen = {passwordId, parentId ->  },
+                navigateToPasswordDetailsScreen = { },
             )
         }
     }
@@ -96,7 +97,6 @@ private fun FilledPasswordListScreenPreview() {
                     passwordStates = (0..10).map {
                         PasswordState(
                             passwordId = it.toString(),
-                            parentId = Folder.ROOT_FOLDER_ID,
                             title = "Test title",
                             uniqueIdentifier = "test login",
                             isFavourite = it % 2 == 1
@@ -105,7 +105,7 @@ private fun FilledPasswordListScreenPreview() {
                     isLoading = false
                 ),
                 sendAction = {},
-                navigateToPasswordDetailsScreen = {passwordId, parentId ->  },
+                navigateToPasswordDetailsScreen = {  },
             )
         }
     }

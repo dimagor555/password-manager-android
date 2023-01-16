@@ -68,8 +68,10 @@ internal class EditPasswordActor : Actor<State, Action, Message, SideEffect>(), 
     private suspend fun updatePassword(passwordFields: PasswordFields) {
         val updateResult = useCases.updatePassword(
             UpdatePasswordUseCase.Params(
-                getState().passwordId,
-                passwordFields
+                id = getState().passwordId,
+                fromId = getState().parentId,
+                //toId - add later to replace position
+                fields = passwordFields
             )
         )
         when (updateResult) {

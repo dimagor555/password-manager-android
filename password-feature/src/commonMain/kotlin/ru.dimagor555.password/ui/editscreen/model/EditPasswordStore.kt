@@ -2,6 +2,7 @@ package ru.dimagor555.password.ui.editscreen.model
 
 import ru.dimagor555.mvicompose.abstraction.Store
 import ru.dimagor555.mvicompose.implementation.StoreImpl
+import ru.dimagor555.password.domain.folder.Folder
 import ru.dimagor555.password.domain.password.PasswordFields
 import ru.dimagor555.password.ui.editscreen.model.EditPasswordStore.*
 import ru.dimagor555.password.validation.core.TextValidationError
@@ -14,6 +15,7 @@ internal class EditPasswordStore : Store<Action, State, SideEffect> by StoreImpl
 
     data class State(
         val passwordId: String = "",
+        val parentId: String = Folder.ROOT_FOLDER_ID,
         val initialPassword: PasswordFields? = null,
         val isSavingStarted: Boolean = false,
         val exitScreenState: ExitScreenState = ExitScreenState.NotExit,

@@ -7,6 +7,7 @@ import ru.dimagor555.mvicompose.implementation.StoreImpl
 import ru.dimagor555.password.domain.filter.FavouriteFilter
 import ru.dimagor555.password.domain.filter.FilterState
 import ru.dimagor555.password.domain.filter.SortingType
+import ru.dimagor555.password.domain.folder.Folder
 import ru.dimagor555.password.ui.listscreen.model.PasswordListStore.*
 
 internal class PasswordListStore : Store<Action, State, SideEffect> by StoreImpl(
@@ -17,6 +18,7 @@ internal class PasswordListStore : Store<Action, State, SideEffect> by StoreImpl
 ) {
 
     data class State(
+        val id: String = Folder.ROOT_FOLDER_ID,
         val passwordStates: List<PasswordState> = emptyList(),
         val isLoading: Boolean = true,
         val filterState: FilterState = FilterState(),

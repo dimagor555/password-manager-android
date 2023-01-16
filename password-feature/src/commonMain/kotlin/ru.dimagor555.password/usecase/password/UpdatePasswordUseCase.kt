@@ -20,7 +20,7 @@ class UpdatePasswordUseCase(
     data class Params(
         val id: String,
         val fromId: String,
-        val toId: String?,
+        val toId: String? = null,
         val fields: PasswordFields,
     )
 

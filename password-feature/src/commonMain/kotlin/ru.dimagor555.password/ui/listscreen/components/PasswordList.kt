@@ -15,7 +15,7 @@ import ru.dimagor555.password.ui.listscreen.model.PasswordState
 @Composable
 internal fun PasswordList(
     passwordStates: List<PasswordState>,
-    navigateToPasswordDetailsScreen: (passwordId: String, parentId: String) -> Unit,
+    navigateToPasswordDetailsScreen: (passwordId: String) -> Unit,
     onToggleFavourite: (id: String) -> Unit,
     onCopyPassword: (id: String) -> Unit,
 ) {

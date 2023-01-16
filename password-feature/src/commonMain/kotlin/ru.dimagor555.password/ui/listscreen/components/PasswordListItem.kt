@@ -26,13 +26,10 @@ internal fun PasswordListItem(
     passwordState: PasswordState,
     onToggleFavourite: (id: String) -> Unit,
     onCopyPassword: (id: String) -> Unit,
-    onPasswordSelected: (passwordId: String, parentId: String) -> Unit,
+    onPasswordSelected: (passwordId: String) -> Unit,
 ) {
     PasswordCard(onPasswordSelected = {
-        onPasswordSelected(
-            passwordState.passwordId,
-            passwordState.parentId
-        )
+        onPasswordSelected(passwordState.passwordId)
     }) {
         PasswordContent(
             modifier = Modifier.weight(1f),
@@ -124,27 +121,25 @@ private fun PasswordListItemPreview() {
                 PasswordListItem(
                     passwordState = PasswordState(
                         passwordId = "0",
-                        parentId = "root",
                         title = "Very very very long service name",
                         uniqueIdentifier = "Very long and beautiful username login user",
                         isFavourite = false,
                     ),
                     onToggleFavourite = {},
                     onCopyPassword = {},
-                    onPasswordSelected = { passwordId, parentId -> },
+                    onPasswordSelected = { },
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 PasswordListItem(
                     passwordState = PasswordState(
                         passwordId = "0",
-                        parentId = "root",
                         title = "Yandex",
                         uniqueIdentifier = "Ivan Ivanov",
                         isFavourite = true,
                     ),
                     onToggleFavourite = {},
                     onCopyPassword = {},
-                    onPasswordSelected = { passwordId, parentId -> },
+                    onPasswordSelected = { },
                 )
             }
         }

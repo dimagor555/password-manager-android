@@ -14,7 +14,7 @@ import ru.dimagor555.ui.core.util.stringResource
 internal fun PasswordListScreenContent(
     state: State,
     sendAction: (Action) -> Unit,
-    navigateToPasswordDetailsScreen: (passwordId: String, parentId: String) -> Unit,
+    navigateToPasswordDetailsScreen: (passwordId: String) -> Unit,
 ) {
     when {
         state.isLoading -> FullscreenCircularProgressBar()
@@ -51,7 +51,7 @@ private fun NoPasswords(filterState: FilterState) {
 @Composable
 private fun PasswordListWrapper(
     passwordStates: List<PasswordState>,
-    navigateToPasswordDetailsScreen: (passwordId: String, parentId: String) -> Unit,
+    navigateToPasswordDetailsScreen: (passwordId: String) -> Unit,
     onTriggerEvent: (Action) -> Unit,
 ) {
     PasswordList(
