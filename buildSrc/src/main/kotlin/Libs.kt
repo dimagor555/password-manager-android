@@ -5,6 +5,8 @@ object Libs {
 
     const val localizedString = "com.github.aartikov:sesame-localized-string:1.2.0-beta1"
 
+    const val napier = "io.github.aakira:napier:2.6.1"
+
     object Compose {
         const val activity = "androidx.activity:activity-compose:1.3.1"
 

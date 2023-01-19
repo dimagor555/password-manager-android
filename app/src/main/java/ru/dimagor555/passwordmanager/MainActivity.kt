@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         var showSplashScreen by mutableStateOf(true)
         installSplashScreen().setKeepVisibleCondition { showSplashScreen }
 
+        Platform().setupLogging()
         val root = passwordManagerRoot(defaultComponentContext())
 
         setContent {

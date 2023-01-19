@@ -28,6 +28,8 @@ kotlin {
 
                 implementation(Libs.Decompose.decompose)
                 implementation(Libs.Decompose.extensionsCompose)
+
+                implementation(Libs.napier)
             }
         }
     }
