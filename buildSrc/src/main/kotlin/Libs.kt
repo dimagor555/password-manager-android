@@ -3,28 +3,18 @@ object Libs {
 
     const val argon2kt = "com.lambdapioneer.argon2kt:argon2kt:1.3.0"
 
-    const val localizedString = "com.github.aartikov:sesame-localized-string:1.2.0-beta1"
+    const val napier = "io.github.aakira:napier:2.6.1"
 
     const val napier = "io.github.aakira:napier:2.6.1"
 
     object Compose {
-        const val activity = "androidx.activity:activity-compose:1.3.1"
-
-        const val ui = "androidx.compose.ui:ui:${Versions.compose}"
-        const val tooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
-
-        const val material = "androidx.compose.material:material:${Versions.compose}"
-        const val iconsExtended = "androidx.compose.material:material-icons-extended:${Versions.compose}"
-    }
-
-    object Navigation {
-        const val compose = "androidx.navigation:navigation-compose:2.4.0-alpha10"
+        const val activity = "androidx.activity:activity-compose:1.6.1"
     }
 
     object AndroidX {
-        const val coreKtx = "androidx.core:core-ktx:1.6.0"
+        const val coreKtx = "androidx.core:core-ktx:1.9.0"
 
-        const val appCompat = "androidx.appcompat:appcompat:1.3.1"
+        const val appCompat = "androidx.appcompat:appcompat:1.5.1"
 
         const val splashScreen = "androidx.core:core-splashscreen:1.0.0-alpha01"
 

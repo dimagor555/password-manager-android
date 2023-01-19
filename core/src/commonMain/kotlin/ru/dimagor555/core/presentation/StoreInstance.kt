@@ -2,6 +2,7 @@ package ru.dimagor555.core.presentation
 
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import com.arkivanov.essenty.instancekeeper.getOrCreate
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.*
 import ru.dimagor555.mvicompose.abstraction.Store
 
@@ -10,7 +11,7 @@ private class StoreInstance<out T : Store<*, *, *>>(
 ) : InstanceKeeper.Instance {
 
     private val handler = CoroutineExceptionHandler { _, exception ->
-        println("CoroutineExceptionHandler got $exception")
+        Napier.e("CoroutineExceptionHandler got $exception", exception)
     }
     private val coroutineScope = CoroutineScope(
         Dispatchers.Main.immediate + SupervisorJob() + handler

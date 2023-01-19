@@ -84,9 +84,6 @@ android {
         kotlinCompilerExtensionVersion = "1.3.1"
     }
 }
-dependencies {
-    implementation("androidx.appcompat:appcompat:1.4.1")
-}
 
 multiplatformResources {
     multiplatformResourcesPackage = "ru.dimagor555.password"
