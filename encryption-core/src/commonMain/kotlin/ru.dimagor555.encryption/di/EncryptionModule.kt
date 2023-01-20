@@ -6,6 +6,7 @@ import ru.dimagor555.encryption.core.EncryptionModuleHolder
 import ru.dimagor555.encryption.domain.Base64
 
 val encryptionModule = module {
+    includes(platformEncryptionModule)
     single {
         EncryptionModuleHolder
             .apply { init(get<Base64>()) }

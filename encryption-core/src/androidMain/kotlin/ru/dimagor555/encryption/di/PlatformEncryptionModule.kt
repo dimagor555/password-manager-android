@@ -1,4 +1,4 @@
-package ru.dimagor555.encryption.android.di
+package ru.dimagor555.encryption.di
 
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
@@ -11,7 +11,7 @@ import ru.dimagor555.encryption.android.EncryptedPrefsSecretKeyProvider
 import ru.dimagor555.encryption.domain.Base64
 import ru.dimagor555.encryption.domain.CryptoKey
 
-val androidEncryptionModule = module {
+actual val platformEncryptionModule = module {
     factoryOf(::AndroidBase64) bind Base64::class
     factory { AesSecretKeyGenerator() }
     singleOf(::EncryptedPrefsSecretKeyProvider)

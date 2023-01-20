@@ -13,9 +13,9 @@ import ru.dimagor555.password.repository.*
 
 val passwordDataModule = module {
     single { PasswordDatabase().realm }
+    includes(clipboardModule)
     factoryOf(::RealmPasswordRepository) bind PasswordRepository::class
     factoryOf(::RealmFolderChildrenRepository) bind FolderChildrenRepository::class
     factoryOf(::RealmFolderRepository) bind FolderRepository::class
     singleOf(::InMemoryPasswordFilterRepository) bind FilterRepository::class
-    includes(clipboardModule)
 }
