@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.compose")
     id("com.android.library")
     id("dev.icerock.mobile.multiplatform-resources")
+    id("io.realm.kotlin")
 }
 
 kotlin {
@@ -34,6 +35,7 @@ kotlin {
                 implementation(Libs.Decompose.decompose)
 
                 implementation(Libs.Koin.core)
+                implementation(Libs.Koin.android)
                 implementation(Libs.Koin.compose)
 
                 api(Libs.KotlinX.datetime)

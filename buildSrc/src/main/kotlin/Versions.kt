@@ -1,5 +1,5 @@
 object Versions {
-    const val kotlin = "1.7.10"
+    const val kotlin = "1.7.20"
 
-    const val compose = "1.2.0-beta01"
+    const val compose = "1.2.1"
 }
