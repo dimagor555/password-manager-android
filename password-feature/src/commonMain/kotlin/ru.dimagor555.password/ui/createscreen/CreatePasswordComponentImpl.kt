@@ -58,7 +58,7 @@ internal class CreatePasswordComponentImpl constructor(
 
     override fun sendGeneratedPassword(generatedPassword: String) {
         commonEditPasswordStore.sendAction(
-        CommonEditPasswordStore.Action.ChangeFieldByKey(PASSWORD_FIELD_KEY, generatedPassword)
+            CommonEditPasswordStore.Action.ChangeFieldByKey(PASSWORD_FIELD_KEY, generatedPassword)
         )
     }
 }

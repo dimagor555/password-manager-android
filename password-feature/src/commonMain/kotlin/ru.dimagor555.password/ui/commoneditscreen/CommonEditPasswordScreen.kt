@@ -5,10 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import ru.dimagor555.password.domain.password.field.LOGIN_FIELD_KEY
-import ru.dimagor555.password.domain.password.field.PASSWORD_FIELD_KEY
-import ru.dimagor555.password.domain.password.field.PHONE_FIELD_KEY
-import ru.dimagor555.password.domain.password.field.TITLE_FIELD_KEY
+import ru.dimagor555.password.domain.password.field.*
 import ru.dimagor555.password.ui.commoneditscreen.component.CommonEditPasswordScreenContent
 import ru.dimagor555.password.ui.commoneditscreen.component.CommonEditPasswordTopAppBar
 import ru.dimagor555.password.ui.commoneditscreen.model.CommonEditPasswordStore
@@ -27,7 +24,7 @@ fun CommonEditPasswordScreen(
     val state by store.state.collectAsState()
 
     LaunchedEffect(generatedPassword) {
-        if (generatedPassword != null)
+        if (!generatedPassword.isNullOrBlank())
             store.sendAction(Action.ChangeFieldByKey(PASSWORD_FIELD_KEY, generatedPassword))
     }
     SingleSnackbarScaffold(
@@ -43,6 +40,9 @@ fun CommonEditPasswordScreen(
             state = state,
             onTitleChange = {
                 store.sendAction(Action.ChangeFieldByKey(TITLE_FIELD_KEY, it))
+            },
+            onSiteChange = {
+                store.sendAction(Action.ChangeFieldByKey(SITE_FIELD_KEY, it))
             },
             onLoginChange = {
                 store.sendAction(Action.ChangeFieldByKey(LOGIN_FIELD_KEY, it))

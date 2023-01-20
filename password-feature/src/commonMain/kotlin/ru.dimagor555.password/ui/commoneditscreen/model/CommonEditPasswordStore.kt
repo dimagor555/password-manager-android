@@ -5,8 +5,10 @@ import ru.dimagor555.mvicompose.abstraction.Store
 import ru.dimagor555.mvicompose.implementation.StoreImpl
 import ru.dimagor555.password.domain.folder.Folder
 import ru.dimagor555.password.domain.password.PasswordFields
+import ru.dimagor555.password.domain.password.defaultFields
 import ru.dimagor555.password.domain.password.field.Field.Companion.createFieldByKey
 import ru.dimagor555.password.domain.password.field.copy
+import ru.dimagor555.password.domain.password.field.getState
 import ru.dimagor555.password.ui.commoneditscreen.model.CommonEditPasswordStore.*
 import ru.dimagor555.password.validation.core.TextValidationError
 import ru.dimagor555.ui.core.model.FieldState
@@ -19,13 +21,15 @@ class CommonEditPasswordStore : Store<Action, State, SideEffect> by StoreImpl(
 
     internal data class State(
         val parentId: String = Folder.ROOT_FOLDER_ID,
-        val fieldsByKeys: Map<String, FieldState> = emptyMap(),
+        val fieldsByKeys: Map<String, FieldState> = defaultFields.associateWith {
+            createFieldByKey(it)!!.getState()
+        },
     ) {
 
         val passwordFields
             get() = PasswordFields(
                 fieldsByKeys.mapNotNull {
-                    createFieldByKey(it.key)?.copy(it.value.text)
+                    createFieldByKey(it.key)?.copy(text = it.value.text)
                 }.toSet()
             )
     }

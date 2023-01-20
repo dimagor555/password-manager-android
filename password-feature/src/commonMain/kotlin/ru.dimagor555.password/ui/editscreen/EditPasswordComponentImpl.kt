@@ -72,7 +72,7 @@ internal class EditPasswordComponentImpl constructor(
             is SideEffect.PasswordLoaded -> listOf(
                 CommonEditPasswordStore.Action.LoadPasswordFields(sideEffect.fields),
             )
-            SideEffect.RequestValidatePassword -> listOf(
+            is SideEffect.RequestValidatePassword -> listOf(
                 CommonEditPasswordStore.Action.Validate
             )
             is SideEffect.RequestShowUpdateErrors -> listOf(

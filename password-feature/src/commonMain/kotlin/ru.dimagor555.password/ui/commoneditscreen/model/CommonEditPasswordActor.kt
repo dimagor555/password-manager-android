@@ -4,6 +4,7 @@ import dev.icerock.moko.resources.desc.desc
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import ru.dimagor555.mvicompose.abstraction.Actor
+import ru.dimagor555.password.domain.password.field.copy
 import ru.dimagor555.password.domain.password.findFieldByKey
 import ru.dimagor555.password.ui.commoneditscreen.model.CommonEditPasswordStore.*
 import ru.dimagor555.password.validation.core.TextValidationError
@@ -84,7 +85,7 @@ internal class CommonEditPasswordActor : Actor<State, Action, Message, SideEffec
         key: String,
         text: String,
     ) {
-        val field = getState().passwordFields.findFieldByKey(key) ?: return
+        val field = getState().passwordFields.findFieldByKey(key)?.copy(text = text) ?: return
         sendMessage(Message.ShowFieldText(key, text))
         val error = useCases.validateField(field)?.desc()
         sendMessage(Message.ShowFieldError(key, error))

@@ -13,6 +13,9 @@
     <string name="start">Начать</string>
     <string name="ok">ОК</string>
 
+    <string name="app_name_word_first">Password</string>
+    <string name="app_name_word_second">Manager</string>
+
     <!-- master-password-feature -->
 
     <string name="data_storage_disclaimer">Все данные хранятся на вашем устройстве</string>
@@ -91,6 +94,7 @@
     <string name="copy_password">Скопировать пароль</string>
     <string name="password_update_error">Ошибка при обновлении пароля</string>
     <string name="title">Название</string>
+    <string name="site">Сайт</string>
     <string name="login">Логин</string>
     <string name="phone">Телефон</string>
     <string name="password">Пароль</string>

@@ -12,9 +12,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
-import ru.dimagor555.password.domain.password.field.LOGIN_FIELD_KEY
-import ru.dimagor555.password.domain.password.field.PASSWORD_FIELD_KEY
-import ru.dimagor555.password.domain.password.field.TITLE_FIELD_KEY
+import ru.dimagor555.password.domain.password.field.*
 import ru.dimagor555.password.ui.commoneditscreen.model.CommonEditPasswordStore.State
 import ru.dimagor555.password.ui.core.LargePaddingColumn
 import ru.dimagor555.password.ui.core.RowWithSmallHeadline
@@ -34,6 +32,7 @@ import ru.dimagor555.ui.core.util.stringResource
 internal fun CommonEditPasswordScreenContent(
     state: State,
     onTitleChange: (String) -> Unit,
+    onSiteChange: (String) -> Unit,
     onLoginChange: (String) -> Unit,
     onPhoneChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
@@ -50,94 +49,46 @@ internal fun CommonEditPasswordScreenContent(
         val inputFieldModifier = Modifier
             .padding(top = 4.dp)
             .bringIntoViewOnFocus()
-        TitleInputField(
-            state = state.fieldsByKeys[TITLE_FIELD_KEY]!!,
-            onTitleChange = onTitleChange,
-            modifier = inputFieldModifier,
-        )
-        UniqueIdentifierTextFields(state, inputFieldModifier, onLoginChange, onPhoneChange)
-        LoginInputField(
-            state = state.fieldsByKeys[LOGIN_FIELD_KEY]!!,
-            onLoginChange = onLoginChange,
-            modifier = inputFieldModifier,
-        )
-        PasswordInputField(
-            state = state.fieldsByKeys[PASSWORD_FIELD_KEY]!! as FieldState.Password,
-            onPasswordChange = onPasswordChange,
-            onTogglePasswordVisibility = onTogglePasswordVisibility,
-            onValidate = onValidate,
-            modifier = inputFieldModifier,
-        )
+        state.fieldsByKeys.map {
+            when (it.key) {
+                TITLE_FIELD_KEY -> TextInputFieldWithHeadline(
+                    state = state.fieldsByKeys[TITLE_FIELD_KEY]!!,
+                    onValueChange = onTitleChange,
+                    modifier = inputFieldModifier,
+                    headline = stringResource(MR.strings.title)
+                )
+                LOGIN_FIELD_KEY -> TextInputFieldWithHeadline(
+                    state = state.fieldsByKeys[LOGIN_FIELD_KEY]!!,
+                    onValueChange = onLoginChange,
+                    modifier = inputFieldModifier,
+                    headline = stringResource(MR.strings.login)
+                )
+                PHONE_FIELD_KEY -> TextInputFieldWithHeadline(
+                    state = state.fieldsByKeys[PHONE_FIELD_KEY]!!,
+                    onValueChange = onPhoneChange,
+                    modifier = inputFieldModifier,
+                    headline = stringResource(MR.strings.phone)
+                )
+                PASSWORD_FIELD_KEY -> PasswordInputField(
+                    state = state.fieldsByKeys[PASSWORD_FIELD_KEY]!! as FieldState.Password,
+                    onPasswordChange = onPasswordChange,
+                    onTogglePasswordVisibility = onTogglePasswordVisibility,
+                    onValidate = onValidate,
+                    modifier = inputFieldModifier,
+                )
+                SITE_FIELD_KEY -> TextInputFieldWithHeadline(
+                    state = state.fieldsByKeys[SITE_FIELD_KEY]!!,
+                    onValueChange = onSiteChange,
+                    modifier = inputFieldModifier,
+                    headline = stringResource(MR.strings.site)
+                )
+            }
+        }
         SimpleButton(
             text = stringResource(MR.strings.generate),
             onClick = onGenerateButtonClick,
         )
     }
-}
-
-@Composable
-private fun UniqueIdentifierTextFields(
-    state: State,
-    inputFieldModifier: Modifier,
-    onLoginChange: (String) -> Unit,
-    onPhoneChange: (String) -> Unit,
-) {
-    state.fieldsByKeys[LOGIN_FIELD_KEY]?.let {
-        LoginInputField(
-            state = it,
-            onLoginChange = onLoginChange,
-            modifier = inputFieldModifier,
-        )
-    }
-    state.fieldsByKeys[PASSWORD_FIELD_KEY]?.let {
-        PhoneInputField(
-            state = it,
-            onPhoneChange = onPhoneChange,
-            modifier = inputFieldModifier,
-        )
-    }
-}
-
-@Composable
-private fun TitleInputField(
-    state: FieldState,
-    onTitleChange: (String) -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    TextInputFieldWithHeadline(
-        state = state,
-        onValueChange = onTitleChange,
-        headline = stringResource(MR.strings.title),
-        modifier = modifier,
-    )
-}
-
-@Composable
-private fun LoginInputField(
-    state: FieldState,
-    onLoginChange: (String) -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    TextInputFieldWithHeadline(
-        state = state,
-        onValueChange = onLoginChange,
-        headline = stringResource(MR.strings.login),
-        modifier = modifier,
-    )
-}
-
-@Composable
-private fun PhoneInputField(
-    state: FieldState,
-    onPhoneChange: (String) -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    TextInputFieldWithHeadline(
-        state = state,
-        onValueChange = onPhoneChange,
-        headline = stringResource(MR.strings.phone),
-        modifier = modifier,
-    )
 }
 
 @ExperimentalComposeUiApi
@@ -185,7 +136,7 @@ private fun PasswordEditingScreenContentPreview() {
                         )
                     )
                 ),
-                {}, {}, {}, {}, {}, {}, {},
+                {}, {}, {}, {}, {}, {}, {}, {},
             )
         }
     }

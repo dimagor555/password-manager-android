@@ -22,23 +22,25 @@ value class PasswordFields(val fields: Set<Field>) {
             SingleKeyValidator(PASSWORD_FIELD_KEY),
             AnyKeyValidator(listOf(PHONE_FIELD_KEY, LOGIN_FIELD_KEY)),
         )
-        return validationResults.all { it.validate(fields) }
+        return validationResults.all { it.isValid(fields) }
     }
 
     sealed interface RequiredFieldValidator {
-        fun validate(fields: Set<Field>): Boolean
+        fun isValid(fields: Set<Field>): Boolean
     }
 
     class SingleKeyValidator(private val key: String) : RequiredFieldValidator {
-        override fun validate(fields: Set<Field>): Boolean =
+        override fun isValid(fields: Set<Field>): Boolean =
             fields.any { it.key == key }
     }
 
     class AnyKeyValidator(private val keys: List<String>) : RequiredFieldValidator {
-        override fun validate(fields: Set<Field>): Boolean =
+        override fun isValid(fields: Set<Field>): Boolean =
             fields.any { it.key in keys }
     }
 }
+
+val defaultFields = listOf(TITLE_FIELD_KEY, LOGIN_FIELD_KEY, PASSWORD_FIELD_KEY)
 
 fun PasswordFields.toMap() = this.fields.associate {
     it.key to it.text

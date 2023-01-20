@@ -9,7 +9,7 @@ fun DefaultDialog(
     onDismissRequest: () -> Unit,
     content: @Composable () -> Unit
 ) {
-    Dialog(onCloseRequest = onDismissRequest) {
+    Dialog(onDismissRequest) {
         Card {
             content()
         }

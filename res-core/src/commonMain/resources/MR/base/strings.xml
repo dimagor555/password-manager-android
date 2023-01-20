@@ -94,6 +94,7 @@
     <string name="copy_password">Copy password</string>
     <string name="password_update_error">Error updating password</string>
     <string name="title">Title</string>
+    <string name="site">Site</string>
     <string name="login">Login</string>
     <string name="phone">Phone</string>
     <string name="password">Password</string>

@@ -43,7 +43,8 @@ internal class CommonEditPasswordReducer : Reducer<State, Message> {
     )
 
     private fun State.togglePasswordVisibility(): State {
-        val newField = fieldsByKeys[PASSWORD_FIELD_KEY]!!
+        val oldField = fieldsByKeys[PASSWORD_FIELD_KEY]!! as FieldState.Password
+        val newField = oldField.copy(isVisible = !oldField.isVisible)
         return updateField(PASSWORD_FIELD_KEY, newField)
     }
 }

@@ -4,8 +4,8 @@ import android.app.Application
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import ru.dimagor555.encryption.android.di.androidEncryptionModule
 import ru.dimagor555.encryption.di.encryptionModule
 import ru.dimagor555.masterpassword.ui.di.masterPasswordModule
 import ru.dimagor555.password.di.passwordModule
@@ -18,8 +18,8 @@ class PasswordManagerApp : Application() {
         Napier.base(DebugAntilog())
         startKoin {
             androidContext(this@PasswordManagerApp)
+            androidLogger()
             modules(
-                androidEncryptionModule,
                 encryptionModule,
                 passwordModule,
                 passwordGenerationUiModule,

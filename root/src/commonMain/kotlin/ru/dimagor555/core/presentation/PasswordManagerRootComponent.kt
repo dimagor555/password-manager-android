@@ -61,6 +61,8 @@ class PasswordManagerRootComponent(
 
     private val componentScope by componentScope()
 
+    private val masterPasswordRepository: MasterPasswordRepository by inject()
+
     private val _childStack =
         childStack(
             source = navigation,
@@ -68,9 +70,8 @@ class PasswordManagerRootComponent(
             handleBackButton = true,
             childFactory = ::createChild,
         )
-    override val childStack: Value<ChildStack<*, RootComponent.Child>> = _childStack
 
-    private val masterPasswordRepository: MasterPasswordRepository by inject()
+    override val childStack: Value<ChildStack<*, RootComponent.Child>> = _childStack
 
     private var hasMasterPassword: Boolean? = null
 
@@ -83,12 +84,9 @@ class PasswordManagerRootComponent(
     }
 
     private fun determineStartDestination(): Config = runBlocking {
-        hasMasterPassword = masterPasswordRepository.hasPassword()
-        withContext(Dispatchers.Main) {
-            when (hasMasterPassword) {
-                true -> Config.Login
-                else -> Config.Welcome
-            }
+        when (masterPasswordRepository.hasPassword()) {
+            true -> Config.Login
+            else -> Config.Welcome
         }
     }
 
