@@ -8,7 +8,12 @@ import ru.dimagor555.password.domain.metadata.FolderMetadata
 class FolderMetadataModel(
     var creationDateTime: Instant = Clock.System.now(),
     var editingDateTime: Instant = Clock.System.now(),
-) : RealmObject
+) : RealmObject {
+    constructor() : this(
+        creationDateTime = Clock.System.now(),
+        editingDateTime = Clock.System.now(),
+    )
+}
 
 fun FolderMetadata.toFolderMetadataModel() = FolderMetadataModel(
     creationDateTime = creationDateTime,

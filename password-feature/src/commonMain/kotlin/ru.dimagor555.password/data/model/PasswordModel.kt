@@ -13,9 +13,15 @@ import ru.dimagor555.password.domain.password.PasswordFields
 class PasswordModel(
     @PrimaryKey
     var id: RealmUUID = RealmUUID.random(),
-    var metadata: PasswordMetadataModel = PasswordMetadataModel(),
+    var metadata: PasswordMetadataModel? = PasswordMetadataModel(),
     var fields: Set<FieldModel> = emptySet(),
-) : RealmObject
+) : RealmObject {
+    constructor() : this(
+        id = RealmUUID.random(),
+        metadata = PasswordMetadataModel(),
+        fields = emptySet(),
+    )
+}
 
 fun Password.toPasswordModel() = PasswordModel(
     id = getUuid(id),
@@ -25,7 +31,7 @@ fun Password.toPasswordModel() = PasswordModel(
 
 fun PasswordModel.toPassword() = Password(
     id = id.toString(),
-    metadata = metadata.toPasswordMetadata(),
+    metadata = metadata!!.toPasswordMetadata(),
     fields = PasswordFields(
         fields.mapNotNull { it.toField() }.toSet()
     )

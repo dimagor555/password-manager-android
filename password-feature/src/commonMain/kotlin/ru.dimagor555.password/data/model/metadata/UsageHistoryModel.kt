@@ -8,6 +8,9 @@ class UsageHistoryModel(
     var usagesCount: Int = 0,
     var lastUsageDateTime: Instant = Instant.DISTANT_PAST,
 ) : RealmObject
+{
+    constructor() : this(usagesCount = 0, lastUsageDateTime = Instant.DISTANT_PAST)
+}
 
 fun UsageHistory.toUsageHistoryModel() = UsageHistoryModel(
     usagesCount = usagesCount,

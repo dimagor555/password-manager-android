@@ -11,7 +11,12 @@ class FolderChildrenModel(
     @PrimaryKey
     var parentId: RealmUUID = RealmUUID.random(),
     var childrenIds: Set<ChildIdModel> = setOf(),
-) : RealmObject
+) : RealmObject {
+    constructor() : this(
+        parentId = RealmUUID.random(),
+        childrenIds = setOf(),
+    )
+}
 
 fun FolderChildrenModel.toFolderChildren() = FolderChildren(
     parentId = parentId.toString(),

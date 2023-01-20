@@ -7,7 +7,9 @@ import ru.dimagor555.password.domain.password.field.copy
 class FieldModel(
     var key: String = "",
     var text: String = "",
-) : RealmObject
+) : RealmObject {
+    constructor() : this(key = "", text = "")
+}
 
 fun Field.toFieldModel() = FieldModel(
     key = key,

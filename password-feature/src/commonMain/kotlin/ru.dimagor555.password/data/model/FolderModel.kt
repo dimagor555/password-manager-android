@@ -13,9 +13,15 @@ import ru.dimagor555.password.domain.folder.FolderDescriptor
 class FolderModel(
     @PrimaryKey
     var id: RealmUUID = RealmUUID.random(),
-    var title: FieldModel = FieldModel(),
-    var metadata: FolderMetadataModel = FolderMetadataModel(),
-) : RealmObject
+    var title: FieldModel? = FieldModel(),
+    var metadata: FolderMetadataModel? = FolderMetadataModel(),
+) : RealmObject {
+    constructor() : this(
+        id = RealmUUID.random(),
+        title = FieldModel(),
+        metadata = FolderMetadataModel(),
+    )
+}
 
 fun Folder.toFolderModel() = FolderModel(
     id = getUuid(id),
@@ -25,6 +31,6 @@ fun Folder.toFolderModel() = FolderModel(
 
 fun FolderModel.toFolderDescriptor() = FolderDescriptor(
     id = id.toString(),
-    title = title.text,
-    metadata = metadata.toFolderMetadata(),
+    title = title!!.text,
+    metadata = metadata!!.toFolderMetadata(),
 )

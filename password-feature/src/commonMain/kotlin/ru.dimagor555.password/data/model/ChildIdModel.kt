@@ -9,10 +9,18 @@ sealed interface ChildIdModel {
     val id: RealmUUID
 
     @JvmInline
-    value class PasswordIdModel(override val id: RealmUUID): ChildIdModel, RealmObject
+    value class PasswordIdModel(
+        override val id: RealmUUID = RealmUUID.random()
+    ): ChildIdModel, RealmObject {
+        constructor() : this(id = RealmUUID.random())
+    }
 
     @JvmInline
-    value class FolderIdModel(override val id: RealmUUID): ChildIdModel, RealmObject
+    value class FolderIdModel(
+        override val id: RealmUUID = RealmUUID.random()
+    ): ChildIdModel, RealmObject {
+        constructor() : this(id = RealmUUID.random())
+    }
 }
 
 fun ChildId.toChildIdModel(): ChildIdModel = when(this) {
