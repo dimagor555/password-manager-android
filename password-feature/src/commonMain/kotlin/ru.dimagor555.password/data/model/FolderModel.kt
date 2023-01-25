@@ -13,13 +13,13 @@ import ru.dimagor555.password.domain.folder.FolderDescriptor
 class FolderModel(
     @PrimaryKey
     var id: RealmUUID = RealmUUID.random(),
-    var title: FieldModel? = FieldModel(),
-    var metadata: FolderMetadataModel? = FolderMetadataModel(),
+    var title: FieldModel? = null,
+    var metadata: FolderMetadataModel? = null,
 ) : RealmObject {
     constructor() : this(
         id = RealmUUID.random(),
-        title = FieldModel(),
-        metadata = FolderMetadataModel(),
+        title = null,
+        metadata = null,
     )
 }
 

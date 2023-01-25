@@ -9,13 +9,13 @@ class PasswordMetadataModel(
     var isFavourite: Boolean = false,
     var creationDateTime: Instant = Clock.System.now(),
     var editingDateTime: Instant = Clock.System.now(),
-    var usageHistory: UsageHistoryModel? = UsageHistoryModel(),
+    var usageHistory: UsageHistoryModel? = null,
 ) : RealmObject {
     constructor() : this(
         isFavourite = false,
         creationDateTime = Clock.System.now(),
         editingDateTime = Clock.System.now(),
-        usageHistory = UsageHistoryModel(),
+        usageHistory = null,
     )
 }
 

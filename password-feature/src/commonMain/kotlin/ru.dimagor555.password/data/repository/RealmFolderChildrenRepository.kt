@@ -2,6 +2,7 @@ package ru.dimagor555.password.data.repository
 
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
+import io.realm.kotlin.ext.toRealmSet
 import io.realm.kotlin.types.RealmObject
 import ru.dimagor555.password.data.*
 import ru.dimagor555.password.data.model.*
@@ -21,12 +22,12 @@ class RealmFolderChildrenRepository(
 
     override fun getChildObjects(id: String): Set<Child> {
         val folderChildrenModel = realm.getById<FolderChildrenModel>(id, "parentId")
-        return folderChildrenModel.childrenIds.map {
-            when (it) {
-                is ChildIdModel.FolderIdModel -> realm
+        return folderChildrenModel.childrenIds!!.map {
+            when (it.type) {
+                ChildIdType.FOLDER -> realm
                     .query<FolderModel>(FolderModel::id eqId it.id)
                     .map()
-                is ChildIdModel.PasswordIdModel -> realm
+                ChildIdType.PASSWORD -> realm
                     .query<PasswordModel>(PasswordModel::id eqId it.id)
                     .map()
             }
@@ -51,17 +52,17 @@ class RealmFolderChildrenRepository(
 
     override fun getFolderPasswords(id: String): List<String> {
         val childrenModel = realm.getById<FolderChildrenModel>(id)
-        return getFolderChildren<ChildIdModel.PasswordIdModel>(childrenModel)
+        return getFolderChildren(childrenModel, ChildIdType.PASSWORD)
     }
 
     override fun getFolderFolders(id: String): List<String> {
         val childrenModel = realm.getById<FolderChildrenModel>(id)
-        return getFolderChildren<ChildIdModel.FolderIdModel>(childrenModel)
+        return getFolderChildren(childrenModel, ChildIdType.FOLDER)
     }
 
-    private inline fun <reified T : ChildIdModel> getFolderChildren(childrenModel: FolderChildrenModel) =
-        childrenModel.childrenIds
-            .filterIsInstance<T>()
+    private fun getFolderChildren(childrenModel: FolderChildrenModel, childIdType: ChildIdType) =
+        childrenModel.childrenIds!!
+            .filter { it.type == childIdType }
             .map { it.id.toString() }
 
     override suspend fun add(folderChildrenModel: FolderChildren) {
@@ -84,7 +85,7 @@ class RealmFolderChildrenRepository(
         realm.write {
             val folderChildrenModel = realm.getById<FolderChildrenModel>(parentId, "parentId")
             folderChildrenModel.childrenIds =
-                folderChildrenModel.childrenIds + childId.toChildIdModel()
+                (folderChildrenModel.childrenIds!! + childId.toChildIdModel()).toRealmSet()
         }
     }
 
@@ -92,11 +93,7 @@ class RealmFolderChildrenRepository(
         parentId: String,
         childId: T,
     ) {
-        realm.write {
-            val folderChildrenModel = realm.getById<FolderChildrenModel>(parentId, "parentId")
-            folderChildrenModel.childrenIds =
-                folderChildrenModel.childrenIds + childId.toChildIdModel()
-        }
+        realm.addOrUpdate(FolderChildren(parentId, setOf<ChildId>(childId)).toFolderChildrenModel())
     }
 
     override suspend fun remove(id: String) {

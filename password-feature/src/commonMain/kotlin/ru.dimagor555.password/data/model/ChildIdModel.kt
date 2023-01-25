@@ -5,25 +5,21 @@ import io.realm.kotlin.types.RealmUUID
 import ru.dimagor555.password.data.getUuid
 import ru.dimagor555.password.domain.folder.ChildId
 
-sealed interface ChildIdModel {
-    val id: RealmUUID
+enum class ChildIdType {
+    PASSWORD, FOLDER
+}
 
-    @JvmInline
-    value class PasswordIdModel(
-        override val id: RealmUUID = RealmUUID.random()
-    ): ChildIdModel, RealmObject {
-        constructor() : this(id = RealmUUID.random())
-    }
-
-    @JvmInline
-    value class FolderIdModel(
-        override val id: RealmUUID = RealmUUID.random()
-    ): ChildIdModel, RealmObject {
-        constructor() : this(id = RealmUUID.random())
-    }
+class ChildIdModel(
+    var id: RealmUUID = RealmUUID.random(),
+    var type: ChildIdType = ChildIdType.PASSWORD,
+) : RealmObject {
+    constructor() : this(
+        id = RealmUUID.random(),
+        type = ChildIdType.PASSWORD,
+    )
 }
 
 fun ChildId.toChildIdModel(): ChildIdModel = when(this) {
-    is ChildId.PasswordId -> ChildIdModel.PasswordIdModel(getUuid(this.id))
-    is ChildId.FolderId -> ChildIdModel.FolderIdModel(getUuid(this.id))
+    is ChildId.PasswordId -> ChildIdModel(getUuid(this.id), ChildIdType.PASSWORD)
+    is ChildId.FolderId -> ChildIdModel(getUuid(this.id), ChildIdType.FOLDER)
 }

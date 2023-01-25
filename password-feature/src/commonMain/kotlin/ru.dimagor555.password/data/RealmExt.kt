@@ -7,7 +7,7 @@ import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.RealmUUID
 import kotlin.reflect.KProperty
 
-inline fun <reified T : RealmObject> Realm.getById( id: String, name: String = "id"): T =
+inline fun <reified T : RealmObject> Realm.getById(id: String, name: String = "id"): T =
     this.query<T>("$name == uuid($id)").map()
 
 suspend inline fun <reified T : RealmObject> Realm.addOrUpdate(model: T): T =

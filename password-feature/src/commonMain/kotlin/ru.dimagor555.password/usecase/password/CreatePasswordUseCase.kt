@@ -30,7 +30,10 @@ class CreatePasswordUseCase(
             validate(params.fields).ifEmpty {
                 val password = createPassword(params)
                 val id = passwordRepository.add(password)
-                folderChildrenRepository.addChildToFolderChildren(params.parentId, ChildId.PasswordId(id))
+                folderChildrenRepository.addChildToFolderChildren(
+                    params.parentId,
+                    ChildId.PasswordId(id)
+                )
                 emptyList()
             }
         }

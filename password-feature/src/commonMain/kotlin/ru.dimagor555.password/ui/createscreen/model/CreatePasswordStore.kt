@@ -47,7 +47,7 @@ internal class CreatePasswordStore : Store<Action, State, Nothing> by StoreImpl(
 
         private suspend fun createPassword(parentId: String, passwordFields: PasswordFields) {
             sendMessage(Message.StartCreating)
-            if (getState().isCreatingStarted)
+            if (!getState().isCreatingStarted)
                 return
             useCases.createPassword(
                 CreatePasswordUseCase.Params(

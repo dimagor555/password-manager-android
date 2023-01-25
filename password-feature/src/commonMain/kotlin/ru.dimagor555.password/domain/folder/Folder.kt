@@ -14,6 +14,6 @@ data class Folder(
 ) : Parent {
 
     companion object {
-        internal const val ROOT_FOLDER_ID: String = "root"
+        internal const val ROOT_FOLDER_ID: String = "516fa7b2-ca40-4264-a24e-c1367880a1de"
     }
 }
