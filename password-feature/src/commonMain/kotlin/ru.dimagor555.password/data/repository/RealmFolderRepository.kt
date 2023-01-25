@@ -2,10 +2,13 @@ package ru.dimagor555.password.data.repository
 
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
+import io.realm.kotlin.ext.toRealmSet
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import ru.dimagor555.password.data.*
 import ru.dimagor555.password.data.model.*
+import ru.dimagor555.password.data.model.metadata.toFolderMetadataModel
+import ru.dimagor555.password.data.model.metadata.toPasswordMetadataModel
 import ru.dimagor555.password.domain.folder.Folder
 import ru.dimagor555.password.domain.folder.toFolder
 import ru.dimagor555.password.repository.FolderRepository
@@ -54,7 +57,13 @@ class RealmFolderRepository(
         realm.addOrUpdate(folder.toFolderModel()).id.toString()
 
     override suspend fun update(folder: Folder) {
-        realm.addOrUpdate(folder.toFolderModel())
+        realm.write {
+            val oldFolder = this.query<FolderModel>("id == uuid(${folder.id})").first().find()
+            if (oldFolder != null) {
+                oldFolder.metadata = folder.metadata.toFolderMetadataModel()
+                oldFolder.title = folder.title.toFieldModel()
+            }
+        }
     }
 
     override suspend fun remove(id: String) {

@@ -2,10 +2,12 @@ package ru.dimagor555.password.data.repository
 
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
+import io.realm.kotlin.ext.toRealmSet
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import ru.dimagor555.password.data.*
 import ru.dimagor555.password.data.model.*
+import ru.dimagor555.password.data.model.metadata.toPasswordMetadataModel
 import ru.dimagor555.password.domain.password.Password
 import ru.dimagor555.password.repository.PasswordRepository
 
@@ -37,7 +39,13 @@ class RealmPasswordRepository(
         realm.addOrUpdate(password.toPasswordModel()).id.toString()
 
     override suspend fun update(password: Password) {
-        realm.addOrUpdate(password.toPasswordModel())
+        realm.write {
+            val oldPassword = this.query<PasswordModel>("id == uuid(${password.id})").first().find()
+            if (oldPassword != null) {
+                oldPassword.metadata = password.metadata.toPasswordMetadataModel()
+                oldPassword.fields = password.fields.fields.map { it.toFieldModel() }.toRealmSet()
+            }
+        }
     }
 
     override suspend fun remove(id: String) =

@@ -6,6 +6,7 @@ import io.realm.kotlin.ext.toRealmSet
 import io.realm.kotlin.types.RealmObject
 import ru.dimagor555.password.data.*
 import ru.dimagor555.password.data.model.*
+import ru.dimagor555.password.data.model.metadata.toFolderMetadataModel
 import ru.dimagor555.password.domain.Child
 import ru.dimagor555.password.domain.folder.ChildId
 import ru.dimagor555.password.domain.folder.FolderChildren
@@ -69,8 +70,17 @@ class RealmFolderChildrenRepository(
         realm.addOrUpdate(folderChildrenModel.toFolderChildrenModel())
     }
 
-    override suspend fun update(folder: FolderChildren) {
-        realm.addOrUpdate(folder.toFolderChildrenModel())
+    override suspend fun update(folderChildren: FolderChildren) {
+        realm.write {
+            val oldFolderChildren =
+                this.query<FolderChildrenModel>("parentId == uuid(${folderChildren.parentId})")
+                    .first().find()
+            if (oldFolderChildren != null) {
+                oldFolderChildren.childrenIds = folderChildren.childrenIds.map {
+                    it.toChildIdModel()
+                }.toRealmSet()
+            }
+        }
     }
 
     override suspend fun replaceChildLocation(id: String, fromId: String, toId: String) {
