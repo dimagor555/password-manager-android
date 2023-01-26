@@ -6,7 +6,6 @@ import io.realm.kotlin.ext.toRealmSet
 import io.realm.kotlin.types.RealmObject
 import ru.dimagor555.password.data.*
 import ru.dimagor555.password.data.model.*
-import ru.dimagor555.password.data.model.metadata.toFolderMetadataModel
 import ru.dimagor555.password.domain.Child
 import ru.dimagor555.password.domain.folder.ChildId
 import ru.dimagor555.password.domain.folder.FolderChildren
@@ -93,9 +92,12 @@ class RealmFolderChildrenRepository(
         childId: T,
     ) {
         realm.write {
-            val folderChildrenModel = realm.getById<FolderChildrenModel>(parentId, "parentId")
-            folderChildrenModel.childrenIds =
-                (folderChildrenModel.childrenIds!! + childId.toChildIdModel()).toRealmSet()
+            val oldFolderChildren =
+                this.query<FolderChildrenModel>("parentId == uuid($parentId)").first().find()
+            if (oldFolderChildren != null) {
+                oldFolderChildren.childrenIds =
+                    (oldFolderChildren.childrenIds!! - childId.toChildIdModel()).toRealmSet()
+            }
         }
     }
 
@@ -103,7 +105,14 @@ class RealmFolderChildrenRepository(
         parentId: String,
         childId: T,
     ) {
-        realm.addOrUpdate(FolderChildren(parentId, setOf<ChildId>(childId)).toFolderChildrenModel())
+        realm.write {
+            val oldFolderChildren =
+                this.query<FolderChildrenModel>("parentId == uuid($parentId)").first().find()
+            if (oldFolderChildren != null) {
+                oldFolderChildren.childrenIds =
+                    (oldFolderChildren.childrenIds!! + childId.toChildIdModel()).toRealmSet()
+            }
+        }
     }
 
     override suspend fun remove(id: String) {

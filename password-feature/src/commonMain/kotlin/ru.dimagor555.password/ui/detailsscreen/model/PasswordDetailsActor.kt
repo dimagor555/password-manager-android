@@ -52,9 +52,10 @@ internal class PasswordDetailsActor : Actor<State, Action, Message, SideEffect>(
 
     private suspend fun updatePasswordTextIfVisible() {
         val isVisible = getState().passwordState.isPasswordVisible
-        if (!isVisible)
-            return
-        updatePasswordTextByVisibility(true)
+        if (isVisible)
+            updatePasswordTextByVisibility(true)
+        else
+            updatePasswordTextByVisibility(false)
     }
 
     private suspend fun togglePasswordVisibility() {

@@ -17,12 +17,12 @@ suspend inline fun <reified T : RealmObject> Realm.addOrUpdate(model: T): T =
 
 suspend inline fun <reified T : RealmObject> Realm.removeById(id: String, name: String = "id") {
     this.write {
-        val model = this@removeById.getById<T>(id, name)
+        val model = this.query<T>("$name = uuid($id)").find().first()
         delete(model)
     }
 }
 
-fun <T : RealmObject> RealmQuery<T>.map() = this.find().first()
+fun <T : RealmObject> RealmQuery<T>.map(): T = this.find().first()
 
 infix fun KProperty<*>.eqId(value: Any): String =
     "$name == uuid($value)"

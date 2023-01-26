@@ -18,7 +18,7 @@ interface FolderChildrenRepository {
 
     suspend fun add(folderChildrenModel: FolderChildren)
 
-    suspend fun update(folder: FolderChildren)
+    suspend fun update(folderChildren: FolderChildren)
 
     suspend fun replaceChildLocation(id: String, fromId: String, toId: String)
 
