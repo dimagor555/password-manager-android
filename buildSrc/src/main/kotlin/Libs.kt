@@ -1,8 +1,6 @@
 object Libs {
     const val jdkDesugar = "com.android.tools:desugar_jdk_libs:1.1.5"
 
-    const val argon2kt = "com.lambdapioneer.argon2kt:argon2kt:1.3.0"
-
     const val napier = "io.github.aakira:napier:2.6.1"
 
     object Compose {
@@ -63,5 +61,13 @@ object Libs {
         private const val VERSION = "1.0.0-beta-04"
         const val decompose = "com.arkivanov.decompose:decompose:$VERSION"
         const val extensionsCompose = "com.arkivanov.decompose:extensions-compose-jetbrains:$VERSION"
+    }
+
+    object Argon2 {
+        const val android = "com.lambdapioneer.argon2kt:argon2kt:1.3.0"
+
+        const val desktopSpringSecurity = "org.springframework.security:spring-security-crypto:5.7.3"
+        const val desktopBouncyCastle = "org.bouncycastle:bcpkix-jdk15on:1.70"
+        const val desktopCommonsLogging = "commons-logging:commons-logging:1.2"
     }
 }

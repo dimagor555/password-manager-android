@@ -1,4 +1,4 @@
-package ru.dimagor555.masterpassword.hashing
+package ru.dimagor555.masterpassword.data
 
 import com.lambdapioneer.argon2kt.Argon2Kt
 import com.lambdapioneer.argon2kt.Argon2Mode
@@ -8,15 +8,17 @@ import ru.dimagor555.masterpassword.domain.Hasher
 import java.security.SecureRandom
 
 internal class Argon2Hasher(
-    private val argon2: Argon2Kt
+    private val argon2: Argon2Kt = Argon2Kt(),
 ) : Hasher {
-    override suspend fun hash(password: String) = withContext(Dispatchers.Default) {
-        argon2.hash(
-            mode = DEFAULT_MODE,
-            password = password.toByteArray(),
-            salt = generateSalt()
-        ).encodedOutputAsString()
-    }
+
+    override suspend fun hash(password: String) =
+        withContext(Dispatchers.Default) {
+            argon2.hash(
+                mode = DEFAULT_MODE,
+                password = password.toByteArray(),
+                salt = generateSalt()
+            ).encodedOutputAsString()
+        }
 
     private fun generateSalt(): ByteArray {
         val salt = ByteArray(DEFAULT_SALT_SIZE_IN_BYTES)

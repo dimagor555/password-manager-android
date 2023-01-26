@@ -43,7 +43,7 @@ kotlin {
                 implementation(Libs.MviCompose.core)
                 implementation(Libs.MviCompose.android)
 
-                implementation(Libs.argon2kt)
+                implementation(Libs.Argon2.android)
 
                 implementation(Libs.AndroidX.biometric)
 
@@ -55,6 +55,10 @@ kotlin {
                 api(compose.preview)
 
                 implementation(Libs.MokoResources.jvmMain)
+
+                implementation(Libs.Argon2.desktopSpringSecurity)
+                implementation(Libs.Argon2.desktopBouncyCastle)
+                implementation(Libs.Argon2.desktopCommonsLogging)
             }
         }
     }
