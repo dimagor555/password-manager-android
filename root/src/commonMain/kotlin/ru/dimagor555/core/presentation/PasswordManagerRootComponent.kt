@@ -73,8 +73,6 @@ class PasswordManagerRootComponent(
 
     override val childStack: Value<ChildStack<*, RootComponent.Child>> = _childStack
 
-    private var hasMasterPassword: Boolean? = null
-
     private val generatedPassword = MutableSharedFlow<GeneratedPassword>(
         extraBufferCapacity = Int.MAX_VALUE,
     )

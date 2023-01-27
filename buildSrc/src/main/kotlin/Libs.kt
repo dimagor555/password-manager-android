@@ -3,6 +3,8 @@ object Libs {
 
     const val napier = "io.github.aakira:napier:2.6.1"
 
+    const val apacheCodec = "commons-codec:commons-codec:1.15"
+
     object Compose {
         const val activity = "androidx.activity:activity-compose:1.7.0-alpha02"
     }
@@ -21,6 +23,8 @@ object Libs {
     object KotlinX {
         const val datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.3.0"
         const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
+        const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+        const val coroutinesSwing = "org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.6.4"
         const val reflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
     }
 
@@ -58,9 +62,9 @@ object Libs {
     }
 
     object Decompose {
-        private const val VERSION = "1.0.0-beta-04"
-        const val decompose = "com.arkivanov.decompose:decompose:$VERSION"
-        const val extensionsCompose = "com.arkivanov.decompose:extensions-compose-jetbrains:$VERSION"
+        private const val version = "1.0.0-beta-04"
+        const val decompose = "com.arkivanov.decompose:decompose:$version"
+        const val extensionsCompose = "com.arkivanov.decompose:extensions-compose-jetbrains:$version"
     }
 
     object Argon2 {

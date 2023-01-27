@@ -27,6 +27,7 @@ kotlin {
                 implementation(Libs.MviCompose.core)
 
                 implementation(Libs.KotlinX.coroutinesCore)
+                implementation(Libs.KotlinX.coroutinesSwing)
 
                 implementation(Libs.Decompose.decompose)
                 implementation(Libs.Decompose.extensionsCompose)
