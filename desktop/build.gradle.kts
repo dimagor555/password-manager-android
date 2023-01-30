@@ -7,14 +7,14 @@ plugins {
 }
 
 kotlin {
-    jvm("desktop") {
+    jvm {
+        withJava()
         compilations.all {
             kotlinOptions.jvmTarget = "1.8"
         }
-        withJava()
     }
     sourceSets {
-        val desktopMain by getting {
+        val jvmMain by getting {
             dependencies {
                 api(compose.desktop.currentOs)
 

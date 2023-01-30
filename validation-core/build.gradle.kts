@@ -7,7 +7,7 @@ plugins {
 
 kotlin {
     android()
-    jvm("desktop") {
+    jvm {
         compilations.all {
             kotlinOptions.jvmTarget = "1.8"
         }
@@ -32,7 +32,7 @@ kotlin {
                 implementation(Libs.MokoResources.androidMain)
             }
         }
-        val desktopMain by getting {
+        val jvmMain by getting {
             dependencies {
                 api(compose.preview)
 

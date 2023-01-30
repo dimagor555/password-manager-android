@@ -7,7 +7,7 @@ plugins {
 
 kotlin {
     android()
-    jvm("desktop") {
+    jvm {
         compilations.all {
             kotlinOptions.jvmTarget = "1.8"
         }
