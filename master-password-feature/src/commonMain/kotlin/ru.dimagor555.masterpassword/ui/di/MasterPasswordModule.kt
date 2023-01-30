@@ -7,7 +7,7 @@ import ru.dimagor555.masterpassword.ui.editscreen.model.EditMasterPasswordUseCas
 import ru.dimagor555.masterpassword.ui.loginscreen.model.LoginUseCases
 
 val masterPasswordModule = module {
+    includes(masterPasswordDataModule)
     factoryOf(::LoginUseCases)
     factoryOf(::EditMasterPasswordUseCases)
-    includes(masterPasswordDataModule)
 }
