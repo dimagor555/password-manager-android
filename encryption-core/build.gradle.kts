@@ -14,6 +14,10 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(Libs.Koin.core)
+
+                implementation(Libs.kase64)
+
+                implementation(Libs.napier)
             }
         }
         val androidMain by getting {

@@ -5,6 +5,8 @@ import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
+import io.github.aakira.napier.DebugAntilog
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.*
 import org.koin.core.context.startKoin
 import ru.dimagor555.core.presentation.PasswordManagerRootComponent
@@ -17,6 +19,7 @@ import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @OptIn(ExperimentalDecomposeApi::class)
 fun main() {
+    Napier.base(DebugAntilog())
     startKoin {
         modules(
             encryptionModule,

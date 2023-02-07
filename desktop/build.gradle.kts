@@ -34,6 +34,8 @@ kotlin {
                 implementation(Libs.KotlinX.coroutinesCore)
                 implementation(Libs.KotlinX.coroutinesSwing)
 
+                implementation(Libs.napier)
+
                 implementation(Libs.Decompose.decompose)
                 implementation(Libs.Decompose.extensionsCompose)
             }

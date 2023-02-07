@@ -3,7 +3,6 @@ package ru.dimagor555.encryption.core
 import ru.dimagor555.encryption.core.AlgorithmProperties.IV_SIZE_BYTES
 import ru.dimagor555.encryption.core.AlgorithmProperties.TAG_SIZE_BITS
 import ru.dimagor555.encryption.core.AlgorithmProperties.TRANSFORMATION
-import ru.dimagor555.encryption.domain.Base64
 import java.security.SecureRandom
 import javax.crypto.Cipher
 import javax.crypto.SecretKey
@@ -11,12 +10,11 @@ import javax.crypto.spec.GCMParameterSpec
 
 internal class AesGcmCipher(
     private val key: SecretKey,
-    private val base64: Base64
 ) {
     fun encrypt(input: String): String {
         val cipher = getCipher()
         val encryptedBytes = cipher.encrypt(input.toByteArray())
-        return EncryptedValue(iv = cipher.iv, bytes = encryptedBytes).toBase64String(base64)
+        return EncryptedValue(iv = cipher.iv, bytes = encryptedBytes).toBase64String()
     }
 
     private fun getCipher() = Cipher.getInstance(TRANSFORMATION)
@@ -33,7 +31,7 @@ internal class AesGcmCipher(
         .also { SecureRandom().nextBytes(it) }
 
     fun decrypt(input: String): String {
-        val (iv, encryptedBytes) = EncryptedValue(input, base64)
+        val (iv, encryptedBytes) = EncryptedValue(input)
         val cipher = getCipher()
         val decryptedBytes = cipher.decrypt(encryptedBytes, iv)
         return decryptedBytes.toString(Charsets.UTF_8)

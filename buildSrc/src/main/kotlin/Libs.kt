@@ -5,6 +5,10 @@ object Libs {
 
     const val apacheCodec = "commons-codec:commons-codec:1.15"
 
+    const val settingsNoArg = "com.russhwolf:multiplatform-settings-no-arg:1.0.0"
+
+    const val kase64 = "de.peilicke.sascha:kase64:1.0.6"
+
     object Compose {
         const val activity = "androidx.activity:activity-compose:1.7.0-alpha02"
     }
