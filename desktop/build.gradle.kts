@@ -21,6 +21,8 @@ kotlin {
                 implementation(projects.masterPasswordFeature)
                 implementation(projects.root)
                 implementation(projects.uiCore)
+                implementation(projects.synchronizationFeature)
+                implementation(projects.syncPasswordIntegration)
 
                 implementation(compose.desktop.currentOs)
                 implementation(compose.runtime)
@@ -30,9 +32,17 @@ kotlin {
 
                 implementation(Libs.KotlinX.coroutinesCore)
                 implementation(Libs.KotlinX.coroutinesSwing)
+                implementation(Libs.KotlinX.coroutinesTest)
 
                 implementation(Libs.Decompose.decompose)
                 implementation(Libs.Decompose.extensionsCompose)
+
+                implementation(Libs.Ktor.clientCore)
+                implementation(Libs.Ktor.clientCio)
+
+                implementation(Libs.Ktor.serverCore)
+                implementation(Libs.Ktor.serverCio)
+                implementation(Libs.Ktor.serverContentNegotiation)
             }
         }
     }

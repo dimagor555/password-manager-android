@@ -11,6 +11,7 @@ data class PhoneField(
     override val text: String = "",
 ) : Field
 
+@Serializable
 class PhoneFieldValidator : FieldValidator<PhoneField> {
 
     override fun validate(field: PhoneField): List<TextValidationError> =

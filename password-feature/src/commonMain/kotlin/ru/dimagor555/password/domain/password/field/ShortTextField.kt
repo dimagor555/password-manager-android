@@ -11,6 +11,7 @@ data class ShortTextField(
     override val text: String = "",
 ) : Field
 
+@Serializable
 class ShortTextFieldValidator : FieldValidator<ShortTextField> {
 
     override fun validate(field: ShortTextField): List<TextValidationError> = TextValidationUtil.validate(

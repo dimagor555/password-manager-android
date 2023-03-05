@@ -10,6 +10,8 @@ import ru.dimagor555.encryption.di.encryptionModule
 import ru.dimagor555.masterpassword.ui.di.masterPasswordModule
 import ru.dimagor555.password.di.passwordModule
 import ru.dimagor555.passwordgeneration.di.passwordGenerationModule
+import ru.dimagor555.synchronization.di.synchronizationModule
+import ru.dimagor555.syncpassintegration.di.syncPasswordIntegrationModule
 
 class PasswordManagerApp : Application() {
 
@@ -24,6 +26,8 @@ class PasswordManagerApp : Application() {
                 passwordModule,
                 passwordGenerationModule,
                 masterPasswordModule,
+                synchronizationModule,
+                syncPasswordIntegrationModule,
             )
         }
     }
