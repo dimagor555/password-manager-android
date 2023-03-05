@@ -3,8 +3,10 @@ package ru.dimagor555.password.data
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.query.RealmQuery
+import io.realm.kotlin.types.RealmInstant
 import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.RealmUUID
+import kotlinx.datetime.Instant
 import kotlinx.coroutines.flow.first
 import kotlin.reflect.KProperty
 
@@ -41,3 +43,23 @@ infix fun KProperty<*>.eqId(value: Any): String =
 
 fun getUuid(id: String?): RealmUUID =
     if (id == null) RealmUUID.random() else RealmUUID.from(id)
+
+fun RealmInstant.toInstant(): Instant {
+    val sec: Long = this.epochSeconds
+    val nano: Int = this.nanosecondsOfSecond
+    return if (sec >= 0) {
+        Instant.fromEpochSeconds(sec, nano.toLong())
+    } else {
+        Instant.fromEpochSeconds(sec - 1, 1_000_000 + nano.toLong())
+    }
+}
+
+fun Instant.toRealmInstant(): RealmInstant {
+    val sec: Long = this.epochSeconds
+    val nano: Int = this.nanosecondsOfSecond
+    return if (sec >= 0) {
+        RealmInstant.from(sec, nano)
+    } else {
+        RealmInstant.from(sec + 1, -1_000_000 + nano)
+    }
+}

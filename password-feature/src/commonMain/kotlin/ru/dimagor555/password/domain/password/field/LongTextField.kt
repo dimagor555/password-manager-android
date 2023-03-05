@@ -11,6 +11,7 @@ data class LongTextField(
     override val text: String = "",
 ) : Field
 
+@Serializable
 class LongTextFieldValidator : FieldValidator<LongTextField> {
 
     override fun validate(field: LongTextField): List<TextValidationError> = TextValidationUtil.validate(

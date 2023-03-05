@@ -1,9 +1,9 @@
 plugins {
     kotlin("multiplatform")
+    kotlin("plugin.serialization")
     id("org.jetbrains.compose")
     id("com.android.library")
     id("io.realm.kotlin")
-    kotlin("plugin.serialization")
 }
 
 kotlin {
@@ -40,7 +40,11 @@ kotlin {
                 implementation(Libs.KotlinX.datetime)
                 implementation(Libs.KotlinX.serialization)
 
+                implementation(Libs.KotlinX.serialization)
+
                 implementation(Libs.Realm.base)
+
+                implementation(Libs.napier)
             }
         }
         val androidMain by getting {
@@ -73,5 +77,11 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.3.1"
+    }
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+        resources.excludes.add("META-INF/licenses/*")
+        resources.excludes.add("**/attach_hotspot_windows.dll")
+        resources.excludes.add("META-INF/io.netty.versions.properties")
     }
 }

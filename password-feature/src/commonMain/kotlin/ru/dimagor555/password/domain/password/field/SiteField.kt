@@ -11,6 +11,7 @@ data class SiteField(
     override val text: String = "",
 ) : Field
 
+@Serializable
 class SiteFieldValidator : FieldValidator<SiteField> {
 
     override fun validate(field: SiteField): List<TextValidationError> = TextValidationUtil.validate(

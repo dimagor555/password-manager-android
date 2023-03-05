@@ -1,6 +1,6 @@
+import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import androidx.compose.ui.window.Window
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
@@ -8,17 +8,25 @@ import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.*
+import kotlinx.coroutines.swing.Swing
+import kotlinx.coroutines.test.setMain
 import org.koin.core.context.startKoin
+import org.koin.java.KoinJavaComponent.inject
 import ru.dimagor555.core.presentation.PasswordManagerRootComponent
 import ru.dimagor555.core.presentation.PasswordManagerRootScreen
 import ru.dimagor555.encryption.di.encryptionModule
 import ru.dimagor555.masterpassword.ui.di.masterPasswordModule
 import ru.dimagor555.password.di.passwordModule
 import ru.dimagor555.passwordgeneration.ui.di.passwordGenerationUiModule
+import ru.dimagor555.synchronization.di.synchronizationModule
+import ru.dimagor555.synchronization.repository.ServerRepository
+import ru.dimagor555.syncpassintegration.di.syncPasswordIntegrationModule
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
-@OptIn(ExperimentalDecomposeApi::class)
+@OptIn(ExperimentalDecomposeApi::class, ExperimentalCoroutinesApi::class)
 fun main() {
+    Dispatchers.setMain(Dispatchers.Swing)
+
     Napier.base(DebugAntilog())
     startKoin {
         modules(
@@ -26,7 +34,14 @@ fun main() {
             passwordModule,
             passwordGenerationUiModule,
             masterPasswordModule,
+            synchronizationModule,
+            syncPasswordIntegrationModule,
         )
+    }
+
+    CoroutineScope(Dispatchers.IO).launch {
+        val serverRepository: ServerRepository by inject(ServerRepository::class.java)
+        serverRepository.createServer()
     }
 
     val lifecycle = LifecycleRegistry()

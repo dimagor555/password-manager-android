@@ -11,6 +11,7 @@ data class EncryptedPasswordField(
     override val text: String = "",
 ) : Field
 
+@Serializable
 class EncryptedPasswordFieldValidator : FieldValidator<EncryptedPasswordField> {
 
     override fun validate(field: EncryptedPasswordField): List<TextValidationError> = TextValidationUtil.validate(
