@@ -1,10 +1,12 @@
 package ru.dimagor555.password.domain.password
 
+import kotlinx.serialization.Serializable
 import ru.dimagor555.password.domain.password.field.*
 import ru.dimagor555.password.domain.password.field.SiteField
 import ru.dimagor555.password.validation.core.TextValidationError
 
 @JvmInline
+@Serializable
 value class PasswordFields(val fields: Set<Field>) {
 
     init {

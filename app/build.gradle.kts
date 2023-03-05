@@ -36,6 +36,12 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+        resources.excludes.add("META-INF/licenses/*")
+        resources.excludes.add("**/attach_hotspot_windows.dll")
+        resources.excludes.add("META-INF/io.netty.versions.properties")
+    }
 }
 
 dependencies {
@@ -44,6 +50,8 @@ dependencies {
     implementation(projects.masterPasswordFeature)
     implementation(projects.root)
     implementation(projects.uiCore)
+    implementation(projects.synchronizationFeature)
+    implementation(projects.syncPasswordIntegration)
 
     implementation(Libs.AndroidX.coreKtx)
     implementation(Libs.AndroidX.appCompat)
@@ -57,4 +65,12 @@ dependencies {
     implementation(Libs.Koin.core)
     implementation(Libs.Koin.android)
     implementation(Libs.Koin.compose)
+
+    implementation(Libs.Ktor.clientCore)
+    implementation(Libs.Ktor.clientAndroid)
+    implementation(Libs.Ktor.clientCio)
+
+    implementation(Libs.Ktor.serverCore)
+    implementation(Libs.Ktor.serverCio)
+    implementation(Libs.Ktor.serverContentNegotiation)
 }

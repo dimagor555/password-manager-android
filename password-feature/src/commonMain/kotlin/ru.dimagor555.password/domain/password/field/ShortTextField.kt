@@ -1,14 +1,17 @@
 package ru.dimagor555.password.domain.password.field
 
+import kotlinx.serialization.Serializable
 import ru.dimagor555.password.validation.core.LengthSpec
 import ru.dimagor555.password.validation.core.TextValidationError
 import ru.dimagor555.password.validation.core.TextValidationUtil
 
+@Serializable
 data class ShortTextField(
     override val key: String,
     override val text: String = "",
 ) : Field
 
+@Serializable
 class ShortTextFieldValidator : FieldValidator<ShortTextField> {
 
     override fun validate(field: ShortTextField): List<TextValidationError> = TextValidationUtil.validate(

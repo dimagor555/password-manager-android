@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform")
+    kotlin("plugin.serialization")
     id("org.jetbrains.compose")
     id("com.android.library")
     id("dev.icerock.mobile.multiplatform-resources")
@@ -39,10 +40,13 @@ kotlin {
                 implementation(Libs.Koin.compose)
 
                 api(Libs.KotlinX.datetime)
+                implementation(Libs.KotlinX.serialization)
 
                 implementation(Libs.MokoResources.commonMain)
 
                 implementation(Libs.Realm.base)
+
+                implementation(Libs.napier)
 
                 implementation(Libs.KotlinX.reflect)
             }
@@ -84,6 +88,12 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.3.1"
+    }
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+        resources.excludes.add("META-INF/licenses/*")
+        resources.excludes.add("**/attach_hotspot_windows.dll")
+        resources.excludes.add("META-INF/io.netty.versions.properties")
     }
 }
 

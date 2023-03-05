@@ -29,7 +29,9 @@ object Libs {
         const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
         const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
         const val coroutinesSwing = "org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.6.4"
+        const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
         const val reflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
+        const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
     }
 
     object MviCompose {
@@ -77,5 +79,31 @@ object Libs {
         const val desktopSpringSecurity = "org.springframework.security:spring-security-crypto:5.7.3"
         const val desktopBouncyCastle = "org.bouncycastle:bcpkix-jdk15on:1.70"
         const val desktopCommonsLogging = "commons-logging:commons-logging:1.2"
+    }
+
+    object Ktor {
+        private const val version = "2.2.2"
+        const val clientCore = "io.ktor:ktor-client-core:$version"
+        const val clientCio = "io.ktor:ktor-client-cio:$version"
+        const val clientAndroid = "io.ktor:ktor-client-android:$version"
+        const val clientLogging = "io.ktor:ktor-client-logging:$version"
+        const val clientSerialization = "io.ktor:ktor-client-serialization:$version"
+        const val clientContentNegotiation = "io.ktor:ktor-client-content-negotiation:$version"
+
+        const val serverCore = "io.ktor:ktor-server-core:$version"
+        const val serverCio = "io.ktor:ktor-server-cio:$version"
+        const val serverNetty = "io.ktor:ktor-server-netty:$version"
+        const val serverHostCommon = "io.ktor:ktor-server-host-common:$version"
+        const val serverCallLogging = "io.ktor:ktor-server-call-logging:$version"
+        const val serverContentNegotiation = "io.ktor:ktor-server-content-negotiation:$version"
+
+        const val serialization = "io.ktor:ktor-serialization-kotlinx-json:$version"
+//        const val gson = "io.ktor:ktor-gson:1.6.8"
+    }
+
+    object Slf4j {
+        private const val version = "2.0.6"
+        const val slf4jApi= "org.slf4j:slf4j-api:2.0.6"
+        const val slf4jSimple = "org.slf4j:slf4j-simple:2.0.6"
     }
 }
