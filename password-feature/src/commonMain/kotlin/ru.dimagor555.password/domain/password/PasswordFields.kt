@@ -48,6 +48,12 @@ fun PasswordFields.toMap() = this.fields.associate {
     it.key to it.text
 }
 
+fun Map<String, String>.toPasswordFields(): PasswordFields = PasswordFields(
+    this.mapNotNull {
+        Field.createFieldByKey(it.key, it.value)
+    }.toSet()
+)
+
 inline fun <reified T : Field> PasswordFields.updateFieldByKey(
     key: String,
     update: (T) -> T

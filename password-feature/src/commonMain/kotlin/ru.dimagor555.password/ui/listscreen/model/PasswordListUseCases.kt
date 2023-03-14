@@ -1,13 +1,14 @@
 package ru.dimagor555.password.ui.listscreen.model
 
 import ru.dimagor555.encryption.domain.Decryptor
-import ru.dimagor555.password.repository.ClipboardRepository
-import ru.dimagor555.password.repository.FilterRepository
-import ru.dimagor555.password.repository.PasswordRepository
+import ru.dimagor555.password.repository.*
 import ru.dimagor555.password.usecase.field.CopyPasswordUseCase
 import ru.dimagor555.password.usecase.filter.ObserveFilterStateUseCase
 import ru.dimagor555.password.usecase.filter.UpdateFilterStateUseCase
-import ru.dimagor555.password.usecase.password.ObservePasswordsUseCase
+import ru.dimagor555.password.usecase.folder.CreateFolderUseCase
+import ru.dimagor555.password.usecase.folder.GetFolderUseCase
+import ru.dimagor555.password.usecase.folderchildren.ObserveFolderChildrenUseCase
+import ru.dimagor555.password.usecase.password.GetPasswordsByIdsUseCase
 import ru.dimagor555.password.usecase.password.ToggleFavouriteUseCase
 
 internal class PasswordListUseCases(
@@ -15,12 +16,18 @@ internal class PasswordListUseCases(
     filterRepository: FilterRepository,
     clipboardRepository: ClipboardRepository,
     decryptor: Decryptor,
+    folderRepository: FolderRepository,
+    folderChildrenRepository: FolderChildrenRepository,
 ) {
-    val observePasswords = ObservePasswordsUseCase(passwordRepository, filterRepository)
+    val getPasswordsByIdsUseCase = GetPasswordsByIdsUseCase(passwordRepository)
 
     val observePasswordFilterState = ObserveFilterStateUseCase(filterRepository)
     val updatePasswordFilterState = UpdateFilterStateUseCase(filterRepository)
 
     val toggleFavourite = ToggleFavouriteUseCase(passwordRepository)
     val copyPassword = CopyPasswordUseCase(passwordRepository, clipboardRepository, decryptor)
+
+    val getFolderUseCase = GetFolderUseCase(folderRepository)
+    val observeFolderChildrenUseCase = ObserveFolderChildrenUseCase(folderChildrenRepository)
+    val createFolderUseCase = CreateFolderUseCase(folderRepository, folderChildrenRepository)
 }

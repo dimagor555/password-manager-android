@@ -1,12 +1,15 @@
 package ru.dimagor555.password.repository
 
+import kotlinx.coroutines.flow.Flow
 import ru.dimagor555.password.domain.Child
 import ru.dimagor555.password.domain.folder.ChildId
 import ru.dimagor555.password.domain.folder.FolderChildren
 
 interface FolderChildrenRepository {
 
-    suspend fun getById(id: String): FolderChildren?
+    fun getById(id: String): FolderChildren?
+
+    suspend fun observeById(parentId: String): Flow<FolderChildren?>
 
     fun getChildObjects(id: String): Set<Child>
 

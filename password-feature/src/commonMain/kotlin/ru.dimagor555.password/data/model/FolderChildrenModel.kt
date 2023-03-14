@@ -24,8 +24,8 @@ fun FolderChildrenModel.toFolderChildren() = FolderChildren(
     parentId = parentId.toString(),
     childrenIds = childrenIds!!.map {
         when(it.type) {
-            ChildIdType.PASSWORD -> ChildId.FolderId(it.id.toString())
-            ChildIdType.FOLDER -> ChildId.PasswordId(it.id.toString())
+            ChildIdType.PASSWORD -> ChildId.PasswordId(it.id.toString())
+            ChildIdType.FOLDER -> ChildId.FolderId(it.id.toString())
         }
     }.toSet(),
 )

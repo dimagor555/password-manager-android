@@ -17,7 +17,7 @@ internal class EditPasswordActor : Actor<State, Action, Message, SideEffect>(), 
 
     override suspend fun onAction(action: Action) = when (action) {
         is Action.LoadPassword -> loadPasswordIfNotLoaded(action.passwordId)
-        is Action.OnPasswordValidationSucceed -> onPasswordValidationSucceed(action.password)
+        is Action.OnPasswordValidationSucceed -> onPasswordValidationSucceed(action.passwordFields)
         Action.OnPasswordValidationFailed -> onPasswordValidationFailed()
         is Action.RequestExitScreen -> requestExitScreen()
         is Action.DismissExitScreenRequest -> sendMessage(action)

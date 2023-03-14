@@ -7,9 +7,14 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import ru.dimagor555.mvicompose.abstraction.Actor
 import ru.dimagor555.password.domain.filter.FavouriteFilter
-import ru.dimagor555.password.domain.password.Password
 import ru.dimagor555.password.domain.filter.SortingType
+import ru.dimagor555.password.domain.folder.ChildId
+import ru.dimagor555.password.domain.folder.Folder
+import ru.dimagor555.password.domain.folder.FolderChildren
+import ru.dimagor555.password.domain.password.field.ShortTextField
+import ru.dimagor555.password.domain.password.field.TITLE_FIELD_KEY
 import ru.dimagor555.password.ui.listscreen.model.PasswordListStore.*
+import ru.dimagor555.password.usecase.folder.CreateFolderUseCase
 import ru.dimagor555.res.core.MR
 
 internal class PasswordListActor : Actor<State, Action, Message, SideEffect>(), KoinComponent {
@@ -31,18 +36,52 @@ internal class PasswordListActor : Actor<State, Action, Message, SideEffect>(), 
         }
     }
 
-    private suspend fun initScreen() = coroutineScope {
+    private suspend fun initScreen() {
+        val rootFolder = useCases.getFolderUseCase(Folder.ROOT_FOLDER_ID)
+        val archiveFolder = useCases.getFolderUseCase(Folder.ARCHIVE_FOLDER_ID)
+        if (rootFolder == null && archiveFolder == null) {
+            createMainFolders()
+        }
+        observeAllPasswords()
+    }
+
+    private suspend fun observeAllPasswords() = coroutineScope {
         launch { observePasswords() }
         launch { observePasswordFilter() }
     }
 
-    private suspend fun observePasswords() {
-        useCases.observePasswords()
-            .collect { onNewPasswords(it) }
+    private suspend fun createMainFolders() {
+        useCases.createFolderUseCase(
+            CreateFolderUseCase.Params(
+                id = Folder.ROOT_FOLDER_ID,
+                parentId = "",
+                title = ShortTextField(TITLE_FIELD_KEY, "Root"),
+                children = emptySet(),
+            )
+        )
+        useCases.createFolderUseCase(
+            CreateFolderUseCase.Params(
+                id = Folder.ARCHIVE_FOLDER_ID,
+                parentId = "",
+                title = ShortTextField(TITLE_FIELD_KEY, "Archive"),
+                children = emptySet(),
+            )
+        )
     }
 
-    private suspend fun onNewPasswords(passwords: List<Password>) {
-        val passwordStates = passwords.toPasswordStates()
+    private suspend fun observePasswords() {
+        useCases.observeFolderChildrenUseCase(Folder.ROOT_FOLDER_ID)
+            .collect {
+                if (it != null) {
+                    onNewPassword(it)
+                }
+            }
+    }
+
+    private suspend fun onNewPassword(folderChildren: FolderChildren) {
+        val passwordIds = folderChildren.childrenIds.filterIsInstance<ChildId.PasswordId>()
+        val ids = passwordIds.map { it.id }.toSet()
+        val passwordStates = useCases.getPasswordsByIdsUseCase(ids).toPasswordStates()
         sendMessage(Message.ShowPasswordStates(passwordStates))
         sendMessage(Message.ShowLoading(isLoading = false))
     }

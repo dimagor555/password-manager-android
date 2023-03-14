@@ -16,6 +16,7 @@ class CreateFolderUseCase(
 ) {
 
     data class Params(
+        val id: String? = null,
         val parentId: String,
         val title: ShortTextField,
         val children: Set<Child>,
@@ -25,10 +26,13 @@ class CreateFolderUseCase(
         val folder = createFolder(params)
         val id = folderRepository.add(folder)
         folderChildrenRepository.add(folder.toFolderChildren(id))
-        folderChildrenRepository.addChildToFolderChildren(params.parentId, ChildId.FolderId(id))
+        if (params.id == null) {
+            folderChildrenRepository.addChildToFolderChildren(params.parentId, ChildId.FolderId(id))
+        }
     }
 
     private fun createFolder(params: Params) = Folder(
+        id = params.id,
         title = params.title,
         children = params.children,
     )

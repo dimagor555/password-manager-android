@@ -5,9 +5,12 @@ import io.realm.kotlin.ext.query
 import io.realm.kotlin.ext.toRealmSet
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import ru.dimagor555.password.data.*
+import ru.dimagor555.password.data.addOrUpdate
+import ru.dimagor555.password.data.eqId
+import ru.dimagor555.password.data.getById
 import ru.dimagor555.password.data.model.*
 import ru.dimagor555.password.data.model.metadata.toPasswordMetadataModel
+import ru.dimagor555.password.data.removeById
 import ru.dimagor555.password.domain.password.Password
 import ru.dimagor555.password.repository.PasswordRepository
 
@@ -31,6 +34,10 @@ class RealmPasswordRepository(
         .flowOn(Dispatchers.IO)
         .distinctUntilChanged()
         .conflate()
+
+    override suspend fun getPasswordsByIds(ids: Set<String>): List<Password> = ids.map {
+        realm.getById<PasswordModel>(it).toPassword()
+    }
 
     override suspend fun getById(id: String): Password =
         realm.getById<PasswordModel>(id).toPassword()

@@ -2,13 +2,16 @@ package ru.dimagor555.password.data.repository
 
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
-import io.realm.kotlin.ext.toRealmSet
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import ru.dimagor555.password.data.*
-import ru.dimagor555.password.data.model.*
+import ru.dimagor555.password.data.addOrUpdate
+import ru.dimagor555.password.data.eqId
+import ru.dimagor555.password.data.model.FolderModel
 import ru.dimagor555.password.data.model.metadata.toFolderMetadataModel
-import ru.dimagor555.password.data.model.metadata.toPasswordMetadataModel
+import ru.dimagor555.password.data.model.toFieldModel
+import ru.dimagor555.password.data.model.toFolderDescriptor
+import ru.dimagor555.password.data.model.toFolderModel
+import ru.dimagor555.password.data.removeById
 import ru.dimagor555.password.domain.folder.Folder
 import ru.dimagor555.password.domain.folder.toFolder
 import ru.dimagor555.password.repository.FolderRepository
@@ -47,11 +50,10 @@ class RealmFolderRepository(
         .distinctUntilChanged()
         .conflate()
 
-    override suspend fun getById(id: String): Folder =
-        realm
-            .getById<FolderModel>(id)
-            .toFolderDescriptor()
-            .toFolder(children = folderChildrenRepository.getChildObjects(id))
+    override suspend fun getById(id: String): Folder? = realm
+            .query<FolderModel>("id == uuid($id)").first().find()
+            ?.toFolderDescriptor()
+            ?.toFolder(children = folderChildrenRepository.getChildObjects(id))
 
     override suspend fun add(folder: Folder): String =
         realm.addOrUpdate(folder.toFolderModel()).id.toString()

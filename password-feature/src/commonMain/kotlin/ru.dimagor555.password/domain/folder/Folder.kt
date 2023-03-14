@@ -17,5 +17,6 @@ data class Folder(
 
     companion object {
         internal const val ROOT_FOLDER_ID: String = "516fa7b2-ca40-4264-a24e-c1367880a1de"
+        internal const val ARCHIVE_FOLDER_ID: String = "c9605ad2-ec7b-458c-919c-f16bb5f9c738"
     }
 }

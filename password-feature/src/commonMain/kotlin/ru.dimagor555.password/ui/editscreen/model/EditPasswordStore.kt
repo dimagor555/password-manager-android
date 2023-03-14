@@ -40,7 +40,7 @@ internal class EditPasswordStore : Store<Action, State, SideEffect> by StoreImpl
     sealed interface Action {
         data class LoadPassword(val passwordId: String) : Action
 
-        data class OnPasswordValidationSucceed(val password: PasswordFields) : Action
+        data class OnPasswordValidationSucceed(val passwordFields: PasswordFields) : Action
         object OnPasswordValidationFailed : Action
 
         object RequestExitScreen : Action, Message

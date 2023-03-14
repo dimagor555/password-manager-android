@@ -5,8 +5,11 @@ import dev.icerock.moko.resources.desc.desc
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import ru.dimagor555.mvicompose.abstraction.Actor
+import ru.dimagor555.password.domain.folder.Folder
 import ru.dimagor555.password.domain.password.Password
+import ru.dimagor555.password.domain.password.toPasswordFields
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsStore.*
+import ru.dimagor555.password.usecase.password.UpdatePasswordUseCase
 import ru.dimagor555.res.core.MR
 
 internal class PasswordDetailsActor : Actor<State, Action, Message, SideEffect>(), KoinComponent {
@@ -23,7 +26,7 @@ internal class PasswordDetailsActor : Actor<State, Action, Message, SideEffect>(
             is Action.ChangeRemoveDialogVisibility -> sendMessage(
                 Message.ChangeRemoveDialogVisibility(action.visible)
             )
-            Action.RemovePassword -> removePassword(getState().passwordId, getState().parentId)
+            Action.RemovePassword -> removePassword()
         }
     }
 
@@ -90,7 +93,15 @@ internal class PasswordDetailsActor : Actor<State, Action, Message, SideEffect>(
         showMessage(MR.strings.login_copied)
     }
 
-    private suspend fun removePassword(passwordId: String, parentId: String) {
-        useCases.removePassword(passwordId, parentId)
+    private suspend fun removePassword() {
+        useCases.updatePassword(
+            UpdatePasswordUseCase.Params(
+                id = getState().passwordId,
+                fromId = getState().parentId,
+                toId = Folder.ARCHIVE_FOLDER_ID,
+                fields = getState().passwordState.fields.toPasswordFields(),
+            )
+        )
+        sendMessage(Message.ExitScreen)
     }
 }

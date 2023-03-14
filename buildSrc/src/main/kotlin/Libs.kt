@@ -98,7 +98,6 @@ object Libs {
         const val serverContentNegotiation = "io.ktor:ktor-server-content-negotiation:$version"
 
         const val serialization = "io.ktor:ktor-serialization-kotlinx-json:$version"
-//        const val gson = "io.ktor:ktor-gson:1.6.8"
     }
 
     object Slf4j {

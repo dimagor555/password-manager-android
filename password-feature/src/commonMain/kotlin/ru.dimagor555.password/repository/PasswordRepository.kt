@@ -9,6 +9,8 @@ interface PasswordRepository {
 
     fun observeById(id: String): Flow<Password?>
 
+    suspend fun getPasswordsByIds(ids: Set<String>): List<Password>
+
     suspend fun getById(id: String): Password?
 
     suspend fun add(password: Password): String

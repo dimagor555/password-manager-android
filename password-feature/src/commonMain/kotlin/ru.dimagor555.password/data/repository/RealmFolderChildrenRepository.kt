@@ -1,9 +1,12 @@
 package ru.dimagor555.password.data.repository
 
+import io.github.aakira.napier.Napier
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.ext.toRealmSet
 import io.realm.kotlin.types.RealmObject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import ru.dimagor555.password.data.*
 import ru.dimagor555.password.data.model.*
 import ru.dimagor555.password.domain.Child
@@ -15,10 +18,19 @@ class RealmFolderChildrenRepository(
     private val realm: Realm,
 ) : FolderChildrenRepository {
 
-    override suspend fun getById(id: String): FolderChildren =
+    override fun getById(id: String): FolderChildren =
         realm
             .getById<FolderChildrenModel>(id)
             .toFolderChildren()
+
+    override suspend fun observeById(parentId: String): Flow<FolderChildren?> = realm
+        .query<FolderChildrenModel>(FolderChildrenModel::parentId eqId parentId)
+        .first()
+        .asFlow()
+        .map { it.obj?.toFolderChildren() }
+        .flowOn(Dispatchers.IO)
+        .distinctUntilChanged()
+        .conflate()
 
     override fun getChildObjects(id: String): Set<Child> {
         val folderChildrenModel = realm.getById<FolderChildrenModel>(id, "parentId")
@@ -83,6 +95,7 @@ class RealmFolderChildrenRepository(
     }
 
     override suspend fun replaceChildLocation(id: String, fromId: String, toId: String) {
+        Napier.e("replaceChildLocation() id = $id, fromId = $fromId, toId = $toId")
         removeChildFromFolderChildren(fromId, ChildId.PasswordId(id))
         addChildToFolderChildren(toId, ChildId.PasswordId(id))
     }
@@ -95,8 +108,9 @@ class RealmFolderChildrenRepository(
             val oldFolderChildren =
                 this.query<FolderChildrenModel>("parentId == uuid($parentId)").first().find()
             if (oldFolderChildren != null) {
-                oldFolderChildren.childrenIds =
-                    (oldFolderChildren.childrenIds!! - childId.toChildIdModel()).toRealmSet()
+                val childrenIds = oldFolderChildren.childrenIds!!.toMutableSet()
+                val newChildrenIds = childrenIds.filter { it.id != childId.toChildIdModel().id }.toSet()
+                oldFolderChildren.childrenIds = newChildrenIds.toRealmSet()
             }
         }
     }
@@ -109,8 +123,9 @@ class RealmFolderChildrenRepository(
             val oldFolderChildren =
                 this.query<FolderChildrenModel>("parentId == uuid($parentId)").first().find()
             if (oldFolderChildren != null) {
-                oldFolderChildren.childrenIds =
-                    (oldFolderChildren.childrenIds!! + childId.toChildIdModel()).toRealmSet()
+                val childrenIds = oldFolderChildren.childrenIds!!.toMutableSet()
+                childrenIds.add(childId.toChildIdModel())
+                oldFolderChildren.childrenIds = childrenIds.toRealmSet()
             }
         }
     }

@@ -9,12 +9,12 @@ sealed interface Field {
     val text: String
 
     companion object {
-        fun createFieldByKey(key: String): Field? = when (key) {
-            TITLE_FIELD_KEY -> ShortTextField(key)
-            LOGIN_FIELD_KEY -> ShortTextField(key)
-            PHONE_FIELD_KEY -> PhoneField(key)
-            PASSWORD_FIELD_KEY -> EncryptedPasswordField(key)
-            SITE_FIELD_KEY -> SiteField(key)
+        fun createFieldByKey(key: String, text: String = ""): Field? = when (key) {
+            TITLE_FIELD_KEY -> ShortTextField(key, text)
+            LOGIN_FIELD_KEY -> ShortTextField(key, text)
+            PHONE_FIELD_KEY -> PhoneField(key, text)
+            PASSWORD_FIELD_KEY -> EncryptedPasswordField(key, text)
+            SITE_FIELD_KEY -> SiteField(key, text)
             else -> null
         }
     }
