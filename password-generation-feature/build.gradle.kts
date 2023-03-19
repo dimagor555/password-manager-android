@@ -2,7 +2,6 @@ plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
-    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 kotlin {
@@ -22,6 +21,7 @@ kotlin {
                 api(compose.ui)
                 api(compose.materialIconsExtended)
 
+                implementation(projects.core)
                 implementation(projects.uiCore)
                 implementation(projects.resCore)
 
@@ -31,10 +31,6 @@ kotlin {
                 implementation(Libs.Koin.compose)
 
                 implementation(Libs.Decompose.decompose)
-
-                implementation(Libs.MokoResources.commonMain)
-
-                implementation(projects.core)
             }
         }
         val androidMain by getting {
@@ -43,13 +39,6 @@ kotlin {
                 implementation(Libs.MviCompose.android)
 
                 implementation("androidx.compose.material:material:1.2.1")
-
-                implementation(Libs.MokoResources.androidMain)
-            }
-        }
-        val jvmMain by getting {
-            dependencies {
-                implementation(Libs.MokoResources.jvmMain)
             }
         }
     }
@@ -72,8 +61,10 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.3.1"
     }
-}
-
-multiplatformResources {
-    multiplatformResourcesPackage = "ru.dimagor555.passwordgeneration"
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+        resources.excludes.add("META-INF/licenses/*")
+        resources.excludes.add("**/attach_hotspot_windows.dll")
+        resources.excludes.add("META-INF/io.netty.versions.properties")
+    }
 }
