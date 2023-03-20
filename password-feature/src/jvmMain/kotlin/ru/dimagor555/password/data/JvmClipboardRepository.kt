@@ -1,7 +1,8 @@
-package ru.dimagor555.password.repository
+package ru.dimagor555.password.data
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ru.dimagor555.password.repository.ClipboardRepository
 import java.awt.Toolkit
 import java.awt.datatransfer.StringSelection
 

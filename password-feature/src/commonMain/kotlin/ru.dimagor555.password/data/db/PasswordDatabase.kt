@@ -7,6 +7,7 @@ import ru.dimagor555.password.data.model.metadata.FolderMetadataModel
 import ru.dimagor555.password.data.model.metadata.PasswordMetadataModel
 import ru.dimagor555.password.data.model.metadata.UsageHistoryModel
 
+// TODO extract DB to separate module
 class PasswordDatabase {
 
     private val schema = setOf(

@@ -1,10 +1,11 @@
-package ru.dimagor555.password.repository
+package ru.dimagor555.password.data
 
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ru.dimagor555.password.repository.ClipboardRepository
 
 class AndroidClipboardRepository(private val applicationContext: Context): ClipboardRepository {
 

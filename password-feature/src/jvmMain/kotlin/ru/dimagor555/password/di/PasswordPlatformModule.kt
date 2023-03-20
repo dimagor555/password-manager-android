@@ -1,11 +1,11 @@
-package ru.dimagor555.password.data.di
+package ru.dimagor555.password.di
 
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
+import ru.dimagor555.password.data.JvmClipboardRepository
 import ru.dimagor555.password.repository.ClipboardRepository
-import ru.dimagor555.password.repository.JvmClipboardRepository
 
-actual val clipboardModule = module {
+actual val passwordPlatformModule = module {
     factoryOf(::JvmClipboardRepository) bind ClipboardRepository::class
 }
