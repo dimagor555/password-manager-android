@@ -14,6 +14,10 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(projects.core)
+                implementation(projects.uiCore)
+                implementation(projects.resCore)
+
                 api(compose.runtime)
                 api(compose.foundation)
                 api(compose.material)
@@ -21,15 +25,10 @@ kotlin {
                 api(compose.ui)
                 api(compose.materialIconsExtended)
 
-                implementation(projects.core)
-                implementation(projects.uiCore)
-                implementation(projects.resCore)
-
-                implementation(Libs.MviCompose.core)
-
                 implementation(Libs.Koin.core)
                 implementation(Libs.Koin.compose)
 
+                implementation(Libs.MviCompose.core)
                 implementation(Libs.Decompose.decompose)
             }
         }
@@ -37,7 +36,6 @@ kotlin {
             dependencies {
                 implementation(Libs.MviCompose.core)
                 implementation(Libs.MviCompose.android)
-
                 implementation("androidx.compose.material:material:1.2.1")
             }
         }

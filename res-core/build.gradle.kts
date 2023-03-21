@@ -14,17 +14,17 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(Libs.MokoResources.commonMain)
+                api(Libs.MokoResources.commonMain)
             }
         }
         val androidMain by getting {
             dependencies {
-                implementation(Libs.MokoResources.androidMain)
+                api(Libs.MokoResources.androidMain)
             }
         }
         val jvmMain by getting {
             dependencies {
-                implementation(Libs.MokoResources.jvmMain)
+                api(Libs.MokoResources.jvmMain)
             }
         }
     }
