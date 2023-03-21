@@ -1,6 +1,5 @@
 package ru.dimagor555.password.data.repository
 
-import io.github.aakira.napier.Napier
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.ext.toRealmSet
@@ -95,7 +94,6 @@ class RealmFolderChildrenRepository(
     }
 
     override suspend fun replaceChildLocation(id: String, fromId: String, toId: String) {
-        Napier.e("replaceChildLocation() id = $id, fromId = $fromId, toId = $toId")
         removeChildFromFolderChildren(fromId, ChildId.PasswordId(id))
         addChildToFolderChildren(toId, ChildId.PasswordId(id))
     }
