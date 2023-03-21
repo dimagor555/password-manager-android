@@ -1,10 +1,9 @@
 package ru.dimagor555.password.domain.password
 
-import kotlinx.serialization.Serializable
 import ru.dimagor555.password.domain.Child
+import ru.dimagor555.password.domain.folder.Folder
 import ru.dimagor555.password.domain.metadata.PasswordMetadata
 
-@Serializable
 data class Password(
     override val id: String? = null,
     val fields: PasswordFields,

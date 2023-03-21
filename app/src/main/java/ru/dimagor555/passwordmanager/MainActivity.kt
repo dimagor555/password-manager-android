@@ -15,7 +15,6 @@ import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         var showSplashScreen by mutableStateOf(true)
         installSplashScreen().setKeepOnScreenCondition { showSplashScreen }
         val root = PasswordManagerRootComponent(defaultComponentContext())

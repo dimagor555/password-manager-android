@@ -1,9 +1,7 @@
 package ru.dimagor555.password.domain.password.field
 
-import kotlinx.serialization.Serializable
 import ru.dimagor555.ui.core.model.FieldState
 
-@Serializable
 sealed interface Field {
     val key: String
     val text: String

@@ -16,7 +16,6 @@ kotlin {
                 implementation(Libs.MviCompose.core)
 
                 implementation(Libs.KotlinX.coroutinesCore)
-                implementation(Libs.KotlinX.coroutinesSwing)
 
                 implementation(Libs.Decompose.decompose)
                 implementation(Libs.Decompose.extensionsCompose)
@@ -37,11 +36,5 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    packagingOptions {
-        resources.excludes.add("META-INF/*")
-        resources.excludes.add("META-INF/licenses/*")
-        resources.excludes.add("**/attach_hotspot_windows.dll")
-        resources.excludes.add("META-INF/io.netty.versions.properties")
     }
 }

@@ -1,27 +1,26 @@
 package ru.dimagor555.password.data.model.metadata
 
-import io.realm.kotlin.types.RealmInstant
 import io.realm.kotlin.types.RealmObject
-import ru.dimagor555.password.data.toInstant
-import ru.dimagor555.password.data.toRealmInstant
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import ru.dimagor555.password.domain.metadata.FolderMetadata
 
 class FolderMetadataModel(
-    var creationDateTime: RealmInstant = RealmInstant.now(),
-    var editingDateTime: RealmInstant = RealmInstant.now(),
+    var creationDateTime: Instant = Clock.System.now(),
+    var editingDateTime: Instant = Clock.System.now(),
 ) : RealmObject {
     constructor() : this(
-        creationDateTime = RealmInstant.now(),
-        editingDateTime = RealmInstant.now(),
+        creationDateTime = Clock.System.now(),
+        editingDateTime = Clock.System.now(),
     )
 }
 
 fun FolderMetadata.toFolderMetadataModel() = FolderMetadataModel(
-    creationDateTime = creationDateTime.toRealmInstant(),
-    editingDateTime = editingDateTime.toRealmInstant(),
+    creationDateTime = creationDateTime,
+    editingDateTime = editingDateTime,
 )
 
 fun FolderMetadataModel.toFolderMetadata() = FolderMetadata(
-    creationDateTime = creationDateTime.toInstant(),
-    editingDateTime = editingDateTime.toInstant(),
+    creationDateTime = creationDateTime,
+    editingDateTime = editingDateTime,
 )

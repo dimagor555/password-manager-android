@@ -1,35 +1,34 @@
 package ru.dimagor555.password.data.model.metadata
 
-import io.realm.kotlin.types.RealmInstant
 import io.realm.kotlin.types.RealmObject
-import ru.dimagor555.password.data.toInstant
-import ru.dimagor555.password.data.toRealmInstant
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import ru.dimagor555.password.domain.metadata.PasswordMetadata
 
 class PasswordMetadataModel(
     var isFavourite: Boolean = false,
-    var creationDateTime: RealmInstant = RealmInstant.now(),
-    var editingDateTime: RealmInstant = RealmInstant.now(),
+    var creationDateTime: Instant = Clock.System.now(),
+    var editingDateTime: Instant = Clock.System.now(),
     var usageHistory: UsageHistoryModel? = null,
 ) : RealmObject {
     constructor() : this(
         isFavourite = false,
-        creationDateTime = RealmInstant.now(),
-        editingDateTime = RealmInstant.now(),
+        creationDateTime = Clock.System.now(),
+        editingDateTime = Clock.System.now(),
         usageHistory = null,
     )
 }
 
 fun PasswordMetadata.toPasswordMetadataModel() = PasswordMetadataModel(
     isFavourite = isFavourite,
-    creationDateTime = creationDateTime.toRealmInstant(),
-    editingDateTime = editingDateTime.toRealmInstant(),
+    creationDateTime = creationDateTime,
+    editingDateTime = editingDateTime,
     usageHistory = usageHistory.toUsageHistoryModel(),
 )
 
 fun PasswordMetadataModel.toPasswordMetadata() = PasswordMetadata(
     isFavourite = isFavourite,
-    creationDateTime = creationDateTime.toInstant(),
-    editingDateTime = editingDateTime.toInstant(),
+    creationDateTime = creationDateTime,
+    editingDateTime = editingDateTime,
     usageHistory = usageHistory!!.toUsageHistory(),
 )
