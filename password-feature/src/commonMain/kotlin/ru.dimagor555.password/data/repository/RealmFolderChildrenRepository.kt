@@ -1,6 +1,7 @@
 package ru.dimagor555.password.data.repository
 
 import io.realm.kotlin.Realm
+import io.realm.kotlin.delete
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.ext.toRealmSet
 import io.realm.kotlin.types.RealmObject
@@ -77,7 +78,7 @@ class RealmFolderChildrenRepository(
             .map { it.id.toString() }
 
     override suspend fun add(folderChildrenModel: FolderChildren) {
-        realm.addOrUpdate(folderChildrenModel.toFolderChildrenModel())
+        realm.add(folderChildrenModel.toFolderChildrenModel())
     }
 
     override suspend fun update(folderChildren: FolderChildren) {
@@ -98,6 +99,21 @@ class RealmFolderChildrenRepository(
         addChildToFolderChildren(toId, ChildId.PasswordId(id))
     }
 
+    override suspend fun <T : ChildId> addChildToFolderChildren(
+        parentId: String,
+        childId: T,
+    ) {
+        realm.write {
+            val oldFolderChildren =
+                this.query<FolderChildrenModel>("parentId == uuid($parentId)").first().find()
+            if (oldFolderChildren != null) {
+                val childrenIds = oldFolderChildren.childrenIds!!.toMutableSet()
+                childrenIds.add(childId.toChildIdModel())
+                oldFolderChildren.childrenIds = childrenIds.toRealmSet()
+            }
+        }
+    }
+
     override suspend fun <T : ChildId> removeChildFromFolderChildren(
         parentId: String,
         childId: T,
@@ -113,19 +129,8 @@ class RealmFolderChildrenRepository(
         }
     }
 
-    override suspend fun <T : ChildId> addChildToFolderChildren(
-        parentId: String,
-        childId: T,
-    ) {
-        realm.write {
-            val oldFolderChildren =
-                this.query<FolderChildrenModel>("parentId == uuid($parentId)").first().find()
-            if (oldFolderChildren != null) {
-                val childrenIds = oldFolderChildren.childrenIds!!.toMutableSet()
-                childrenIds.add(childId.toChildIdModel())
-                oldFolderChildren.childrenIds = childrenIds.toRealmSet()
-            }
-        }
+    override suspend fun removeAllChildrenFromAllFolders() = realm.write {
+        delete<FolderChildrenModel>()
     }
 
     override suspend fun remove(id: String) {

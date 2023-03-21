@@ -12,7 +12,8 @@ class RemoveFolderUseCase(
 ) {
     suspend operator fun invoke(folderId: String, parentId: String) {
         folderRepository.remove(folderId)
-        passwordRepository.removeFolderPasswords(folderChildrenRepository.getFolderPasswords(folderId))
+        val folderPasswordIds = folderChildrenRepository.getFolderPasswords(folderId).toSet()
+        passwordRepository.removeAllByIds(folderPasswordIds)
         folderChildrenRepository.remove(folderId)
         folderChildrenRepository.removeChildFromFolderChildren(parentId, ChildId.FolderId(folderId))
     }

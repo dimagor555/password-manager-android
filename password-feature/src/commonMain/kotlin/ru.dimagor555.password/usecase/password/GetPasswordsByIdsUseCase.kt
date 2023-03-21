@@ -7,5 +7,5 @@ class GetPasswordsByIdsUseCase(
     private val passwordRepository: PasswordRepository,
 ) {
     suspend operator fun invoke(ids: Set<String>): List<Password> =
-        passwordRepository.getPasswordsByIds(ids)
+        passwordRepository.getAllByIds(ids)
 }

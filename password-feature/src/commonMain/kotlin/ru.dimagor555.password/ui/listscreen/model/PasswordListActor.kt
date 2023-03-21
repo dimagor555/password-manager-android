@@ -2,6 +2,7 @@ package ru.dimagor555.password.ui.listscreen.model
 
 import dev.icerock.moko.resources.desc.desc
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -70,14 +71,13 @@ internal class PasswordListActor : Actor<State, Action, Message, SideEffect>(), 
     }
 
     private suspend fun observePasswords() {
-        useCases.observeFolderChildrenUseCase(Folder.ROOT_FOLDER_ID)
-            .collect {
-                if (it != null) {
-                    onNewPassword(it)
-                }
-            }
+        useCases
+            .observeFolderChildrenUseCase(Folder.ROOT_FOLDER_ID)
+            .filterNotNull()
+            .collect { onNewPassword(it) }
     }
 
+    // TODO encapsulate this code in a usecase
     private suspend fun onNewPassword(folderChildren: FolderChildren) {
         val passwordIds = folderChildren.childrenIds.filterIsInstance<ChildId.PasswordId>()
         val ids = passwordIds.map { it.id }.toSet()

@@ -25,9 +25,11 @@ interface FolderChildrenRepository {
 
     suspend fun replaceChildLocation(id: String, fromId: String, toId: String)
 
+    suspend fun <T : ChildId> addChildToFolderChildren(parentId: String, childId: T)
+
     suspend fun <T : ChildId> removeChildFromFolderChildren(parentId: String, childId: T)
 
-    suspend fun <T : ChildId> addChildToFolderChildren(parentId: String, childId: T)
+    suspend fun removeAllChildrenFromAllFolders()
 
     suspend fun remove(id: String)
 }

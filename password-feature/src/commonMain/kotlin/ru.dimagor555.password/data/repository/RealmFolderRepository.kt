@@ -4,7 +4,7 @@ import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import ru.dimagor555.password.data.addOrUpdate
+import ru.dimagor555.password.data.add
 import ru.dimagor555.password.data.eqId
 import ru.dimagor555.password.data.model.FolderModel
 import ru.dimagor555.password.data.model.metadata.toFolderMetadataModel
@@ -56,7 +56,7 @@ class RealmFolderRepository(
             ?.toFolder(children = folderChildrenRepository.getChildObjects(id))
 
     override suspend fun add(folder: Folder): String =
-        realm.addOrUpdate(folder.toFolderModel()).id.toString()
+        realm.add(folder.toFolderModel()).id.toString()
 
     override suspend fun update(folder: Folder) {
         realm.write {

@@ -5,21 +5,31 @@ import ru.dimagor555.password.domain.password.Password
 
 interface PasswordRepository {
 
-    fun observeAll(): Flow<List<Password>>
-
     fun observeById(id: String): Flow<Password?>
 
-    suspend fun getPasswordsByIds(ids: Set<String>): List<Password>
+    fun observeAll(): Flow<List<Password>>
 
     suspend fun getById(id: String): Password?
 
+    suspend fun getAllByIds(ids: Set<String>): List<Password>
+
+    suspend fun getAll(): List<Password>
+
     suspend fun add(password: Password): String
+
+    suspend fun addAll(passwords: List<Password>)
 
     suspend fun update(password: Password)
 
+    suspend fun updateAll(passwords: List<Password>)
+
+    suspend fun addOrUpdateAll(passwords: List<Password>)
+
     suspend fun remove(id: String)
 
-    suspend fun removeFolderPasswords(passwordIds: List<String>)
+    suspend fun removeAllByIds(passwordIds: Set<String>)
+
+    suspend fun removeAll()
 }
 
 internal suspend fun PasswordRepository.getByIdOrThrowException(id: String) =
