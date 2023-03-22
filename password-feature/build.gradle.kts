@@ -4,6 +4,7 @@ plugins {
     id("com.android.library")
     id("dev.icerock.mobile.multiplatform-resources")
     id("io.realm.kotlin")
+    kotlin("plugin.serialization")
 }
 
 kotlin {
@@ -39,6 +40,7 @@ kotlin {
                 implementation(Libs.Koin.compose)
 
                 api(Libs.KotlinX.datetime)
+                implementation(Libs.KotlinX.serialization)
 
                 implementation(Libs.MokoResources.commonMain)
 
@@ -52,6 +54,7 @@ kotlin {
                 implementation(Libs.MviCompose.core)
                 implementation(Libs.MviCompose.android)
 
+                // TODO remove dead code
                 implementation(Libs.Room.runtime)
                 implementation(Libs.Room.ktx)
 

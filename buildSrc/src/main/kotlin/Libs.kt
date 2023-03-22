@@ -30,6 +30,7 @@ object Libs {
         const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
         const val coroutinesSwing = "org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.6.4"
         const val reflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
+        const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
     }
 
     object MviCompose {
