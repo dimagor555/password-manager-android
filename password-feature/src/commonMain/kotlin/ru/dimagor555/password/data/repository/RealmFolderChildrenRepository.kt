@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.*
 import ru.dimagor555.password.data.*
 import ru.dimagor555.password.data.model.*
 import ru.dimagor555.password.domain.Child
-import ru.dimagor555.password.domain.folder.ChildId
 import ru.dimagor555.password.domain.folder.FolderChildren
-import ru.dimagor555.password.repository.ChangeFolderParams
-import ru.dimagor555.password.repository.FolderChildrenRepository
+import ru.dimagor555.password.usecase.folderchildren.repository.ChangeFolderParams
+import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildParams
+import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildrenRepository
 
 class RealmFolderChildrenRepository(
     private val realm: Realm,
@@ -96,14 +96,11 @@ class RealmFolderChildrenRepository(
     }
 
     override suspend fun changeChildFolder(params: ChangeFolderParams) = params.run {
-            removeChildFromFolder(fromParentId, childId)
-            addChildToFolder(toParentId, childId)
+            removeChildFromFolder(FolderChildParams(fromParentId, childId))
+            addChildToFolder(FolderChildParams(toParentId, childId))
     }
 
-    override suspend fun <T : ChildId> addChildToFolder(
-        parentId: String,
-        childId: T,
-    ) {
+    override suspend fun addChildToFolder(params: FolderChildParams) = params.run {
         realm.write {
             val oldFolderChildren =
                 this.query<FolderChildrenModel>("parentId == uuid($parentId)").first().find()
@@ -115,10 +112,7 @@ class RealmFolderChildrenRepository(
         }
     }
 
-    override suspend fun <T : ChildId> removeChildFromFolder(
-        parentId: String,
-        childId: T,
-    ) {
+    override suspend fun removeChildFromFolder(params: FolderChildParams) = params.run {
         realm.write {
             val oldFolderChildren =
                 this.query<FolderChildrenModel>("parentId == uuid($parentId)").first().find()

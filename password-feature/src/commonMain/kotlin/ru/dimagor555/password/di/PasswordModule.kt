@@ -10,9 +10,9 @@ import ru.dimagor555.password.data.repository.RealmFolderChildrenRepository
 import ru.dimagor555.password.data.repository.RealmFolderRepository
 import ru.dimagor555.password.data.repository.RealmPasswordRepository
 import ru.dimagor555.password.repository.FilterRepository
-import ru.dimagor555.password.repository.FolderChildrenRepository
+import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildrenRepository
 import ru.dimagor555.password.repository.FolderRepository
-import ru.dimagor555.password.repository.PasswordRepository
+import ru.dimagor555.password.usecase.password.repository.PasswordRepository
 import ru.dimagor555.password.ui.commoneditscreen.model.CommonEditPasswordUseCases
 import ru.dimagor555.password.ui.createscreen.model.CreatePasswordUseCases
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsUseCases
@@ -20,8 +20,8 @@ import ru.dimagor555.password.ui.editscreen.model.EditPasswordUseCases
 import ru.dimagor555.password.ui.listscreen.model.PasswordListUseCases
 import ru.dimagor555.password.usecase.field.CopyPasswordUseCase
 import ru.dimagor555.password.usecase.field.DecryptPasswordUseCase
-import ru.dimagor555.password.usecase.password.CreatePasswordUseCase
-import ru.dimagor555.password.usecase.password.UpdatePasswordUseCase
+import ru.dimagor555.password.usecase.password.single.CreatePasswordUseCase
+import ru.dimagor555.password.usecase.password.single.UpdatePasswordUseCase
 
 val passwordModule = module {
     includes(passwordPlatformModule)

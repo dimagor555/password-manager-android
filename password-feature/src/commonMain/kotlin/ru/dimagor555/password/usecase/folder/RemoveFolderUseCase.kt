@@ -1,9 +1,10 @@
 package ru.dimagor555.password.usecase.folder
 
 import ru.dimagor555.password.domain.folder.ChildId
-import ru.dimagor555.password.repository.FolderChildrenRepository
 import ru.dimagor555.password.repository.FolderRepository
-import ru.dimagor555.password.repository.PasswordRepository
+import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildParams
+import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildrenRepository
+import ru.dimagor555.password.usecase.password.repository.PasswordRepository
 
 class RemoveFolderUseCase(
     private val folderRepository: FolderRepository,
@@ -15,6 +16,11 @@ class RemoveFolderUseCase(
         val folderPasswordIds = folderChildrenRepository.getFolderPasswords(folderId).toSet()
         passwordRepository.removeAllByIds(folderPasswordIds)
         folderChildrenRepository.remove(folderId)
-        folderChildrenRepository.removeChildFromFolder(parentId, ChildId.FolderId(folderId))
+        folderChildrenRepository.removeChildFromFolder(
+            FolderChildParams(
+                parentId = parentId,
+                childId = ChildId.FolderId(folderId),
+            ),
+        )
     }
 }

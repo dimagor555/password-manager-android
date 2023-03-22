@@ -2,8 +2,8 @@ package ru.dimagor555.password.usecase.folder
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.dimagor555.password.repository.ChangeFolderParams
-import ru.dimagor555.password.repository.FolderChildrenRepository
+import ru.dimagor555.password.usecase.folderchildren.repository.ChangeFolderParams
+import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildrenRepository
 
 class ChangeFolderParentUseCase(
     private val folderChildrenRepository: FolderChildrenRepository,

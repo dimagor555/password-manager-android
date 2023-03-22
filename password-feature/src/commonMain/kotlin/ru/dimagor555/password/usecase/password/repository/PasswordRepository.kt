@@ -1,4 +1,4 @@
-package ru.dimagor555.password.repository
+package ru.dimagor555.password.usecase.password.repository
 
 import kotlinx.coroutines.flow.Flow
 import ru.dimagor555.password.domain.password.Password
@@ -24,8 +24,6 @@ interface PasswordRepository {
     suspend fun updateAll(passwords: List<Password>)
 
     suspend fun addOrUpdateAll(passwords: List<Password>)
-
-    suspend fun remove(id: String)
 
     suspend fun removeAllByIds(passwordIds: Set<String>)
 

@@ -3,7 +3,7 @@ package ru.dimagor555.password.usecase.field
 import ru.dimagor555.password.domain.password.Password
 import ru.dimagor555.password.domain.password.login
 import ru.dimagor555.password.repository.ClipboardRepository
-import ru.dimagor555.password.repository.PasswordRepository
+import ru.dimagor555.password.usecase.password.repository.PasswordRepository
 
 class CopyLoginUseCase(
     passwordRepository: PasswordRepository,

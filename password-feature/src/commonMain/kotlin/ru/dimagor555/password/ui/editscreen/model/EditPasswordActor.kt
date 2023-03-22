@@ -9,7 +9,7 @@ import ru.dimagor555.password.domain.password.field.EncryptedPasswordField
 import ru.dimagor555.password.domain.password.field.PASSWORD_FIELD_KEY
 import ru.dimagor555.password.domain.password.updateFieldByKey
 import ru.dimagor555.password.ui.editscreen.model.EditPasswordStore.*
-import ru.dimagor555.password.usecase.password.UpdatePasswordUseCase
+import ru.dimagor555.password.usecase.password.single.UpdatePasswordUseCase
 
 internal class EditPasswordActor : Actor<State, Action, Message, SideEffect>(), KoinComponent {
 

@@ -1,8 +1,7 @@
-package ru.dimagor555.password.repository
+package ru.dimagor555.password.usecase.folderchildren.repository
 
 import kotlinx.coroutines.flow.Flow
 import ru.dimagor555.password.domain.Child
-import ru.dimagor555.password.domain.folder.ChildId
 import ru.dimagor555.password.domain.folder.FolderChildren
 
 interface FolderChildrenRepository {
@@ -25,17 +24,11 @@ interface FolderChildrenRepository {
 
     suspend fun changeChildFolder(params: ChangeFolderParams)
 
-    suspend fun <T : ChildId> addChildToFolder(parentId: String, childId: T)
+    suspend fun addChildToFolder(params: FolderChildParams)
 
-    suspend fun <T : ChildId> removeChildFromFolder(parentId: String, childId: T)
+    suspend fun removeChildFromFolder(params: FolderChildParams)
 
     suspend fun removeAllChildrenFromAllFolders()
 
     suspend fun remove(id: String)
 }
-
-data class ChangeFolderParams(
-    val childId: ChildId,
-    val fromParentId: String,
-    val toParentId: String,
-)

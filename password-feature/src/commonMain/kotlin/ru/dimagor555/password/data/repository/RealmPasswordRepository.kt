@@ -14,10 +14,9 @@ import ru.dimagor555.password.data.eqId
 import ru.dimagor555.password.data.model.*
 import ru.dimagor555.password.data.model.metadata.toPasswordMetadataModel
 import ru.dimagor555.password.data.queryOneOrNull
-import ru.dimagor555.password.data.removeById
 import ru.dimagor555.password.domain.password.Password
 import ru.dimagor555.password.domain.password.PasswordFields
-import ru.dimagor555.password.repository.PasswordRepository
+import ru.dimagor555.password.usecase.password.repository.PasswordRepository
 
 class RealmPasswordRepository(
     private val realm: Realm,
@@ -108,9 +107,6 @@ class RealmPasswordRepository(
             launch { updateAll(passwordsToUpdate) }
         }
     }
-
-    override suspend fun remove(id: String) =
-        realm.removeById<PasswordModel>(id)
 
     override suspend fun removeAllByIds(passwordIds: Set<String>) = realm.write {
         val passwords = realm

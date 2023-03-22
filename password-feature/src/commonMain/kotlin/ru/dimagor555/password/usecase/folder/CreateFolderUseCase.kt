@@ -7,8 +7,9 @@ import ru.dimagor555.password.domain.folder.ChildId
 import ru.dimagor555.password.domain.folder.Folder
 import ru.dimagor555.password.domain.folder.toFolderChildren
 import ru.dimagor555.password.domain.password.field.ShortTextField
-import ru.dimagor555.password.repository.FolderChildrenRepository
 import ru.dimagor555.password.repository.FolderRepository
+import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildParams
+import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildrenRepository
 
 class CreateFolderUseCase(
     private val folderRepository: FolderRepository,
@@ -27,7 +28,12 @@ class CreateFolderUseCase(
         val id = folderRepository.add(folder)
         folderChildrenRepository.add(folder.toFolderChildren(id))
         if (params.id == null) {
-            folderChildrenRepository.addChildToFolder(params.parentId, ChildId.FolderId(id))
+            folderChildrenRepository.addChildToFolder(
+                FolderChildParams(
+                    parentId = params.parentId,
+                    childId = ChildId.FolderId(id),
+                ),
+            )
         }
     }
 

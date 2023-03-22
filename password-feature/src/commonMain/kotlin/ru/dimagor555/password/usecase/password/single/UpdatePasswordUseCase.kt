@@ -1,4 +1,4 @@
-package ru.dimagor555.password.usecase.password
+package ru.dimagor555.password.usecase.password.single
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -8,9 +8,9 @@ import ru.dimagor555.password.domain.folder.ChildId
 import ru.dimagor555.password.domain.password.*
 import ru.dimagor555.password.domain.password.field.EncryptedPasswordField
 import ru.dimagor555.password.domain.password.field.PASSWORD_FIELD_KEY
-import ru.dimagor555.password.repository.ChangeFolderParams
-import ru.dimagor555.password.repository.FolderChildrenRepository
-import ru.dimagor555.password.repository.PasswordRepository
+import ru.dimagor555.password.usecase.folderchildren.repository.ChangeFolderParams
+import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildrenRepository
+import ru.dimagor555.password.usecase.password.repository.PasswordRepository
 import ru.dimagor555.password.validation.core.TextValidationError
 
 class UpdatePasswordUseCase(
@@ -26,6 +26,7 @@ class UpdatePasswordUseCase(
         val fields: PasswordFields,
     )
 
+    // TODO unclear code flow
     suspend operator fun invoke(params: Params): Result =
         withContext(Dispatchers.Default) {
             validate(params)
@@ -64,6 +65,7 @@ class UpdatePasswordUseCase(
         }
     }
 
+    // TODO bad naming, consider just updated()
     private fun Password.createUpdated(params: Params) = copy(
         fields = updatePassword(params.fields),
         metadata = metadata.copy(editingDateTime = Clock.System.now())

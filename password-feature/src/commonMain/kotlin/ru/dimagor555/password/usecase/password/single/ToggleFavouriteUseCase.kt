@@ -1,10 +1,10 @@
-package ru.dimagor555.password.usecase.password
+package ru.dimagor555.password.usecase.password.single
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.dimagor555.password.domain.password.Password
-import ru.dimagor555.password.repository.PasswordRepository
-import ru.dimagor555.password.repository.getByIdOrThrowException
+import ru.dimagor555.password.usecase.password.repository.PasswordRepository
+import ru.dimagor555.password.usecase.password.repository.getByIdOrThrowException
 
 class ToggleFavouriteUseCase(
     private val passwordRepository: PasswordRepository

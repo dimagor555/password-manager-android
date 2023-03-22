@@ -4,7 +4,7 @@ import ru.dimagor555.encryption.domain.Decryptor
 import ru.dimagor555.password.domain.password.Password
 import ru.dimagor555.password.domain.password.encryptedPassword
 import ru.dimagor555.password.repository.ClipboardRepository
-import ru.dimagor555.password.repository.PasswordRepository
+import ru.dimagor555.password.usecase.password.repository.PasswordRepository
 
 class CopyPasswordUseCase(
     passwordRepository: PasswordRepository,

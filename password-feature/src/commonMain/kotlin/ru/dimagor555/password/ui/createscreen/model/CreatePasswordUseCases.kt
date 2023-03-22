@@ -1,9 +1,9 @@
 package ru.dimagor555.password.ui.createscreen.model
 
 import ru.dimagor555.encryption.domain.Encryptor
-import ru.dimagor555.password.repository.FolderChildrenRepository
-import ru.dimagor555.password.repository.PasswordRepository
-import ru.dimagor555.password.usecase.password.CreatePasswordUseCase
+import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildrenRepository
+import ru.dimagor555.password.usecase.password.repository.PasswordRepository
+import ru.dimagor555.password.usecase.password.single.CreatePasswordUseCase
 
 internal class CreatePasswordUseCases(
     passwordRepository: PasswordRepository,

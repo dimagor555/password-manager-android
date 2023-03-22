@@ -8,8 +8,10 @@ import ru.dimagor555.password.usecase.filter.UpdateFilterStateUseCase
 import ru.dimagor555.password.usecase.folder.CreateFolderUseCase
 import ru.dimagor555.password.usecase.folder.GetFolderUseCase
 import ru.dimagor555.password.usecase.folderchildren.ObserveFolderChildrenUseCase
-import ru.dimagor555.password.usecase.password.GetPasswordsByIdsUseCase
-import ru.dimagor555.password.usecase.password.ToggleFavouriteUseCase
+import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildrenRepository
+import ru.dimagor555.password.usecase.password.many.GetPasswordsByIdsUseCase
+import ru.dimagor555.password.usecase.password.repository.PasswordRepository
+import ru.dimagor555.password.usecase.password.single.ToggleFavouriteUseCase
 
 internal class PasswordListUseCases(
     passwordRepository: PasswordRepository,

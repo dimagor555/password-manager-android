@@ -9,7 +9,7 @@ import ru.dimagor555.password.domain.folder.Folder
 import ru.dimagor555.password.domain.password.Password
 import ru.dimagor555.password.domain.password.toPasswordFields
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsStore.*
-import ru.dimagor555.password.usecase.password.UpdatePasswordUseCase
+import ru.dimagor555.password.usecase.password.single.UpdatePasswordUseCase
 import ru.dimagor555.res.core.MR
 
 internal class PasswordDetailsActor : Actor<State, Action, Message, SideEffect>(), KoinComponent {

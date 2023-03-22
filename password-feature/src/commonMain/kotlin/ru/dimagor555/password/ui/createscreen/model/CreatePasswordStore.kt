@@ -9,7 +9,7 @@ import ru.dimagor555.mvicompose.implementation.StoreImpl
 import ru.dimagor555.password.domain.password.PasswordFields
 import ru.dimagor555.password.ui.createscreen.model.CreatePasswordStore.Action
 import ru.dimagor555.password.ui.createscreen.model.CreatePasswordStore.State
-import ru.dimagor555.password.usecase.password.CreatePasswordUseCase
+import ru.dimagor555.password.usecase.password.single.CreatePasswordUseCase
 
 internal class CreatePasswordStore : Store<Action, State, Nothing> by StoreImpl(
     initialState = State(),
