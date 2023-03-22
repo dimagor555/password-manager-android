@@ -27,7 +27,7 @@ class CreateFolderUseCase(
         val id = folderRepository.add(folder)
         folderChildrenRepository.add(folder.toFolderChildren(id))
         if (params.id == null) {
-            folderChildrenRepository.addChildToFolderChildren(params.parentId, ChildId.FolderId(id))
+            folderChildrenRepository.addChildToFolder(params.parentId, ChildId.FolderId(id))
         }
     }
 

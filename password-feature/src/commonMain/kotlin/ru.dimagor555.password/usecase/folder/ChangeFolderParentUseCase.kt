@@ -2,14 +2,15 @@ package ru.dimagor555.password.usecase.folder
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ru.dimagor555.password.repository.ChangeFolderParams
 import ru.dimagor555.password.repository.FolderChildrenRepository
 
 class ChangeFolderParentUseCase(
     private val folderChildrenRepository: FolderChildrenRepository,
 ) {
 
-    suspend operator fun invoke(folderId: String, fromId: String, toId: String) =
+    suspend operator fun invoke(params: ChangeFolderParams) =
         withContext(Dispatchers.Default) {
-            folderChildrenRepository.replaceChildLocation(folderId, fromId, toId)
+            folderChildrenRepository.changeChildFolder(params)
         }
 }

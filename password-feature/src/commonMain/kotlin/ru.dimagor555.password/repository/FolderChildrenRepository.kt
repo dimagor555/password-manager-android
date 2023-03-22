@@ -23,13 +23,19 @@ interface FolderChildrenRepository {
 
     suspend fun update(folderChildren: FolderChildren)
 
-    suspend fun replaceChildLocation(id: String, fromId: String, toId: String)
+    suspend fun changeChildFolder(params: ChangeFolderParams)
 
-    suspend fun <T : ChildId> addChildToFolderChildren(parentId: String, childId: T)
+    suspend fun <T : ChildId> addChildToFolder(parentId: String, childId: T)
 
-    suspend fun <T : ChildId> removeChildFromFolderChildren(parentId: String, childId: T)
+    suspend fun <T : ChildId> removeChildFromFolder(parentId: String, childId: T)
 
     suspend fun removeAllChildrenFromAllFolders()
 
     suspend fun remove(id: String)
 }
+
+data class ChangeFolderParams(
+    val childId: ChildId,
+    val fromParentId: String,
+    val toParentId: String,
+)

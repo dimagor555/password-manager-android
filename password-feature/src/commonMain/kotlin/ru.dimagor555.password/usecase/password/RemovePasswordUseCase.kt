@@ -10,7 +10,7 @@ class RemovePasswordUseCase(
 ) {
     suspend operator fun invoke(passwordId: String, parentId: String) {
         passwordRepository.remove(passwordId)
-        folderChildrenRepository.removeChildFromFolderChildren(
+        folderChildrenRepository.removeChildFromFolder(
             parentId,
             ChildId.PasswordId(passwordId)
         )

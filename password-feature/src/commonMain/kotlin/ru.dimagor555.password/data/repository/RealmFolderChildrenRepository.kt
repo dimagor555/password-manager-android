@@ -12,6 +12,7 @@ import ru.dimagor555.password.data.model.*
 import ru.dimagor555.password.domain.Child
 import ru.dimagor555.password.domain.folder.ChildId
 import ru.dimagor555.password.domain.folder.FolderChildren
+import ru.dimagor555.password.repository.ChangeFolderParams
 import ru.dimagor555.password.repository.FolderChildrenRepository
 
 class RealmFolderChildrenRepository(
@@ -94,12 +95,12 @@ class RealmFolderChildrenRepository(
         }
     }
 
-    override suspend fun replaceChildLocation(id: String, fromId: String, toId: String) {
-        removeChildFromFolderChildren(fromId, ChildId.PasswordId(id))
-        addChildToFolderChildren(toId, ChildId.PasswordId(id))
+    override suspend fun changeChildFolder(params: ChangeFolderParams) = params.run {
+            removeChildFromFolder(fromParentId, childId)
+            addChildToFolder(toParentId, childId)
     }
 
-    override suspend fun <T : ChildId> addChildToFolderChildren(
+    override suspend fun <T : ChildId> addChildToFolder(
         parentId: String,
         childId: T,
     ) {
@@ -114,7 +115,7 @@ class RealmFolderChildrenRepository(
         }
     }
 
-    override suspend fun <T : ChildId> removeChildFromFolderChildren(
+    override suspend fun <T : ChildId> removeChildFromFolder(
         parentId: String,
         childId: T,
     ) {

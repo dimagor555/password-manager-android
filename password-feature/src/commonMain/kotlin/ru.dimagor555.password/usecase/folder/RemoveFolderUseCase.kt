@@ -15,6 +15,6 @@ class RemoveFolderUseCase(
         val folderPasswordIds = folderChildrenRepository.getFolderPasswords(folderId).toSet()
         passwordRepository.removeAllByIds(folderPasswordIds)
         folderChildrenRepository.remove(folderId)
-        folderChildrenRepository.removeChildFromFolderChildren(parentId, ChildId.FolderId(folderId))
+        folderChildrenRepository.removeChildFromFolder(parentId, ChildId.FolderId(folderId))
     }
 }
