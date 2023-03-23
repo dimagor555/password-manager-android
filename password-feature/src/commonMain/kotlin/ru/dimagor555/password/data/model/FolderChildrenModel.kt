@@ -12,6 +12,7 @@ import ru.dimagor555.password.domain.folder.FolderChildren
 class FolderChildrenModel(
     @PrimaryKey
     var parentId: RealmUUID = RealmUUID.random(),
+    // TODO rename to childIds, why nullable?
     var childrenIds: RealmSet<ChildIdModel>? = null,
 ) : RealmObject {
     constructor() : this(

@@ -13,21 +13,11 @@ interface PasswordRepository {
 
     suspend fun getAllByIds(ids: Set<String>): List<Password>
 
-    suspend fun getAll(): List<Password>
-
     suspend fun add(password: Password): String
-
-    suspend fun addAll(passwords: List<Password>)
 
     suspend fun update(password: Password)
 
-    suspend fun updateAll(passwords: List<Password>)
-
-    suspend fun addOrUpdateAll(passwords: List<Password>)
-
     suspend fun removeAllByIds(passwordIds: Set<String>)
-
-    suspend fun removeAll()
 }
 
 internal suspend fun PasswordRepository.getByIdOrThrowException(id: String) =

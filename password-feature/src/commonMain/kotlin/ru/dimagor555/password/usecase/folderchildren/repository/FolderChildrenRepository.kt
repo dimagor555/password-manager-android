@@ -28,7 +28,5 @@ interface FolderChildrenRepository {
 
     suspend fun removeChildFromFolder(params: FolderChildParams)
 
-    suspend fun removeAllChildrenFromAllFolders()
-
     suspend fun remove(id: String)
 }

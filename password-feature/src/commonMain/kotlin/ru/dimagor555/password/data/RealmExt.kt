@@ -14,9 +14,8 @@ inline fun <reified T : RealmObject> Realm.getById(id: String, name: String = "i
 
 suspend inline fun <reified T : RealmObject> Realm.queryOneOrNull(
     query: String,
-    vararg args: Any?,
 ): T? =
-    query<T>(query, args)
+    query<T>(query)
         .first()
         .asFlow()
         .first()

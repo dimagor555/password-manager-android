@@ -1,14 +1,11 @@
 package ru.dimagor555.password.data.repository
 
 import io.realm.kotlin.Realm
-import io.realm.kotlin.delete
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.ext.toRealmSet
 import io.realm.kotlin.types.RealmSet
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import ru.dimagor555.password.data.add
 import ru.dimagor555.password.data.eqId
 import ru.dimagor555.password.data.model.*
@@ -43,26 +40,17 @@ class RealmPasswordRepository(
         .queryOneOrNull<PasswordModel>(PasswordModel::id eqId id)
         ?.toPassword()
 
-    override suspend fun getAllByIds(ids: Set<String>): List<Password> =
-        getAll()
-            .filter { it.id in ids }
-
-    override suspend fun getAll(): List<Password> = realm
+    override suspend fun getAllByIds(ids: Set<String>): List<Password> = realm
         .query<PasswordModel>()
         .asFlow()
         .first()
         .list
+        .filter { it.id.toString() in ids }
         .map { it.toPassword() }
 
     override suspend fun add(password: Password): String {
         val addedPassword = realm.add(password.toPasswordModel())
         return addedPassword.id.toString()
-    }
-
-    override suspend fun addAll(passwords: List<Password>) = realm.write {
-        passwords
-            .map { it.toPasswordModel() }
-            .forEach { copyToRealm(it) }
     }
 
     override suspend fun update(password: Password) = realm.write {
@@ -74,40 +62,6 @@ class RealmPasswordRepository(
         oldPassword.update(password)
     }
 
-    private fun PasswordModel.update(password: Password) {
-        metadata = password.metadata.toPasswordMetadataModel()
-        fields = password.fields.toRealmSet()
-    }
-
-    private fun PasswordFields.toRealmSet(): RealmSet<FieldModel> =
-        fields
-            .map { it.toFieldModel() }
-            .toRealmSet()
-
-    override suspend fun updateAll(passwords: List<Password>) = realm.write {
-        val passwordIds = passwords.map { it.id!! }
-        val oldPasswords = realm
-            .query<PasswordModel>()
-            .find()
-            .filter { it.id.toString() in passwordIds }
-        val passwordsByIds = passwords.associateBy { it.id!! }
-        oldPasswords
-            .associateWith { passwordsByIds[it.id.toString()] }
-            .filterValues { it != null }
-            .forEach { (oldPassword, password) ->
-                oldPassword.update(password!!)
-            }
-    }
-
-    override suspend fun addOrUpdateAll(passwords: List<Password>) {
-        val allPasswordIds = getAll().map { it.id!! }
-        val (passwordsToUpdate, passwordsToAdd) = passwords.partition { it.id in allPasswordIds }
-        coroutineScope {
-            launch { addAll(passwordsToAdd) }
-            launch { updateAll(passwordsToUpdate) }
-        }
-    }
-
     override suspend fun removeAllByIds(passwordIds: Set<String>) = realm.write {
         val passwords = realm
             .query<PasswordModel>()
@@ -115,8 +69,14 @@ class RealmPasswordRepository(
             .filter { it.id.toString() in passwordIds }
         passwords.forEach { delete(it) }
     }
-
-    override suspend fun removeAll() = realm.write {
-        delete<PasswordModel>()
-    }
 }
+
+internal fun PasswordModel.update(password: Password) {
+    metadata = password.metadata.toPasswordMetadataModel()
+    fields = password.fields.toRealmSet()
+}
+
+internal fun PasswordFields.toRealmSet(): RealmSet<FieldModel> =
+    fields
+        .map { it.toFieldModel() }
+        .toRealmSet()

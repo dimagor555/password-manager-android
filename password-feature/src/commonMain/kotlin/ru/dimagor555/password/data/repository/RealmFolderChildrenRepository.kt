@@ -1,7 +1,7 @@
 package ru.dimagor555.password.data.repository
 
+import io.realm.kotlin.MutableRealm
 import io.realm.kotlin.Realm
-import io.realm.kotlin.delete
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.ext.toRealmSet
 import io.realm.kotlin.types.RealmObject
@@ -96,36 +96,32 @@ class RealmFolderChildrenRepository(
     }
 
     override suspend fun changeChildFolder(params: ChangeFolderParams) = params.run {
-            removeChildFromFolder(FolderChildParams(fromParentId, childId))
-            addChildToFolder(FolderChildParams(toParentId, childId))
+        removeChildFromFolder(FolderChildParams(fromParentId, childId))
+        addChildToFolder(FolderChildParams(toParentId, childId))
     }
 
     override suspend fun addChildToFolder(params: FolderChildParams) = params.run {
         realm.write {
-            val oldFolderChildren =
-                this.query<FolderChildrenModel>("parentId == uuid($parentId)").first().find()
-            if (oldFolderChildren != null) {
-                val childrenIds = oldFolderChildren.childrenIds!!.toMutableSet()
-                childrenIds.add(childId.toChildIdModel())
-                oldFolderChildren.childrenIds = childrenIds.toRealmSet()
-            }
+            val oldFolderChildren = getFolderChildrenModelOrNull(parentId) ?: return@write
+            val newChildIds = oldFolderChildren.childrenIds!! + childId.toChildIdModel()
+            oldFolderChildren.childrenIds = newChildIds.toRealmSet()
         }
     }
+
+    private fun MutableRealm.getFolderChildrenModelOrNull(parentId: String): FolderChildrenModel? =
+        this
+            .query<FolderChildrenModel>(FolderChildrenModel::parentId eqId parentId)
+            .first()
+            .find()
 
     override suspend fun removeChildFromFolder(params: FolderChildParams) = params.run {
         realm.write {
-            val oldFolderChildren =
-                this.query<FolderChildrenModel>("parentId == uuid($parentId)").first().find()
-            if (oldFolderChildren != null) {
-                val childrenIds = oldFolderChildren.childrenIds!!.toMutableSet()
-                val newChildrenIds = childrenIds.filter { it.id != childId.toChildIdModel().id }.toSet()
-                oldFolderChildren.childrenIds = newChildrenIds.toRealmSet()
-            }
+            val oldFolderChildren = getFolderChildrenModelOrNull(parentId) ?: return@write
+            val newChildIds = oldFolderChildren
+                .childrenIds!!
+                .filter { it.id == childId.toChildIdModel().id } // TODO why filter? test just with minus
+            oldFolderChildren.childrenIds = newChildIds.toRealmSet()
         }
-    }
-
-    override suspend fun removeAllChildrenFromAllFolders() = realm.write {
-        delete<FolderChildrenModel>()
     }
 
     override suspend fun remove(id: String) {

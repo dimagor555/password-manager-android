@@ -5,14 +5,9 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import ru.dimagor555.password.data.db.PasswordDatabase
-import ru.dimagor555.password.data.repository.InMemoryPasswordFilterRepository
-import ru.dimagor555.password.data.repository.RealmFolderChildrenRepository
-import ru.dimagor555.password.data.repository.RealmFolderRepository
-import ru.dimagor555.password.data.repository.RealmPasswordRepository
+import ru.dimagor555.password.data.repository.*
 import ru.dimagor555.password.repository.FilterRepository
-import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildrenRepository
 import ru.dimagor555.password.repository.FolderRepository
-import ru.dimagor555.password.usecase.password.repository.PasswordRepository
 import ru.dimagor555.password.ui.commoneditscreen.model.CommonEditPasswordUseCases
 import ru.dimagor555.password.ui.createscreen.model.CreatePasswordUseCases
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsUseCases
@@ -20,8 +15,13 @@ import ru.dimagor555.password.ui.editscreen.model.EditPasswordUseCases
 import ru.dimagor555.password.ui.listscreen.model.PasswordListUseCases
 import ru.dimagor555.password.usecase.field.CopyPasswordUseCase
 import ru.dimagor555.password.usecase.field.DecryptPasswordUseCase
+import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildrenRepository
+import ru.dimagor555.password.usecase.password.repository.PasswordRepository
 import ru.dimagor555.password.usecase.password.single.CreatePasswordUseCase
 import ru.dimagor555.password.usecase.password.single.UpdatePasswordUseCase
+import ru.dimagor555.password.usecase.passwordsandfolderchildren.*
+import ru.dimagor555.password.usecase.passwordsandfolderchildren.repository.BulkFolderChildrenRepository
+import ru.dimagor555.password.usecase.passwordsandfolderchildren.repository.BulkPasswordRepository
 
 val passwordModule = module {
     includes(passwordPlatformModule)
@@ -42,4 +42,12 @@ val passwordModule = module {
     factoryOf(::PasswordDetailsUseCases)
     factoryOf(::EditPasswordUseCases)
     factoryOf(::PasswordListUseCases)
+
+    factoryOf(::RealmBulkPasswordRepository) bind BulkPasswordRepository::class
+    factoryOf(::RealmBulkFolderChildrenRepository) bind BulkFolderChildrenRepository::class
+    factoryOf(::GetPasswordsAndFolderChildrenUsecase)
+    factoryOf(::AddPasswordsAndFolderChildrenUsecase)
+    factoryOf(::UpdatePasswordsAndFolderChildrenUsecase)
+    factoryOf(::AddOrUpdatePasswordsAndFolderChildrenUsecase)
+    factoryOf(::RemovePasswordsAndFolderChildrenUsecase)
 }
