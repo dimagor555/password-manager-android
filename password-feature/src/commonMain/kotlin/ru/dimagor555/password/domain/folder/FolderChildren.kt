@@ -1,7 +1,9 @@
 package ru.dimagor555.password.domain.folder
 
+import kotlinx.serialization.Serializable
 import ru.dimagor555.password.domain.password.Password
 
+@Serializable
 data class FolderChildren(
     val parentId: String = "",
     val childrenIds: Set<ChildId> = setOf(),
