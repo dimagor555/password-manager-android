@@ -1,4 +1,4 @@
-package ru.dimagor555.password.data.repository
+package ru.dimagor555.password.data.filter
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

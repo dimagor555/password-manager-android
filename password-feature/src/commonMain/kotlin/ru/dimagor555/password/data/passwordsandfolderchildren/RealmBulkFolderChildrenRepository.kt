@@ -1,4 +1,4 @@
-package ru.dimagor555.password.data.repository
+package ru.dimagor555.password.data.passwordsandfolderchildren
 
 import io.realm.kotlin.Realm
 import io.realm.kotlin.delete
@@ -6,10 +6,10 @@ import io.realm.kotlin.ext.query
 import io.realm.kotlin.ext.toRealmSet
 import io.realm.kotlin.query.RealmResults
 import kotlinx.coroutines.flow.first
+import ru.dimagor555.password.data.folderchildren.FolderChildrenModel
+import ru.dimagor555.password.data.folderchildren.toFolderChildren
 import ru.dimagor555.password.data.model.ChildIdModel
-import ru.dimagor555.password.data.model.FolderChildrenModel
 import ru.dimagor555.password.data.model.toChildIdModel
-import ru.dimagor555.password.data.model.toFolderChildren
 import ru.dimagor555.password.domain.folder.FolderChildren
 import ru.dimagor555.password.usecase.folderchildren.repository.ChangeFolderParams
 import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildParams

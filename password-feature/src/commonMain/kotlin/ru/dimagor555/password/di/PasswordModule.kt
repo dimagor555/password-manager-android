@@ -5,9 +5,12 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import ru.dimagor555.password.data.db.PasswordDatabase
-import ru.dimagor555.password.data.repository.*
-import ru.dimagor555.password.usecase.filter.repository.FilterRepository
-import ru.dimagor555.password.usecase.folder.repository.FolderRepository
+import ru.dimagor555.password.data.filter.InMemoryPasswordFilterRepository
+import ru.dimagor555.password.data.folder.RealmFolderRepository
+import ru.dimagor555.password.data.folderchildren.RealmFolderChildrenRepository
+import ru.dimagor555.password.data.password.RealmPasswordRepository
+import ru.dimagor555.password.data.passwordsandfolderchildren.RealmBulkFolderChildrenRepository
+import ru.dimagor555.password.data.passwordsandfolderchildren.RealmBulkPasswordRepository
 import ru.dimagor555.password.ui.commoneditscreen.model.CommonEditPasswordUseCases
 import ru.dimagor555.password.ui.createscreen.model.CreatePasswordUseCases
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsUseCases
@@ -15,6 +18,8 @@ import ru.dimagor555.password.ui.editscreen.model.EditPasswordUseCases
 import ru.dimagor555.password.ui.listscreen.model.PasswordListUseCases
 import ru.dimagor555.password.usecase.field.CopyPasswordUseCase
 import ru.dimagor555.password.usecase.field.DecryptPasswordUseCase
+import ru.dimagor555.password.usecase.filter.repository.FilterRepository
+import ru.dimagor555.password.usecase.folder.repository.FolderRepository
 import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildrenRepository
 import ru.dimagor555.password.usecase.password.repository.PasswordRepository
 import ru.dimagor555.password.usecase.password.single.CreatePasswordUseCase

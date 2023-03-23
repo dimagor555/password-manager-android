@@ -1,12 +1,11 @@
-package ru.dimagor555.password.data.model
+package ru.dimagor555.password.data.folder
 
 import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.RealmUUID
 import io.realm.kotlin.types.annotations.PrimaryKey
 import ru.dimagor555.password.data.getUuid
-import ru.dimagor555.password.data.model.metadata.FolderMetadataModel
-import ru.dimagor555.password.data.model.metadata.toFolderMetadata
-import ru.dimagor555.password.data.model.metadata.toFolderMetadataModel
+import ru.dimagor555.password.data.model.FieldModel
+import ru.dimagor555.password.data.model.toFieldModel
 import ru.dimagor555.password.domain.folder.Folder
 import ru.dimagor555.password.domain.folder.FolderDescriptor
 

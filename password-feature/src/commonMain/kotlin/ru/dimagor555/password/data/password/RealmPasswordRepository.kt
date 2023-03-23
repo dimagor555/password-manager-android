@@ -1,4 +1,4 @@
-package ru.dimagor555.password.data.repository
+package ru.dimagor555.password.data.password
 
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
@@ -8,8 +8,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import ru.dimagor555.password.data.add
 import ru.dimagor555.password.data.eqId
-import ru.dimagor555.password.data.model.*
-import ru.dimagor555.password.data.model.metadata.toPasswordMetadataModel
+import ru.dimagor555.password.data.model.FieldModel
+import ru.dimagor555.password.data.model.toFieldModel
 import ru.dimagor555.password.data.queryOneOrNull
 import ru.dimagor555.password.domain.password.Password
 import ru.dimagor555.password.domain.password.PasswordFields

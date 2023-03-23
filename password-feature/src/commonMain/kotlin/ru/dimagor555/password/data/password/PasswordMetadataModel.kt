@@ -1,4 +1,4 @@
-package ru.dimagor555.password.data.model.metadata
+package ru.dimagor555.password.data.password
 
 import io.realm.kotlin.types.RealmObject
 import kotlinx.datetime.Clock

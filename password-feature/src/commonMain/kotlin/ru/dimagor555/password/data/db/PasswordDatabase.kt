@@ -2,10 +2,14 @@ package ru.dimagor555.password.data.db
 
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
-import ru.dimagor555.password.data.model.*
-import ru.dimagor555.password.data.model.metadata.FolderMetadataModel
-import ru.dimagor555.password.data.model.metadata.PasswordMetadataModel
-import ru.dimagor555.password.data.model.metadata.UsageHistoryModel
+import ru.dimagor555.password.data.folder.FolderMetadataModel
+import ru.dimagor555.password.data.folder.FolderModel
+import ru.dimagor555.password.data.folderchildren.FolderChildrenModel
+import ru.dimagor555.password.data.model.ChildIdModel
+import ru.dimagor555.password.data.model.FieldModel
+import ru.dimagor555.password.data.password.PasswordMetadataModel
+import ru.dimagor555.password.data.password.PasswordModel
+import ru.dimagor555.password.data.password.UsageHistoryModel
 
 // TODO extract DB to separate module
 class PasswordDatabase {

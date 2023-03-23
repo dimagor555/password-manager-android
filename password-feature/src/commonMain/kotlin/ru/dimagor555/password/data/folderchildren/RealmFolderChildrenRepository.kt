@@ -1,4 +1,4 @@
-package ru.dimagor555.password.data.repository
+package ru.dimagor555.password.data.folderchildren
 
 import io.realm.kotlin.MutableRealm
 import io.realm.kotlin.Realm
@@ -8,7 +8,12 @@ import io.realm.kotlin.types.RealmObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import ru.dimagor555.password.data.*
-import ru.dimagor555.password.data.model.*
+import ru.dimagor555.password.data.folder.FolderModel
+import ru.dimagor555.password.data.folder.toFolderDescriptor
+import ru.dimagor555.password.data.model.ChildIdType
+import ru.dimagor555.password.data.model.toChildIdModel
+import ru.dimagor555.password.data.password.PasswordModel
+import ru.dimagor555.password.data.password.toPassword
 import ru.dimagor555.password.domain.Child
 import ru.dimagor555.password.domain.folder.FolderChildren
 import ru.dimagor555.password.usecase.folderchildren.repository.ChangeFolderParams

@@ -1,13 +1,14 @@
-package ru.dimagor555.password.data.repository
+package ru.dimagor555.password.data.passwordsandfolderchildren
 
 import io.realm.kotlin.MutableRealm
 import io.realm.kotlin.Realm
 import io.realm.kotlin.delete
 import io.realm.kotlin.ext.query
 import kotlinx.coroutines.flow.first
-import ru.dimagor555.password.data.model.PasswordModel
-import ru.dimagor555.password.data.model.toPassword
-import ru.dimagor555.password.data.model.toPasswordModel
+import ru.dimagor555.password.data.password.PasswordModel
+import ru.dimagor555.password.data.password.toPassword
+import ru.dimagor555.password.data.password.toPasswordModel
+import ru.dimagor555.password.data.password.update
 import ru.dimagor555.password.domain.password.Password
 import ru.dimagor555.password.usecase.passwordsandfolderchildren.repository.BulkPasswordRepository
 

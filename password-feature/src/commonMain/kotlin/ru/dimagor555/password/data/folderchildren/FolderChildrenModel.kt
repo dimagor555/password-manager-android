@@ -1,4 +1,4 @@
-package ru.dimagor555.password.data.model
+package ru.dimagor555.password.data.folderchildren
 
 import io.realm.kotlin.ext.toRealmSet
 import io.realm.kotlin.types.RealmObject
@@ -6,6 +6,8 @@ import io.realm.kotlin.types.RealmSet
 import io.realm.kotlin.types.RealmUUID
 import io.realm.kotlin.types.annotations.PrimaryKey
 import ru.dimagor555.password.data.getUuid
+import ru.dimagor555.password.data.model.ChildIdModel
+import ru.dimagor555.password.data.model.ChildIdType
 import ru.dimagor555.password.domain.folder.ChildId
 import ru.dimagor555.password.domain.folder.FolderChildren
 

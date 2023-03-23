@@ -1,4 +1,4 @@
-package ru.dimagor555.password.data.model
+package ru.dimagor555.password.data.password
 
 import io.realm.kotlin.ext.toRealmSet
 import io.realm.kotlin.types.RealmObject
@@ -6,9 +6,9 @@ import io.realm.kotlin.types.RealmSet
 import io.realm.kotlin.types.RealmUUID
 import io.realm.kotlin.types.annotations.PrimaryKey
 import ru.dimagor555.password.data.getUuid
-import ru.dimagor555.password.data.model.metadata.PasswordMetadataModel
-import ru.dimagor555.password.data.model.metadata.toPasswordMetadata
-import ru.dimagor555.password.data.model.metadata.toPasswordMetadataModel
+import ru.dimagor555.password.data.model.FieldModel
+import ru.dimagor555.password.data.model.toField
+import ru.dimagor555.password.data.model.toFieldModel
 import ru.dimagor555.password.domain.password.Password
 import ru.dimagor555.password.domain.password.PasswordFields
 
