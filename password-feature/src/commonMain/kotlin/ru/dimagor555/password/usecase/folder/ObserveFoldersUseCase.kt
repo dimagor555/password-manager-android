@@ -3,8 +3,8 @@ package ru.dimagor555.password.usecase.folder
 import kotlinx.coroutines.flow.Flow
 import ru.dimagor555.password.domain.filter.toFilterParams
 import ru.dimagor555.password.domain.folder.Folder
-import ru.dimagor555.password.repository.FilterRepository
-import ru.dimagor555.password.repository.FolderRepository
+import ru.dimagor555.password.usecase.filter.repository.FilterRepository
+import ru.dimagor555.password.usecase.folder.repository.FolderRepository
 import ru.dimagor555.password.usecase.ObserveChildrenUseCase
 
 class ObserveFoldersUseCase(

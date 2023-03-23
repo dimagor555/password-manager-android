@@ -5,7 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.dimagor555.password.repository.ClipboardRepository
+import ru.dimagor555.password.usecase.field.repository.ClipboardRepository
 
 class AndroidClipboardRepository(private val applicationContext: Context): ClipboardRepository {
 

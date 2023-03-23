@@ -1,4 +1,4 @@
-package ru.dimagor555.password.repository
+package ru.dimagor555.password.usecase.folder.repository
 
 import kotlinx.coroutines.flow.Flow
 import ru.dimagor555.password.domain.folder.Folder
@@ -19,6 +19,3 @@ interface FolderRepository {
 
     suspend fun removeFolderFolders(folderIds: List<String>)
 }
-
-internal suspend fun FolderRepository.getByIdOrThrowException(id: String) =
-    getById(id) ?: error("Password with id=$id does not exist")

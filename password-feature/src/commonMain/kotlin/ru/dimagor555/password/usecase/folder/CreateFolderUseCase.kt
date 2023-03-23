@@ -7,7 +7,7 @@ import ru.dimagor555.password.domain.folder.ChildId
 import ru.dimagor555.password.domain.folder.Folder
 import ru.dimagor555.password.domain.folder.toFolderChildren
 import ru.dimagor555.password.domain.password.field.ShortTextField
-import ru.dimagor555.password.repository.FolderRepository
+import ru.dimagor555.password.usecase.folder.repository.FolderRepository
 import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildParams
 import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildrenRepository
 

@@ -1,4 +1,4 @@
-package ru.dimagor555.password.repository
+package ru.dimagor555.password.usecase.filter.repository
 
 import kotlinx.coroutines.flow.Flow
 import ru.dimagor555.password.domain.filter.FilterState

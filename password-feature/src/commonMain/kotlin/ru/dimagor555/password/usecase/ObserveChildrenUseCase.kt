@@ -4,7 +4,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import ru.dimagor555.password.domain.filter.FilterParams
 import ru.dimagor555.password.domain.filter.Filter
-import ru.dimagor555.password.repository.FilterRepository
+import ru.dimagor555.password.usecase.filter.repository.FilterRepository
 
 abstract class ObserveChildrenUseCase<T>(
     private val filterRepository: FilterRepository,

@@ -2,7 +2,7 @@ package ru.dimagor555.password.ui.detailsscreen.model
 
 import ru.dimagor555.encryption.domain.Decryptor
 import ru.dimagor555.encryption.domain.Encryptor
-import ru.dimagor555.password.repository.ClipboardRepository
+import ru.dimagor555.password.usecase.field.repository.ClipboardRepository
 import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildrenRepository
 import ru.dimagor555.password.usecase.password.repository.PasswordRepository
 import ru.dimagor555.password.usecase.field.CopyLoginUseCase

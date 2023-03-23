@@ -4,7 +4,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.dimagor555.password.domain.metadata.plusUsage
 import ru.dimagor555.password.domain.password.Password
-import ru.dimagor555.password.repository.ClipboardRepository
+import ru.dimagor555.password.usecase.field.repository.ClipboardRepository
 import ru.dimagor555.password.usecase.password.repository.PasswordRepository
 import ru.dimagor555.password.usecase.password.repository.getByIdOrThrowException
 

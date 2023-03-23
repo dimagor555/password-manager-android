@@ -6,8 +6,8 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 import ru.dimagor555.password.data.db.PasswordDatabase
 import ru.dimagor555.password.data.repository.*
-import ru.dimagor555.password.repository.FilterRepository
-import ru.dimagor555.password.repository.FolderRepository
+import ru.dimagor555.password.usecase.filter.repository.FilterRepository
+import ru.dimagor555.password.usecase.folder.repository.FolderRepository
 import ru.dimagor555.password.ui.commoneditscreen.model.CommonEditPasswordUseCases
 import ru.dimagor555.password.ui.createscreen.model.CreatePasswordUseCases
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsUseCases

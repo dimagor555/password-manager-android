@@ -1,7 +1,7 @@
 package ru.dimagor555.password.usecase.folder
 
 import ru.dimagor555.password.domain.folder.ChildId
-import ru.dimagor555.password.repository.FolderRepository
+import ru.dimagor555.password.usecase.folder.repository.FolderRepository
 import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildParams
 import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildrenRepository
 import ru.dimagor555.password.usecase.password.repository.PasswordRepository

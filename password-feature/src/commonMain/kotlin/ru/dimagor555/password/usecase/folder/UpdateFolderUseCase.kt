@@ -8,7 +8,7 @@ import ru.dimagor555.password.domain.folder.ChildId
 import ru.dimagor555.password.domain.folder.Folder
 import ru.dimagor555.password.domain.password.field.FieldValidator
 import ru.dimagor555.password.domain.password.field.ShortTextField
-import ru.dimagor555.password.repository.FolderRepository
+import ru.dimagor555.password.usecase.folder.repository.FolderRepository
 import ru.dimagor555.password.usecase.folder.UpdateFolderUseCase.Result.Error
 import ru.dimagor555.password.usecase.folder.UpdateFolderUseCase.Result.Success
 import ru.dimagor555.password.usecase.folderchildren.repository.ChangeFolderParams

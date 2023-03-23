@@ -1,7 +1,7 @@
 package ru.dimagor555.password.usecase.folder
 
 import ru.dimagor555.password.domain.folder.Folder
-import ru.dimagor555.password.repository.FolderRepository
+import ru.dimagor555.password.usecase.folder.repository.FolderRepository
 
 class GetFolderUseCase(
     private val folderRepository: FolderRepository,

@@ -14,7 +14,7 @@ import ru.dimagor555.password.data.model.toFolderModel
 import ru.dimagor555.password.data.removeById
 import ru.dimagor555.password.domain.folder.Folder
 import ru.dimagor555.password.domain.folder.toFolder
-import ru.dimagor555.password.repository.FolderRepository
+import ru.dimagor555.password.usecase.folder.repository.FolderRepository
 
 class RealmFolderRepository(
     private val realm: Realm,
