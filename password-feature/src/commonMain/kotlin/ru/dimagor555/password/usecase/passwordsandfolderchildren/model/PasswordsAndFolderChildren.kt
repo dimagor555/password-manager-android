@@ -1,5 +1,6 @@
 package ru.dimagor555.password.usecase.passwordsandfolderchildren.model
 
+import kotlinx.serialization.Serializable
 import ru.dimagor555.password.domain.folder.ChildId
 import ru.dimagor555.password.domain.folder.FolderChildren
 import ru.dimagor555.password.domain.folder.toChildId
@@ -7,6 +8,7 @@ import ru.dimagor555.password.domain.password.Password
 import ru.dimagor555.password.usecase.folderchildren.repository.ChangeFolderParams
 import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildParams
 
+@Serializable
 data class PasswordsAndFolderChildren private constructor(
     val passwords: List<Password>,
     val folderChildren: List<FolderChildren>,

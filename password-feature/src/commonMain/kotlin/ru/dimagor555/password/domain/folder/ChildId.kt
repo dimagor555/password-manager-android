@@ -6,13 +6,11 @@ import ru.dimagor555.password.domain.password.Password
 @Serializable
 sealed interface ChildId {
 
-    @JvmInline
     @Serializable
-    value class PasswordId(val id: String) : ChildId
+    data class PasswordId(val id: String) : ChildId
 
-    @JvmInline
     @Serializable
-    value class FolderId(val id: String) : ChildId
+    data class FolderId(val id: String) : ChildId
 }
 
 fun Password.toChildId(): ChildId = ChildId.PasswordId(this.id!!)
