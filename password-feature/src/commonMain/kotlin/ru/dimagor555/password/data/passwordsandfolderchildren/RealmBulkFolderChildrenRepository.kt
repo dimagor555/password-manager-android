@@ -15,6 +15,8 @@ import ru.dimagor555.password.usecase.folderchildren.repository.ChangeFolderPara
 import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildParams
 import ru.dimagor555.password.usecase.passwordsandfolderchildren.repository.BulkFolderChildrenRepository
 
+private typealias ChildIdsByParentIds = Map<String, MutableSet<ChildIdModel>>
+
 class RealmBulkFolderChildrenRepository(
     private val realm: Realm,
 ) : BulkFolderChildrenRepository {
@@ -26,19 +28,32 @@ class RealmBulkFolderChildrenRepository(
         .list
         .map { it.toFolderChildren() }
 
-    override suspend fun addAllChildrenToFolders(params: List<FolderChildParams>) = realm.write {
-        val allFolderChildren = this.query<FolderChildrenModel>().find()
-        params
-            .groupBy { it.parentId }
-            .mapValues { entry ->
-                entry
-                    .value
-                    .map { it.childId.toChildIdModel() }
-            }
-            .updateInto(allFolderChildren)
-    }
+    override suspend fun addAllChildrenToFolders(params: List<FolderChildParams>) =
+        updateAllFolderChildren { childIdsByParentIds ->
+            params
+                .groupBy { it.parentId }
+                .mapValues { entry ->
+                    entry
+                        .value
+                        .map { it.childId.toChildIdModel() }
+                }
+                .forEach { (parentId, newChildIds) ->
+                    val childIds = childIdsByParentIds[parentId] ?: return@forEach
+                    childIds += newChildIds
+                }
+        }
 
-    private fun Map<String, Iterable<ChildIdModel>>.updateInto(
+    private suspend fun updateAllFolderChildren(update: (ChildIdsByParentIds) -> Unit) =
+        realm.write {
+            val allFolderChildren = this.query<FolderChildrenModel>().find()
+            val childIdsByParentIds = allFolderChildren
+                .associateBy { it.parentId.toString() }
+                .mapValues { it.value.childrenIds.orEmpty().toMutableSet() } // TODO why childrenIds nullable?
+            update(childIdsByParentIds)
+            childIdsByParentIds.writeUpdateInto(allFolderChildren)
+        }
+
+    private fun ChildIdsByParentIds.writeUpdateInto(
         folderChildren: RealmResults<FolderChildrenModel>,
     ) = this.forEach { (parentId, childIds) ->
         folderChildren
@@ -46,16 +61,12 @@ class RealmBulkFolderChildrenRepository(
             ?.childrenIds = childIds.toRealmSet()
     }
 
-    override suspend fun changeAllChildrenFolders(params: List<ChangeFolderParams>) = realm.write {
-        val allFolderChildren = this.query<FolderChildrenModel>().find()
-        val childIdsByParentIds = allFolderChildren
-            .associateBy { it.parentId.toString() }
-            .mapValues { it.value.childrenIds!!.toMutableSet() }
-        params.forEach { childIdsByParentIds.changeChildFolder(it) }
-        childIdsByParentIds.updateInto(allFolderChildren)
-    }
+    override suspend fun changeAllChildrenFolders(params: List<ChangeFolderParams>) =
+        updateAllFolderChildren { childIdsByParentIds ->
+            params.forEach { childIdsByParentIds.changeChildFolder(it) }
+        }
 
-    private fun Map<String, MutableSet<ChildIdModel>>.changeChildFolder(
+    private fun ChildIdsByParentIds.changeChildFolder(
         params: ChangeFolderParams,
     ) {
         val fromChildIds = this[params.fromParentId] ?: return

@@ -53,7 +53,7 @@ internal class EditPasswordStore : Store<Action, State, SideEffect> by StoreImpl
         data class SetInitialPassword(
             val passwordId: String,
             val passwordFields: PasswordFields,
-            ) : Message
+        ) : Message
 
         object ShowSaveDialog : Message
 
@@ -67,7 +67,7 @@ internal class EditPasswordStore : Store<Action, State, SideEffect> by StoreImpl
 
         data class RequestShowUpdateErrors(
             val errorsByFieldTypes: Map<String, TextValidationError?>
-        )  : SideEffect
+        ) : SideEffect
 
         object RequestValidatePassword : SideEffect
 

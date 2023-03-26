@@ -8,6 +8,7 @@ import ru.dimagor555.password.domain.password.Password
 import ru.dimagor555.password.usecase.folderchildren.repository.ChangeFolderParams
 import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildParams
 
+// TODO consider that password has many folders
 @Serializable
 data class PasswordsAndFolderChildren private constructor(
     val passwords: List<Password>,
