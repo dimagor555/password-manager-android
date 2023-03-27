@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import ru.dimagor555.ui.core.util.ProvideMediumAlpha
 import ru.dimagor555.ui.core.icon.Lock
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
-import ru.dimagor555.ui.core.util.Preview
+import androidx.compose.desktop.ui.tooling.preview.Preview
 
 @Composable
 internal fun FullscreenInformationContent(

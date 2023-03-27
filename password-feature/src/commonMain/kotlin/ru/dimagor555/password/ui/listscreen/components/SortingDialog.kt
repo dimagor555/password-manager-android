@@ -14,7 +14,7 @@ import ru.dimagor555.ui.core.component.DefaultDialog
 import ru.dimagor555.ui.core.component.SingleLineText
 import ru.dimagor555.ui.core.component.button.RadioTextOptionGroup
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
-import ru.dimagor555.ui.core.util.Preview
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import ru.dimagor555.ui.core.util.stringResource
 
 @Composable

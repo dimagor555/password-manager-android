@@ -10,7 +10,7 @@ import ru.dimagor555.masterpassword.ui.editscreen.model.EditMasterPasswordStore.
 import ru.dimagor555.masterpassword.ui.editscreen.model.EditMasterPasswordStore.State
 import ru.dimagor555.res.core.MR
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
-import ru.dimagor555.ui.core.util.Preview
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import ru.dimagor555.ui.core.util.stringResource
 
 @Composable

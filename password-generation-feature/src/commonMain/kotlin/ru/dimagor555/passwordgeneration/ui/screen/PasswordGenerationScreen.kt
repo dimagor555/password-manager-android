@@ -9,7 +9,7 @@ import ru.dimagor555.passwordgeneration.ui.screen.model.PasswordGenerationStore
 import ru.dimagor555.passwordgeneration.ui.screen.model.PasswordGenerationStore.State
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 import ru.dimagor555.ui.core.util.OnSideEffect
-import ru.dimagor555.ui.core.util.Preview
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import ru.dimagor555.ui.core.util.createLongSnackbarMessage
 
 @Composable
