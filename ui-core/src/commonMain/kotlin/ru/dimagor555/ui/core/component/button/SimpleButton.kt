@@ -1,6 +1,8 @@
 package ru.dimagor555.ui.core.component.button
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -9,11 +11,13 @@ import androidx.compose.ui.Modifier
 fun SimpleButton(
     text: String,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
 ) {
     Button(
         modifier = modifier,
-        onClick = onClick
+        onClick = onClick,
+        contentPadding = contentPadding,
     ) {
         Text(text = text)
     }

@@ -8,14 +8,15 @@ import androidx.compose.ui.unit.sp
 import ru.dimagor555.res.core.MR
 
 private val Montserrat = FontFamily(
-    MR.fonts.Montserrat.regular.toComposeFont(),
-    MR.fonts.Montserrat.medium.toComposeFont(),
-    MR.fonts.Montserrat.semibold.toComposeFont(),
-    MR.fonts.Montserrat.bold.toComposeFont(),
-    MR.fonts.Montserrat.extrabold.toComposeFont()
+    MR.fonts.Montserrat.regular.toComposeFont(FontWeight.Normal),
+    MR.fonts.Montserrat.medium.toComposeFont(FontWeight.Medium),
+    MR.fonts.Montserrat.semibold.toComposeFont(FontWeight.SemiBold),
+    MR.fonts.Montserrat.bold.toComposeFont(FontWeight.Bold),
+    MR.fonts.Montserrat.extrabold.toComposeFont(FontWeight.ExtraBold)
 )
 
 val MontserratTypography = Typography(
+    defaultFontFamily = Montserrat,
     h1 = TextStyle(
         fontFamily = Montserrat,
         fontWeight = FontWeight.ExtraBold,
@@ -44,7 +45,7 @@ val MontserratTypography = Typography(
     h6 = TextStyle(
         fontFamily = Montserrat,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 18.sp,
+        fontSize = 20.sp,
     ),
     subtitle1 = TextStyle(
         fontFamily = Montserrat,
@@ -69,7 +70,7 @@ val MontserratTypography = Typography(
     button = TextStyle(
         fontFamily = Montserrat,
         fontWeight = FontWeight.Medium,
-        fontSize = 14.sp
+        fontSize = 16.sp
     ),
     caption = TextStyle(
         fontFamily = Montserrat,
