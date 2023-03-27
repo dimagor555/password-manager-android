@@ -1,11 +1,15 @@
 package ru.dimagor555.ui.core.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
+import ru.dimagor555.ui.core.util.LocalScreenSize
+import ru.dimagor555.ui.core.util.determineWindowType
 
 private val DarkColorPalette = darkColors(
     primary = Orange400,
@@ -33,10 +37,14 @@ fun PasswordManagerTheme(
         LightColorPalette
     }
 
-    MaterialTheme(
-        colors = colors,
-        typography = MontserratTypography,
-        shapes = Shapes,
-        content = content
-    )
+    BoxWithConstraints {
+        CompositionLocalProvider(LocalScreenSize provides determineWindowType()) {
+            MaterialTheme(
+                colors = colors,
+                typography = MontserratTypography,
+                shapes = Shapes,
+                content = content
+            )
+        }
+    }
 }
