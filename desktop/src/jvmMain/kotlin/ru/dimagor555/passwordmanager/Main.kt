@@ -1,6 +1,6 @@
+import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import androidx.compose.ui.window.Window
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
@@ -14,8 +14,7 @@ import ru.dimagor555.core.presentation.PasswordManagerRootScreen
 import ru.dimagor555.encryption.di.encryptionModule
 import ru.dimagor555.masterpassword.ui.di.masterPasswordModule
 import ru.dimagor555.password.di.passwordModule
-import ru.dimagor555.passwordgeneration.ui.di.passwordGenerationUiModule
-import ru.dimagor555.ui.core.theme.PasswordManagerTheme
+import ru.dimagor555.passwordgeneration.di.passwordGenerationModule
 
 @OptIn(ExperimentalDecomposeApi::class)
 fun main() {
@@ -24,7 +23,7 @@ fun main() {
         modules(
             encryptionModule,
             passwordModule,
-            passwordGenerationUiModule,
+            passwordGenerationModule,
             masterPasswordModule,
         )
     }

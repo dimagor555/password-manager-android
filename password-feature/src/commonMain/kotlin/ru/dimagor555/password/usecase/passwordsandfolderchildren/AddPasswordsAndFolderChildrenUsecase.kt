@@ -12,7 +12,7 @@ class AddPasswordsAndFolderChildrenUsecase(
     private val folderChildrenRepository: BulkFolderChildrenRepository,
 ) {
 
-    suspend operator fun invoke(params: PasswordsAndFolderChildren) = coroutineScope {
+    suspend operator fun invoke(params: PasswordsAndFolderChildren): Unit = coroutineScope {
         launch { passwordRepository.addAll(params.passwords) }
         launch { folderChildrenRepository.addAllChildrenToFolders(params.toFolderChildParams()) }
     }

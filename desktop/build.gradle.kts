@@ -1,5 +1,4 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("multiplatform")
@@ -16,25 +15,28 @@ kotlin {
     sourceSets {
         val jvmMain by getting {
             dependencies {
-                api(compose.desktop.currentOs)
-
-                api(compose.runtime)
-                api(compose.foundation)
-                api(compose.material)
-                api(compose.preview)
-                api(compose.ui)
-                api(compose.materialIconsExtended)
-
+                implementation(projects.encryptionCore)
+                implementation(projects.passwordFeature)
+                implementation(projects.passwordGenerationFeature)
+                implementation(projects.masterPasswordFeature)
+                implementation(projects.passwordExportFeature.impl)
+                implementation(projects.passwordExportFeature.passwordIntegration)
                 implementation(projects.root)
                 implementation(projects.uiCore)
+
+                implementation(compose.desktop.currentOs)
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(compose.preview)
+                implementation(compose.ui)
+                implementation(compose.materialIconsExtended)
 
                 implementation(Libs.Koin.core)
                 implementation(Libs.Koin.compose)
 
                 implementation(Libs.KotlinX.coroutinesCore)
                 implementation(Libs.KotlinX.coroutinesSwing)
-
-                implementation(Libs.napier)
 
                 implementation(Libs.Decompose.decompose)
                 implementation(Libs.Decompose.extensionsCompose)
@@ -45,7 +47,7 @@ kotlin {
 
 compose.desktop {
     application {
-        mainClass = "ru.dimagor555.passwordmanager.MainKt"
+        mainClass = "MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "password-manager-android"

@@ -15,11 +15,10 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(projects.passwordFeature)
-
-                api(projects.passwordGenerationFeature)
-
-                api(projects.masterPasswordFeature)
+                implementation(projects.passwordFeature)
+                implementation(projects.passwordGenerationFeature)
+                implementation(projects.masterPasswordFeature)
+                implementation(projects.passwordExportFeature.impl)
 
                 implementation(projects.core)
 

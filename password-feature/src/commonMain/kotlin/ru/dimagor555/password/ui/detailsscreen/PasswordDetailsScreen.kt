@@ -68,7 +68,7 @@ private fun PasswordDetailsScreen(
             component = component,
             snackbarHostState = snackbarHostState,
             onSideEffect = { sideEffect, showSnackbar ->
-                when(sideEffect) {
+                when (sideEffect) {
                     is PasswordDetailsStore.SideEffect.ShowMessage -> showSnackbar(
                         createLongSnackbarMessage(sideEffect.message)
                     )
