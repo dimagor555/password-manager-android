@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.ImageVector.Builder
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
-import ru.dimagor555.ui.core.util.Preview
+import androidx.compose.desktop.ui.tooling.preview.Preview
 
 val Icons.Filled.Lock: ImageVector
     get() {

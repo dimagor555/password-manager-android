@@ -1,5 +1,6 @@
 package ru.dimagor555.password.ui.listscreen
 
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -13,7 +14,6 @@ import ru.dimagor555.password.ui.listscreen.model.PasswordListStore.State
 import ru.dimagor555.password.ui.listscreen.model.PasswordState
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 import ru.dimagor555.ui.core.util.OnSideEffect
-import ru.dimagor555.ui.core.util.Preview
 import ru.dimagor555.ui.core.util.createLongSnackbarMessage
 
 @Composable

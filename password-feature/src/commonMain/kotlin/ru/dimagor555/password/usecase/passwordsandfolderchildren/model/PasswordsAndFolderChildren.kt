@@ -5,8 +5,8 @@ import ru.dimagor555.password.domain.folder.ChildId
 import ru.dimagor555.password.domain.folder.FolderChildren
 import ru.dimagor555.password.domain.folder.toChildId
 import ru.dimagor555.password.domain.password.Password
-import ru.dimagor555.password.usecase.folderchildren.repository.ChangeFolderParams
-import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildParams
+import ru.dimagor555.password.domain.password.validate
+import ru.dimagor555.password.usecase.folderchildren.repository.ChangeFolderParam
 
 // TODO consider that password has many folders
 @Serializable
@@ -19,6 +19,8 @@ data class PasswordsAndFolderChildren private constructor(
         require(passwords.isNotEmpty()) { "passwords must not be empty" }
         require(folderChildren.isNotEmpty()) { "folderChildren must not be empty" }
         require(isAllPasswordsHasFolder()) { "all passwords must be in a folder" }
+        // TODO remove validation when PasswordFields will be refactored
+        require(isAllPasswordsValid()) { "all passwords must be valid" }
     }
 
     private fun isAllPasswordsHasFolder(): Boolean {
@@ -28,6 +30,9 @@ data class PasswordsAndFolderChildren private constructor(
         val passwordIds = passwords.map { it.toChildId() }
         return passwordIds.all { it in allChildIds }
     }
+
+    private fun isAllPasswordsValid(): Boolean =
+        passwords.all { it.fields.validate().isEmpty() }
 
     internal fun copyOrNull(
         passwords: List<Password> = this.passwords,
@@ -43,50 +48,86 @@ data class PasswordsAndFolderChildren private constructor(
             passwords: List<Password>,
             folderChildren: List<FolderChildren>,
         ): PasswordsAndFolderChildren? =
-            if (passwords.isNotEmpty() && folderChildren.isNotEmpty()) {
+            runCatching {
                 PasswordsAndFolderChildren(
                     passwords = passwords,
                     folderChildren = folderChildren,
                 )
-            } else {
-                null
-            }
+            }.getOrNull()
     }
 }
 
-internal fun PasswordsAndFolderChildren.toFolderChildParams(): List<FolderChildParams> =
+internal fun PasswordsAndFolderChildren.toAddChangeFolderParams(): List<ChangeFolderParam> =
     passwords
         .map { it.toChildId() }
-        .map { childId ->
-            FolderChildParams(
+        .flatMap { childId ->
+            createAddChangeFolderParamsForChild(folderChildren, childId)
+        }
+
+private fun createAddChangeFolderParamsForChild(
+    folderChildren: List<FolderChildren>,
+    childId: ChildId,
+): List<ChangeFolderParam> =
+    folderChildren
+        .parentIdsOfChild(childId)
+        .map { parentId ->
+            ChangeFolderParam.Add(
                 childId = childId,
-                parentId = folderChildren.parentIdOfChild(childId),
+                toParentId = parentId,
             )
         }
 
-private fun List<FolderChildren>.parentIdOfChild(childId: ChildId): String =
+private fun List<FolderChildren>.parentIdsOfChild(childId: ChildId): List<String> =
     this
-        .first { childId in it.childrenIds }
-        .parentId
+        .filter { childId in it.childrenIds }
+        .map { it.parentId }
 
-internal fun PasswordsAndFolderChildren.toChangeFolderParams(
+internal fun PasswordsAndFolderChildren.toUpdateChangeFolderParams(
     oldFolderChildren: List<FolderChildren>,
-): List<ChangeFolderParams> =
+): List<ChangeFolderParam> =
     passwords
         .map { it.toChildId() }
-        .mapNotNull { childId ->
-            val oldParentId = oldFolderChildren.parentIdOfChild(childId)
-            val newParentId = folderChildren.parentIdOfChild(childId)
-            if (oldParentId == newParentId) {
-                null
-            } else {
-                ChangeFolderParams(
-                    childId = childId,
-                    fromParentId = oldParentId,
-                    toParentId = newParentId,
-                )
-            }
+        .flatMap { childId ->
+            val oldParentIds = oldFolderChildren.parentIdsOfChild(childId)
+            val newParentIds = folderChildren.parentIdsOfChild(childId)
+            childId.toUpdateChangeFolderParams(
+                oldParentIds = oldParentIds,
+                newParentIds = newParentIds,
+            )
         }
+
+private fun ChildId.toUpdateChangeFolderParams(
+    oldParentIds: List<String>,
+    newParentIds: List<String>,
+): List<ChangeFolderParam> {
+    val childId = this
+    val parentIdsToAdd = newParentIds.filter { it !in oldParentIds }
+    val parentIdsToRemove = oldParentIds.filter { it !in newParentIds }
+    return createAddChangeFolderParams(parentIdsToAdd, childId) +
+            createRemoveChangeFolderParams(parentIdsToRemove, childId)
+}
+
+private fun createAddChangeFolderParams(
+    parentIds: List<String>,
+    childId: ChildId,
+): List<ChangeFolderParam> =
+    parentIds.map { parentId ->
+        ChangeFolderParam.Add(
+            childId = childId,
+            toParentId = parentId,
+        )
+    }
+
+private fun createRemoveChangeFolderParams(
+    parentIds: List<String>,
+    childId: ChildId,
+): List<ChangeFolderParam> =
+    parentIds.map { parentId ->
+        ChangeFolderParam.Remove(
+            childId = childId,
+            fromParentId = parentId,
+        )
+    }
 
 internal fun PasswordsAndFolderChildren.partitionToAddAndToUpdate(
     oldPasswords: List<Password>,

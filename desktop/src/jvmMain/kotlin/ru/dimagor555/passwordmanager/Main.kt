@@ -17,9 +17,8 @@ import ru.dimagor555.core.presentation.PasswordManagerRootScreen
 import ru.dimagor555.encryption.di.encryptionModule
 import ru.dimagor555.masterpassword.ui.di.masterPasswordModule
 import ru.dimagor555.password.di.passwordModule
-import ru.dimagor555.passwordgeneration.ui.di.passwordGenerationUiModule
+import ru.dimagor555.passwordgeneration.di.passwordGenerationModule
 import ru.dimagor555.synchronization.di.synchronizationModule
-import ru.dimagor555.synchronization.repository.ServerRepository
 import ru.dimagor555.syncpassintegration.di.syncPasswordIntegrationModule
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
@@ -32,16 +31,11 @@ fun main() {
         modules(
             encryptionModule,
             passwordModule,
-            passwordGenerationUiModule,
+            passwordGenerationModule,
             masterPasswordModule,
             synchronizationModule,
             syncPasswordIntegrationModule,
         )
-    }
-
-    CoroutineScope(Dispatchers.IO).launch {
-        val serverRepository: ServerRepository by inject(ServerRepository::class.java)
-        serverRepository.createServer()
     }
 
     val lifecycle = LifecycleRegistry()

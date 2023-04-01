@@ -11,7 +11,7 @@ import ru.dimagor555.ui.core.component.topappbar.DefaultTopAppBarDropdownMenu
 import ru.dimagor555.ui.core.component.topappbar.SimpleBackArrowTopAppBar
 import ru.dimagor555.ui.core.component.topappbar.SimpleDropdownMenuItem
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
-import ru.dimagor555.ui.core.util.Preview
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import ru.dimagor555.ui.core.util.stringResource
 
 @Composable

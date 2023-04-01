@@ -15,7 +15,7 @@ import ru.dimagor555.password.ui.detailsscreen.model.PasswordState
 import ru.dimagor555.ui.core.component.FullscreenCircularProgressBar
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 import ru.dimagor555.ui.core.util.OnSideEffect
-import ru.dimagor555.ui.core.util.Preview
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import ru.dimagor555.ui.core.util.createLongSnackbarMessage
 
 @Composable
@@ -68,7 +68,7 @@ private fun PasswordDetailsScreen(
             component = component,
             snackbarHostState = snackbarHostState,
             onSideEffect = { sideEffect, showSnackbar ->
-                when(sideEffect) {
+                when (sideEffect) {
                     is PasswordDetailsStore.SideEffect.ShowMessage -> showSnackbar(
                         createLongSnackbarMessage(sideEffect.message)
                     )

@@ -22,11 +22,7 @@ interface FolderChildrenRepository {
 
     suspend fun update(folderChildren: FolderChildren)
 
-    suspend fun changeChildFolder(params: ChangeFolderParams)
-
-    suspend fun addChildToFolder(params: FolderChildParams)
-
-    suspend fun removeChildFromFolder(params: FolderChildParams)
+    suspend fun changeChildFolder(param: ChangeFolderParam)
 
     suspend fun remove(id: String)
 }

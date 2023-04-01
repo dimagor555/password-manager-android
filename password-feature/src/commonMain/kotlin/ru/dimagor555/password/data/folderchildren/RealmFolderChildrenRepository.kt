@@ -15,9 +15,9 @@ import ru.dimagor555.password.data.model.toChildIdModel
 import ru.dimagor555.password.data.password.PasswordModel
 import ru.dimagor555.password.data.password.toPassword
 import ru.dimagor555.password.domain.Child
+import ru.dimagor555.password.domain.folder.ChildId
 import ru.dimagor555.password.domain.folder.FolderChildren
-import ru.dimagor555.password.usecase.folderchildren.repository.ChangeFolderParams
-import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildParams
+import ru.dimagor555.password.usecase.folderchildren.repository.ChangeFolderParam
 import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildrenRepository
 
 class RealmFolderChildrenRepository(
@@ -100,12 +100,12 @@ class RealmFolderChildrenRepository(
         }
     }
 
-    override suspend fun changeChildFolder(params: ChangeFolderParams) = params.run {
-        removeChildFromFolder(FolderChildParams(fromParentId, childId))
-        addChildToFolder(FolderChildParams(toParentId, childId))
+    override suspend fun changeChildFolder(param: ChangeFolderParam): Unit = param.run {
+        fromParentId?.let { removeChildFromFolder(childId = childId, parentId = it) }
+        toParentId?.let { addChildToFolder(childId = childId, parentId = it) }
     }
 
-    override suspend fun addChildToFolder(params: FolderChildParams) = params.run {
+    private suspend fun addChildToFolder(childId: ChildId, parentId: String) {
         realm.write {
             val oldFolderChildren = getFolderChildrenModelOrNull(parentId) ?: return@write
             val newChildIds = oldFolderChildren.childrenIds!! + childId.toChildIdModel()
@@ -119,7 +119,7 @@ class RealmFolderChildrenRepository(
             .first()
             .find()
 
-    override suspend fun removeChildFromFolder(params: FolderChildParams) = params.run {
+    private suspend fun removeChildFromFolder(childId: ChildId, parentId: String) {
         realm.write {
             val oldFolderChildren = getFolderChildrenModelOrNull(parentId) ?: return@write
             val newChildIds = oldFolderChildren

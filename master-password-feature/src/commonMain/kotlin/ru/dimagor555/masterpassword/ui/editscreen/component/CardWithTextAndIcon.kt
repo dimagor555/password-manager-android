@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 import ru.dimagor555.ui.core.util.ProvideMediumAlpha
 import ru.dimagor555.res.core.MR
-import ru.dimagor555.ui.core.util.Preview
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import ru.dimagor555.ui.core.util.stringResource
 
 @Composable

@@ -10,7 +10,7 @@ import ru.dimagor555.password.domain.password.field.EncryptedPasswordField
 import ru.dimagor555.password.domain.password.field.PASSWORD_FIELD_KEY
 import ru.dimagor555.password.domain.password.updateFieldByKey
 import ru.dimagor555.password.domain.password.validate
-import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildParams
+import ru.dimagor555.password.usecase.folderchildren.repository.ChangeFolderParam
 import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildrenRepository
 import ru.dimagor555.password.usecase.password.repository.PasswordRepository
 import ru.dimagor555.password.validation.core.TextValidationError
@@ -31,10 +31,10 @@ class CreatePasswordUseCase(
             validate(params.fields).ifEmpty {
                 val password = createPassword(params)
                 val id = passwordRepository.add(password)
-                folderChildrenRepository.addChildToFolder(
-                    FolderChildParams(
-                        parentId = params.parentId,
+                folderChildrenRepository.changeChildFolder(
+                    ChangeFolderParam.Add(
                         childId = ChildId.PasswordId(id),
+                        toParentId = params.parentId,
                     ),
                 )
                 emptyList()

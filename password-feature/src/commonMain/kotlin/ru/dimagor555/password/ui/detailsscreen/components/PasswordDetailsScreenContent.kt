@@ -15,7 +15,7 @@ import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsStore.State
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordState
 import ru.dimagor555.res.core.MR
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
-import ru.dimagor555.ui.core.util.Preview
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import ru.dimagor555.ui.core.util.stringResource
 
 @Composable

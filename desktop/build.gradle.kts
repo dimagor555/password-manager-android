@@ -15,19 +15,22 @@ kotlin {
     sourceSets {
         val jvmMain by getting {
             dependencies {
-                api(compose.desktop.currentOs)
-
-                api(compose.runtime)
-                api(compose.foundation)
-                api(compose.material)
-                api(compose.preview)
-                api(compose.ui)
-                api(compose.materialIconsExtended)
-
+                implementation(projects.encryptionCore)
+                implementation(projects.passwordFeature)
+                implementation(projects.passwordGenerationFeature)
+                implementation(projects.masterPasswordFeature)
                 implementation(projects.root)
                 implementation(projects.uiCore)
                 implementation(projects.synchronizationFeature)
                 implementation(projects.syncPasswordIntegration)
+
+                implementation(compose.desktop.currentOs)
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(compose.preview)
+                implementation(compose.ui)
+                implementation(compose.materialIconsExtended)
 
                 implementation(Libs.Koin.core)
                 implementation(Libs.Koin.compose)
@@ -35,8 +38,6 @@ kotlin {
                 implementation(Libs.KotlinX.coroutinesCore)
                 implementation(Libs.KotlinX.coroutinesSwing)
                 implementation(Libs.KotlinX.coroutinesTest)
-
-                implementation(Libs.napier)
 
                 implementation(Libs.Decompose.decompose)
                 implementation(Libs.Decompose.extensionsCompose)
@@ -54,7 +55,7 @@ kotlin {
 
 compose.desktop {
     application {
-        mainClass = "ru.dimagor555.passwordmanager.MainKt"
+        mainClass = "MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "password-manager-android"

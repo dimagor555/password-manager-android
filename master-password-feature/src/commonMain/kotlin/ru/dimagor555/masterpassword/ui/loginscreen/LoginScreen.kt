@@ -20,7 +20,7 @@ import ru.dimagor555.res.core.MR
 import ru.dimagor555.ui.core.component.textfield.PasswordInputField
 import ru.dimagor555.ui.core.model.isError
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
-import ru.dimagor555.ui.core.util.Preview
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import ru.dimagor555.ui.core.util.resolve
 import ru.dimagor555.ui.core.util.stringResource
 

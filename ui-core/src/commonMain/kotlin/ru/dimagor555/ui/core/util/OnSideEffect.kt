@@ -41,7 +41,7 @@ fun <SideEffect : Any> OnSideEffect(
     }
 }
 
-//костыль, следует либо переделать все SideEffect под Store, вместо MviComponentContext, либо
+//TODO костыль, следует либо переделать все SideEffect под Store, вместо MviComponentContext, либо
 //придумать что-то ещё
 @Composable
 fun <SideEffect : Any> OnStoreSideEffect(

@@ -8,11 +8,13 @@ import ru.dimagor555.password.domain.folder.ChildId
 import ru.dimagor555.password.domain.password.*
 import ru.dimagor555.password.domain.password.field.EncryptedPasswordField
 import ru.dimagor555.password.domain.password.field.PASSWORD_FIELD_KEY
-import ru.dimagor555.password.usecase.folderchildren.repository.ChangeFolderParams
+import ru.dimagor555.password.usecase.folderchildren.repository.ChangeFolderParam
 import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildrenRepository
 import ru.dimagor555.password.usecase.password.repository.PasswordRepository
 import ru.dimagor555.password.validation.core.TextValidationError
 
+// TODO remove password from all folders when adding to archive
+// TODO remove password from archive when added to any folder
 class UpdatePasswordUseCase(
     private val passwordRepository: PasswordRepository,
     private val folderChildrenRepository: FolderChildrenRepository,
@@ -53,7 +55,7 @@ class UpdatePasswordUseCase(
                 passwordRepository.update(newPassword)
                 if (toId != null) {
                     folderChildrenRepository.changeChildFolder(
-                        ChangeFolderParams(
+                        ChangeFolderParam.Move(
                             childId = ChildId.PasswordId(id),
                             fromParentId = fromId,
                             toParentId = toId,

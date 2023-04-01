@@ -13,4 +13,7 @@ sealed interface ChildId {
     data class FolderId(val id: String) : ChildId
 }
 
+val ChildId.passwordIdOrNull: String?
+    get() = (this as? ChildId.PasswordId)?.id
+
 fun Password.toChildId(): ChildId = ChildId.PasswordId(this.id!!)

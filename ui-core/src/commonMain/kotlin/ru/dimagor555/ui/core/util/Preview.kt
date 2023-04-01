@@ -1,4 +1,4 @@
-package ru.dimagor555.ui.core.util
+package androidx.compose.desktop.ui.tooling.preview
 
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.FUNCTION)
