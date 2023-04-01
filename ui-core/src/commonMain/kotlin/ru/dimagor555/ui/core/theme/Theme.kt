@@ -37,6 +37,7 @@ fun PasswordManagerTheme(
         LightColorPalette
     }
 
+    // TODO extract
     BoxWithConstraints {
         CompositionLocalProvider(LocalScreenSize provides determineWindowType()) {
             MaterialTheme(
