@@ -4,6 +4,8 @@ import kotlinx.serialization.Serializable
 import ru.dimagor555.password.domain.password.field.*
 import ru.dimagor555.password.validation.core.TextValidationError
 
+// TODO add fields validation & create MutablePasswordFields without fields validation
+// TODO create common method to convert each other
 @JvmInline
 @Serializable
 value class PasswordFields(val fields: Set<Field>) {

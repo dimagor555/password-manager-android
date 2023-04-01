@@ -19,7 +19,15 @@ class ChildIdModel(
     )
 }
 
-fun ChildId.toChildIdModel(): ChildIdModel = when(this) {
+fun ChildId.toChildIdModel(): ChildIdModel = when (this) {
     is ChildId.PasswordId -> ChildIdModel(getUuid(this.id), ChildIdType.PASSWORD)
     is ChildId.FolderId -> ChildIdModel(getUuid(this.id), ChildIdType.FOLDER)
+}
+
+fun ChildIdModel.toChildId(): ChildId {
+    val id = this.id.toString()
+    return when (this.type) {
+        ChildIdType.PASSWORD -> ChildId.PasswordId(id)
+        ChildIdType.FOLDER -> ChildId.FolderId(id)
+    }
 }

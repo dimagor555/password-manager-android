@@ -6,6 +6,7 @@ import ru.dimagor555.password.domain.metadata.PasswordMetadata
 
 @Serializable
 data class Password(
+    // TODO must be not null id
     override val id: String? = null,
     val fields: PasswordFields,
     val metadata: PasswordMetadata = PasswordMetadata(),
