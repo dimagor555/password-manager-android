@@ -41,6 +41,8 @@ kotlin {
                 implementation(Libs.KotlinX.serialization)
 
                 implementation(Libs.Realm.base)
+
+                implementation(Libs.napier)
             }
         }
         val androidMain by getting {

@@ -18,12 +18,12 @@ kotlin {
                 implementation(projects.uiCore)
                 implementation(projects.resCore)
 
-                api(compose.runtime)
-                api(compose.foundation)
-                api(compose.material)
-                api(compose.preview)
-                api(compose.ui)
-                api(compose.materialIconsExtended)
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(compose.preview)
+                implementation(compose.ui)
+                implementation(compose.materialIconsExtended)
 
                 implementation(Libs.Koin.core)
                 implementation(Libs.Koin.compose)

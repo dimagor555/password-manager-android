@@ -15,12 +15,12 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(compose.runtime)
-                api(compose.foundation)
-                api(compose.material)
-                api(compose.preview)
-                api(compose.ui)
-                api(compose.materialIconsExtended)
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(compose.preview)
+                implementation(compose.ui)
+                implementation(compose.materialIconsExtended)
 
                 implementation(Libs.MviCompose.core)
                 implementation(Libs.MviCompose.android)
@@ -40,7 +40,7 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
-                api(compose.preview)
+                implementation(compose.preview)
 
                 implementation(Libs.MokoResources.jvmMain)
             }
