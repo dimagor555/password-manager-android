@@ -18,7 +18,6 @@ kotlin {
                 implementation(projects.passwordFeature)
                 implementation(projects.passwordGenerationFeature)
                 implementation(projects.masterPasswordFeature)
-                implementation(projects.passwordExportFeature.impl)
 
                 implementation(projects.core)
 
