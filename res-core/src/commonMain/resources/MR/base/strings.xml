@@ -100,4 +100,21 @@
     <string name="password">Password</string>
     <string name="create">Create</string>
 
+    <!-- synchronization-feature -->
+
+    <string name="synchronization">Synchronization</string>
+    <string name="available_devices">Available Devices</string>
+    <string name="not_found_sync_devices_title">Devices not found</string>
+    <string name="not_found_sync_devices_content">Go to Sync on another device</string>
+    <string name="error_synchronization">Synchronization error, please try again</string>
+    <string name="sendingPasswords">Sending passwords</string>
+    <string name="receivedPasswordsAnalysis">Analysis of received passwords</string>
+    <string name="savingReceivedPasswords">Saving passwords</string>
+    <string name="successSync">Success</string>
+    <string name="errorSync">Error</string>
+    <string name="passwordsSent">Passwords sent</string>
+    <string name="passwordsAdded">Passwords added</string>
+    <string name="passwordsUpdated">Passwords updated</string>
+    <string name="passwordsRemoved">Passwords removed</string>
+
 </resources>

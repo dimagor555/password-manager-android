@@ -1,61 +1,57 @@
 package ru.dimagor555.syncpassintegration.data
 
-import kotlinx.coroutines.flow.firstOrNull
-import ru.dimagor555.password.domain.password.Password
-import ru.dimagor555.password.repository.PasswordRepository
-import ru.dimagor555.synchronization.domain.SyncPasswordRecord
-import ru.dimagor555.synchronization.repository.SyncPasswordRepository
-import ru.dimagor555.syncpassintegration.domain.parseToString
-import ru.dimagor555.syncpassintegration.domain.parseToValue
+import io.github.aakira.napier.Napier
+import kotlinx.serialization.json.*
+import org.koin.core.component.KoinComponent
+import ru.dimagor555.password.usecase.password.repository.PasswordRepository
+import ru.dimagor555.password.usecase.passwordsandfolderchildren.AddOrUpdatePasswordsAndFolderChildrenUsecase
+import ru.dimagor555.password.usecase.passwordsandfolderchildren.AddOrUpdatePasswordsAndFolderChildrenUsecase.Params
+import ru.dimagor555.password.usecase.passwordsandfolderchildren.AddOrUpdatePasswordsAndFolderChildrenUsecase.StatisticsResult
+import ru.dimagor555.password.usecase.passwordsandfolderchildren.model.PasswordsAndFolderChildren
+import ru.dimagor555.synchronization.domain.passwordrecord.SyncPasswordRecord
+import ru.dimagor555.synchronization.domain.syncresult.SyncResult
+import ru.dimagor555.synchronization.usecase.syncpassword.repository.SyncPasswordRepository
+import ru.dimagor555.synchronization.usecase.syncresult.UpdateSyncResultUseCase
 import ru.dimagor555.syncpassintegration.domain.toSyncPasswordRecords
+import ru.dimagor555.syncpassintegration.usecase.FilterPasswordAndFolderChildrenUseCase
 
 class SyncPasswordRepositoryImpl(
     private val passwordRepository: PasswordRepository,
-) : SyncPasswordRepository {
+    private val addOrUpdatePasswordsAndFolderChildren: AddOrUpdatePasswordsAndFolderChildrenUsecase,
+    private val filterPasswordAndFolderChildren: FilterPasswordAndFolderChildrenUseCase,
+    private val updateSyncResult: UpdateSyncResultUseCase,
+) : SyncPasswordRepository, KoinComponent {
 
     override suspend fun getAllSyncRecords(): List<SyncPasswordRecord> {
-        val passwords = passwordRepository.observeAll().firstOrNull() ?: emptyList()
+        val passwords = passwordRepository.getAll()
         return passwords.toSyncPasswordRecords()
     }
 
-    override suspend fun getAllSyncRecordsString(): String {
-        val passwords = passwordRepository.observeAll().firstOrNull() ?: emptyList()
-        return parseToString(passwords.toSyncPasswordRecords())
+    override suspend fun getPasswordsAndFolderChildren(passwordsIds: List<String>): JsonObject? {
+        val filteredPasswordsAndFolderChildren =
+            filterPasswordAndFolderChildren(passwordsIds) ?: return null
+        return Json
+            .encodeToJsonElement(filteredPasswordsAndFolderChildren)
+            .jsonObject
     }
 
-    override suspend fun getSyncRecordsStringByIds(ids: List<String>): String {
-        val passwords = getPasswordsByIds(ids)
-        return parseToString(passwords.toSyncPasswordRecords())
+    override suspend fun addOrUpdatePasswordsAndFolderChildren(passwordsAndFolderChildren: JsonObject) {
+        Napier.e("SyncPasswordRepositoryImpl addOrUpdatePasswordsAndFolderChildren value = $passwordsAndFolderChildren")
+        val passwordsAndFolderChildrenModel =
+            Json.decodeFromJsonElement<PasswordsAndFolderChildren>(passwordsAndFolderChildren)
+        Napier.e("SyncPasswordRepositoryImpl addOrUpdatePasswordsAndFolderChildren passwordsAndFolderChildren = $passwordsAndFolderChildrenModel")
+
+        val statisticsResult = addOrUpdatePasswordsAndFolderChildren(
+            Params(passwordsAndFolderChildrenModel)
+        )
+        updateSyncResult(statisticsResult.toSyncResult())
+
+        Napier.e("SyncPasswordRepositoryImpl addOrUpdatePasswordsAndFolderChildren final")
     }
 
-    override suspend fun getPasswordsStringByIds(ids: List<String>): String {
-        val passwords = getPasswordsByIds(ids)
-        return parseToString(passwords)
-    }
-
-    private suspend fun getPasswordsByIds(ids: List<String>): List<Password> =
-        ids.mapNotNull { passwordRepository.getById(it) }
-
-    override suspend fun addPasswords(value: String) {
-        putPasswords(value) {
-            passwordRepository.add(it)
-        }
-    }
-
-    override suspend fun updatePasswords(value: String) {
-        putPasswords(value) {
-            passwordRepository.update(it)
-        }
-    }
-
-    private suspend fun putPasswords(value: String, action: suspend (password: Password) -> Unit) {
-        if (value.isNotEmpty()) {
-            val passwords = parseToValue<List<Password>>(value)
-            if (passwords.isNotEmpty()) {
-                passwords.forEach {
-                    action(it)
-                }
-            }
-        }
-    }
+    private fun StatisticsResult.toSyncResult() = SyncResult(
+        addedPasswordsCount = addedPasswordsCount,
+        updatedPasswordsCount = updatedPasswordsCount,
+        archivedPasswordsCount = archivedPasswordsCount,
+    )
 }

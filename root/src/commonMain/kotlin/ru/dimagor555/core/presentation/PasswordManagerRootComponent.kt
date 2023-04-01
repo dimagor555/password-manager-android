@@ -4,18 +4,16 @@ import com.arkivanov.decompose.Child
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.*
 import com.arkivanov.decompose.value.Value
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import ru.dimagor555.core.presentation.RootComponent.Child.*
 import ru.dimagor555.core.presentation.model.Config
 import ru.dimagor555.masterpassword.domain.MasterPasswordRepository
 import ru.dimagor555.masterpassword.ui.editscreen.EditMasterPasswordComponent
-import ru.dimagor555.masterpassword.ui.editscreen.EditMasterPasswordComponent.*
+import ru.dimagor555.masterpassword.ui.editscreen.EditMasterPasswordComponent.EditMasterPasswordCallbacks
 import ru.dimagor555.masterpassword.ui.editscreen.createEditMasterPasswordComponent
 import ru.dimagor555.masterpassword.ui.loginscreen.LoginComponent
 import ru.dimagor555.masterpassword.ui.loginscreen.createLoginComponent
@@ -36,6 +34,15 @@ import ru.dimagor555.password.ui.listscreen.createPasswordListComponent
 import ru.dimagor555.passwordgeneration.ui.screen.PasswordGenerationComponent
 import ru.dimagor555.passwordgeneration.ui.screen.PasswordGenerationComponent.Result.GeneratedPassword
 import ru.dimagor555.passwordgeneration.ui.screen.createPasswordGenerationComponent
+import ru.dimagor555.synchronization.ui.deviceslistscreen.DevicesListComponent
+import ru.dimagor555.synchronization.ui.deviceslistscreen.DevicesListComponent.DevicesListComponentCallbacks
+import ru.dimagor555.synchronization.ui.deviceslistscreen.createDevicesListComponent
+import ru.dimagor555.synchronization.ui.resultsyncscreen.ResultSyncComponent
+import ru.dimagor555.synchronization.ui.resultsyncscreen.ResultSyncComponent.ResultSyncComponentCallbacks
+import ru.dimagor555.synchronization.ui.resultsyncscreen.createResultSyncComponent
+import ru.dimagor555.synchronization.ui.syncscreen.SyncComponent
+import ru.dimagor555.synchronization.ui.syncscreen.SyncComponent.SyncComponentCallbacks
+import ru.dimagor555.synchronization.ui.syncscreen.createSyncComponent
 
 interface RootComponent {
 
@@ -50,6 +57,9 @@ interface RootComponent {
         class EditPassword(val component: EditPasswordComponent) : Child()
         class PasswordDetails(val component: PasswordDetailsComponent) : Child()
         class CreatePassword(val component: CreatePasswordComponent) : Child()
+        class DevicesList(val component: DevicesListComponent) : Child()
+        class Sync(val component: SyncComponent) : Child()
+        class ResultSync(val component: ResultSyncComponent) : Child()
     }
 }
 
@@ -93,18 +103,21 @@ class PasswordManagerRootComponent(
         componentContext: ComponentContext
     ): RootComponent.Child =
         when (config) {
-            Config.Welcome -> Welcome(welcome(componentContext))
-            Config.Login -> Login(login(componentContext))
-            Config.EditMasterPassword -> EditMaster(editMasterPassword(componentContext))
-            Config.PasswordList -> PasswordList(passwordList(componentContext))
+            is Config.Welcome -> Welcome(welcome(componentContext))
+            is Config.Login -> Login(login(componentContext))
+            is Config.EditMasterPassword -> EditMaster(editMasterPassword(componentContext))
+            is Config.PasswordList -> PasswordList(passwordList(componentContext))
             is Config.EditPassword -> EditPassword(
                 editPassword(componentContext, config.passwordId)
             )
-            Config.CreatePassword -> CreatePassword(createPassword(componentContext))
+            is Config.CreatePassword -> CreatePassword(createPassword(componentContext))
             is Config.PasswordDetails -> PasswordDetails(
                 passwordDetails(componentContext, config.passwordId, config.parentId)
             )
-            Config.PasswordGeneration -> Generation(passwordGeneration(componentContext))
+            is Config.PasswordGeneration -> Generation(passwordGeneration(componentContext))
+            is Config.DevicesList -> DevicesList(devicesList(componentContext))
+            is Config.Sync -> Sync(sync(componentContext, config.isClient))
+            is Config.ResultSync -> ResultSync(resultSync(componentContext, config.isSyncSuccess))
         }
 
     private fun observeGeneratedPassword() = componentScope.launch {
@@ -173,7 +186,7 @@ class PasswordManagerRootComponent(
             navigateToPasswordDetailsScreen = { passwordId, parentId ->
                 navigation.push(Config.PasswordDetails(passwordId, parentId))
             },
-            navigateToSettingsScreen = {},
+            navigateToSettingsScreen = { navigation.push(Config.DevicesList) },
             navigateToPasswordCreationScreen = { navigation.push(Config.CreatePassword) },
         )
 
@@ -231,5 +244,48 @@ class PasswordManagerRootComponent(
                     generatedPassword.emit(result)
                 }
             },
+        )
+
+    private fun devicesList(componentContext: ComponentContext) =
+        createDevicesListComponent(
+            componentContext = componentContext,
+            callbacks = createDevicesListComponentCallbacks(),
+        )
+
+    private fun createDevicesListComponentCallbacks() =
+        DevicesListComponentCallbacks(
+            navigateBack = { navigation.pop() },
+            navigateToSyncScreen = {
+                navigation.push(Config.Sync(it))
+            },
+        )
+
+    private fun sync(componentContext: ComponentContext, isClient: Boolean) =
+        createSyncComponent(
+            componentContext = componentContext,
+            callbacks = createSyncComponentCallbacks(),
+            isClient = isClient,
+        )
+
+    private fun createSyncComponentCallbacks() =
+        SyncComponentCallbacks(
+            navigateBack = { navigation.pop() },
+            navigateToResultSyncScreen = {
+                navigation.push(Config.ResultSync(it))
+            },
+        )
+
+    private fun resultSync(componentContext: ComponentContext, isSyncSuccess: Boolean) =
+        createResultSyncComponent(
+            componentContext = componentContext,
+            callbacks = createResultSyncComponentCallbacks(),
+            isSyncSuccess = isSyncSuccess,
+        )
+
+    private fun createResultSyncComponentCallbacks() =
+        ResultSyncComponentCallbacks(
+            navigateToSettingsScreen = { /*navigation.replaceCurrent(Config.Settings)*/ },
+            navigateToDevicesListScreen = { navigation.replaceCurrent(Config.DevicesList) },
+            navigateToPasswordsListScreen = { navigation.replaceAll(Config.PasswordList) },
         )
 }

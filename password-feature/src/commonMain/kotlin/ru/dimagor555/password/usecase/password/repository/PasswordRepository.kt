@@ -9,6 +9,9 @@ interface PasswordRepository {
 
     fun observeAll(): Flow<List<Password>>
 
+    //TODO delete and use BulkRepo
+    suspend fun getAll(): List<Password>
+
     suspend fun getById(id: String): Password?
 
     suspend fun getAllByIds(ids: Set<String>): List<Password>

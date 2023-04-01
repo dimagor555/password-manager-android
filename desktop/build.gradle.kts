@@ -43,6 +43,8 @@ kotlin {
                 implementation(Libs.Ktor.serverCore)
                 implementation(Libs.Ktor.serverCio)
                 implementation(Libs.Ktor.serverContentNegotiation)
+
+                implementation(Libs.napier)
             }
         }
     }

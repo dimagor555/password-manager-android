@@ -1,7 +1,7 @@
 package ru.dimagor555.syncpassintegration.domain
 
 import ru.dimagor555.password.domain.password.Password
-import ru.dimagor555.synchronization.domain.SyncPasswordRecord
+import ru.dimagor555.synchronization.domain.passwordrecord.SyncPasswordRecord
 
 fun Password.toSyncPasswordRecord() = SyncPasswordRecord(
     id = id ?: error("Impossible"),

@@ -19,6 +19,7 @@ kotlin {
                 implementation(projects.passwordFeature)
                 implementation(projects.passwordGenerationFeature)
                 implementation(projects.masterPasswordFeature)
+                implementation(projects.synchronizationFeature)
 
                 implementation(compose.runtime)
                 implementation(compose.foundation)

@@ -36,6 +36,13 @@ class RealmPasswordRepository(
         .distinctUntilChanged()
         .conflate()
 
+    override suspend fun getAll(): List<Password> = realm
+        .query<PasswordModel>()
+        .asFlow()
+        .first()
+        .list
+        .map { it.toPassword() }
+
     override suspend fun getById(id: String): Password? = realm
         .queryOneOrNull<PasswordModel>(PasswordModel::id eqId id)
         ?.toPassword()

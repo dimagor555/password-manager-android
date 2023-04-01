@@ -28,4 +28,13 @@ internal sealed class Config : Parcelable {
 
     @Parcelize
     object PasswordGeneration : Config()
+
+    @Parcelize
+    object DevicesList : Config()
+
+    @Parcelize
+    data class Sync(val isClient: Boolean) : Config()
+
+    @Parcelize
+    data class ResultSync(val isSyncSuccess: Boolean) : Config()
 }

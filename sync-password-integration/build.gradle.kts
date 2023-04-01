@@ -17,41 +17,12 @@ kotlin {
                 implementation(projects.synchronizationFeature)
                 implementation(projects.passwordFeature)
 
-//                implementation(Libs.KotlinX.coroutinesCore)
-//                implementation(Libs.KotlinX.datetime)
-//
-//                implementation(Libs.Ktor.clientCore)
-//                implementation(Libs.Ktor.clientCio)
-//                implementation(Libs.Ktor.clientLogging)
-//                implementation(Libs.Ktor.clientSerialization)
-//                implementation(Libs.Ktor.clientContentNegotiation)
-//
-//                implementation(Libs.Ktor.serialization)
-////                implementation(Libs.Ktor.gson)
-//
-//                implementation(Libs.Ktor.serverCore)
-//                implementation(Libs.Ktor.serverCio)
-//                implementation(Libs.Ktor.serverContentNegotiation)
-//                implementation(Libs.Ktor.serverCallLogging)
-//
-//                implementation(Libs.Slf4j.slf4jApi)
-//                implementation(Libs.Slf4j.slf4jSimple)
-
                 implementation(Libs.Koin.core)
 
+                implementation(Libs.KotlinX.datetime)
                 implementation(Libs.KotlinX.serialization)
 
                 implementation(Libs.napier)
-            }
-        }
-        val androidMain by getting {
-            dependencies {
-//                implementation(Libs.Ktor.clientAndroid)
-            }
-        }
-        val jvmMain by getting {
-            dependencies {
-
             }
         }
     }

@@ -100,4 +100,21 @@
     <string name="password">Пароль</string>
     <string name="create">Создать</string>
 
+    <!-- synchronization-feature -->
+
+    <string name="synchronization">Синхронизация</string>
+    <string name="available_devices">Доступные устройства</string>
+    <string name="not_found_sync_devices_title">Устройства не найдены</string>
+    <string name="not_found_sync_devices_content">Перейдите в раздел "Синхронизация" на другом устройстве</string>
+    <string name="error_synchronization">Ошибка синхронизации, пожалуйста повторите попытку</string>
+    <string name="sendingPasswords">Отправка паролей</string>
+    <string name="receivedPasswordsAnalysis">Анализ полученных паролей</string>
+    <string name="savingReceivedPasswords">Сохранение паролей</string>
+    <string name="successSync">Успех</string>
+    <string name="errorSync">Ошибка</string>
+    <string name="passwordsSent">Паролей отправлено</string>
+    <string name="passwordsAdded">Паролей добавлено</string>
+    <string name="passwordsUpdated">Паролей обновлено</string>
+    <string name="passwordsRemoved">Паролей удалено</string>
+
 </resources>

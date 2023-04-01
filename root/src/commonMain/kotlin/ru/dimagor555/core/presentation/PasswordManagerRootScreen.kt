@@ -12,6 +12,9 @@ import ru.dimagor555.password.ui.detailsscreen.PasswordDetailsScreen
 import ru.dimagor555.password.ui.editscreen.EditPasswordScreen
 import ru.dimagor555.password.ui.listscreen.PasswordListScreen
 import ru.dimagor555.passwordgeneration.ui.screen.PasswordGenerationScreen
+import ru.dimagor555.synchronization.ui.deviceslistscreen.DevicesListScreen
+import ru.dimagor555.synchronization.ui.resultsyncscreen.ResultSyncScreen
+import ru.dimagor555.synchronization.ui.syncscreen.SyncScreen
 
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
@@ -26,6 +29,9 @@ fun PasswordManagerRootScreen(component: RootComponent, onShowFirstScreen: () ->
             is RootComponent.Child.EditPassword -> EditPasswordScreen(child.component)
             is RootComponent.Child.PasswordDetails -> PasswordDetailsScreen(child.component)
             is RootComponent.Child.CreatePassword -> CreatePasswordScreen(child.component)
+            is RootComponent.Child.DevicesList -> DevicesListScreen(child.component)
+            is RootComponent.Child.Sync -> SyncScreen(child.component)
+            is RootComponent.Child.ResultSync -> ResultSyncScreen(child.component)
         }
     }
     LaunchedEffect(Unit) {

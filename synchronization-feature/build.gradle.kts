@@ -47,6 +47,7 @@ kotlin {
                 implementation(Libs.Slf4j.slf4jSimple)
 
                 implementation(Libs.Koin.core)
+                implementation(Libs.Koin.ktor)
 
                 implementation(Libs.KotlinX.serialization)
 
@@ -56,6 +57,8 @@ kotlin {
                 implementation(Libs.Decompose.decompose)
 
                 implementation(Libs.MokoResources.commonMain)
+
+//                implementation(Libs.accompanistSwiperefresh)
 
                 implementation(Libs.napier)
             }
