@@ -6,7 +6,7 @@ import kotlinx.coroutines.withContext
 import ru.dimagor555.password.usecase.passwordsandfolderchildren.model.PasswordsAndFolderChildren
 import ru.dimagor555.password.usecase.passwordsandfolderchildren.model.partitionToAddAndToUpdate
 import ru.dimagor555.password.usecase.passwordsandfolderchildren.repository.BulkPasswordRepository
-import ru.dimagor555.password.usecase.passwordsandfolderchildren.UpdatePasswordsAndFolderChildrenUsecase.Result as UpdateResult
+import ru.dimagor555.password.usecase.passwordsandfolderchildren.UpdatePasswordsAndFolderChildrenUsecase.StatisticsResult as UpdateResult
 
 class AddOrUpdatePasswordsAndFolderChildrenUsecase(
     private val passwordRepository: BulkPasswordRepository,

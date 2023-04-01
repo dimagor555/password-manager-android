@@ -15,18 +15,17 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(projects.core)
                 implementation(projects.passwordFeature)
                 implementation(projects.passwordGenerationFeature)
                 implementation(projects.masterPasswordFeature)
 
-                implementation(projects.core)
+                implementation(compose.runtime)
+                implementation(compose.foundation)
 
                 implementation(Libs.Koin.core)
+
                 implementation(Libs.MviCompose.core)
-
-                implementation(Libs.KotlinX.coroutinesCore)
-                implementation(Libs.KotlinX.coroutinesSwing)
-
                 implementation(Libs.Decompose.decompose)
                 implementation(Libs.Decompose.extensionsCompose)
 

@@ -13,11 +13,13 @@ fun SimpleButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
+    enabled: Boolean = true,
 ) {
     Button(
         modifier = modifier,
         onClick = onClick,
         contentPadding = contentPadding,
+        enabled = enabled,
     ) {
         Text(text = text)
     }

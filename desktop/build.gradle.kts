@@ -27,13 +27,8 @@ kotlin {
                 implementation(compose.desktop.currentOs)
                 implementation(compose.runtime)
                 implementation(compose.foundation)
-                implementation(compose.material)
-                implementation(compose.preview)
-                implementation(compose.ui)
-                implementation(compose.materialIconsExtended)
 
                 implementation(Libs.Koin.core)
-                implementation(Libs.Koin.compose)
 
                 implementation(Libs.KotlinX.coroutinesCore)
                 implementation(Libs.KotlinX.coroutinesSwing)
@@ -51,6 +46,10 @@ kotlin {
             }
         }
     }
+}
+
+configurations.commonMainApi {
+    exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-android")
 }
 
 compose.desktop {

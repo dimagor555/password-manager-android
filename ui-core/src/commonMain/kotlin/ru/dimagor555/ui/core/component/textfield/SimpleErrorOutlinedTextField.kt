@@ -14,7 +14,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import ru.dimagor555.ui.core.util.ProvideMediumAlpha
+import ru.dimagor555.ui.core.util.rememberLastNotNullText
 
+// TODO add buffer
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun SimpleErrorOutlinedTextField(
@@ -22,6 +24,7 @@ fun SimpleErrorOutlinedTextField(
     onValueChange: (String) -> Unit,
     error: String?,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     textStyle: TextStyle = LocalTextStyle.current,
     placeholder: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
@@ -37,6 +40,7 @@ fun SimpleErrorOutlinedTextField(
             value = value,
             onValueChange = onValueChange,
             isError = isError,
+            enabled = enabled,
             placeholder = placeholder,
             trailingIcon = {
                 when {
@@ -95,14 +99,6 @@ private fun AnimatedErrorText(text: String?) {
     ) {
         ErrorText(errorText)
     }
-}
-
-@Composable
-private fun rememberLastNotNullText(text: String?): String {
-    var rememberedText by remember { mutableStateOf("") }
-    if (text != null)
-        rememberedText = text
-    return rememberedText
 }
 
 @Composable

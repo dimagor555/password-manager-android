@@ -1,5 +1,7 @@
 package ru.dimagor555.password.ui.listscreen.components
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
 import ru.dimagor555.password.domain.filter.FavouriteFilter
 import ru.dimagor555.password.domain.filter.FilterState
@@ -8,6 +10,7 @@ import ru.dimagor555.password.ui.listscreen.model.PasswordListStore.State
 import ru.dimagor555.password.ui.listscreen.model.PasswordState
 import ru.dimagor555.res.core.MR
 import ru.dimagor555.ui.core.component.FullscreenCircularProgressBar
+import ru.dimagor555.ui.core.component.FullscreenInformationContent
 import ru.dimagor555.ui.core.util.stringResource
 
 @Composable
@@ -34,16 +37,19 @@ private fun NoPasswords(filterState: FilterState) {
             FullscreenInformationContent(
                 title = stringResource(MR.strings.not_found_screen_title),
                 contentText = stringResource(MR.strings.not_found_screen_content),
+                image = Icons.Default.Lock,
             )
         filterState.favouriteFilter == FavouriteFilter.All ->
             FullscreenInformationContent(
                 title = stringResource(MR.strings.empty_passwords_screen_title),
                 contentText = stringResource(MR.strings.empty_passwords_screen_content),
+                image = Icons.Default.Lock,
             )
         filterState.favouriteFilter == FavouriteFilter.Favourite ->
             FullscreenInformationContent(
                 title = stringResource(MR.strings.empty_favourite_screen_title),
                 contentText = stringResource(MR.strings.empty_favourite_screen_content),
+                image = Icons.Default.Lock,
             )
     }
 }
