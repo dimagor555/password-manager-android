@@ -1,5 +1,6 @@
-package ru.dimagor555.password.ui.listscreen.components
+package ru.dimagor555.ui.core.component
 
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -10,18 +11,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import ru.dimagor555.ui.core.util.ProvideMediumAlpha
 import ru.dimagor555.ui.core.icon.Lock
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
-import androidx.compose.desktop.ui.tooling.preview.Preview
+import ru.dimagor555.ui.core.util.ProvideMediumAlpha
 
 @Composable
-internal fun FullscreenInformationContent(
+fun FullscreenInformationContent(
     title: String,
     contentText: String,
-    iconTint: Color = MaterialTheme.colors.primary
+    iconTint: Color = MaterialTheme.colors.primary,
+    image: ImageVector,
 ) {
     Column(
         modifier = Modifier
@@ -33,9 +35,9 @@ internal fun FullscreenInformationContent(
     ) {
         Icon(
             modifier = Modifier.size(64.dp),
-            imageVector = Icons.Default.Lock,
+            imageVector = image,
             contentDescription = null,
-            tint = iconTint
+            tint = iconTint,
         )
         Text(
             text = title,
@@ -59,7 +61,8 @@ private fun ScreenWithLockIconPreview() {
         Surface {
             FullscreenInformationContent(
                 title = "Title",
-                contentText = "Content text"
+                contentText = "Content text",
+                image = Icons.Default.Lock,
             )
         }
     }

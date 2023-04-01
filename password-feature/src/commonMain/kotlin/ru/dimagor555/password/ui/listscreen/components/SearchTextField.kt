@@ -1,5 +1,6 @@
 package ru.dimagor555.password.ui.listscreen.components
 
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
@@ -15,7 +16,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import ru.dimagor555.res.core.MR
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import ru.dimagor555.ui.core.util.stringResource
 
 @Composable
@@ -23,7 +23,7 @@ internal fun SearchTextField(
     modifier: Modifier = Modifier,
     searchText: String,
     onSearchTextChange: (String) -> Unit,
-    onClearSearchText: () -> Unit
+    onClearSearchText: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
     OutlinedTextField(
@@ -37,7 +37,7 @@ internal fun SearchTextField(
         trailingIcon = { ClearTextIcon(searchText, onClearSearchText) },
         colors = searchTextFieldColors(),
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-        keyboardActions = KeyboardActions(onSearch = { focusManager.clearFocus() })
+        keyboardActions = KeyboardActions(onSearch = { focusManager.clearFocus() }),
     )
 }
 
@@ -45,7 +45,7 @@ internal fun SearchTextField(
 private fun SearchPlaceholder() {
     Text(
         text = stringResource(MR.strings.search),
-        style = MaterialTheme.typography.body1
+        style = MaterialTheme.typography.body1,
     )
 }
 
@@ -53,7 +53,7 @@ private fun SearchPlaceholder() {
 private fun SearchIcon() {
     Icon(
         Icons.Default.Search,
-        contentDescription = stringResource(MR.strings.search)
+        contentDescription = stringResource(MR.strings.search),
     )
 }
 
@@ -64,7 +64,7 @@ private fun ClearTextIcon(text: String, onClearText: () -> Unit) {
     Icon(
         Icons.Default.Clear,
         contentDescription = stringResource(MR.strings.clear),
-        modifier = Modifier.clickable(onClick = onClearText)
+        modifier = Modifier.clickable(onClick = onClearText),
     )
 }
 
@@ -82,7 +82,7 @@ private fun EmptySearchTextFieldPreview() {
                 modifier = Modifier.padding(10.dp),
                 searchText = "",
                 onSearchTextChange = {},
-                onClearSearchText = {}
+                onClearSearchText = {},
             )
         }
     }
@@ -97,7 +97,7 @@ private fun FilledSearchTextFieldPreview() {
                 modifier = Modifier.padding(10.dp),
                 searchText = "Google",
                 onSearchTextChange = {},
-                onClearSearchText = {}
+                onClearSearchText = {},
             )
         }
     }
