@@ -124,7 +124,7 @@ class RealmFolderChildrenRepository(
             val oldFolderChildren = getFolderChildrenModelOrNull(parentId) ?: return@write
             val newChildIds = oldFolderChildren
                 .childrenIds!!
-                .filter { it.id == childId.toChildIdModel().id } // TODO why filter? test just with minus
+                .filterNot { it.id == childId.toChildIdModel().id } // TODO why filter? test just with minus
             oldFolderChildren.childrenIds = newChildIds.toRealmSet()
         }
     }
