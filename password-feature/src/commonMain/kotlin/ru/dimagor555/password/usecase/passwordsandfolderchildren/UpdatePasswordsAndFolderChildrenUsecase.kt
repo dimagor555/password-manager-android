@@ -22,7 +22,7 @@ class UpdatePasswordsAndFolderChildrenUsecase(
         val isForceUpdate: Boolean,
     )
 
-    suspend operator fun invoke(params: Params): Result =
+    suspend operator fun invoke(params: Params): StatisticsResult =
         withContext(Dispatchers.Default) {
             val changeFolderParams = computeChangeFolderParams(params.passwordsAndFolderChildren)
             val passwordsToUpdate = computePasswordsToUpdate(params, changeFolderParams)
@@ -30,7 +30,7 @@ class UpdatePasswordsAndFolderChildrenUsecase(
                 passwords = passwordsToUpdate,
                 changeFolderParams = changeFolderParams,
             )
-            computeResult(
+            computeStatisticsResult(
                 updatedPasswords = passwordsToUpdate,
                 changeFolderParams = changeFolderParams,
             )
@@ -125,12 +125,12 @@ class UpdatePasswordsAndFolderChildrenUsecase(
         folderChildrenRepository.changeAllChildrenFolders(changeFolderParams)
     }
 
-    private fun computeResult(
+    private fun computeStatisticsResult(
         updatedPasswords: List<Password>,
         changeFolderParams: List<ChangeFolderParam>,
-    ): Result {
+    ): StatisticsResult {
         val archivedCount = computeArchivedPasswordsCount(updatedPasswords, changeFolderParams)
-        return Result(
+        return StatisticsResult(
             updatedPasswordsCount = updatedPasswords.size - archivedCount,
             archivedPasswordsCount = archivedCount,
         )
@@ -148,7 +148,7 @@ class UpdatePasswordsAndFolderChildrenUsecase(
             .count()
     }
 
-    data class Result(
+    data class StatisticsResult(
         val updatedPasswordsCount: Int,
         val archivedPasswordsCount: Int,
     ) {
