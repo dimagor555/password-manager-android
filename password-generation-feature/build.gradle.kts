@@ -26,7 +26,6 @@ kotlin {
                 implementation(compose.materialIconsExtended)
 
                 implementation(Libs.Koin.core)
-                implementation(Libs.Koin.compose)
 
                 implementation(Libs.MviCompose.core)
                 implementation(Libs.Decompose.decompose)

@@ -35,7 +35,6 @@ kotlin {
 
                 implementation(Libs.Koin.core)
                 implementation(Libs.Koin.android)
-                implementation(Libs.Koin.compose)
 
                 implementation(Libs.KotlinX.datetime)
                 implementation(Libs.KotlinX.serialization)

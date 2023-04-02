@@ -39,7 +39,6 @@ kotlin {
                 implementation(Libs.settingsNoArg)
 
                 implementation(Libs.Koin.core)
-                implementation(Libs.Koin.compose)
 
                 implementation(Libs.MokoResources.commonMain)
 
