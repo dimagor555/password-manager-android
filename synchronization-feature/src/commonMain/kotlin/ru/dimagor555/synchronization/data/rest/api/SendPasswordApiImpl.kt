@@ -1,6 +1,7 @@
 package ru.dimagor555.synchronization.data.rest.api
 
 import io.github.aakira.napier.Napier
+import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
@@ -15,13 +16,14 @@ import ru.dimagor555.synchronization.usecase.rest.api.SendPasswordApi
 import ru.dimagor555.synchronization.usecase.rest.repository.ClientRepository
 
 class SendPasswordApiImpl(
-    clientRepository: ClientRepository,
+    private val clientRepository: ClientRepository,
     private val connectionAddress: ConnectionAddress,
 ) : SendPasswordApi {
-    private val client = clientRepository.client
 
-    override suspend fun postSyncPasswordRecord(passwords: List<SyncPasswordRecord>): SyncResponse? {
-        Napier.e("SendPasswordApiImpl postSyncPasswordRecord passwords = $passwords")
+    private val client: HttpClient
+        get() = clientRepository.client
+
+    override suspend fun sendSyncPasswordRecord(passwords: List<SyncPasswordRecord>): SyncResponse? {
         val syncResponse = runCatching {
             client.post("http://${connectionAddress.ip}:8995/${SyncPasswordRecord.path}") {
                 contentType(ContentType.Application.Json)
@@ -30,24 +32,22 @@ class SendPasswordApiImpl(
         }.onFailure {
             Napier.e("Error in SendPasswordApiImpl postSyncPasswordRecord: $it")
         }.getOrNull() ?: return null
-        Napier.e("SendPasswordApiImpl postSyncPasswordRecord syncRespond = $syncResponse")
         return syncResponse
     }
 
-    override suspend fun postRequestPasswords(respondPasswordsAndFolderChildren: JsonObject): SyncResponse? {
+    override suspend fun sendRequestPasswords(respondPasswordsAndFolderChildren: JsonObject): SyncResponse? {
         val syncResponse = runCatching {
             client.post("http://${connectionAddress.ip}:8995/${SyncPasswordRecord.path}/syncPasswords") {
                 contentType(ContentType.Application.Json)
-                setBody(SimpleRespondSyncResponse(respondPasswordsAndFolderChildren) as SyncResponse)//TODO возможно 2 типа при отправке
+                setBody(SimpleRespondSyncResponse(respondPasswordsAndFolderChildren) as SyncResponse)
             }.body<SyncResponse>()
         }.onFailure {
             Napier.e("Error in SendPasswordApiImpl postRequestPasswords: $it")
         }.getOrNull() ?: return null
-        Napier.e("SendPasswordApiImpl postSyncPasswordRecord syncRespond = $syncResponse")
         return syncResponse
     }
 
-    override suspend fun postSuccessSyncResult() {
+    override suspend fun sendSuccessSyncResult() {
         runCatching {
             client.post("http://${connectionAddress.ip}:8995/${SyncPasswordRecord.path}/syncPasswords") {
                 contentType(ContentType.Application.Json)

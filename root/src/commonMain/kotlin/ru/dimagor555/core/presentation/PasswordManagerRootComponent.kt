@@ -256,7 +256,7 @@ class PasswordManagerRootComponent(
         DevicesListComponentCallbacks(
             navigateBack = { navigation.pop() },
             navigateToSyncScreen = {
-                navigation.push(Config.Sync(it))
+                navigation.replaceCurrent(Config.Sync(it))
             },
         )
 
@@ -271,7 +271,7 @@ class PasswordManagerRootComponent(
         SyncComponentCallbacks(
             navigateBack = { navigation.pop() },
             navigateToResultSyncScreen = {
-                navigation.push(Config.ResultSync(it))
+                navigation.replaceCurrent(Config.ResultSync(it))
             },
         )
 
@@ -284,8 +284,6 @@ class PasswordManagerRootComponent(
 
     private fun createResultSyncComponentCallbacks() =
         ResultSyncComponentCallbacks(
-            navigateToSettingsScreen = { /*navigation.replaceCurrent(Config.Settings)*/ },
-            navigateToDevicesListScreen = { navigation.replaceCurrent(Config.DevicesList) },
-            navigateToPasswordsListScreen = { navigation.replaceAll(Config.PasswordList) },
+            navigateToSettingsScreen = { navigation.pop() },
         )
 }

@@ -7,7 +7,7 @@ import androidx.compose.runtime.getValue
 import ru.dimagor555.res.core.MR
 import ru.dimagor555.synchronization.domain.syncstatus.SyncStatus
 import ru.dimagor555.synchronization.ui.deviceslistscreen.view.SyncTopAppBar
-import ru.dimagor555.synchronization.ui.syncscreen.store.SyncStore
+import ru.dimagor555.synchronization.ui.syncscreen.store.SyncStore.Action
 import ru.dimagor555.synchronization.ui.syncscreen.view.SyncScreenContent
 import ru.dimagor555.ui.core.component.SingleSnackbarScaffold
 import ru.dimagor555.ui.core.util.stringResource
@@ -33,7 +33,7 @@ fun SyncScreen(component: SyncComponent) {
         topBar = {
             SyncTopAppBar(
                 title = stringResource(MR.strings.synchronization),
-                onNavigateBack = { component.sendAction(SyncStore.Action.StopSync) },
+                onNavigateBack = { component.sendAction(Action.StopSync) },
             )
         }
     ) { _, onShowSnackbar ->

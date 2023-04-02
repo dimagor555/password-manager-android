@@ -1,6 +1,5 @@
 package ru.dimagor555.syncpassintegration.usecase
 
-import io.github.aakira.napier.Napier
 import ru.dimagor555.password.domain.folder.FolderChildren
 import ru.dimagor555.password.domain.folder.toChildId
 import ru.dimagor555.password.domain.password.Password
@@ -14,21 +13,14 @@ class FilterPasswordAndFolderChildrenUseCase(
 ) {
 
     suspend operator fun invoke(passwordsIds: List<String>): PasswordsAndFolderChildren? {
-        Napier.e("FilterPasswordAndFolderChildrenUseCase passwordsIds = $passwordsIds")
-        val passwordsAndFolderChildren = getPasswordsAndFolderChildren() ?: return null //TODO почему-то null
-        Napier.e("FilterPasswordAndFolderChildrenUseCase passwordsAndFolderChildren = $passwordsAndFolderChildren")
+        val passwordsAndFolderChildren = getPasswordsAndFolderChildren() ?: return null
         val filteredPasswords = getPasswordsByIds(passwordsIds)
-        Napier.e("FilterPasswordAndFolderChildrenUseCase filteredPasswords = $filteredPasswords")
         val filteredFolderChildren =
             filterFolderChildren(filteredPasswords, passwordsAndFolderChildren.folderChildren)
-        Napier.e("FilterPasswordAndFolderChildrenUseCase filteredFolderChildren = $filteredFolderChildren")
-
-        val filteredPasswordsAndFolderChildren = passwordsAndFolderChildren.copy(
+        return passwordsAndFolderChildren.copy(
             passwords = filteredPasswords,
             folderChildren = filteredFolderChildren,
         )
-        Napier.e("FilterPasswordAndFolderChildrenUseCase filteredPasswordsAndFolderChildren = $filteredPasswordsAndFolderChildren")
-        return filteredPasswordsAndFolderChildren
     }
 
     private fun filterFolderChildren(

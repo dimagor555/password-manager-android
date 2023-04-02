@@ -6,9 +6,9 @@ import ru.dimagor555.synchronization.domain.response.SyncResponse
 
 interface SendPasswordApi {
 
-    suspend fun postSyncPasswordRecord(passwords: List<SyncPasswordRecord>): SyncResponse?
+    suspend fun sendSyncPasswordRecord(passwords: List<SyncPasswordRecord>): SyncResponse?
 
-    suspend fun postRequestPasswords(respondPasswordsAndFolderChildren: JsonObject): SyncResponse?
+    suspend fun sendRequestPasswords(respondPasswordsAndFolderChildren: JsonObject): SyncResponse?
 
-    suspend fun postSuccessSyncResult()
+    suspend fun sendSuccessSyncResult()
 }

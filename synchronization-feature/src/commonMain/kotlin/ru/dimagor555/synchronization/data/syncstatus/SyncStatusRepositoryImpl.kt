@@ -1,6 +1,5 @@
 package ru.dimagor555.synchronization.data.syncstatus
 
-import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,8 +14,6 @@ class SyncStatusRepositoryImpl : SyncStatusRepository {
         _syncStatus.asStateFlow()
 
     override fun setSyncStatus(syncStatus: SyncStatus) {
-        Napier.e("SyncStatusRepositoryImpl setSyncStatus _syncStatus.value 1 = ${_syncStatus.value}")
         _syncStatus.value = syncStatus
-        Napier.e("SyncStatusRepositoryImpl setSyncStatus _syncStatus.value 2 = ${_syncStatus.value}")
     }
 }

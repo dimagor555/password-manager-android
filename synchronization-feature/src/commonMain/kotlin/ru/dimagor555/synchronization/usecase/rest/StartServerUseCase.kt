@@ -6,6 +6,6 @@ class StartServerUseCase(
     private val serverRepository: ServerRepository,
 ) {
     operator fun invoke() {
-        serverRepository.createServer()
+        serverRepository.startServer()
     }
 }

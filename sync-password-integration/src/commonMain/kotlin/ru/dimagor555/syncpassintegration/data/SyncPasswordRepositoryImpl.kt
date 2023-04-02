@@ -1,6 +1,5 @@
 package ru.dimagor555.syncpassintegration.data
 
-import io.github.aakira.napier.Napier
 import kotlinx.serialization.json.*
 import org.koin.core.component.KoinComponent
 import ru.dimagor555.password.usecase.password.repository.PasswordRepository
@@ -36,17 +35,12 @@ class SyncPasswordRepositoryImpl(
     }
 
     override suspend fun addOrUpdatePasswordsAndFolderChildren(passwordsAndFolderChildren: JsonObject) {
-        Napier.e("SyncPasswordRepositoryImpl addOrUpdatePasswordsAndFolderChildren value = $passwordsAndFolderChildren")
         val passwordsAndFolderChildrenModel =
             Json.decodeFromJsonElement<PasswordsAndFolderChildren>(passwordsAndFolderChildren)
-        Napier.e("SyncPasswordRepositoryImpl addOrUpdatePasswordsAndFolderChildren passwordsAndFolderChildren = $passwordsAndFolderChildrenModel")
-
         val statisticsResult = addOrUpdatePasswordsAndFolderChildren(
             Params(passwordsAndFolderChildrenModel)
         )
         updateSyncResult(statisticsResult.toSyncResult())
-
-        Napier.e("SyncPasswordRepositoryImpl addOrUpdatePasswordsAndFolderChildren final")
     }
 
     private fun StatisticsResult.toSyncResult() = SyncResult(

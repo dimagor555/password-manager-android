@@ -1,45 +1,36 @@
 package ru.dimagor555.synchronization.data.rest.repository
 
-import io.github.aakira.napier.Napier
 import kotlinx.serialization.json.JsonObject
 import ru.dimagor555.synchronization.domain.passwordrecord.SyncPasswordRecord
 import ru.dimagor555.synchronization.domain.request.InitialSyncRequest
 import ru.dimagor555.synchronization.domain.response.SyncResponse
+import ru.dimagor555.synchronization.domain.response.SyncResponse.*
 import ru.dimagor555.synchronization.usecase.rest.repository.ReceivePasswordRepository
 import ru.dimagor555.synchronization.usecase.syncpassword.repository.SyncPasswordRepository
-import ru.dimagor555.synchronization.usecase.syncresult.UpdateSyncResultUseCase
 
 class ReceivePasswordRepositoryImpl(
     private val syncPasswordRepository: SyncPasswordRepository,
-    private val updateSyncResult: UpdateSyncResultUseCase,
 ) : ReceivePasswordRepository {
 
-    override suspend fun getSyncResponse(
-        initialSyncRequest: InitialSyncRequest,
-    ): SyncResponse {
-        Napier.e("ReceivePasswordApiImpl getSyncPasswords 1")
+    override suspend fun getSyncResponse(initialSyncRequest: InitialSyncRequest): SyncResponse {
         val existingRecords = syncPasswordRepository.getAllSyncRecords()
-        Napier.e("ReceivePasswordApiImpl getSyncPasswords existingRecords = $existingRecords")
-        val respondPasswords = getRespondPasswords(existingRecords, initialSyncRequest.passwordRecords)
-        Napier.e("ReceivePasswordApiImpl getSyncPasswords respondPasswords = $respondPasswords")
-        val requestPasswordIds = getRequestPasswordIds(existingRecords, initialSyncRequest.passwordRecords)
-        Napier.e("ReceivePasswordApiImpl getSyncPasswords requestPasswordIds = $requestPasswordIds")
+        val respondPasswords =
+            getRespondPasswords(existingRecords, initialSyncRequest.passwordRecords)
+        val requestPasswordIds =
+            getRequestPasswordIds(existingRecords, initialSyncRequest.passwordRecords)
 
         return when {
             respondPasswords != null && requestPasswordIds.isNotEmpty() -> {
-                Napier.e("ReceivePasswordApiImpl SimpleSyncResponse = ${SyncResponse.CommonSyncResponse(respondPasswords, requestPasswordIds)}")
-                SyncResponse.CommonSyncResponse(respondPasswords, requestPasswordIds)
+                CommonSyncResponse(respondPasswords, requestPasswordIds)
             }
             respondPasswords != null -> {
-                Napier.e("ReceivePasswordApiImpl SimpleSyncResponse = ${SyncResponse.SimpleRespondSyncResponse(respondPasswords)}")
-                SyncResponse.SimpleRespondSyncResponse(respondPasswords)
+                SimpleRespondSyncResponse(respondPasswords)
             }
             requestPasswordIds.isNotEmpty() -> {
-                Napier.e("ReceivePasswordApiImpl SimpleSyncResponse = ${SyncResponse.SimpleRequestingSyncResponse(requestPasswordIds)}")
-                SyncResponse.SimpleRequestingSyncResponse(requestPasswordIds)
+                SimpleRequestingSyncResponse(requestPasswordIds)
             }
             else -> {
-                SyncResponse.SuccessResponse
+                SuccessResponse
             }
         }
     }
@@ -48,22 +39,12 @@ class ReceivePasswordRepositoryImpl(
         existingRecords: List<SyncPasswordRecord>,
         syncPasswordRecords: List<SyncPasswordRecord>,
     ): JsonObject? {
-        Napier.e("ReceivePasswordApiImpl getRespondPasswords 1")
         val respondAddRecordIds = getDifferentRecordIds(existingRecords, syncPasswordRecords)
-        Napier.e("ReceivePasswordApiImpl getRespondPasswords respondAddRecordIds = $respondAddRecordIds")
-        val respondUpdateRecordsIds =
-            getSameRecords(existingRecords, syncPasswordRecords).map { it.id }
-        Napier.e("ReceivePasswordApiImpl getRespondPasswords respondUpdateRecordsIds = $respondUpdateRecordsIds")
-        Napier.e("ReceivePasswordApiImpl getRespondPasswords respondUpdateRecordsIds + respondAddRecordIds = ${respondUpdateRecordsIds + respondAddRecordIds}")
-
+        val respondUpdateRecordsIds = getSameRecordsIds(existingRecords, syncPasswordRecords)
         val allRespondIds = respondAddRecordIds + respondUpdateRecordsIds
-
-        return if (allRespondIds.isEmpty()) {
-            null
-        } else {
-            val respondPasswords = syncPasswordRepository.getPasswordsAndFolderChildren(respondUpdateRecordsIds + respondAddRecordIds)
-            Napier.e("ReceivePasswordApiImpl object2 = $respondPasswords")
-            respondPasswords
+        return when (allRespondIds.isEmpty()) {
+            true -> null
+            false -> syncPasswordRepository.getPasswordsAndFolderChildren(allRespondIds)
         }
     }
 
@@ -71,33 +52,37 @@ class ReceivePasswordRepositoryImpl(
         existingRecords: List<SyncPasswordRecord>,
         syncPasswordRecords: List<SyncPasswordRecord>,
     ): List<String> {
-        Napier.e("ReceivePasswordApiImpl getRequestPasswordIds 1")
         val requestAddRecordIds = getDifferentRecordIds(syncPasswordRecords, existingRecords)
-        Napier.e("ReceivePasswordApiImpl getRequestPasswordIds 2")
-        val requestUpdateRecordIds = getSameRecords(syncPasswordRecords, existingRecords).map { it.id }
-        Napier.e("ReceivePasswordApiImpl getRequestPasswordIds 3")
-        val requestPasswordIds = requestAddRecordIds + requestUpdateRecordIds
-        Napier.e("ReceivePasswordApiImpl getRequestPasswordIds requestPasswordIds = $requestPasswordIds")
-        return requestPasswordIds
+        val requestUpdateRecordIds = getSameRecordsIds(syncPasswordRecords, existingRecords)
+        return requestAddRecordIds + requestUpdateRecordIds
     }
 
     private fun getDifferentRecordIds(
         filteredRecords: List<SyncPasswordRecord>,
         comparedRecords: List<SyncPasswordRecord>,
-    ): List<String> = filteredRecords.map { it.id }.filterNot {
-        comparedRecords.map { it.id }.contains(it)
+    ): List<String> {
+        val filteredRecordIds = filteredRecords.map { it.id }
+        val comparedRecordIds = comparedRecords.map { it.id }
+        return filteredRecordIds
+            .filterNot { comparedRecordIds.contains(it) }
     }
 
-    private fun getSameRecords(
+    private fun getSameRecordsIds(
         searchRecords: List<SyncPasswordRecord>,
         findRecords: List<SyncPasswordRecord>,
-    ): List<SyncPasswordRecord> = searchRecords.mapNotNull { searchPassword ->
-        val findRecord =
-            findRecords.find { it.id == searchPassword.id } ?: return@mapNotNull null
-        if (searchPassword.editingDateTime > findRecord.editingDateTime) {
-            searchPassword
-        } else {
-            null
+    ): List<String> = searchRecords
+        .mapNotNull { searchPassword ->
+            determinePresenceOfPassword(searchPassword, findRecords)
+        }.map { it.id }
+
+    private fun determinePresenceOfPassword(
+        searchRecord: SyncPasswordRecord,
+        findRecords: List<SyncPasswordRecord>,
+    ): SyncPasswordRecord? {
+        val findRecord = findRecords.find { it.id == searchRecord.id } ?: return null
+        return when {
+            searchRecord.editingDateTime > findRecord.editingDateTime -> searchRecord
+            else -> null
         }
     }
 }

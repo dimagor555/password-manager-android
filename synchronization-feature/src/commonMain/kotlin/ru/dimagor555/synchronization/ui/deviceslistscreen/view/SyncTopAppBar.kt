@@ -9,7 +9,7 @@ import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 @Composable
 internal fun SyncTopAppBar(
     title: String,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
 ) {
     SimpleBackArrowTopAppBar(
         title = { Text(text = title) },
@@ -23,7 +23,7 @@ private fun SyncTopAppBarPreview() {
     PasswordManagerTheme {
         SyncTopAppBar(
             title = "Synchronization",
-            onNavigateBack = {}
+            onNavigateBack = {},
         )
     }
 }

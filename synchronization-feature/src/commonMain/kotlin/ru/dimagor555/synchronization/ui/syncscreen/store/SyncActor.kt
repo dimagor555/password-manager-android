@@ -1,6 +1,5 @@
 package ru.dimagor555.synchronization.ui.syncscreen.store
 
-import io.github.aakira.napier.Napier
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import ru.dimagor555.mvicompose.abstraction.Actor
@@ -23,8 +22,6 @@ class SyncActor : Actor<State, Action, Message, Nothing>(), KoinComponent {
             useCases.postSyncPasswordRecord()
         }
         useCases.observeSyncStatus().collect {
-            Napier.e("SyncActor startSync() syncStatus = $it")
-
             sendMessage(Message.UpdateSyncStatus(it))
             when (it) {
                 SyncStatus.SuccessSync -> sendMessage(Message.UpdateExitScreen(true))
@@ -34,7 +31,9 @@ class SyncActor : Actor<State, Action, Message, Nothing>(), KoinComponent {
     }
 
     private suspend fun stopSync() {
+        useCases.stopServer()
+        useCases.closeClient()
+        useCases.clearConnectionAddress()
         sendMessage(Message.UpdateExitScreen(true))
-//        useCases.stopServer()
     }
 }

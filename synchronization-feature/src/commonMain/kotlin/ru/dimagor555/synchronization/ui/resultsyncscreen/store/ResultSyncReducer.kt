@@ -10,5 +10,6 @@ class ResultSyncReducer : Reducer<State, Message> {
         when (msg) {
             is Message.UpdateSyncSuccess -> copy(isSyncSuccess = msg.isSyncSuccess)
             is Message.ShowSyncResult -> copy(syncResult = msg.syncResult)
+            is Message.ExitScreen -> copy(isExitScreen = true)
         }
 }
