@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- ui-core -->
 
+    <!-- ui-core -->
     <string name="back">Назад</string>
     <string name="cancel">Отмена</string>
     <string name="menu">Меню</string>
@@ -17,7 +17,6 @@
     <string name="app_name_word_second">Manager</string>
 
     <!-- master-password-feature -->
-
     <string name="data_storage_disclaimer">Все данные хранятся на вашем устройстве</string>
     <string name="server_disclaimer">Ничего не отправляется на сервера</string>
     <string name="welcome_screen_description">Придумайте основной пароль и получите все остальные в один клик</string>
@@ -37,7 +36,6 @@
     <string name="confirm_password_field_placeholder">Повторите основной пароль</string>
 
     <!-- validation-core -->
-
     <string name="error_is_blank">Не должно быть пустым</string>
     <string name="error_invalid_special_characters">Содержит недопустимые специальные символы</string>
     <string name="error_not_contain_digits">Добавьте цифры</string>
@@ -46,7 +44,6 @@
     <string name="error_not_contain_special_symbols">Добавьте специальные символы</string>
 
     <!-- password-generation-feature -->
-
     <string name="generate_new">Сгенерировать новый</string>
     <string name="char_group_name_digits">Цифры\n(0–9)</string>
     <string name="char_group_name_lowercase">Строчные буквы\n(a-z)</string>
@@ -56,7 +53,6 @@
     <string name="can_not_generate_error">Невозможно сгенерировать пароль. Проверьте, что вы выбрали хотя бы 1 опцию</string>
 
     <!-- password-feature -->
-
     <string name="search">Поиск</string>
     <string name="clear">Очистить</string>
     <string name="settings">Настройки</string>
@@ -99,5 +95,28 @@
     <string name="phone">Телефон</string>
     <string name="password">Пароль</string>
     <string name="create">Создать</string>
+
+    <!--    password-export-->
+    <string name="export_title">Экспорт</string>
+    <string name="export_file_name">Название файла экспорта</string>
+    <string name="add_datetime_to_file_name">Добавить дату и время к имени файла</string>
+    <string name="export_btn">Экспортировать</string>
+    <string name="choose_export_file_path">Выберите путь для файла экспорта</string>
+    <string name="error_is_empty">Не должно быть пустым</string>
+    <string name="error_export_no_passwords">Нечего экспортировать</string>
+    <string name="error_during_export">Произошла ошибка во время экспорта</string>
+    <string name="export_success">Ваши данные были успешно экспортированы в файл</string>
+    <string name="import_title">Импорт</string>
+    <string name="import_btn">Импортировать</string>
+    <string name="choose_import_file">Выберете файл для импорта</string>
+    <string name="nothing_selected">Ничего не выбрано</string>
+    <string name="choose_file_btn">Выбрать файл</string>
+    <string name="clear_before_import">Удалить всё перед импортом</string>
+    <string name="make_backup">Сделать резервную копию перед импортом</string>
+    <string name="import_file_not_selected">Файл для импорта не выбран</string>
+    <string name="import_success">Ваши данные были успешно импортированы из файла</string>
+    <string name="error_could_not_read_file">Не удалось прочитать файл</string>
+    <string name="error_invalid_file_format">Неправильный формат файла</string>
+    <string name="error_during_import">Произошла ошибка во время импорта</string>
 
 </resources>

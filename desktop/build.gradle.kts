@@ -19,6 +19,8 @@ kotlin {
                 implementation(projects.passwordFeature)
                 implementation(projects.passwordGenerationFeature)
                 implementation(projects.masterPasswordFeature)
+                implementation(projects.passwordExportFeature.impl)
+                implementation(projects.passwordExportFeature.passwordIntegration)
                 implementation(projects.root)
                 implementation(projects.uiCore)
 
@@ -33,6 +35,8 @@ kotlin {
 
                 implementation(Libs.Decompose.decompose)
                 implementation(Libs.Decompose.extensionsCompose)
+
+                implementation(Libs.napier)
             }
         }
     }
