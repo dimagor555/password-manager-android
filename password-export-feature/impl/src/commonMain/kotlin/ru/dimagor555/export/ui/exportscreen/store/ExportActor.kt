@@ -17,15 +17,21 @@ internal class ExportActor : Actor<State, Action, Message, SideEffect>(), KoinCo
     override suspend fun onAction(action: Action) {
         when (action) {
             is Action.ChangeFileName -> sendMessage(Message.ShowFileName(action.fileName))
-            is Action.ToggleAddDateTime -> sendMessage(Message.ToggleAddDateTime)
+            is Action.ToggleAddDateTime -> toggleAddDateTime()
             is Action.TryChooseFilePath -> tryChooseFilePath(getState())
             is Action.OnChooseFilePathSuccess -> onChooseFilePathSuccess(action.fileUri)
             is Action.OnChooseFilePathFailure -> onChooseFilePathFailure()
         }
     }
 
+    private suspend fun toggleAddDateTime() {
+        if (getState().isFormFillingInProgress) {
+            sendMessage(Message.ToggleAddDateTime)
+        }
+    }
+
     private suspend fun tryChooseFilePath(state: State) {
-        if (state.isFilePathChoosingEnabled.not()) {
+        if (state.isFormFillingInProgress.not()) {
             return
         }
         val fileNameResult = buildExportFileName(state)

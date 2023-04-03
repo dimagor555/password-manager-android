@@ -33,10 +33,7 @@ internal class ImportStore : Store<Action, State, SideEffect> by StoreImpl(
         val selectedFileUri: String
             get() = (fileState as FileState.Selected).uri
 
-        val isFileChoosingEnabled: Boolean
-            get() = currentTask is Task.FormFilling
-
-        val isImportEnabled: Boolean
+        val isFormFillingInProgress: Boolean
             get() = currentTask is Task.FormFilling
 
         val isImportInProgress: Boolean

@@ -19,13 +19,7 @@ internal class ExportStore : Store<Action, State, SideEffect> by StoreImpl(
         val error: StringDesc? = null,
     ) {
 
-        val isFileNameFieldEnabled: Boolean
-            get() = currentTask is Task.FormFilling
-
-        val isFilePathChoosingEnabled: Boolean
-            get() = currentTask is Task.FormFilling
-
-        val isExportEnabled: Boolean
+        val isFormFillingInProgress: Boolean
             get() = currentTask is Task.FormFilling
 
         val isExportInProgress: Boolean

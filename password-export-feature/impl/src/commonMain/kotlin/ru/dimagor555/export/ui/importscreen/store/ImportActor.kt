@@ -18,17 +18,18 @@ internal class ImportActor : Actor<State, Action, Message, SideEffect>(), KoinCo
             is Action.TryChooseFile -> tryChooseFile(getState())
             is Action.OnChooseFileSuccess -> onChooseFileSuccess(action.fileUri)
             is Action.OnChooseFileFailure -> onChooseFileFailure()
-            is Action.ToggleClearBeforeImport -> sendMessage(Message.ToggleClearBeforeImport)
-            is Action.ToggleMakeBackup -> sendMessage(Message.ToggleMakeBackup)
+            is Action.ToggleClearBeforeImport -> toggleClearBeforeImport()
+            is Action.ToggleMakeBackup -> toggleMakeBackup()
             is Action.TryImport -> tryImport(getState())
         }
     }
 
     private suspend fun tryChooseFile(state: State) {
-        if (state.isFileChoosingEnabled) {
-            sendMessage(Message.StartFileChoosing)
-            sendSideEffect(SideEffect.OpenFileChooser)
+        if (state.isFormFillingInProgress.not()) {
+            return
         }
+        sendMessage(Message.StartFileChoosing)
+        sendSideEffect(SideEffect.OpenFileChooser)
     }
 
     private suspend fun onChooseFileSuccess(fileUri: String) {
@@ -45,8 +46,22 @@ internal class ImportActor : Actor<State, Action, Message, SideEffect>(), KoinCo
         sendMessage(Message.FinishFileChoosing)
     }
 
+    private suspend fun toggleClearBeforeImport() {
+        sendMessageIfFormFillingInProgress(Message.ToggleClearBeforeImport)
+    }
+
+    private suspend fun sendMessageIfFormFillingInProgress(message: Message) {
+        if (getState().isFormFillingInProgress) {
+            sendMessage(message)
+        }
+    }
+
+    private suspend fun toggleMakeBackup() {
+        sendMessageIfFormFillingInProgress(Message.ToggleMakeBackup)
+    }
+
     private suspend fun tryImport(state: State) {
-        if (state.isImportEnabled.not()) {
+        if (state.isFormFillingInProgress.not()) {
             return
         }
         if (state.isFileNotSelected) {

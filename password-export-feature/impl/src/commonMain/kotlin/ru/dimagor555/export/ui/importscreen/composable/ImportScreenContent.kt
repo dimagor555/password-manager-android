@@ -14,9 +14,9 @@ import ru.dimagor555.export.ui.importscreen.store.ImportStore.Action
 import ru.dimagor555.export.ui.importscreen.store.ImportStore.State
 import ru.dimagor555.res.core.MR
 import ru.dimagor555.ui.core.component.AnimatedErrorTextBox
-import ru.dimagor555.ui.core.component.MultiplatformTopBottomLayout
 import ru.dimagor555.ui.core.component.CheckboxWithDescription
 import ru.dimagor555.ui.core.component.MultiplatformContainer
+import ru.dimagor555.ui.core.component.MultiplatformTopBottomLayout
 import ru.dimagor555.ui.core.component.button.SimpleTextButton
 import ru.dimagor555.ui.core.component.button.ThrottledLoadingButton
 import ru.dimagor555.ui.core.util.rememberThrottledFalseBoolean
@@ -63,22 +63,25 @@ private fun ImportForm(
             style = MaterialTheme.typography.body2,
             textAlign = TextAlign.Center,
         )
+        val isFormEnabled = rememberThrottledFalseBoolean(state.isFormFillingInProgress)
         SimpleTextButton(
             modifier = Modifier.fillMaxWidth(),
             text = stringResource(MR.strings.choose_file_btn),
             onClick = { sendAction(Action.TryChooseFile) },
             contentPadding = PaddingValues(vertical = 16.dp),
-            enabled = rememberThrottledFalseBoolean(state.isFileChoosingEnabled),
+            enabled = isFormEnabled,
         )
         CheckboxWithDescription(
             checked = state.isClearBeforeImport,
             onClick = { sendAction(Action.ToggleClearBeforeImport) },
             description = stringResource(MR.strings.clear_before_import),
+            enabled = isFormEnabled,
         )
         CheckboxWithDescription(
             checked = state.isMakeBackup,
             onClick = { sendAction(Action.ToggleMakeBackup) },
             description = stringResource(MR.strings.make_backup),
+            enabled = isFormEnabled,
         )
     }
 }
@@ -102,7 +105,7 @@ private fun ImportButton(
             text = stringResource(MR.strings.import_btn),
             onClick = { sendAction(Action.TryImport) },
             contentPadding = PaddingValues(vertical = 16.dp),
-            enabled = state.isImportEnabled,
+            enabled = state.isFormFillingInProgress,
             loading = state.isImportInProgress,
         )
     }

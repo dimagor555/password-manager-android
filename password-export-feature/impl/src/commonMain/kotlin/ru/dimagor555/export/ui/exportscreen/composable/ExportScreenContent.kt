@@ -17,6 +17,7 @@ import ru.dimagor555.ui.core.component.MultiplatformContainer
 import ru.dimagor555.ui.core.component.MultiplatformTopBottomLayout
 import ru.dimagor555.ui.core.component.button.ThrottledLoadingButton
 import ru.dimagor555.ui.core.component.textfield.SimpleErrorOutlinedTextField
+import ru.dimagor555.ui.core.util.rememberThrottledFalseBoolean
 import ru.dimagor555.ui.core.util.resolve
 import ru.dimagor555.ui.core.util.stringResource
 
@@ -54,18 +55,20 @@ private fun ExportForm(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text(text = stringResource(MR.strings.export_file_name))
+        val isFormEnabled = rememberThrottledFalseBoolean(state.isFormFillingInProgress)
         SimpleErrorOutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = state.fileName.text,
             onValueChange = { sendAction(Action.ChangeFileName(it)) },
             error = state.fileName.error?.resolve(),
             singleLine = true,
-            enabled = state.isFileNameFieldEnabled,
+            enabled = isFormEnabled,
         )
         CheckboxWithDescription(
             checked = state.isAddDateTimeToFileName,
             onClick = { sendAction(Action.ToggleAddDateTime) },
             description = stringResource(MR.strings.add_datetime_to_file_name),
+            enabled = isFormEnabled,
         )
     }
 }
@@ -90,7 +93,7 @@ private fun ExportButton(
             text = stringResource(MR.strings.export_btn),
             onClick = { sendAction(Action.TryChooseFilePath) },
             contentPadding = PaddingValues(vertical = 16.dp),
-            enabled = state.isExportEnabled,
+            enabled = state.isFormFillingInProgress,
             loading = state.isExportInProgress,
         )
     }

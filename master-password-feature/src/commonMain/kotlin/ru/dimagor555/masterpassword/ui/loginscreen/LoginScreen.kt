@@ -1,5 +1,6 @@
 package ru.dimagor555.masterpassword.ui.loginscreen
 
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
@@ -20,7 +21,6 @@ import ru.dimagor555.res.core.MR
 import ru.dimagor555.ui.core.component.textfield.PasswordInputField
 import ru.dimagor555.ui.core.model.isError
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import ru.dimagor555.ui.core.util.resolve
 import ru.dimagor555.ui.core.util.stringResource
 
@@ -49,6 +49,7 @@ private fun LoginScreenContent(
     LoginScreenColumn {
         PasswordErrorIndicator(isError = state.password.isError)
         Spacer(modifier = Modifier.height(16.dp))
+        // TODO not disabling on button click
         PasswordInputField(state = state, sendAction = sendAction)
         LoginButton(
             enabled = state.canLogin,

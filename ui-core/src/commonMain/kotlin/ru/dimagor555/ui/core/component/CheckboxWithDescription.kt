@@ -16,6 +16,7 @@ fun CheckboxWithDescription(
     onClick: () -> Unit,
     description: String,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
 ) {
     val mutableInteractionSource = remember { MutableInteractionSource() }
     Row(
@@ -24,12 +25,14 @@ fun CheckboxWithDescription(
                 interactionSource = mutableInteractionSource,
                 indication = null,
                 onClick = onClick,
+                enabled = enabled,
             ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Checkbox(
             checked = checked,
             onCheckedChange = { onClick() },
+            enabled = enabled,
             interactionSource = mutableInteractionSource,
         )
         Text(text = description)
