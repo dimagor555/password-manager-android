@@ -19,11 +19,13 @@ kotlin {
                 implementation(projects.passwordFeature)
                 implementation(projects.passwordGenerationFeature)
                 implementation(projects.masterPasswordFeature)
+                implementation(projects.passwordExportFeature.api)
 
                 implementation(compose.runtime)
                 implementation(compose.foundation)
 
                 implementation(Libs.Koin.core)
+                implementation(Libs.Koin.compose)
 
                 implementation(Libs.MviCompose.core)
                 implementation(Libs.Decompose.decompose)

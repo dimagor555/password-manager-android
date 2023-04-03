@@ -33,3 +33,7 @@ include(":encryption-core")
 include(":password-feature")
 include(":password-generation-feature")
 include(":master-password-feature")
+
+include(":password-export-feature:api")
+include(":password-export-feature:impl")
+include(":password-export-feature:password-integration")

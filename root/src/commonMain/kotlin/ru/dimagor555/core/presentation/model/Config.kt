@@ -28,4 +28,10 @@ internal sealed class Config : Parcelable {
 
     @Parcelize
     object PasswordGeneration : Config()
+
+    @Parcelize
+    object Export : Config()
+
+    @Parcelize
+    object Import : Config()
 }

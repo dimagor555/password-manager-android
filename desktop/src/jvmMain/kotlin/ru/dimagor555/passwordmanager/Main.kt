@@ -12,9 +12,12 @@ import org.koin.core.context.startKoin
 import ru.dimagor555.core.presentation.PasswordManagerRootComponent
 import ru.dimagor555.core.presentation.PasswordManagerRootScreen
 import ru.dimagor555.encryption.di.encryptionModule
+import ru.dimagor555.export.di.exportModule
+import ru.dimagor555.export.integration.di.exportIntegrationModule
 import ru.dimagor555.masterpassword.ui.di.masterPasswordModule
 import ru.dimagor555.password.di.passwordModule
 import ru.dimagor555.passwordgeneration.di.passwordGenerationModule
+import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @OptIn(ExperimentalDecomposeApi::class)
 fun main() {
@@ -25,6 +28,8 @@ fun main() {
             passwordModule,
             passwordGenerationModule,
             masterPasswordModule,
+            exportModule,
+            exportIntegrationModule,
         )
     }
 
