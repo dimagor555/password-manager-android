@@ -20,6 +20,7 @@ internal class PasswordListStore : Store<Action, State, SideEffect> by StoreImpl
     data class State(
         val id: String = Folder.ROOT_FOLDER_ID,
         val passwordStates: List<PasswordState> = emptyList(),
+        // TODO bug: when returning from export screen no loading
         val isLoading: Boolean = true,
         val filterState: FilterState = FilterState(),
         val isSortingDialogVisible: Boolean = false,

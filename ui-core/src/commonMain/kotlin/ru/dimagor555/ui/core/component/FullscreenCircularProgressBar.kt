@@ -2,15 +2,18 @@ package ru.dimagor555.ui.core.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
-// TODO fix blinking
 @Composable
-fun FullscreenCircularProgressBar() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        CircularProgressIndicator()
+fun FullscreenThrottledCircularProgressBar(
+    visible: Boolean,
+) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
+    ) {
+        ThrottledCircularProgressBar(visible = visible)
     }
 }

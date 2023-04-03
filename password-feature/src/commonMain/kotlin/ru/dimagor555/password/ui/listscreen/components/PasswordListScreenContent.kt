@@ -9,8 +9,8 @@ import ru.dimagor555.password.ui.listscreen.model.PasswordListStore.Action
 import ru.dimagor555.password.ui.listscreen.model.PasswordListStore.State
 import ru.dimagor555.password.ui.listscreen.model.PasswordState
 import ru.dimagor555.res.core.MR
-import ru.dimagor555.ui.core.component.FullscreenCircularProgressBar
 import ru.dimagor555.ui.core.component.FullscreenInformationContent
+import ru.dimagor555.ui.core.component.FullscreenThrottledCircularProgressBar
 import ru.dimagor555.ui.core.util.stringResource
 
 @Composable
@@ -20,7 +20,7 @@ internal fun PasswordListScreenContent(
     navigateToPasswordDetailsScreen: (passwordId: String) -> Unit,
 ) {
     when {
-        state.isLoading -> FullscreenCircularProgressBar()
+        state.isLoading -> FullscreenThrottledCircularProgressBar(visible = true)
         state.hasNoPasswords -> NoPasswords(state.filterState)
         else -> PasswordListWrapper(
             passwordStates = state.passwordStates,

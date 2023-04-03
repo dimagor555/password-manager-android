@@ -1,5 +1,6 @@
 package ru.dimagor555.password.ui.detailsscreen
 
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -12,10 +13,9 @@ import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsStore
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsStore.Action
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordDetailsStore.State
 import ru.dimagor555.password.ui.detailsscreen.model.PasswordState
-import ru.dimagor555.ui.core.component.FullscreenCircularProgressBar
+import ru.dimagor555.ui.core.component.FullscreenThrottledCircularProgressBar
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 import ru.dimagor555.ui.core.util.OnSideEffect
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import ru.dimagor555.ui.core.util.createLongSnackbarMessage
 
 @Composable
@@ -29,7 +29,7 @@ fun PasswordDetailsScreen(component: PasswordDetailsComponent) {
     }
 
     when (state.isLoading) {
-        true -> FullscreenCircularProgressBar()
+        true -> FullscreenThrottledCircularProgressBar(visible = true)
         false -> PasswordDetailsScreen(
             component = component,
             state = state,
@@ -41,8 +41,9 @@ fun PasswordDetailsScreen(component: PasswordDetailsComponent) {
     }
 
     LaunchedEffect(state.isExitScreen) {
-        if (state.isExitScreen)
+        if (state.isExitScreen) {
             component.callbacks.navigateBack()
+        }
     }
 }
 
