@@ -4,7 +4,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.dimagor555.masterpassword.domain.SettingsRepository.Properties.MASTER_PASSWORD_HASH
 
-class PasswordHashDaoImpl(private val settingsRepository: SettingsRepository)  : PasswordHashDao {
+class PasswordHashDaoImpl(
+    private val settingsRepository: SettingsRepository,
+) : PasswordHashDao {
+
     override suspend fun hasPasswordHash(): Boolean = withContext(Dispatchers.IO) {
         settingsRepository.has(MASTER_PASSWORD_HASH)
     }

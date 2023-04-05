@@ -2,7 +2,9 @@ package ru.dimagor555.masterpassword.domain
 
 import kotlin.reflect.KClass
 
+// TODO why only in this module?
 interface SettingsRepository {
+
     suspend fun <T : Any> get(property: Property<T>): T?
 
     suspend fun <T : Any> set(property: Property<T>, value: T?)
@@ -16,6 +18,7 @@ interface SettingsRepository {
 
     companion object Properties {
         val MASTER_PASSWORD_HASH = Property(key = "MasterPasswordHash", kClass = String::class)
+        // TODO not used
         val APP_DARK_THEME = Property(key = "appDarkTheme", kClass = Boolean::class)
     }
 }

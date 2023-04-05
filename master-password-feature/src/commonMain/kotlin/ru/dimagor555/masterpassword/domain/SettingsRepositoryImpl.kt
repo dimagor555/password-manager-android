@@ -4,6 +4,7 @@ import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
 
 internal class SettingsRepositoryImpl : SettingsRepository {
+
     private val settings: Settings = Settings()
 
     @Suppress("UNCHECKED_CAST")
