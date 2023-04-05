@@ -96,7 +96,7 @@
     <string name="password">Пароль</string>
     <string name="create">Создать</string>
 
-    <!--    password-export-->
+    <!--    export-->
     <string name="export_title">Экспорт</string>
     <string name="export_file_name">Название файла экспорта</string>
     <string name="add_datetime_to_file_name">Добавить дату и время к имени файла</string>

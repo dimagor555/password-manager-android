@@ -19,7 +19,7 @@ kotlin {
                 implementation(projects.passwordFeature)
                 implementation(projects.passwordGenerationFeature)
                 implementation(projects.masterPasswordFeature)
-                implementation(projects.passwordExportFeature.api)
+                implementation(projects.exportFeature.api)
 
                 implementation(compose.runtime)
                 implementation(compose.foundation)

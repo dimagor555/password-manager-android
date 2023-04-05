@@ -15,7 +15,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.passwordFeature)
-                implementation(projects.passwordExportFeature.impl)
+                implementation(projects.exportFeature.impl)
 
                 implementation(Libs.KotlinX.serialization)
                 implementation(Libs.KotlinX.coroutinesCore)

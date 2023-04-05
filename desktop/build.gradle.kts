@@ -19,8 +19,8 @@ kotlin {
                 implementation(projects.passwordFeature)
                 implementation(projects.passwordGenerationFeature)
                 implementation(projects.masterPasswordFeature)
-                implementation(projects.passwordExportFeature.impl)
-                implementation(projects.passwordExportFeature.passwordIntegration)
+                implementation(projects.exportFeature.impl)
+                implementation(projects.exportFeature.passwordIntegration)
                 implementation(projects.root)
                 implementation(projects.uiCore)
 

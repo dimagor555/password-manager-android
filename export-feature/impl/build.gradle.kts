@@ -15,7 +15,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.passwordExportFeature.api)
+                implementation(projects.exportFeature.api)
                 implementation(projects.core)
                 implementation(projects.encryptionCore)
                 implementation(projects.uiCore)

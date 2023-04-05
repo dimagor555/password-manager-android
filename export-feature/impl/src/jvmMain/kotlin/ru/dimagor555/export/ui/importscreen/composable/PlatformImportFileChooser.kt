@@ -21,7 +21,7 @@ internal actual fun ImportFileChooser(
             isMultiSelectionEnabled = false
             isAcceptAllFileFilterUsed = true
             fileFilter = FileNameExtensionFilter(
-                "Password export file",
+                "Passwords export file",
                 "pass",
             ).also { addChoosableFileFilter(it) }
         }
