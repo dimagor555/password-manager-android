@@ -11,7 +11,7 @@ import kotlinx.coroutines.*
 import org.koin.core.context.startKoin
 import ru.dimagor555.core.presentation.PasswordManagerRootComponent
 import ru.dimagor555.core.presentation.PasswordManagerRootScreen
-import ru.dimagor555.encryption.di.encryptionModule
+import ru.dimagor555.encryption.symmetric.di.symmetricEncryptionModule
 import ru.dimagor555.export.di.exportModule
 import ru.dimagor555.export.integration.di.exportIntegrationModule
 import ru.dimagor555.masterpassword.ui.di.masterPasswordModule
@@ -24,7 +24,7 @@ fun main() {
     Napier.base(DebugAntilog())
     startKoin {
         modules(
-            encryptionModule,
+            symmetricEncryptionModule,
             passwordModule,
             passwordGenerationModule,
             masterPasswordModule,

@@ -3,7 +3,7 @@ package ru.dimagor555.password.usecase.password.single
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
-import ru.dimagor555.encryption.domain.Encryptor
+import ru.dimagor555.encryption.symmetric.domain.SymmetricEncryptor
 import ru.dimagor555.password.domain.folder.ChildId
 import ru.dimagor555.password.domain.password.*
 import ru.dimagor555.password.domain.password.field.EncryptedPasswordField
@@ -18,7 +18,7 @@ import ru.dimagor555.password.validation.core.TextValidationError
 class UpdatePasswordUseCase(
     private val passwordRepository: PasswordRepository,
     private val folderChildrenRepository: FolderChildrenRepository,
-    private val encryptor: Encryptor,
+    private val encryptor: SymmetricEncryptor,
 ) {
 
     data class Params(

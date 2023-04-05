@@ -28,7 +28,8 @@ include(":root")
 include(":ui-core")
 include(":res-core")
 include(":validation-core")
-include(":encryption-core")
+
+include(":encryption:symmetric")
 
 include(":password-feature")
 include(":password-generation-feature")

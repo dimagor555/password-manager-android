@@ -20,7 +20,7 @@ kotlin {
                 implementation(projects.uiCore)
                 implementation(projects.resCore)
                 implementation(projects.validationCore)
-                implementation(projects.encryptionCore)
+                implementation(projects.encryption.symmetric)
 
                 implementation(compose.runtime)
                 implementation(compose.foundation)

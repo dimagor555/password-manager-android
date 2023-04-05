@@ -43,7 +43,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.encryptionCore)
+    implementation(projects.encryption.symmetric)
     implementation(projects.passwordFeature)
     implementation(projects.passwordGenerationFeature)
     implementation(projects.masterPasswordFeature)

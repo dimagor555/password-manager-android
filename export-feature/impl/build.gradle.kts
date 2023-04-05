@@ -17,7 +17,7 @@ kotlin {
             dependencies {
                 implementation(projects.exportFeature.api)
                 implementation(projects.core)
-                implementation(projects.encryptionCore)
+                implementation(projects.encryption.symmetric)
                 implementation(projects.uiCore)
                 implementation(projects.resCore)
 

@@ -1,6 +1,6 @@
 package ru.dimagor555.export.usecase
 
-import ru.dimagor555.encryption.domain.Encryptor
+import ru.dimagor555.encryption.symmetric.domain.SymmetricEncryptor
 import ru.dimagor555.export.domain.Export
 import ru.dimagor555.export.domain.encrypted
 import ru.dimagor555.export.usecase.repository.StorageRepository
@@ -8,7 +8,7 @@ import ru.dimagor555.export.usecase.repository.StorageRepository
 internal class SaveExportToFileUsecase(
     private val collectExport: CollectExportUsecase,
     private val storageRepository: StorageRepository,
-    private val encryptor: Encryptor,
+    private val encryptor: SymmetricEncryptor,
 ) {
 
     data class Params(

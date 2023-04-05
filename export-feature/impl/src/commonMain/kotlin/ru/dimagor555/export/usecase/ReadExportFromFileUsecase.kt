@@ -1,7 +1,7 @@
 package ru.dimagor555.export.usecase
 
 import io.github.aakira.napier.Napier
-import ru.dimagor555.encryption.domain.Decryptor
+import ru.dimagor555.encryption.symmetric.domain.SymmetricDecryptor
 import ru.dimagor555.export.domain.EncryptedExport
 import ru.dimagor555.export.domain.Export
 import ru.dimagor555.export.domain.decrypted
@@ -9,7 +9,7 @@ import ru.dimagor555.export.usecase.repository.StorageRepository
 
 internal class ReadExportFromFileUsecase(
     private val storageRepository: StorageRepository,
-    private val decryptor: Decryptor,
+    private val decryptor: SymmetricDecryptor,
 ) {
 
     data class Params(

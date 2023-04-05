@@ -1,14 +1,11 @@
 package ru.dimagor555.masterpassword.domain
 
-import ru.dimagor555.encryption.domain.AlgorithmProperties
-import ru.dimagor555.encryption.data.SHA256Hasher
-import ru.dimagor555.encryption.domain.CryptoKey
-import javax.crypto.spec.SecretKeySpec
+import ru.dimagor555.encryption.symmetric.SymmetricEncryptionApi
 
 class MasterPasswordRepositoryImpl(
     private val passwordHashDao: PasswordHashDao,
     private val hasher: Hasher,
-    private val cryptoKey: CryptoKey,
+    private val symmetricEncryptionApi: SymmetricEncryptionApi,
 ) : MasterPasswordRepository {
 
     override suspend fun hasPassword(): Boolean =
@@ -17,21 +14,16 @@ class MasterPasswordRepositoryImpl(
     override suspend fun setPassword(password: String) {
         val newPasswordHash = hasher.hash(password)
         passwordHashDao.setPasswordHash(newPasswordHash)
-        cryptoKey.secretKey = SecretKeySpec(
-            SHA256Hasher().hash(password),
-            AlgorithmProperties.AES_ALGORITHM,
-        )
+        symmetricEncryptionApi.setKeyFromPassword(password)
     }
 
     override suspend fun verifyPassword(password: String): Boolean {
         val passwordHash = passwordHashDao.getPasswordHash()
-        val result = hasher.verify(passwordHash = passwordHash, passwordToVerify = password)
-        if (result) {
-            cryptoKey.secretKey = SecretKeySpec(
-                SHA256Hasher().hash(password),
-                AlgorithmProperties.AES_ALGORITHM,
-            )
+        val isValid = hasher.verify(passwordHash = passwordHash, passwordToVerify = password)
+        if (!isValid) {
+            return false
         }
-        return result
+        symmetricEncryptionApi.setKeyFromPassword(password)
+        return true
     }
 }

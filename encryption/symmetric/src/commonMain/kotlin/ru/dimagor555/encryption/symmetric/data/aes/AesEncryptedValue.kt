@@ -1,10 +1,11 @@
-package ru.dimagor555.encryption.core
+package ru.dimagor555.encryption.symmetric.data.aes
 
-import ru.dimagor555.encryption.core.AlgorithmProperties.IV_SIZE_BYTES
+import ru.dimagor555.encryption.symmetric.data.SymmetricEncryptionProperties.IV_SIZE_BYTES
 import saschpe.kase64.base64DecodedBytes
 import saschpe.kase64.base64Encoded
 
-internal class EncryptedValue {
+internal class AesEncryptedValue {
+
     private val iv: ByteArray
     private val bytes: ByteArray
 

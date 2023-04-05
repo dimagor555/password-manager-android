@@ -9,8 +9,8 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
-import ru.dimagor555.encryption.domain.Decryptor
-import ru.dimagor555.encryption.domain.Encryptor
+import ru.dimagor555.encryption.symmetric.domain.SymmetricDecryptor
+import ru.dimagor555.encryption.symmetric.domain.SymmetricEncryptor
 
 @Serializable
 data class Export(
@@ -19,7 +19,7 @@ data class Export(
     val passwordsAndFolderChildren: JsonObject,
 )
 
-internal suspend fun Export.encrypted(encryptor: Encryptor): EncryptedExport =
+internal suspend fun Export.encrypted(encryptor: SymmetricEncryptor): EncryptedExport =
     withContext(Dispatchers.Default) {
         val export = this@encrypted
         val exportJson = json.encodeToString(export)
@@ -27,7 +27,7 @@ internal suspend fun Export.encrypted(encryptor: Encryptor): EncryptedExport =
         EncryptedExport(encryptedExportJson)
     }
 
-internal suspend fun EncryptedExport.decrypted(decryptor: Decryptor): Export =
+internal suspend fun EncryptedExport.decrypted(decryptor: SymmetricDecryptor): Export =
     withContext(Dispatchers.Default) {
         val encryptedExport = this@decrypted
         val exportJson = decryptor.decrypt(encryptedExport.encryptedString)

@@ -6,7 +6,7 @@ import io.github.aakira.napier.Napier
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import ru.dimagor555.encryption.di.encryptionModule
+import ru.dimagor555.encryption.symmetric.di.symmetricEncryptionModule
 import ru.dimagor555.export.di.exportModule
 import ru.dimagor555.export.integration.di.exportIntegrationModule
 import ru.dimagor555.masterpassword.ui.di.masterPasswordModule
@@ -22,7 +22,7 @@ class PasswordManagerApp : Application() {
             androidContext(this@PasswordManagerApp)
             androidLogger()
             modules(
-                encryptionModule,
+                symmetricEncryptionModule,
                 passwordModule,
                 passwordGenerationModule,
                 masterPasswordModule,
