@@ -15,6 +15,7 @@ kotlin {
             dependencies {
                 implementation(Libs.Koin.core)
                 implementation(Libs.kase64)
+                implementation(Libs.KotlinX.coroutinesCore)
             }
         }
         val androidMain by getting {

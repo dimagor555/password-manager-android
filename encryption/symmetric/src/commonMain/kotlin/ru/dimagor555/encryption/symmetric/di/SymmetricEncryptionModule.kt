@@ -12,6 +12,8 @@ import ru.dimagor555.encryption.symmetric.data.hasher.SHA256Hasher
 import ru.dimagor555.encryption.symmetric.data.repository.SymmetricKeyRepository
 import ru.dimagor555.encryption.symmetric.domain.SymmetricDecryptor
 import ru.dimagor555.encryption.symmetric.domain.SymmetricEncryptor
+import ru.dimagor555.encryption.symmetric.usecase.GetSymmetricKeyBase64Usecase
+import ru.dimagor555.encryption.symmetric.usecase.SetSymmetricKeyFromBase64Usecase
 import ru.dimagor555.encryption.symmetric.usecase.SetSymmetricKeyFromPasswordUsecase
 
 val symmetricEncryptionModule = module {
@@ -19,12 +21,9 @@ val symmetricEncryptionModule = module {
 
     singleOf(::SymmetricKeyRepository)
     factoryOf(::SHA256Hasher)
-    factory { params ->
-        AesCryptor(
-            getKey = params.getOrNull()
-                ?: get<SymmetricKeyRepository>().let { it::get },
-        )
-    } binds arrayOf(SymmetricEncryptor::class, SymmetricDecryptor::class)
+    factoryOf(::AesCryptor) binds arrayOf(SymmetricEncryptor::class, SymmetricDecryptor::class)
 
     factoryOf(::SetSymmetricKeyFromPasswordUsecase)
+    factoryOf(::SetSymmetricKeyFromBase64Usecase)
+    factoryOf(::GetSymmetricKeyBase64Usecase)
 }
