@@ -35,7 +35,6 @@ kotlin {
                 implementation(Libs.settingsNoArg)
 
                 implementation(Libs.Koin.core)
-                implementation(Libs.Koin.compose)
 
                 implementation(Libs.napier)
             }
@@ -45,8 +44,8 @@ kotlin {
                 implementation(Libs.MviCompose.core)
                 implementation(Libs.MviCompose.android)
 
-                implementation(Libs.Koin.android)
                 implementation(Libs.Argon2.android)
+
                 implementation(Libs.AndroidX.biometric)
             }
         }

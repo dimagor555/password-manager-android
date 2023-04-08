@@ -7,6 +7,6 @@ interface EditMasterPasswordComponent {
     data class EditMasterPasswordCallbacks(
         val onSuccess: () -> Unit,
         val onCancel: () -> Unit,
-        val onNavigateToPasswordGenerationScreen: () -> Unit, // TODO remove
+        val onNavigateToPasswordGenerationScreen: () -> Unit,
     )
 }

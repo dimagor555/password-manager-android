@@ -4,33 +4,17 @@ import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
-import ru.dimagor555.masterpassword.data.biometric.BiometricSymmetricKeyRepositoryImpl
-import ru.dimagor555.masterpassword.data.password.MasterPasswordHashRepositoryImpl
-import ru.dimagor555.masterpassword.ui.editscreen.store.EditMasterPasswordUseCases
-import ru.dimagor555.masterpassword.ui.loginscreen.store.LoginUseCases
-import ru.dimagor555.masterpassword.usecase.biometric.CanUseBiometricLoginUsecase
-import ru.dimagor555.masterpassword.usecase.biometric.IsBiometricAvailableUsecase
-import ru.dimagor555.masterpassword.usecase.biometric.repository.BiometricSymmetricKeyRepository
-import ru.dimagor555.masterpassword.usecase.password.HasMasterPasswordUsecase
-import ru.dimagor555.masterpassword.usecase.password.LoginByPasswordUseCase
-import ru.dimagor555.masterpassword.usecase.password.SetMasterPasswordUseCase
-import ru.dimagor555.masterpassword.usecase.password.ValidatePasswordUseCase
-import ru.dimagor555.masterpassword.usecase.password.repository.MasterPasswordHashRepository
+import ru.dimagor555.masterpassword.domain.*
+import ru.dimagor555.masterpassword.ui.editscreen.model.EditMasterPasswordUseCases
+import ru.dimagor555.masterpassword.ui.loginscreen.model.LoginUseCases
 
 val masterPasswordModule = module {
     includes(masterPasswordPlatformModule)
 
-    singleOf(::MasterPasswordHashRepositoryImpl) bind MasterPasswordHashRepository::class
-    singleOf(::BiometricSymmetricKeyRepositoryImpl) bind BiometricSymmetricKeyRepository::class
+    singleOf(::PasswordHashDaoImpl) bind PasswordHashDao::class
+    singleOf(::MasterPasswordRepositoryImpl) bind MasterPasswordRepository::class
+    singleOf(::SettingsRepositoryImpl) bind SettingsRepository::class
 
     factoryOf(::LoginUseCases)
     factoryOf(::EditMasterPasswordUseCases)
-
-    factoryOf(::HasMasterPasswordUsecase)
-    factoryOf(::SetMasterPasswordUseCase)
-    factoryOf(::ValidatePasswordUseCase)
-    factoryOf(::LoginByPasswordUseCase)
-
-    factoryOf(::IsBiometricAvailableUsecase)
-    factoryOf(::CanUseBiometricLoginUsecase)
 }

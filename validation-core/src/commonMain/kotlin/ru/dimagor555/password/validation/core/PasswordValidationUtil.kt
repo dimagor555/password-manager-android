@@ -1,11 +1,9 @@
 package ru.dimagor555.password.validation.core
 
 object PasswordValidationUtil {
+    fun validate(password: String) = validateSymbols(password)
 
-    fun validate(password: String): Set<PasswordValidationError> =
-        validateSymbols(password)
-
-    private fun validateSymbols(password: String): Set<PasswordValidationError> =
+    private fun validateSymbols(password: String) =
         errorsByRegexes
             .filterValues { regex -> regex !in password }
             .keys

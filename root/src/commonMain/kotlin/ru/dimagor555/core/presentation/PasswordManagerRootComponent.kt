@@ -15,6 +15,7 @@ import ru.dimagor555.core.presentation.model.Config
 import ru.dimagor555.export.ExportFeatureApi
 import ru.dimagor555.export.ui.exportscreen.ExportComponent
 import ru.dimagor555.export.ui.importscreen.ImportComponent
+import ru.dimagor555.masterpassword.domain.MasterPasswordRepository
 import ru.dimagor555.masterpassword.ui.editscreen.EditMasterPasswordComponent
 import ru.dimagor555.masterpassword.ui.editscreen.EditMasterPasswordComponent.EditMasterPasswordCallbacks
 import ru.dimagor555.masterpassword.ui.editscreen.createEditMasterPasswordComponent
@@ -22,7 +23,6 @@ import ru.dimagor555.masterpassword.ui.loginscreen.LoginComponent
 import ru.dimagor555.masterpassword.ui.loginscreen.createLoginComponent
 import ru.dimagor555.masterpassword.ui.startscreen.WelcomeComponent
 import ru.dimagor555.masterpassword.ui.startscreen.WelcomeComponentImpl
-import ru.dimagor555.masterpassword.usecase.password.HasMasterPasswordUsecase
 import ru.dimagor555.password.ui.createscreen.CreatePasswordComponent
 import ru.dimagor555.password.ui.createscreen.CreatePasswordComponent.CreatePasswordComponentCallbacks
 import ru.dimagor555.password.ui.createscreen.createCreatePasswordComponent
@@ -65,7 +65,7 @@ class PasswordManagerRootComponent(
 
     private val componentScope by componentScope()
 
-    private val hasMasterPassword: HasMasterPasswordUsecase by inject()
+    private val masterPasswordRepository: MasterPasswordRepository by inject()
 
     private val _childStack =
         childStack(
@@ -86,7 +86,7 @@ class PasswordManagerRootComponent(
     }
 
     private fun determineStartDestination(): Config = runBlocking {
-        when (hasMasterPassword()) {
+        when (masterPasswordRepository.hasPassword()) {
             true -> Config.Login
             else -> Config.Welcome
         }

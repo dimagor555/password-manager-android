@@ -2,9 +2,9 @@ package ru.dimagor555.masterpassword.ui.loginscreen
 
 import com.arkivanov.decompose.ComponentContext
 import ru.dimagor555.core.presentation.MviComponentContext
-import ru.dimagor555.masterpassword.ui.loginscreen.store.LoginStore
-import ru.dimagor555.masterpassword.ui.loginscreen.store.LoginStore.Action
-import ru.dimagor555.masterpassword.ui.loginscreen.store.LoginStore.State
+import ru.dimagor555.masterpassword.ui.loginscreen.model.LoginStore
+import ru.dimagor555.masterpassword.ui.loginscreen.model.LoginStore.Action
+import ru.dimagor555.masterpassword.ui.loginscreen.model.LoginStore.State
 
 fun createLoginComponent(
     componentContext: ComponentContext,

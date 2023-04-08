@@ -12,7 +12,6 @@
     <string name="ready">Ready</string>
     <string name="start">Start</string>
     <string name="ok">OK</string>
-    <string name="enable">Enable</string>
 
     <string name="app_name_word_first">Password</string>
     <string name="app_name_word_second">Manager</string>
@@ -27,8 +26,6 @@
     <string name="biometry_login">Use biometrics to login</string>
     <string name="biometry_login_dialog_title">Login in Password Manager</string>
     <string name="biometry_login_cancel_button_text">Use password instead</string>
-    <string name="biometric_set_up_sheet_title">Enable biometric login</string>
-    <string name="biometric_set_up_sheet_description">You can do it later in settings</string>
 
     <string name="error_password_not_match">Password does not match</string>
     <string name="primary_password_screen_title">You need to come up with a master password that will be used to log in the app</string>
