@@ -46,10 +46,8 @@ private suspend fun FragmentActivity.authorizeBiometricCipher(
             onSuccess = { continuation.resume(it?.cipher) },
             onFail = { continuation.resume(null) },
         )
+        continuation.invokeOnCancellation { prompt.cancelAuthentication() }
         prompt.authenticate(promptInfo, CryptoObject(cipher))
-        continuation.invokeOnCancellation {
-            prompt.cancelAuthentication()
-        }
     }
 }
 
