@@ -27,18 +27,18 @@ class AesGcmCipher(
     private fun generateRandomIv() = ByteArray(IV_SIZE_BYTES)
         .also { SecureRandom().nextBytes(it) }
 
-    fun encrypt(input: String): String {
-        val encryptedBytes = cipher.doFinal(input.toByteArray())
+    fun encrypt(plaintext: String): String {
+        val encryptedBytes = cipher.doFinal(plaintext.toByteArray())
         return AesEncryptedValue(iv = cipher.iv, bytes = encryptedBytes).toBase64String()
     }
 
-    fun initForDecryption(input: String) {
-        val (iv, _) = AesEncryptedValue(input)
+    fun initForDecryption(ciphertext: String) {
+        val (iv, _) = AesEncryptedValue(ciphertext)
         cipher.init(Cipher.DECRYPT_MODE, getKey(), createGcmParameterSpec(iv))
     }
 
-    fun decrypt(input: String): String {
-        val (_, encryptedBytes) = AesEncryptedValue(input)
+    fun decrypt(ciphertext: String): String {
+        val (_, encryptedBytes) = AesEncryptedValue(ciphertext)
         val decryptedBytes = cipher.doFinal(encryptedBytes)
         return decryptedBytes.toString(Charsets.UTF_8)
     }

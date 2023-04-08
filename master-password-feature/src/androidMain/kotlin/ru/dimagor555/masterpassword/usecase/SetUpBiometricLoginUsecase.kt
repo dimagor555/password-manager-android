@@ -20,7 +20,7 @@ internal class SetUpBiometricLoginUsecase(
             .getOrElse { Result.Error }
 
     private suspend fun setUpBiometricLogin(params: Params): Result {
-        val decryptedKey = symmetricEncryptionApi.getKeyBase64()
+        val decryptedKey = symmetricEncryptionApi.getKey().base64Encoded
         val cipher = biometricCipherRepository.getCipherForEncryption()
         val authorizedCipher = params.authorizeCipher(cipher) ?: return Result.Error
         val encryptedKey = biometricCipherRepository.encrypt(authorizedCipher, decryptedKey)

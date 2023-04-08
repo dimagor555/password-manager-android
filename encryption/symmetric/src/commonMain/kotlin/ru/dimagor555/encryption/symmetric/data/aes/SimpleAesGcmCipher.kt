@@ -8,15 +8,15 @@ internal class SimpleAesGcmCipher(
 
     private val cipher by lazy { AesGcmCipher(getKey = getKey) }
 
-    fun encrypt(input: String): String =
+    fun encrypt(plaintext: String): String =
         cipher.run {
             initForEncryption()
-            encrypt(input)
+            encrypt(plaintext)
         }
 
-    fun decrypt(input: String): String =
+    fun decrypt(ciphertext: String): String =
         cipher.run {
-            initForDecryption(input)
-            decrypt(input)
+            initForDecryption(ciphertext)
+            decrypt(ciphertext)
         }
 }

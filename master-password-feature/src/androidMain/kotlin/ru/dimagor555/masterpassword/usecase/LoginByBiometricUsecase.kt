@@ -1,6 +1,8 @@
 package ru.dimagor555.masterpassword.usecase
 
 import ru.dimagor555.encryption.symmetric.SymmetricEncryptionApi
+import ru.dimagor555.encryption.symmetric.data.key.fromBase64
+import ru.dimagor555.encryption.symmetric.domain.SymmetricKey
 import ru.dimagor555.masterpassword.usecase.biometric.repository.BiometricSymmetricKeyRepository
 import ru.dimagor555.masterpassword.usecase.repository.BiometricCipherRepository
 import javax.crypto.Cipher
@@ -24,7 +26,8 @@ internal class LoginByBiometricUsecase(
         val cipher = biometricCipherRepository.getCipherForDecryption(encryptedKey)
         val authorizedCipher = params.authorizeCipher(cipher) ?: return Result.Error
         val decryptedKey = biometricCipherRepository.decrypt(authorizedCipher, encryptedKey)
-        symmetricEncryptionApi.setKeyFromBase64(decryptedKey)
+        val symmetricKey = SymmetricKey.fromBase64(decryptedKey)
+        symmetricEncryptionApi.setKey(symmetricKey)
         return Result.Success
     }
 

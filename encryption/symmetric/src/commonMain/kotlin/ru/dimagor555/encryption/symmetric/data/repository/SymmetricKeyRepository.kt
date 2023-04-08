@@ -1,15 +1,15 @@
 package ru.dimagor555.encryption.symmetric.data.repository
 
-import javax.crypto.SecretKey
+import ru.dimagor555.encryption.symmetric.domain.SymmetricKey
 
 internal class SymmetricKeyRepository {
 
-    private var secretKey: SecretKey? = null
+    private var symmetricKey: SymmetricKey? = null
 
-    fun get(): SecretKey =
-        secretKey ?: error("no symmetric key")
+    fun get(): SymmetricKey =
+        symmetricKey ?: error("no symmetric key")
 
-    fun set(secretKey: SecretKey) {
-        this.secretKey = secretKey
+    fun set(symmetricKey: SymmetricKey) {
+        this.symmetricKey = symmetricKey
     }
 }

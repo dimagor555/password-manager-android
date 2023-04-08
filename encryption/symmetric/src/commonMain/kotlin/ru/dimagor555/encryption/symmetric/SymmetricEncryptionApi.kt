@@ -1,30 +1,29 @@
 package ru.dimagor555.encryption.symmetric
 
-import ru.dimagor555.encryption.symmetric.usecase.GetSymmetricKeyBase64Usecase
-import ru.dimagor555.encryption.symmetric.usecase.SetSymmetricKeyFromBase64Usecase
+import ru.dimagor555.encryption.symmetric.data.repository.SymmetricKeyRepository
+import ru.dimagor555.encryption.symmetric.domain.SymmetricKey
 import ru.dimagor555.encryption.symmetric.usecase.SetSymmetricKeyFromPasswordUsecase
 
 interface SymmetricEncryptionApi {
 
     suspend fun setKeyFromPassword(password: String)
 
-    fun setKeyFromBase64(encodedKey: String)
+    fun setKey(symmetricKey: SymmetricKey)
 
-    fun getKeyBase64(): String
+    fun getKey(): SymmetricKey
 }
 
 internal class SymmetricEncryptionApiImpl(
     private val setSymmetricKeyFromPassword: SetSymmetricKeyFromPasswordUsecase,
-    private val setSymmetricKeyFromBase64: SetSymmetricKeyFromBase64Usecase,
-    private val getSymmetricKeyBase64: GetSymmetricKeyBase64Usecase,
+    private val symmetricKeyRepository: SymmetricKeyRepository,
 ) : SymmetricEncryptionApi {
 
     override suspend fun setKeyFromPassword(password: String) =
         setSymmetricKeyFromPassword(password)
 
-    override fun setKeyFromBase64(encodedKey: String) =
-        setSymmetricKeyFromBase64(encodedKey)
+    override fun setKey(symmetricKey: SymmetricKey) =
+        symmetricKeyRepository.set(symmetricKey)
 
-    override fun getKeyBase64(): String =
-        getSymmetricKeyBase64()
+    override fun getKey(): SymmetricKey =
+        symmetricKeyRepository.get()
 }
