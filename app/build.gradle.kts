@@ -44,6 +44,7 @@ android {
 
 dependencies {
     implementation(projects.encryption.symmetric)
+    implementation(projects.encryption.asymmetric)
     implementation(projects.passwordFeature)
     implementation(projects.passwordGenerationFeature)
     implementation(projects.masterPasswordFeature)

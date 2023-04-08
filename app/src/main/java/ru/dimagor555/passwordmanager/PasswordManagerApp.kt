@@ -7,6 +7,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import ru.dimagor555.encryption.symmetric.di.symmetricEncryptionModule
+import ru.dimagor555.encryption.asymmetric.di.asymmetricEncryptionModule
 import ru.dimagor555.export.di.exportModule
 import ru.dimagor555.export.integration.di.exportIntegrationModule
 import ru.dimagor555.masterpassword.di.masterPasswordModule
@@ -23,6 +24,7 @@ class PasswordManagerApp : Application() {
             androidLogger()
             modules(
                 symmetricEncryptionModule,
+                asymmetricEncryptionModule,
                 passwordModule,
                 passwordGenerationModule,
                 masterPasswordModule,

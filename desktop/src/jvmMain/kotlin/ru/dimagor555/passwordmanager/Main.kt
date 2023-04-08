@@ -12,6 +12,7 @@ import org.koin.core.context.startKoin
 import ru.dimagor555.core.presentation.PasswordManagerRootComponent
 import ru.dimagor555.core.presentation.PasswordManagerRootScreen
 import ru.dimagor555.encryption.symmetric.di.symmetricEncryptionModule
+import ru.dimagor555.encryption.asymmetric.di.asymmetricEncryptionModule
 import ru.dimagor555.export.di.exportModule
 import ru.dimagor555.export.integration.di.exportIntegrationModule
 import ru.dimagor555.masterpassword.di.masterPasswordModule
@@ -25,6 +26,7 @@ fun main() {
     startKoin {
         modules(
             symmetricEncryptionModule,
+            asymmetricEncryptionModule,
             passwordModule,
             passwordGenerationModule,
             masterPasswordModule,
