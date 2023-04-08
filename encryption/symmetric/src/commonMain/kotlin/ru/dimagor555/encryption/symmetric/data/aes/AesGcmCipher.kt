@@ -8,38 +8,38 @@ import javax.crypto.Cipher
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 
-internal class AesGcmCipher(
+class AesGcmCipher(
+    private val getCipher: () -> Cipher = { Cipher.getInstance(TRANSFORMATION) },
     private val getKey: () -> SecretKey,
+    private val isGenerateIV: Boolean = true,
 ) {
 
-    fun encrypt(input: String): String {
-        val cipher = getCipher()
-        val encryptedBytes = cipher.encrypt(input.toByteArray())
-        return AesEncryptedValue(iv = cipher.iv, bytes = encryptedBytes).toBase64String()
+    val cipher by lazy { getCipher() }
+
+    fun initForEncryption() {
+        val params = if (isGenerateIV) createGcmParameterSpec() else null
+        cipher.init(Cipher.ENCRYPT_MODE, getKey(), params)
     }
 
-    private fun getCipher() = Cipher.getInstance(TRANSFORMATION)
-
-    private fun Cipher.encrypt(input: ByteArray): ByteArray {
-        init(Cipher.ENCRYPT_MODE, getKey(), createGcmParameterSpec())
-        return doFinal(input)
-    }
-
-    private fun createGcmParameterSpec(iv: ByteArray = generateRandomIv()) =
+    private fun createGcmParameterSpec(iv: ByteArray = generateRandomIv()): GCMParameterSpec =
         GCMParameterSpec(TAG_SIZE_BITS, iv)
 
     private fun generateRandomIv() = ByteArray(IV_SIZE_BYTES)
         .also { SecureRandom().nextBytes(it) }
 
-    fun decrypt(input: String): String {
-        val (iv, encryptedBytes) = AesEncryptedValue(input)
-        val cipher = getCipher()
-        val decryptedBytes = cipher.decrypt(encryptedBytes, iv)
-        return decryptedBytes.toString(Charsets.UTF_8)
+    fun encrypt(input: String): String {
+        val encryptedBytes = cipher.doFinal(input.toByteArray())
+        return AesEncryptedValue(iv = cipher.iv, bytes = encryptedBytes).toBase64String()
     }
 
-    private fun Cipher.decrypt(input: ByteArray, iv: ByteArray): ByteArray {
-        init(Cipher.DECRYPT_MODE, getKey(), createGcmParameterSpec(iv))
-        return doFinal(input)
+    fun initForDecryption(input: String) {
+        val (iv, _) = AesEncryptedValue(input)
+        cipher.init(Cipher.DECRYPT_MODE, getKey(), createGcmParameterSpec(iv))
+    }
+
+    fun decrypt(input: String): String {
+        val (_, encryptedBytes) = AesEncryptedValue(input)
+        val decryptedBytes = cipher.doFinal(encryptedBytes)
+        return decryptedBytes.toString(Charsets.UTF_8)
     }
 }
