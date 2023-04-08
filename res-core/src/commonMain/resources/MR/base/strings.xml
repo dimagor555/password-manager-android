@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- ui-core -->
 
+    <!-- ui-core -->
     <string name="back">Back</string>
     <string name="cancel">Cancel</string>
     <string name="menu">Menu</string>
@@ -12,12 +12,12 @@
     <string name="ready">Ready</string>
     <string name="start">Start</string>
     <string name="ok">OK</string>
+    <string name="enable">Enable</string>
 
     <string name="app_name_word_first">Password</string>
     <string name="app_name_word_second">Manager</string>
 
     <!-- master-password-feature -->
-
     <string name="data_storage_disclaimer">All data is stored on your device</string>
     <string name="server_disclaimer">Nothing is sent to servers</string>
     <string name="welcome_screen_description">Come up with a master password and get the rest in one click</string>
@@ -27,6 +27,8 @@
     <string name="biometry_login">Use biometrics to login</string>
     <string name="biometry_login_dialog_title">Login in Password Manager</string>
     <string name="biometry_login_cancel_button_text">Use password instead</string>
+    <string name="biometric_set_up_sheet_title">Enable biometric login</string>
+    <string name="biometric_set_up_sheet_description">You can do it later in settings</string>
 
     <string name="error_password_not_match">Password does not match</string>
     <string name="primary_password_screen_title">You need to come up with a master password that will be used to log in the app</string>
@@ -37,7 +39,6 @@
     <string name="confirm_password_field_placeholder">Repeat the master password</string>
 
     <!-- validation-core -->
-
     <string name="error_is_blank">Should not be blank</string>
     <string name="error_invalid_special_characters">Contains invalid special characters</string>
     <string name="error_not_contain_digits">Add digits</string>
@@ -46,7 +47,6 @@
     <string name="error_not_contain_special_symbols">Add special symbols</string>
 
     <!-- password-generation-feature -->
-
     <string name="generate_new">Generate new</string>
     <string name="char_group_name_digits">Digits\n(0–9)</string>
     <string name="char_group_name_lowercase">Lowercase letters\n(a-z)</string>
@@ -56,7 +56,6 @@
     <string name="can_not_generate_error">Password could not be generated. Make sure to select at least 1 option</string>
 
     <!-- password-feature -->
-
     <string name="search">Search</string>
     <string name="clear">Clear</string>
     <string name="settings">Settings</string>
@@ -99,6 +98,29 @@
     <string name="phone">Phone</string>
     <string name="password">Password</string>
     <string name="create">Create</string>
+
+    <!--    export-->
+    <string name="export_title">Export</string>
+    <string name="export_file_name">Export file name</string>
+    <string name="add_datetime_to_file_name">Add datetime to file name</string>
+    <string name="export_btn">Export</string>
+    <string name="choose_export_file_path">Choose export file path</string>
+    <string name="error_is_empty">Should not be empty</string>
+    <string name="error_export_no_passwords">Nothing to export</string>
+    <string name="error_during_export">An error occurred during the export</string>
+    <string name="export_success">Your data has been successfully exported to the file</string>
+    <string name="import_title">Import</string>
+    <string name="import_btn">Import</string>
+    <string name="choose_import_file">Choose import file</string>
+    <string name="nothing_selected">Nothing selected</string>
+    <string name="choose_file_btn">Choose file</string>
+    <string name="clear_before_import">Delete all before import</string>
+    <string name="make_backup">Make backup before import</string>
+    <string name="import_file_not_selected">Import file is not selected</string>
+    <string name="import_success">Your data has been successfully import from the file</string>
+    <string name="error_could_not_read_file">Could not read file</string>
+    <string name="error_invalid_file_format">Invalid file format</string>
+    <string name="error_during_import">An error occurred during the import</string>
 
     <!-- synchronization-feature -->
 

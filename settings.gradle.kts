@@ -28,10 +28,18 @@ include(":root")
 include(":ui-core")
 include(":res-core")
 include(":validation-core")
-include(":encryption-core")
+
+include(":encryption:symmetric")
+include(":encryption:asymmetric")
 
 include(":password-feature")
 include(":password-generation-feature")
 include(":master-password-feature")
+
+include(":export-feature:api")
+include(":export-feature:impl")
+include(":export-feature:password-integration")
+include(":asymmetric")
+
 include(":synchronization-feature")
 include(":sync-password-integration")

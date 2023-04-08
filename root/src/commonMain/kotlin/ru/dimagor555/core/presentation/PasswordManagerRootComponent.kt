@@ -8,10 +8,13 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
 import org.koin.core.component.inject
 import ru.dimagor555.core.presentation.RootComponent.Child.*
 import ru.dimagor555.core.presentation.model.Config
-import ru.dimagor555.masterpassword.domain.MasterPasswordRepository
+import ru.dimagor555.export.ExportFeatureApi
+import ru.dimagor555.export.ui.exportscreen.ExportComponent
+import ru.dimagor555.export.ui.importscreen.ImportComponent
 import ru.dimagor555.masterpassword.ui.editscreen.EditMasterPasswordComponent
 import ru.dimagor555.masterpassword.ui.editscreen.EditMasterPasswordComponent.EditMasterPasswordCallbacks
 import ru.dimagor555.masterpassword.ui.editscreen.createEditMasterPasswordComponent
@@ -19,6 +22,7 @@ import ru.dimagor555.masterpassword.ui.loginscreen.LoginComponent
 import ru.dimagor555.masterpassword.ui.loginscreen.createLoginComponent
 import ru.dimagor555.masterpassword.ui.startscreen.WelcomeComponent
 import ru.dimagor555.masterpassword.ui.startscreen.WelcomeComponentImpl
+import ru.dimagor555.masterpassword.usecase.password.HasMasterPasswordUsecase
 import ru.dimagor555.password.ui.createscreen.CreatePasswordComponent
 import ru.dimagor555.password.ui.createscreen.CreatePasswordComponent.CreatePasswordComponentCallbacks
 import ru.dimagor555.password.ui.createscreen.createCreatePasswordComponent
@@ -57,6 +61,8 @@ interface RootComponent {
         class EditPassword(val component: EditPasswordComponent) : Child()
         class PasswordDetails(val component: PasswordDetailsComponent) : Child()
         class CreatePassword(val component: CreatePasswordComponent) : Child()
+        class Export(val component: ExportComponent) : Child()
+        class Import(val component: ImportComponent) : Child()
         class DevicesList(val component: DevicesListComponent) : Child()
         class Sync(val component: SyncComponent) : Child()
         class ResultSync(val component: ResultSyncComponent) : Child()
@@ -71,7 +77,7 @@ class PasswordManagerRootComponent(
 
     private val componentScope by componentScope()
 
-    private val masterPasswordRepository: MasterPasswordRepository by inject()
+    private val hasMasterPassword: HasMasterPasswordUsecase by inject()
 
     private val _childStack =
         childStack(
@@ -92,7 +98,7 @@ class PasswordManagerRootComponent(
     }
 
     private fun determineStartDestination(): Config = runBlocking {
-        when (masterPasswordRepository.hasPassword()) {
+        when (hasMasterPassword()) {
             true -> Config.Login
             else -> Config.Welcome
         }
@@ -115,6 +121,9 @@ class PasswordManagerRootComponent(
                 passwordDetails(componentContext, config.passwordId, config.parentId)
             )
             is Config.PasswordGeneration -> Generation(passwordGeneration(componentContext))
+            is Config.Export -> Export(export(componentContext))
+            is Config.Import -> Import(import(componentContext))
+            is Config.PasswordGeneration -> Generation(passwordGeneration(componentContext))
             is Config.DevicesList -> DevicesList(devicesList(componentContext))
             is Config.Sync -> Sync(sync(componentContext, config.isClient))
             is Config.ResultSync -> ResultSync(resultSync(componentContext, config.isSyncSuccess))
@@ -127,7 +136,6 @@ class PasswordManagerRootComponent(
                 .filterIsInstance<Child.Created<*, RootComponent.Child>>()
                 .map { child -> child.instance }
                 .sendGeneratedPasswordToChildren(password)
-
         }
     }
 
@@ -244,6 +252,18 @@ class PasswordManagerRootComponent(
                     generatedPassword.emit(result)
                 }
             },
+        )
+
+    private fun export(componentContext: ComponentContext): ExportComponent =
+        get<ExportFeatureApi>().createExportComponent(
+            componentContext = componentContext,
+            onNavigateBack = { navigation.pop() },
+        )
+
+    private fun import(componentContext: ComponentContext): ImportComponent =
+        get<ExportFeatureApi>().createImportComponent(
+            componentContext = componentContext,
+            onNavigateBack = { navigation.pop() },
         )
 
     private fun devicesList(componentContext: ComponentContext) =

@@ -29,7 +29,6 @@ object Libs {
         const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
         const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
         const val coroutinesSwing = "org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.6.4"
-        const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
         const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
     }
 
@@ -53,10 +52,9 @@ object Libs {
 
     object Koin {
         private const val version = "3.3.2"
-        private const val composeVersion = "3.4.1"
         const val core = "io.insert-koin:koin-core:$version"
         const val android = "io.insert-koin:koin-android:$version"
-        const val compose = "io.insert-koin:koin-androidx-compose:$composeVersion"
+        const val compose = "io.insert-koin:koin-compose:1.0.0"
         const val ktor = "io.insert-koin:koin-ktor:3.3.1"
     }
 

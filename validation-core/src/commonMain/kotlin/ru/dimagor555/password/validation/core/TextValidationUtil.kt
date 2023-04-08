@@ -1,6 +1,7 @@
 package ru.dimagor555.password.validation.core
 
 object TextValidationUtil {
+
     fun validate(text: String, lengthSpec: LengthSpec): List<TextValidationError> {
         val validationErrors = mutableListOf<TextValidationError>()
         validationErrors += validateIsNotBlank(text)
@@ -9,10 +10,11 @@ object TextValidationUtil {
     }
 
     private fun validateIsNotBlank(text: String): List<TextValidationError> {
-        return if (text.isBlank())
+        return if (text.isBlank()) {
             listOf(TextValidationError.IsBlank)
-        else
+        } else {
             emptyList()
+        }
     }
 
     private fun validateLength(
@@ -20,10 +22,12 @@ object TextValidationUtil {
         lengthSpec: LengthSpec
     ): List<TextValidationError> {
         val errors = mutableListOf<TextValidationError>()
-        if (text.length < lengthSpec.minLength)
+        if (text.length < lengthSpec.minLength) {
             errors += TextValidationError.IsTooShort(lengthSpec.minLength)
-        if (text.length > lengthSpec.maxLength)
+        }
+        if (text.length > lengthSpec.maxLength) {
             errors += TextValidationError.IsTooLong(lengthSpec.maxLength)
+        }
         return errors
     }
 }

@@ -37,4 +37,10 @@ internal sealed class Config : Parcelable {
 
     @Parcelize
     data class ResultSync(val isSyncSuccess: Boolean) : Config()
+
+    @Parcelize
+    object Export : Config()
+
+    @Parcelize
+    object Import : Config()
 }

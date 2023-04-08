@@ -4,9 +4,9 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.backhandler.BackCallback
 import ru.dimagor555.core.presentation.MviComponentContext
 import ru.dimagor555.masterpassword.ui.editscreen.EditMasterPasswordComponent.EditMasterPasswordCallbacks
-import ru.dimagor555.masterpassword.ui.editscreen.model.EditMasterPasswordStore
-import ru.dimagor555.masterpassword.ui.editscreen.model.EditMasterPasswordStore.Action
-import ru.dimagor555.masterpassword.ui.editscreen.model.EditMasterPasswordStore.State
+import ru.dimagor555.masterpassword.ui.editscreen.store.EditMasterPasswordStore
+import ru.dimagor555.masterpassword.ui.editscreen.store.EditMasterPasswordStore.Action
+import ru.dimagor555.masterpassword.ui.editscreen.store.EditMasterPasswordStore.State
 
 fun createEditMasterPasswordComponent(
     componentContext: ComponentContext,

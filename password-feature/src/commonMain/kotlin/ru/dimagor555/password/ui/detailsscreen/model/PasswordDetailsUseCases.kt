@@ -1,7 +1,7 @@
 package ru.dimagor555.password.ui.detailsscreen.model
 
-import ru.dimagor555.encryption.domain.Decryptor
-import ru.dimagor555.encryption.domain.Encryptor
+import ru.dimagor555.encryption.symmetric.domain.SymmetricDecryptor
+import ru.dimagor555.encryption.symmetric.domain.SymmetricEncryptor
 import ru.dimagor555.password.usecase.field.repository.ClipboardRepository
 import ru.dimagor555.password.usecase.folderchildren.repository.FolderChildrenRepository
 import ru.dimagor555.password.usecase.password.repository.PasswordRepository
@@ -16,8 +16,8 @@ internal class PasswordDetailsUseCases(
     passwordRepository: PasswordRepository,
     folderChildrenRepository: FolderChildrenRepository,
     clipboardRepository: ClipboardRepository,
-    decryptor: Decryptor,
-    encryptor: Encryptor,
+    decryptor: SymmetricDecryptor,
+    encryptor: SymmetricEncryptor,
 ) {
     val observePassword = ObservePasswordUseCase(passwordRepository)
 

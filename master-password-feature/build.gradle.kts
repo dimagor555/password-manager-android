@@ -15,6 +15,12 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(projects.core)
+                implementation(projects.uiCore)
+                implementation(projects.resCore)
+                implementation(projects.validationCore)
+                implementation(projects.encryption.symmetric)
+
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
@@ -22,26 +28,14 @@ kotlin {
                 implementation(compose.ui)
                 implementation(compose.materialIconsExtended)
 
-                implementation(projects.core)
-                implementation(projects.uiCore)
-                implementation(projects.resCore)
-                implementation(projects.validationCore)
-                implementation(projects.encryptionCore)
-
+                implementation(Libs.Decompose.decompose)
                 implementation(Libs.MviCompose.core)
                 implementation(Libs.MviCompose.android)
-
-                implementation(Libs.Decompose.decompose)
-
-                implementation(Libs.KotlinX.coroutinesCore)
-                implementation(Libs.KotlinX.coroutinesSwing)
 
                 implementation(Libs.settingsNoArg)
 
                 implementation(Libs.Koin.core)
                 implementation(Libs.Koin.compose)
-
-                implementation(Libs.MokoResources.commonMain)
 
                 implementation(Libs.napier)
             }
@@ -51,18 +45,14 @@ kotlin {
                 implementation(Libs.MviCompose.core)
                 implementation(Libs.MviCompose.android)
 
+                implementation(Libs.Koin.android)
                 implementation(Libs.Argon2.android)
-
                 implementation(Libs.AndroidX.biometric)
-
-                implementation(Libs.MokoResources.androidMain)
             }
         }
         val jvmMain by getting {
             dependencies {
                 implementation(compose.preview)
-
-                implementation(Libs.MokoResources.jvmMain)
 
                 implementation(Libs.Argon2.desktopSpringSecurity)
                 implementation(Libs.Argon2.desktopBouncyCastle)

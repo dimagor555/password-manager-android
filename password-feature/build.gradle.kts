@@ -20,7 +20,7 @@ kotlin {
                 implementation(projects.uiCore)
                 implementation(projects.resCore)
                 implementation(projects.validationCore)
-                implementation(projects.encryptionCore)
+                implementation(projects.encryption.symmetric)
 
                 implementation(compose.runtime)
                 implementation(compose.foundation)
@@ -35,7 +35,6 @@ kotlin {
 
                 implementation(Libs.Koin.core)
                 implementation(Libs.Koin.android)
-                implementation(Libs.Koin.compose)
 
                 implementation(Libs.KotlinX.datetime)
                 implementation(Libs.KotlinX.serialization)

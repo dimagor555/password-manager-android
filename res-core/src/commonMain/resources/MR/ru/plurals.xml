@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <!-- validation-core -->
 
+    <!-- validation-core -->
     <plurals name="error_is_too_long">
         <item quantity="one">Максимальная длина %d символ</item>
         <item quantity="few">Максимальная длина %d символа</item>

@@ -49,10 +49,13 @@ android {
 }
 
 dependencies {
-    implementation(projects.encryptionCore)
+    implementation(projects.encryption.symmetric)
+    implementation(projects.encryption.asymmetric)
     implementation(projects.passwordFeature)
     implementation(projects.passwordGenerationFeature)
     implementation(projects.masterPasswordFeature)
+    implementation(projects.exportFeature.impl)
+    implementation(projects.exportFeature.passwordIntegration)
     implementation(projects.root)
     implementation(projects.uiCore)
     implementation(projects.synchronizationFeature)

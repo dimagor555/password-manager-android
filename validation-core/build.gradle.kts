@@ -27,8 +27,6 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(Libs.Koin.core)
-                implementation(Libs.Koin.compose)
-
                 implementation(Libs.MokoResources.androidMain)
             }
         }

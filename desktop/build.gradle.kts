@@ -15,10 +15,13 @@ kotlin {
     sourceSets {
         val jvmMain by getting {
             dependencies {
-                implementation(projects.encryptionCore)
+                implementation(projects.encryption.symmetric)
+                implementation(projects.encryption.asymmetric)
                 implementation(projects.passwordFeature)
                 implementation(projects.passwordGenerationFeature)
                 implementation(projects.masterPasswordFeature)
+                implementation(projects.exportFeature.impl)
+                implementation(projects.exportFeature.passwordIntegration)
                 implementation(projects.root)
                 implementation(projects.uiCore)
                 implementation(projects.synchronizationFeature)
@@ -32,13 +35,9 @@ kotlin {
 
                 implementation(Libs.KotlinX.coroutinesCore)
                 implementation(Libs.KotlinX.coroutinesSwing)
-                implementation(Libs.KotlinX.coroutinesTest)
 
                 implementation(Libs.Decompose.decompose)
                 implementation(Libs.Decompose.extensionsCompose)
-
-                implementation(Libs.Ktor.clientCore)
-                implementation(Libs.Ktor.clientCio)
 
                 implementation(Libs.Ktor.serverCore)
                 implementation(Libs.Ktor.serverCio)

@@ -1,5 +1,6 @@
 package ru.dimagor555.masterpassword.ui.loginscreen
 
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
@@ -11,16 +12,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ru.dimagor555.masterpassword.ui.biometric.BiometricLoginDialog
 import ru.dimagor555.masterpassword.ui.core.PasswordErrorIndicator
-import ru.dimagor555.masterpassword.ui.loginscreen.biometric.BiometricLoginDialog
-import ru.dimagor555.masterpassword.ui.loginscreen.biometric.OnCanUseBiometricLogin
-import ru.dimagor555.masterpassword.ui.loginscreen.model.LoginStore.Action
-import ru.dimagor555.masterpassword.ui.loginscreen.model.LoginStore.State
+import ru.dimagor555.masterpassword.ui.loginscreen.store.LoginStore.Action
+import ru.dimagor555.masterpassword.ui.loginscreen.store.LoginStore.State
 import ru.dimagor555.res.core.MR
 import ru.dimagor555.ui.core.component.textfield.PasswordInputField
 import ru.dimagor555.ui.core.model.isError
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import ru.dimagor555.ui.core.util.resolve
 import ru.dimagor555.ui.core.util.stringResource
 
@@ -32,12 +31,12 @@ fun LoginScreen(component: LoginComponent) {
 
     LoginScreenContent(
         state = state,
-        sendAction = component::sendAction
+        sendAction = component::sendAction,
     )
-    OnCanUseBiometricLogin { component.sendAction(Action.EnableBiometricLogin) }
-    LaunchedEffect(key1 = state.isExitScreenWithSuccess) {
-        if (state.isExitScreenWithSuccess)
+    LaunchedEffect(state.isExitScreenWithSuccess) {
+        if (state.isExitScreenWithSuccess) {
             component.onSuccessfulLogin()
+        }
     }
 }
 
@@ -49,16 +48,18 @@ private fun LoginScreenContent(
     LoginScreenColumn {
         PasswordErrorIndicator(isError = state.password.isError)
         Spacer(modifier = Modifier.height(16.dp))
+        // TODO not disabling on button click
         PasswordInputField(state = state, sendAction = sendAction)
         LoginButton(
             enabled = state.canLogin,
             onLoginByPassword = { sendAction(Action.LoginByPassword) }
         )
-        if (state.canUseBiometricLogin)
+        if (state.canUseBiometricLogin) {
             BiometricLoginButton(
-                enabled = state.canLogin,
-                onSuccessfulLogin = { sendAction(Action.ExitScreenWithSuccess) }
+                state = state,
+                onSuccessfulLogin = { sendAction(Action.ExitScreenWithSuccess) },
             )
+        }
     }
 }
 
@@ -108,22 +109,28 @@ private fun LoginButton(
 
 @Composable
 private fun BiometricLoginButton(
-    enabled: Boolean,
+    state: State,
     onSuccessfulLogin: () -> Unit
 ) {
+    // TODO consider moving this boolean to state because it breaks on configuration change
     var showBiometricLoginDialog by remember { mutableStateOf(false) }
     TextButton(
-        enabled = enabled,
+        enabled = state.canLogin,
         onClick = { showBiometricLoginDialog = true }
     ) {
         Icon(imageVector = Icons.Default.Fingerprint, contentDescription = null)
         Text(text = stringResource(MR.strings.biometry_login))
     }
-    if (showBiometricLoginDialog)
-        BiometricLoginDialog(
-            onSuccess = onSuccessfulLogin,
-            onDismiss = { showBiometricLoginDialog = false }
-        )
+    BiometricLoginDialog(
+        visible = showBiometricLoginDialog,
+        onSuccess = onSuccessfulLogin,
+        onDismiss = { showBiometricLoginDialog = false },
+    )
+    LaunchedEffect(state.canUseBiometricLogin) {
+        if (state.canUseBiometricLogin) {
+            showBiometricLoginDialog = true
+        }
+    }
 }
 
 @Preview

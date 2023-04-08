@@ -1,6 +1,6 @@
 package ru.dimagor555.password.ui.listscreen.model
 
-import ru.dimagor555.encryption.domain.Decryptor
+import ru.dimagor555.encryption.symmetric.domain.SymmetricDecryptor
 import ru.dimagor555.password.usecase.field.repository.ClipboardRepository
 import ru.dimagor555.password.usecase.folder.repository.FolderRepository
 import ru.dimagor555.password.usecase.field.CopyPasswordUseCase
@@ -19,7 +19,7 @@ internal class PasswordListUseCases(
     passwordRepository: PasswordRepository,
     filterRepository: FilterRepository,
     clipboardRepository: ClipboardRepository,
-    decryptor: Decryptor,
+    decryptor: SymmetricDecryptor,
     folderRepository: FolderRepository,
     folderChildrenRepository: FolderChildrenRepository,
 ) {
