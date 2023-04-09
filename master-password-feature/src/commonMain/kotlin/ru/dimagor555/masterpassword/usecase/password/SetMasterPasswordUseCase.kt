@@ -1,9 +1,9 @@
 package ru.dimagor555.masterpassword.usecase.password
 
 import ru.dimagor555.encryption.symmetric.SymmetricEncryptionApi
+import ru.dimagor555.hashing.domain.PasswordHasher
 import ru.dimagor555.masterpassword.usecase.biometric.repository.BiometricSymmetricKeyRepository
 import ru.dimagor555.masterpassword.usecase.password.repository.MasterPasswordHashRepository
-import ru.dimagor555.masterpassword.usecase.password.repository.PasswordHasher
 
 internal class SetMasterPasswordUseCase(
     private val hasher: PasswordHasher,

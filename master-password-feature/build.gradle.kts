@@ -2,7 +2,6 @@ plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
-    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 kotlin {
@@ -20,6 +19,7 @@ kotlin {
                 implementation(projects.resCore)
                 implementation(projects.validationCore)
                 implementation(projects.encryption.symmetric)
+                implementation(projects.hashing)
 
                 implementation(compose.runtime)
                 implementation(compose.foundation)
@@ -46,17 +46,7 @@ kotlin {
                 implementation(Libs.MviCompose.android)
 
                 implementation(Libs.Koin.android)
-                implementation(Libs.Argon2.android)
                 implementation(Libs.AndroidX.biometric)
-            }
-        }
-        val jvmMain by getting {
-            dependencies {
-                implementation(compose.preview)
-
-                implementation(Libs.Argon2.desktopSpringSecurity)
-                implementation(Libs.Argon2.desktopBouncyCastle)
-                implementation(Libs.Argon2.desktopCommonsLogging)
             }
         }
     }
@@ -79,8 +69,4 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.3.1"
     }
-}
-
-multiplatformResources {
-    multiplatformResourcesPackage = "ru.dimagor555.masterpassword"
 }

@@ -13,18 +13,20 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.hashing)
-
                 implementation(Libs.Koin.core)
-                implementation(Libs.kase64)
                 implementation(Libs.KotlinX.coroutinesCore)
-                implementation(Libs.napier)
             }
         }
         val androidMain by getting {
             dependencies {
-                implementation(Libs.AndroidX.securityCrypto)
-                implementation(Libs.Koin.android)
+                implementation(Libs.Argon2.android)
+            }
+        }
+        val jvmMain by getting {
+            dependencies {
+                implementation(Libs.Argon2.desktopSpringSecurity)
+                implementation(Libs.Argon2.desktopBouncyCastle)
+                implementation(Libs.Argon2.desktopCommonsLogging)
             }
         }
     }

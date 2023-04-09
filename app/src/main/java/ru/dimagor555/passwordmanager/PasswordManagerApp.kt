@@ -12,6 +12,7 @@ import ru.dimagor555.export.integration.di.exportIntegrationModule
 import ru.dimagor555.masterpassword.di.masterPasswordModule
 import ru.dimagor555.password.di.passwordModule
 import ru.dimagor555.passwordgeneration.di.passwordGenerationModule
+import ru.dimagor555.hashing.di.hashingModule
 
 class PasswordManagerApp : Application() {
 
@@ -23,6 +24,7 @@ class PasswordManagerApp : Application() {
             androidLogger()
             modules(
                 symmetricEncryptionModule,
+                hashingModule,
                 passwordModule,
                 passwordGenerationModule,
                 masterPasswordModule,

@@ -17,6 +17,7 @@ import ru.dimagor555.export.integration.di.exportIntegrationModule
 import ru.dimagor555.masterpassword.di.masterPasswordModule
 import ru.dimagor555.password.di.passwordModule
 import ru.dimagor555.passwordgeneration.di.passwordGenerationModule
+import ru.dimagor555.hashing.di.hashingModule
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @OptIn(ExperimentalDecomposeApi::class)
@@ -25,6 +26,7 @@ fun main() {
     startKoin {
         modules(
             symmetricEncryptionModule,
+            hashingModule,
             passwordModule,
             passwordGenerationModule,
             masterPasswordModule,

@@ -31,6 +31,8 @@ include(":validation-core")
 
 include(":encryption:symmetric")
 
+include(":hashing")
+
 include(":password-feature")
 include(":password-generation-feature")
 include(":master-password-feature")
