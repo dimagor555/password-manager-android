@@ -7,18 +7,19 @@ import ru.dimagor555.encryption.symmetric.domain.SymmetricEncryptor
 import ru.dimagor555.encryption.symmetric.domain.SymmetricKey
 
 internal class AesCryptor(
-    private val customSymmetricKey: SymmetricKey?,
     private val symmetricKeyRepository: SymmetricKeyRepository,
 ) : SymmetricEncryptor, SymmetricDecryptor {
 
-    override fun encrypt(plaintext: String) = createCipher().encrypt(plaintext)
+    override fun encrypt(plaintext: String, customKey: SymmetricKey?): String =
+        createCipher(customKey)
+            .encrypt(plaintext)
 
-    override fun decrypt(ciphertext: String) = createCipher().decrypt(ciphertext)
+    override fun decrypt(ciphertext: String, customKey: SymmetricKey?): String =
+        createCipher(customKey)
+            .decrypt(ciphertext)
 
-    private fun createCipher() = SimpleAesGcmCipher(
-        getKey = getSymmetricKey()::secretKey,
-    )
-
-    private fun getSymmetricKey(): SymmetricKey =
-        customSymmetricKey ?: symmetricKeyRepository.get()
+    private fun createCipher(customKey: SymmetricKey?): SimpleAesGcmCipher {
+        val symmetricKey = customKey ?: symmetricKeyRepository.get()
+        return SimpleAesGcmCipher(getKey = symmetricKey::secretKey)
+    }
 }
