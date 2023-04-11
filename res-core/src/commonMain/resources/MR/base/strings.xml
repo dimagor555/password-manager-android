@@ -120,6 +120,7 @@
     <string name="import_success">Your data has been successfully import from the file</string>
     <string name="error_could_not_read_file">Could not read file</string>
     <string name="error_invalid_file_format">Invalid file format</string>
+    <string name="error_could_not_make_backup">Could not make backup</string>
     <string name="error_during_import">An error occurred during the import</string>
 
 </resources>

@@ -20,6 +20,7 @@ kotlin {
                 implementation(projects.encryption.symmetric)
                 implementation(projects.uiCore)
                 implementation(projects.resCore)
+                implementation(projects.backupFeature.api)
 
                 implementation(Libs.KotlinX.serialization)
                 implementation(Libs.KotlinX.datetime)
