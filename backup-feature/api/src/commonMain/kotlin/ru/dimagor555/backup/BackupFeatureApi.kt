@@ -1,11 +1,9 @@
 package ru.dimagor555.backup
 
+import ru.dimagor555.backup.domain.BackupType
+import ru.dimagor555.backup.domain.MakeBackupResult
+
 interface BackupFeatureApi {
 
-    sealed interface BackupType {
-        object BeforeImport : BackupType
-        object BeforeSync : BackupType
-    }
-
-    suspend fun makeBackup(backupType: BackupType)
+    suspend fun makeBackup(backupType: BackupType): MakeBackupResult
 }
