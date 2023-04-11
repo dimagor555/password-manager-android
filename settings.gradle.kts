@@ -40,3 +40,6 @@ include(":master-password-feature")
 include(":export-feature:api")
 include(":export-feature:impl")
 include(":export-feature:password-integration")
+
+include(":backup-feature:api")
+include(":backup-feature:impl")

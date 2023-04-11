@@ -9,15 +9,16 @@ import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.*
 import org.koin.core.context.startKoin
+import ru.dimagor555.backup.di.backupModule
 import ru.dimagor555.core.presentation.PasswordManagerRootComponent
 import ru.dimagor555.core.presentation.PasswordManagerRootScreen
 import ru.dimagor555.encryption.symmetric.di.symmetricEncryptionModule
 import ru.dimagor555.export.di.exportModule
 import ru.dimagor555.export.integration.di.exportIntegrationModule
+import ru.dimagor555.hashing.di.hashingModule
 import ru.dimagor555.masterpassword.di.masterPasswordModule
 import ru.dimagor555.password.di.passwordModule
 import ru.dimagor555.passwordgeneration.di.passwordGenerationModule
-import ru.dimagor555.hashing.di.hashingModule
 import ru.dimagor555.ui.core.theme.PasswordManagerTheme
 
 @OptIn(ExperimentalDecomposeApi::class)
@@ -32,6 +33,7 @@ fun main() {
             masterPasswordModule,
             exportModule,
             exportIntegrationModule,
+            backupModule,
         )
     }
 

@@ -22,6 +22,7 @@ kotlin {
                 implementation(projects.masterPasswordFeature)
                 implementation(projects.exportFeature.impl)
                 implementation(projects.exportFeature.passwordIntegration)
+                implementation(projects.backupFeature.impl)
                 implementation(projects.root)
                 implementation(projects.uiCore)
 

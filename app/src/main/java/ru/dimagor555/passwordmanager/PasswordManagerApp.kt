@@ -6,13 +6,14 @@ import io.github.aakira.napier.Napier
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import ru.dimagor555.backup.di.backupModule
 import ru.dimagor555.encryption.symmetric.di.symmetricEncryptionModule
 import ru.dimagor555.export.di.exportModule
 import ru.dimagor555.export.integration.di.exportIntegrationModule
+import ru.dimagor555.hashing.di.hashingModule
 import ru.dimagor555.masterpassword.di.masterPasswordModule
 import ru.dimagor555.password.di.passwordModule
 import ru.dimagor555.passwordgeneration.di.passwordGenerationModule
-import ru.dimagor555.hashing.di.hashingModule
 
 class PasswordManagerApp : Application() {
 
@@ -30,6 +31,7 @@ class PasswordManagerApp : Application() {
                 masterPasswordModule,
                 exportModule,
                 exportIntegrationModule,
+                backupModule,
             )
         }
     }
