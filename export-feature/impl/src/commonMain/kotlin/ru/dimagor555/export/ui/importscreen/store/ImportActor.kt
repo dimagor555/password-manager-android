@@ -103,12 +103,15 @@ internal class ImportActor : Actor<State, Action, Message, SideEffect>(), KoinCo
 
     private fun LoadExportFromFileUsecase.Result.toErrorMessage(): StringDesc? =
         when (this) {
+            is LoadExportFromFileUsecase.Result.Success ->
+                null
             is LoadExportFromFileUsecase.Result.CouldNotReadFile ->
                 MR.strings.error_could_not_read_file.desc()
             is LoadExportFromFileUsecase.Result.InvalidFileFormat ->
                 MR.strings.error_invalid_file_format.desc()
+            is LoadExportFromFileUsecase.Result.CouldNotMakeBackup ->
+                MR.strings.error_could_not_make_backup.desc()
             is LoadExportFromFileUsecase.Result.ImportError ->
                 MR.strings.error_during_import.desc()
-            else -> null
         }
 }

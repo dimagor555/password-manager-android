@@ -1,6 +1,9 @@
 package ru.dimagor555.export.usecase
 
 import io.github.aakira.napier.Napier
+import ru.dimagor555.backup.BackupFeatureApi
+import ru.dimagor555.backup.domain.BackupType
+import ru.dimagor555.backup.domain.MakeBackupResult
 import ru.dimagor555.export.domain.Export
 import ru.dimagor555.export.usecase.repository.PasswordsAndFolderChildrenRepository
 import kotlin.Boolean
@@ -11,10 +14,10 @@ import kotlin.onFailure
 import kotlin.runCatching
 import ru.dimagor555.export.usecase.ReadExportFromFileUsecase.Result as ReadResult
 
-// TODO add backups before import
 internal class LoadExportFromFileUsecase(
     private val readExportFromFile: ReadExportFromFileUsecase,
     private val passwordsAndFolderChildrenRepository: PasswordsAndFolderChildrenRepository,
+    private val backupFeatureApi: BackupFeatureApi,
 ) {
 
     data class Params(
@@ -25,6 +28,7 @@ internal class LoadExportFromFileUsecase(
 
     suspend operator fun invoke(params: Params): Result {
         val export = readExportFromFileOrElse(params.fileUri) { error -> return error }
+        makeBackupOrElse(params) { return Result.CouldNotMakeBackup }
         importPasswordsOrElse(export, params) { return Result.ImportError }
         return Result.Success
     }
@@ -40,6 +44,19 @@ internal class LoadExportFromFileUsecase(
             is ReadResult.Success -> return result.export
             is ReadResult.CouldNotReadFile -> onError(Result.CouldNotReadFile)
             is ReadResult.InvalidFileFormat -> onError(Result.InvalidFileFormat)
+        }
+    }
+
+    private suspend inline fun makeBackupOrElse(
+        params: Params,
+        onError: () -> Nothing,
+    ) {
+        if (params.isMakeBackup.not()) {
+            return
+        }
+        val backupResult = backupFeatureApi.makeBackup(BackupType.BeforeImport)
+        if (backupResult !is MakeBackupResult.Success) {
+            onError()
         }
     }
 
@@ -64,6 +81,8 @@ internal class LoadExportFromFileUsecase(
         object CouldNotReadFile : Result
 
         object InvalidFileFormat : Result
+
+        object CouldNotMakeBackup : Result
 
         object ImportError : Result
     }

@@ -51,11 +51,13 @@ android {
 dependencies {
     implementation(projects.encryption.symmetric)
     implementation(projects.encryption.asymmetric)
+    implementation(projects.hashing)
     implementation(projects.passwordFeature)
     implementation(projects.passwordGenerationFeature)
     implementation(projects.masterPasswordFeature)
     implementation(projects.exportFeature.impl)
     implementation(projects.exportFeature.passwordIntegration)
+    implementation(projects.backupFeature.impl)
     implementation(projects.root)
     implementation(projects.uiCore)
     implementation(projects.synchronizationFeature)

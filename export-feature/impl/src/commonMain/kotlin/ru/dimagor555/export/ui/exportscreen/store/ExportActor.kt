@@ -6,6 +6,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import ru.dimagor555.export.ui.exportscreen.store.ExportStore.*
 import ru.dimagor555.export.usecase.BuildExportFileNameUsecase
+import ru.dimagor555.export.domain.SaveExportToFileResult
 import ru.dimagor555.export.usecase.SaveExportToFileUsecase
 import ru.dimagor555.mvicompose.abstraction.Actor
 import ru.dimagor555.res.core.MR
@@ -67,7 +68,7 @@ internal class ExportActor : Actor<State, Action, Message, SideEffect>(), KoinCo
             SaveExportToFileUsecase.Params(fileUri),
         )
         when (result) {
-            is SaveExportToFileUsecase.Result.Success -> onExportSuccess()
+            is SaveExportToFileResult.Success -> onExportSuccess()
             else -> onExportError(result)
         }
     }
@@ -78,16 +79,16 @@ internal class ExportActor : Actor<State, Action, Message, SideEffect>(), KoinCo
         sendMessage(Message.ExitScreen)
     }
 
-    private suspend fun onExportError(result: SaveExportToFileUsecase.Result) {
+    private suspend fun onExportError(result: SaveExportToFileResult) {
         sendMessage(Message.FinishExport)
         sendMessage(Message.ShowError(error = result.toErrorMessage()))
     }
 
-    private fun SaveExportToFileUsecase.Result.toErrorMessage(): StringDesc? =
+    private fun SaveExportToFileResult.toErrorMessage(): StringDesc? =
         when (this) {
-            is SaveExportToFileUsecase.Result.NoPasswords ->
+            is SaveExportToFileResult.NoPasswords ->
                 MR.strings.error_export_no_passwords.desc()
-            is SaveExportToFileUsecase.Result.ExportError ->
+            is SaveExportToFileResult.ExportError ->
                 MR.strings.error_during_export.desc()
             else -> null
         }

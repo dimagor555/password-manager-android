@@ -13,9 +13,12 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(projects.hashing)
+
                 implementation(Libs.Koin.core)
                 implementation(Libs.kase64)
                 implementation(Libs.KotlinX.coroutinesCore)
+                implementation(Libs.napier)
             }
         }
         val androidMain by getting {

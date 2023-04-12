@@ -4,6 +4,7 @@ import ru.dimagor555.encryption.symmetric.domain.SymmetricEncryptor
 import ru.dimagor555.export.domain.Export
 import ru.dimagor555.export.domain.encrypted
 import ru.dimagor555.export.usecase.repository.StorageRepository
+import ru.dimagor555.export.domain.SaveExportToFileResult as Result
 
 internal class SaveExportToFileUsecase(
     private val collectExport: CollectExportUsecase,
@@ -36,13 +37,4 @@ internal class SaveExportToFileUsecase(
         val encryptedExport = export.encrypted(encryptor)
         storageRepository.writeToFile(fileUri, encryptedExport)
     }.onFailure { onError() }
-
-    sealed interface Result {
-
-        object Success : Result
-
-        object NoPasswords : Result
-
-        object ExportError : Result
-    }
 }

@@ -32,6 +32,8 @@ include(":validation-core")
 include(":encryption:symmetric")
 include(":encryption:asymmetric")
 
+include(":hashing")
+
 include(":password-feature")
 include(":password-generation-feature")
 include(":master-password-feature")
@@ -43,3 +45,6 @@ include(":asymmetric")
 
 include(":synchronization-feature")
 include(":sync-password-integration")
+
+include(":backup-feature:api")
+include(":backup-feature:impl")

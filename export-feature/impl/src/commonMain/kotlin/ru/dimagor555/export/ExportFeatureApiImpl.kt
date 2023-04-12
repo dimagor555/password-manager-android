@@ -2,6 +2,7 @@ package ru.dimagor555.export
 
 import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.ComponentContext
+import ru.dimagor555.export.domain.SaveExportToFileResult
 import ru.dimagor555.export.ui.exportscreen.ExportComponent
 import ru.dimagor555.export.ui.exportscreen.ExportComponentImpl
 import ru.dimagor555.export.ui.importscreen.ImportComponent
@@ -14,9 +15,8 @@ internal class ExportFeatureApiImpl(
     private val saveExportToFile: SaveExportToFileUsecase,
 ) : ExportFeatureApi {
 
-    override suspend fun saveExportToFile(fileUri: String) {
+    override suspend fun saveExportToFile(fileUri: String): SaveExportToFileResult =
         saveExportToFile(SaveExportToFileUsecase.Params(fileUri))
-    }
 
     override fun createExportComponent(
         componentContext: ComponentContext,
