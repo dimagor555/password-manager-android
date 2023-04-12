@@ -4,23 +4,25 @@ import com.arkivanov.decompose.Child
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.*
 import com.arkivanov.decompose.value.Value
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
 import org.koin.core.component.inject
 import ru.dimagor555.core.presentation.RootComponent.Child.*
 import ru.dimagor555.core.presentation.model.Config
-import ru.dimagor555.masterpassword.domain.MasterPasswordRepository
+import ru.dimagor555.export.ExportFeatureApi
+import ru.dimagor555.export.ui.exportscreen.ExportComponent
+import ru.dimagor555.export.ui.importscreen.ImportComponent
 import ru.dimagor555.masterpassword.ui.editscreen.EditMasterPasswordComponent
-import ru.dimagor555.masterpassword.ui.editscreen.EditMasterPasswordComponent.*
+import ru.dimagor555.masterpassword.ui.editscreen.EditMasterPasswordComponent.EditMasterPasswordCallbacks
 import ru.dimagor555.masterpassword.ui.editscreen.createEditMasterPasswordComponent
 import ru.dimagor555.masterpassword.ui.loginscreen.LoginComponent
 import ru.dimagor555.masterpassword.ui.loginscreen.createLoginComponent
 import ru.dimagor555.masterpassword.ui.startscreen.WelcomeComponent
 import ru.dimagor555.masterpassword.ui.startscreen.WelcomeComponentImpl
+import ru.dimagor555.masterpassword.usecase.password.HasMasterPasswordUsecase
 import ru.dimagor555.password.ui.createscreen.CreatePasswordComponent
 import ru.dimagor555.password.ui.createscreen.CreatePasswordComponent.CreatePasswordComponentCallbacks
 import ru.dimagor555.password.ui.createscreen.createCreatePasswordComponent
@@ -50,6 +52,8 @@ interface RootComponent {
         class EditPassword(val component: EditPasswordComponent) : Child()
         class PasswordDetails(val component: PasswordDetailsComponent) : Child()
         class CreatePassword(val component: CreatePasswordComponent) : Child()
+        class Export(val component: ExportComponent) : Child()
+        class Import(val component: ImportComponent) : Child()
     }
 }
 
@@ -61,6 +65,8 @@ class PasswordManagerRootComponent(
 
     private val componentScope by componentScope()
 
+    private val hasMasterPassword: HasMasterPasswordUsecase by inject()
+
     private val _childStack =
         childStack(
             source = navigation,
@@ -68,11 +74,8 @@ class PasswordManagerRootComponent(
             handleBackButton = true,
             childFactory = ::createChild,
         )
+
     override val childStack: Value<ChildStack<*, RootComponent.Child>> = _childStack
-
-    private val masterPasswordRepository: MasterPasswordRepository by inject()
-
-    private var hasMasterPassword: Boolean? = null
 
     private val generatedPassword = MutableSharedFlow<GeneratedPassword>(
         extraBufferCapacity = Int.MAX_VALUE,
@@ -83,12 +86,9 @@ class PasswordManagerRootComponent(
     }
 
     private fun determineStartDestination(): Config = runBlocking {
-        hasMasterPassword = masterPasswordRepository.hasPassword()
-        withContext(Dispatchers.Main) {
-            when (hasMasterPassword) {
-                true -> Config.Login
-                else -> Config.Welcome
-            }
+        when (hasMasterPassword()) {
+            true -> Config.Login
+            else -> Config.Welcome
         }
     }
 
@@ -97,19 +97,21 @@ class PasswordManagerRootComponent(
         componentContext: ComponentContext
     ): RootComponent.Child =
         when (config) {
-            Config.Welcome -> Welcome(welcome(componentContext))
-            Config.Login -> Login(login(componentContext))
-            Config.EditMasterPassword -> EditMaster(editMasterPassword(componentContext))
-            Config.PasswordList -> PasswordList(passwordList(componentContext))
-            is Config.EditPassword -> EditPassword(editPassword(componentContext, config.passwordId))
-            is Config.PasswordDetails -> PasswordDetails(passwordDetails(componentContext, config.passwordId))
-            Config.CreatePassword -> CreatePassword(createPassword(componentContext))
-            Config.PasswordGeneration -> Generation(passwordGeneration(componentContext))
+            is Config.Welcome -> Welcome(welcome(componentContext))
+            is Config.Login -> Login(login(componentContext))
+            is Config.EditMasterPassword -> EditMaster(editMasterPassword(componentContext))
+            is Config.PasswordList -> PasswordList(passwordList(componentContext))
+            is Config.EditPassword -> EditPassword(
+                editPassword(componentContext, config.passwordId)
+            )
+            is Config.CreatePassword -> CreatePassword(createPassword(componentContext))
+            is Config.PasswordDetails -> PasswordDetails(
+                passwordDetails(componentContext, config.passwordId, config.parentId)
+            )
+            is Config.PasswordGeneration -> Generation(passwordGeneration(componentContext))
+            is Config.Export -> Export(export(componentContext))
+            is Config.Import -> Import(import(componentContext))
         }
-
-    private val generatedPassword = MutableSharedFlow<GeneratedPassword>(
-        extraBufferCapacity = Int.MAX_VALUE,
-    )
 
     private fun observeGeneratedPassword() = componentScope.launch {
         generatedPassword.collect {
@@ -118,7 +120,6 @@ class PasswordManagerRootComponent(
                 .filterIsInstance<Child.Created<*, RootComponent.Child>>()
                 .map { child -> child.instance }
                 .sendGeneratedPasswordToChildren(password)
-
         }
     }
 
@@ -174,12 +175,14 @@ class PasswordManagerRootComponent(
 
     private fun createPasswordListComponentCallbacks() =
         PasswordListComponentCallbacks(
-            navigateToPasswordDetailsScreen = { navigation.push(Config.PasswordDetails(it)) },
+            navigateToPasswordDetailsScreen = { passwordId, parentId ->
+                navigation.push(Config.PasswordDetails(passwordId, parentId))
+            },
             navigateToSettingsScreen = {},
             navigateToPasswordCreationScreen = { navigation.push(Config.CreatePassword) },
         )
 
-    private fun editPassword(componentContext: ComponentContext, passwordId: Int) =
+    private fun editPassword(componentContext: ComponentContext, passwordId: String) =
         createEditPasswordComponent(
             componentContext = componentContext,
             passwordId = passwordId,
@@ -192,10 +195,15 @@ class PasswordManagerRootComponent(
             onNavigateBack = { navigation.pop() },
         )
 
-    private fun passwordDetails(componentContext: ComponentContext, passwordId: Int) =
+    private fun passwordDetails(
+        componentContext: ComponentContext,
+        passwordId: String,
+        parentId: String
+    ) =
         createPasswordDetailsComponent(
             componentContext = componentContext,
             passwordId = passwordId,
+            parentId = parentId,
             callbacks = createPasswordDetailsComponentCallbacks(),
         )
 
@@ -228,5 +236,17 @@ class PasswordManagerRootComponent(
                     generatedPassword.emit(result)
                 }
             },
+        )
+
+    private fun export(componentContext: ComponentContext): ExportComponent =
+        get<ExportFeatureApi>().createExportComponent(
+            componentContext = componentContext,
+            onNavigateBack = { navigation.pop() },
+        )
+
+    private fun import(componentContext: ComponentContext): ImportComponent =
+        get<ExportFeatureApi>().createImportComponent(
+            componentContext = componentContext,
+            onNavigateBack = { navigation.pop() },
         )
 }

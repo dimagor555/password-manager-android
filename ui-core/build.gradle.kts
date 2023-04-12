@@ -7,20 +7,23 @@ plugins {
 
 kotlin {
     android()
-    jvm("desktop") {
+    jvm {
         compilations.all {
-            kotlinOptions.jvmTarget = "11"
+            kotlinOptions.jvmTarget = "1.8"
         }
     }
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(compose.runtime)
-                api(compose.foundation)
-                api(compose.material)
-                api(compose.preview)
-                api(compose.ui)
-                api(compose.materialIconsExtended)
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(compose.preview)
+                implementation(compose.ui)
+                implementation(compose.materialIconsExtended)
+
+                implementation(Libs.MviCompose.core)
+                implementation(Libs.MviCompose.android)
 
                 implementation(Libs.Decompose.decompose)
 
@@ -35,9 +38,9 @@ kotlin {
                 implementation(Libs.MokoResources.androidMain)
             }
         }
-        val desktopMain by getting {
+        val jvmMain by getting {
             dependencies {
-                api(compose.preview)
+                implementation(compose.preview)
 
                 implementation(Libs.MokoResources.jvmMain)
             }
@@ -56,16 +59,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.1"
-    }
-}
-
-dependencies {
-    
 }
 
 multiplatformResources {

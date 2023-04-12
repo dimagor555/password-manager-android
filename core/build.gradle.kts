@@ -5,9 +5,9 @@ plugins {
 
 kotlin {
     android()
-    jvm("desktop") {
+    jvm {
         compilations.all {
-            kotlinOptions.jvmTarget = "11"
+            kotlinOptions.jvmTarget = "1.8"
         }
     }
     sourceSets {
@@ -19,6 +19,8 @@ kotlin {
 
                 implementation(Libs.Decompose.decompose)
                 implementation(Libs.Decompose.extensionsCompose)
+
+                implementation(Libs.napier)
             }
         }
     }

@@ -18,14 +18,20 @@ internal sealed class Config : Parcelable {
     object PasswordList : Config()
 
     @Parcelize
-    data class EditPassword(val passwordId: Int) : Config()
+    data class EditPassword(val passwordId: String) : Config()
 
     @Parcelize
-    data class PasswordDetails(val passwordId: Int) : Config()
+    data class PasswordDetails(val passwordId: String, val parentId: String) : Config()
 
     @Parcelize
     object CreatePassword : Config()
 
     @Parcelize
     object PasswordGeneration : Config()
+
+    @Parcelize
+    object Export : Config()
+
+    @Parcelize
+    object Import : Config()
 }

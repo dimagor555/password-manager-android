@@ -1,33 +1,37 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
+    id("org.jetbrains.compose")
+    id("kotlin-parcelize")
 }
 
 kotlin {
     android()
-    jvm("desktop") {
+    jvm {
         compilations.all {
-            kotlinOptions.jvmTarget = "11"
+            kotlinOptions.jvmTarget = "1.8"
         }
     }
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(projects.passwordFeature)
-
-                api(projects.passwordGenerationFeature)
-
-                api(projects.masterPasswordFeature)
-
                 implementation(projects.core)
+                implementation(projects.passwordFeature)
+                implementation(projects.passwordGenerationFeature)
+                implementation(projects.masterPasswordFeature)
+                implementation(projects.exportFeature.api)
+
+                implementation(compose.runtime)
+                implementation(compose.foundation)
 
                 implementation(Libs.Koin.core)
+                implementation(Libs.Koin.compose)
+
                 implementation(Libs.MviCompose.core)
-
-                implementation(Libs.KotlinX.coroutinesCore)
-
                 implementation(Libs.Decompose.decompose)
                 implementation(Libs.Decompose.extensionsCompose)
+
+                implementation(Libs.napier)
             }
         }
     }

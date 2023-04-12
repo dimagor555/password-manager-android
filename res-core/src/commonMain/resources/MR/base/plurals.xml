@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <!-- validation-core -->
 
+    <!-- validation-core -->
     <plurals name="error_is_too_long">
         <item quantity="one">Max length is %d character</item>
         <item quantity="other">Max length is %d characters</item>

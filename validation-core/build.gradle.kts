@@ -7,17 +7,17 @@ plugins {
 
 kotlin {
     android()
-    jvm("desktop") {
+    jvm {
         compilations.all {
-            kotlinOptions.jvmTarget = "11"
+            kotlinOptions.jvmTarget = "1.8"
         }
     }
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(compose.runtime)
-                api(compose.foundation)
-                api(compose.material)
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
 
                 implementation(projects.resCore)
 
@@ -27,14 +27,12 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(Libs.Koin.core)
-                implementation(Libs.Koin.compose)
-
                 implementation(Libs.MokoResources.androidMain)
             }
         }
-        val desktopMain by getting {
+        val jvmMain by getting {
             dependencies {
-                api(compose.preview)
+                implementation(compose.preview)
 
                 implementation(Libs.MokoResources.jvmMain)
             }
