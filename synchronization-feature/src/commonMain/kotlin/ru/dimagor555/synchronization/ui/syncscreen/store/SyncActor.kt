@@ -5,6 +5,7 @@ import org.koin.core.component.inject
 import ru.dimagor555.mvicompose.abstraction.Actor
 import ru.dimagor555.synchronization.domain.syncstatus.SyncStatus
 import ru.dimagor555.synchronization.ui.syncscreen.store.SyncStore.*
+import ru.dimagor555.synchronization.usecase.ClientSyncUseCase
 
 class SyncActor : Actor<State, Action, Message, Nothing>(), KoinComponent {
 
@@ -19,7 +20,11 @@ class SyncActor : Actor<State, Action, Message, Nothing>(), KoinComponent {
 
     private suspend fun startSync(isClient: Boolean) {
         if (isClient) {
-            useCases.postSyncPasswordRecord()
+            val result = useCases.clientSync()
+            when (result) {
+                ClientSyncUseCase.Result.Error -> useCases.setSyncStatus(SyncStatus.ErrorSync)
+                ClientSyncUseCase.Result.Success -> useCases.setSyncStatus(SyncStatus.SuccessSync)
+            }
         }
         useCases.observeSyncStatus().collect {
             sendMessage(Message.UpdateSyncStatus(it))

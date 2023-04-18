@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import ru.dimagor555.res.core.MR
 import ru.dimagor555.synchronization.ui.deviceslistscreen.store.DevicesListStore.State
 import ru.dimagor555.synchronization.ui.deviceslistscreen.store.SyncDeviceState
-import ru.dimagor555.ui.core.component.FullscreenCircularProgressBar
 import ru.dimagor555.ui.core.component.FullscreenInformationContent
+import ru.dimagor555.ui.core.component.FullscreenThrottledCircularProgressBar
 import ru.dimagor555.ui.core.util.stringResource
 
 @Composable
@@ -16,7 +16,7 @@ internal fun DevicesListScreenContent(
     navigateToSyncScreen: (state: SyncDeviceState) -> Unit,
 ) {
     when {
-        state.isLoading -> FullscreenCircularProgressBar()
+        state.isLoading -> FullscreenThrottledCircularProgressBar(visible = true)
         state.hasNoSyncDevices -> NoSyncDevices()
         else -> SyncDeviceListWrapper(
             passwordStates = state.syncDeviceStates,

@@ -8,7 +8,7 @@ import ru.dimagor555.synchronization.domain.response.SyncResponse.*
 import ru.dimagor555.synchronization.usecase.rest.repository.ReceivePasswordRepository
 import ru.dimagor555.synchronization.usecase.syncpassword.repository.SyncPasswordRepository
 
-class ReceivePasswordRepositoryImpl(
+internal class ReceivePasswordRepositoryImpl(
     private val syncPasswordRepository: SyncPasswordRepository,
 ) : ReceivePasswordRepository {
 

@@ -1,14 +1,24 @@
 package ru.dimagor555.synchronization.usecase.rest.api
 
-import kotlinx.serialization.json.JsonObject
-import ru.dimagor555.synchronization.domain.passwordrecord.SyncPasswordRecord
+import ru.dimagor555.synchronization.domain.key.EncodedAsymmetricPublicKey
+import ru.dimagor555.synchronization.domain.key.EncryptedSymmetricKey
+import ru.dimagor555.synchronization.domain.request.EncryptedInitialSyncRequest
+import ru.dimagor555.synchronization.domain.response.EncryptedSyncResponse
 import ru.dimagor555.synchronization.domain.response.SyncResponse
 
-interface SendPasswordApi {
+internal interface SendPasswordApi {
 
-    suspend fun sendSyncPasswordRecord(passwords: List<SyncPasswordRecord>): SyncResponse?
+    suspend fun sendPublicAsymmetricKey(
+        encodedAsymmetricPublicKey: EncodedAsymmetricPublicKey,
+    ): EncryptedSymmetricKey?
 
-    suspend fun sendRequestPasswords(respondPasswordsAndFolderChildren: JsonObject): SyncResponse?
+    suspend fun sendSyncPasswordRecord(
+        initialSyncRequest: EncryptedInitialSyncRequest,
+    ): EncryptedSyncResponse?
+
+    suspend fun sendRequestPasswords(
+        encryptedSyncResponse: EncryptedSyncResponse,
+    ): SyncResponse.SuccessResponse?
 
     suspend fun sendSuccessSyncResult()
 }

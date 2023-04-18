@@ -32,7 +32,7 @@ internal fun SymmetricKey.Companion.fromBytes(bytes: ByteArray): SymmetricKey {
     return SymmetricKeyImpl(secretKey)
 }
 
-fun SymmetricKey.generateNew(): SymmetricKey {
+fun SymmetricKey.Companion.generateNew(): SymmetricKey {
     val keyBytes = ByteArray(SymmetricEncryptionProperties.KEY_SIZE_BYTES)
     SecureRandom().apply { nextBytes(keyBytes) }
     return SymmetricKey.fromBytes(keyBytes)

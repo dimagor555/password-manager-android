@@ -1,6 +1,7 @@
 package ru.dimagor555.encryption.asymmetric.data.rsa
 
 import ru.dimagor555.encryption.asymmetric.data.AsymmetricEncryptionProperties.TRANSFORMATION
+import saschpe.kase64.base64DecodedBytes
 import saschpe.kase64.base64Encoded
 import java.security.PrivateKey
 import java.security.PublicKey
@@ -30,7 +31,7 @@ internal class DecryptRsaCipher(
     private val cipher by lazy { Cipher.getInstance(TRANSFORMATION) }
 
     fun decrypt(input: String): String {
-        val decryptedBytes = cipher.decrypt(input.toByteArray())
+        val decryptedBytes = cipher.decrypt(input.base64DecodedBytes)
         return decryptedBytes.toString(Charsets.UTF_8)
     }
 

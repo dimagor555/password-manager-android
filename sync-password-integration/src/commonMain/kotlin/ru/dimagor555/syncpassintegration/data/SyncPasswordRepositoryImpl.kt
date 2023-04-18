@@ -21,6 +21,11 @@ class SyncPasswordRepositoryImpl(
     private val updateSyncResult: UpdateSyncResultUseCase,
 ) : SyncPasswordRepository, KoinComponent {
 
+    private val json = Json {
+        ignoreUnknownKeys = true
+        isLenient = true
+    }
+
     override suspend fun getAllSyncRecords(): List<SyncPasswordRecord> {
         val passwords = passwordRepository.getAll()
         return passwords.toSyncPasswordRecords()
@@ -29,14 +34,14 @@ class SyncPasswordRepositoryImpl(
     override suspend fun getPasswordsAndFolderChildren(passwordsIds: List<String>): JsonObject? {
         val filteredPasswordsAndFolderChildren =
             filterPasswordAndFolderChildren(passwordsIds) ?: return null
-        return Json
+        return json
             .encodeToJsonElement(filteredPasswordsAndFolderChildren)
             .jsonObject
     }
 
     override suspend fun addOrUpdatePasswordsAndFolderChildren(passwordsAndFolderChildren: JsonObject) {
         val passwordsAndFolderChildrenModel =
-            Json.decodeFromJsonElement<PasswordsAndFolderChildren>(passwordsAndFolderChildren)
+            json.decodeFromJsonElement<PasswordsAndFolderChildren>(passwordsAndFolderChildren)
         val statisticsResult = addOrUpdatePasswordsAndFolderChildren(
             Params(passwordsAndFolderChildrenModel)
         )

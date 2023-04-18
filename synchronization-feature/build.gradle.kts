@@ -26,6 +26,8 @@ kotlin {
                 implementation(projects.core)
                 implementation(projects.uiCore)
                 implementation(projects.resCore)
+                implementation(projects.encryption.symmetric)
+                implementation(projects.encryption.asymmetric)
 
                 implementation(Libs.KotlinX.coroutinesCore)
                 implementation(Libs.KotlinX.datetime)
@@ -58,7 +60,7 @@ kotlin {
 
                 implementation(Libs.MokoResources.commonMain)
 
-//                implementation(Libs.accompanistSwiperefresh)
+                implementation(Libs.kase64)
 
                 implementation(Libs.napier)
             }
